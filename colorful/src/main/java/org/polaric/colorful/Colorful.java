@@ -1,15 +1,17 @@
-package me.shouheng.colorful;
+package org.polaric.colorful;
 
 import android.app.Activity;
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 public class Colorful {
 
     private static ThemeDelegate delegate;
+
+    private static ThemeColor primaryColor = Defaults.primaryColor;
 
     private static AccentColor accentColor = Defaults.accentColor;
 
@@ -25,6 +27,7 @@ public class Colorful {
         themeString = PreferenceManager.getDefaultSharedPreferences(context).getString(Util.PREFERENCE_KEY, null);
 
         if (themeString == null) {
+            primaryColor = Defaults.primaryColor;
             accentColor = Defaults.accentColor;
             isTranslucent = Defaults.trans;
             isDark = Defaults.darkTheme;
@@ -34,19 +37,21 @@ public class Colorful {
             String [] colors = themeString.split(Util.SPLIT);
             isDark = Boolean.parseBoolean(colors[0]);
             isTranslucent = Boolean.parseBoolean(colors[1]);
-            accentColor = Colorful.AccentColor.getByAccentName(colors[2]);
-            isColoredNavigation = Boolean.parseBoolean(colors[3]);
+            primaryColor = Colorful.ThemeColor.getByPrimaryName(colors[2]);
+            accentColor = Colorful.AccentColor.getByAccentName(colors[3]);
+            isColoredNavigation = Boolean.parseBoolean(colors[4]);
         }
 
-        delegate = new ThemeDelegate(context, accentColor, isTranslucent, isDark);
+        delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark);
     }
 
     public static void applyTheme(@NonNull Activity activity) {
         applyTheme(activity, true);
     }
 
-    private static void applyTheme(@NonNull Activity activity, boolean overrideBase) {
+    public static void applyTheme(@NonNull Activity activity, boolean overrideBase) {
         if (overrideBase) activity.setTheme(getThemeDelegate().getStyleResBase());
+        activity.getTheme().applyStyle(getThemeDelegate().getStyleResPrimary(), true);
         activity.getTheme().applyStyle(getThemeDelegate().getStyleResAccent(), true);
     }
 
@@ -58,11 +63,12 @@ public class Colorful {
     private static String generateThemeString() {
         return isDark + Util.SPLIT
                 + isTranslucent + Util.SPLIT
+                + primaryColor.getIdentifyName() + Util.SPLIT
                 + accentColor.getAccentName() + Util.SPLIT
                 + isColoredNavigation;
     }
 
-    static ThemeDelegate getThemeDelegate() {
+    public static ThemeDelegate getThemeDelegate() {
         if (delegate == null) {
             Log.e(Util.LOG_TAG, "getThemeDelegate() called before init(Context)." +
                     " Call Colorful.init(Context) in your application class");
@@ -70,7 +76,7 @@ public class Colorful {
         return delegate;
     }
 
-    static String getThemeString() {
+    public static String getThemeString() {
         return themeString;
     }
 
@@ -80,6 +86,86 @@ public class Colorful {
 
     public static Defaults defaults() {
         return new Defaults();
+    }
+
+    public enum ThemeColor {
+        GREEN(R.color.md_green_500, R.color.md_green_700, "primary_green", "#4CAF50"),
+        RED(R.color.theme_red, R.color.md_red_700, "primary_red", "#DB4437"),
+        PINK(R.color.theme_pink, R.color.md_pink_300, "primary_pink", "#FB7299"),
+        BLUE(R.color.md_indigo_500, R.color.md_indigo_700, "primary_blue", "#3F51B5"),
+        TEAL(R.color.md_teal_500, R.color.md_teal_700, "primary_teal", "#009688"),
+        ORANGE(R.color.theme_orange, R.color.theme_orange_dark, "primary_orange", "#FF9800"),
+        DEEP_PURPLE(R.color.md_deep_purple_500, R.color.md_deep_purple_700, "primary_deep_purple", "#673AB7"),
+        LIGHT_BLUE(R.color.theme_light_blue, R.color.theme_light_blue_dark, "primary_light_blue", "#617FDE"),
+        BROWN(R.color.md_brown_500, R.color.md_brown_700, "primary_brown", "#795548"),
+        BLUE_GREY(R.color.md_blue_grey_500, R.color.md_blue_grey_700, "primary_blue_grey", "#607D8B"),
+        WHITE(R.color.theme_white, R.color.md_grey_400, "primary_white", "#D9D9D9"),
+        BLACK(R.color.theme_black, R.color.theme_black_dark, "primary_black", "#272B35"),
+        LIGHT_GREEN(R.color.theme_light_green, R.color.theme_light_green_dark, "primary_light_green", "#06CE90"),
+
+        OLD_1(R.color.theme_old_1, R.color.theme_old_1_dark, "primary_old_1", "#049372"),
+        OLD_2(R.color.theme_old_2, R.color.theme_old_2_dark, "primary_old_2", "#C0392B"),
+        OLD_3(R.color.theme_old_3, R.color.theme_old_3_dark, "primary_old_3", "#674172"),
+        OLD_4(R.color.theme_old_4, R.color.theme_old_4_dark, "primary_old_4", "#7D59B6"),
+        OLD_5(R.color.theme_old_5, R.color.theme_old_5_dark, "primary_old_5", "#1098A5"),
+        OLD_6(R.color.theme_old_6, R.color.theme_old_6_dark, "primary_old_6", "#3A539B"),
+        OLD_7(R.color.theme_old_7, R.color.theme_old_7_dark, "primary_old_7", "#00634C"),
+        OLD_8(R.color.theme_old_8, R.color.theme_old_8_dark, "primary_old_8", "#34495E"),
+        OLD_9(R.color.theme_old_9, R.color.theme_old_9_dark, "primary_old_9", "#95A5A6"),
+        OLD_10(R.color.theme_old_10, R.color.theme_old_10_dark, "primary_old_10", "#2574A9");
+
+        @ColorRes
+        private int colorRes;
+
+        @ColorRes
+        private int darkColorRes;
+
+        private String identifyName;
+
+        private String displayName;
+
+        ThemeColor(@ColorRes int colorRes, @ColorRes int darkColorRes, String identifyName, String displayName) {
+            this.colorRes = colorRes;
+            this.darkColorRes = darkColorRes;
+            this.identifyName = identifyName;
+            this.displayName = displayName;
+        }
+
+        public static ThemeColor getByPrimaryName(String primaryName){
+            for (ThemeColor themeColor : values()){
+                if (themeColor.identifyName.equals(primaryName)){
+                    return themeColor;
+                }
+            }
+            Log.d(Util.LOG_TAG, "Unrecognized ThemeColor: " + primaryName);
+            return Defaults.primaryColor;
+        }
+
+        @ColorRes
+        public int getColorRes() {
+            return colorRes;
+        }
+
+        @ColorRes
+        public int getDarkColorRes() {
+            return darkColorRes;
+        }
+
+        /**
+         * The name of the color used to identify the color.
+         *
+         * @return the identify name of the color */
+        public String getIdentifyName() {
+            return identifyName;
+        }
+
+        /**
+         * The display name of color item, which is only used to display, not identify the color.
+         *
+         * @return name */
+        public String getDisplayName() {
+            return displayName;
+        }
     }
 
     public enum AccentColor {
@@ -222,13 +308,20 @@ public class Colorful {
 
     public static class Defaults {
 
-        private static AccentColor accentColor = AccentColor.GREEN_700;
+        private static ThemeColor primaryColor = ThemeColor.LIGHT_BLUE;
+
+        private static AccentColor accentColor = AccentColor.BLUE_700;
 
         private static boolean trans = false;
 
         private static boolean darkTheme = false;
 
         private static boolean isColoredNavigation = false;
+
+        public Defaults primaryColor(ThemeColor primary) {
+            primaryColor = primary;
+            return this;
+        }
 
         public Defaults accentColor(AccentColor accent) {
             accentColor = accent;
@@ -259,6 +352,11 @@ public class Colorful {
             this.context = context;
         }
 
+        public Config primaryColor(ThemeColor primary) {
+            primaryColor = primary;
+            return this;
+        }
+
         public Config accentColor(AccentColor accent) {
             accentColor = accent;
             return this;
@@ -282,7 +380,7 @@ public class Colorful {
         public void apply() {
             writeValues(context);
             themeString = generateThemeString();
-            delegate = new ThemeDelegate(context, accentColor, isTranslucent, isDark);
+            delegate = new ThemeDelegate(context, primaryColor, accentColor, isTranslucent, isDark);
         }
     }
 }
