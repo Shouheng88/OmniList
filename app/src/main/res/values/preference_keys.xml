@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_primary_color">primary_color</string>
+    <string name="key_accent_color">accent_color</string>
+    <string name="key_is_dark_theme">is_dark_theme</string>
+    <string name="key_is_colored_navigation_bar">is_colored_navigation_bar</string>
+</resources>

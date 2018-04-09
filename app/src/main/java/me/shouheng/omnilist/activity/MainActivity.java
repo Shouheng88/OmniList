@@ -1,15 +1,20 @@
 package me.shouheng.omnilist.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.activity.base.CommonActivity;
+import me.shouheng.omnilist.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CommonActivity<ActivityMainBinding> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void doCreateView(Bundle savedInstanceState) {
+
     }
 }

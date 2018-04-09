@@ -10,10 +10,14 @@ import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 
 import com.facebook.stetho.Stetho;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+import me.shouheng.colorful.Colorful;
 
 /**
  * Created by shouh on 2018/4/8.*/
 public class PalmApp extends Application {
+
     private static PalmApp mInstance;
 
     private static boolean passwordChecked;
@@ -25,10 +29,13 @@ public class PalmApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         mInstance = this;
 
         MultiDex.install(this);
+
+        Colorful.init(this);
 
         /*
          * Enable stetho only in debug mode. */

@@ -1,0 +1,20 @@
+<resources>
+
+    <style name="Colorful.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Colorful.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="ActionModeDark" parent="Widget.AppCompat.ActionMode">
+        <item name="android:background">@color/dark_theme_foreground</item>
+        <item name="background">@color/dark_theme_foreground</item>
+    </style>
+
+</resources>
