@@ -54,6 +54,15 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".activity.LockActivity"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" />
+        <activity
+            android:name=".activity.GalleryActivity"
+            android:theme="@style/PictureViewTheme" />
+        <activity android:name=".activity.SketchActivity"/>
+        <activity android:name=".intro.IntroActivity" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="aa14224ea2102fef301d211dac552635f37b1f9e" />

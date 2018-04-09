@@ -1,17 +1,16 @@
 package me.shouheng.omnilist.utils.preferences;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import org.polaric.colorful.Colorful;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
-import me.shouheng.omnilist.utils.base.BasePreferencesUtils;
+import me.shouheng.omnilist.utils.base.BasePreferences;
 
 /**
  * Created by shouh on 2018/4/8.*/
-public class ColorPreferences extends BasePreferencesUtils {
+public class ColorPreferences extends BasePreferences {
 
     private static ColorPreferences sInstance;
 

@@ -33,6 +33,10 @@ public abstract class ThemedActivity extends ColorfulActivity {
         return ColorUtils.isDarkTheme();
     }
 
+    protected int primaryColor(){
+        return ColorUtils.primaryColor();
+    }
+
     protected int accentColor() {
         return ColorUtils.accentColor();
     }

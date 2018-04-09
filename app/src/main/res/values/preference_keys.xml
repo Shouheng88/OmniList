@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="key_primary_color">primary_color</string>
-    <string name="key_accent_color">accent_color</string>
-    <string name="key_is_dark_theme">is_dark_theme</string>
-    <string name="key_is_colored_navigation_bar">is_colored_navigation_bar</string>
+    <string name="key_primary_color" translatable="false">primary_color</string>
+    <string name="key_accent_color" translatable="false">accent_color</string>
+    <string name="key_is_dark_theme" translatable="false">is_dark_theme</string>
+    <string name="key_is_colored_navigation_bar" translatable="false">is_colored_navigation_bar</string>
+
+    <string name="key_is_password_required" translatable="false">is_password_required</string>
+    <string name="key_password" translatable="false">password</string>
+    <string name="key_password_freeze_time" translatable="false">password_freeze_time</string>
+    <string name="key_password_question" translatable="false">password_question</string>
+    <string name="key_password_answer" translatable="false">password_answer</string>
+    <string name="key_last_input_error_time" translatable="false">last_input_error_time</string>
+
+    <string name="key_is_tour_activity_showed" translatable="false">is_tour_activity_showed</string>
+    <string name="key_attachment_uri" translatable="false">attachment_uri</string>
+    <string name="key_attachment_file_path" translatable="false">attachment_file_path</string>
+
+    <string name="key_first_day_of_week" translatable="false">first_day_of_week</string>
+    <string name="key_video_size_limit" translatable="false">video_size_limit</string>
+    <string name="key_auto_compress_image" translatable="false">key_auto_compress_image</string>
 </resources>

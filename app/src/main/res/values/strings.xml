@@ -176,4 +176,95 @@
     <string name="activities_on_app_will_display_here">your activities in application will be showed here</string>
     <!--endregion-->
 
+    <!--region Common->Intro Page-->
+    <string name="intro_1_title">Welcome to %s</string>
+    <string name="intro_1_description">Thanks for using %s\nthe markdown support application\nfor productivity\n and leisure note-taking</string>
+    <string name="intro_2_title">Markdown</string>
+    <string name="intro_2_description">Markdown grammar support\nshare and export note\nas pictures and PDF files</string>
+    <string name="intro_3_title">Snagging</string>
+    <string name="intro_3_description">Light weight note\nnote anywhere and anytime</string>
+    <string name="intro_4_title">Colorful</string>
+    <string name="intro_4_description">Light and dark\n13 kinds of primary color\n16 kinds of accent color</string>
+    <string name="intro_5_title">Attachment</string>
+    <string name="intro_5_description">Multiple kinds of attachments\nsketch, picture, photo, video\naudio, file, location</string>
+    <string name="intro_6_title">Enjoy</string>
+    <string name="intro_6_description">Don\'t forget to subscribe\nour community!</string>
+    <!--endregion introduction-->
+
+    <!--region Setting->Security-->
+    <string name="setting_password_required">Enable password</string>
+    <string name="setting_password_required_sub">Input password to continue</string>
+    <string name="setting_set_password">Set password</string>
+    <string name="setting_set_password_sub">Setup the password when access to this application</string>
+    <string name="setting_password_freeze">Set password freeze time</string>
+    <string name="setting_password_freeze_sub">You are unable to input password during this time</string>
+    <string name="setting_input_password_again">Input again</string>
+    <string name="setting_input_wrong_password">Wrong password, you have %d chances left</string>
+    <string name="setting_input_password_newly">Input password</string>
+    <string name="setting_password_frozen_minutes">Password is frozen, try again %d later</string>
+    <string name="setting_password_frozen">Your password is frozen. You are able to disable password check by answering your security question.</string>
+    <string name="setting_answer_question">Answer question</string>
+    <string name="setting_wrong_answer">Wrong answer</string>
+    <string name="setting_disable_password">You passed the question. And the password check is disabled. Now you are able to change the password in setting.</string>
+    <string name="setting_security_question">Security question</string>
+    <string name="setting_security_question_sub">The security and answer used when you forget password</string>
+    <string name="text_question">Question</string>
+    <string name="text_answer">Answer</string>
+    <string name="text_confirm_answer">Confirm answer</string>
+    <string name="setting_answer_different">The confirm answer is not the same as answer</string>
+    <string name="setting_question_required">Security question is required</string>
+    <string name="setting_answer_required">Answer is required</string>
+    <string name="setting_confirm_answer_required">Confirm answer is required</string>
+
+    <string name="wrong_numeric_string">The string contains illegal chars</string>
+    <string name="input_the_freeze_minutes_in_minute">freeze time (0 &#8211; 30 minutes)</string>
+    <string name="freeze_time_too_long">The time is too long</string>
+    <string name="illegal_number">Illegal number</string>
+
+    <string name="setting_no_security_question_message">You have not set the security question, be sure to set the question in case that you forget the password.</string>
+    <!--endregion-->
+
+    <!--region Setting->Feedback-->
+    <string name="feedback">Feedback</string>
+    <string name="email_to_find_you">Email to contact you</string>
+    <string name="details">Details</string>
+    <string name="connect_email_required">Email required</string>
+    <string name="details_required">Details required</string>
+    <string name="illegal_email_format">Illegal email</string>
+
+    <string name="feedback_types">Feedback type</string>
+    <string name="feedback_email_to_find_you">Email to contact you</string>
+    <string name="feedback_details">Details</string>
+    <string name="feedback_connect_email_required">Email requied</string>
+    <string name="feedback_details_required">Details required</string>
+    <string name="feedback_illegal_email_format">Illegal email format</string>
+
+    <string name="feedback_abrupt_crash">Abrupt crash</string>
+    <string name="feedback_function_improvement">Function improvement</string>
+    <string name="feedback_function_requirement">Function requirement</string>
+    <!--endregion-->
+
+    <!--region Enums-->
+    <string name="model_name_none">None</string>
+    <string name="model_name_note">Note</string>
+    <string name="model_name_notebook">Notebook</string>
+    <string name="model_name_alarm">Alarm</string>
+    <string name="model_name_attachment">Attachment</string>
+    <string name="model_name_location">Location</string>
+    <string name="model_name_mind_snagging">Snagging</string>
+    <string name="model_name_timeline">Timeline</string>
+    <string name="model_name_weather">Weather</string>
+    <string name="model_name_category">Category</string>
+
+    <string name="operation_none">None</string>
+    <string name="operation_added">Added</string>
+    <string name="operation_modified">Modified</string>
+    <string name="operation_deleted">Deleted</string>
+    <string name="operation_completed">Completed</string>
+    <string name="operation_trashed">Trashed</string>
+    <string name="operation_recover">Recovered</string>
+    <string name="operation_archived">Archived</string>
+    <string name="operation_synced">Synced</string>
+    <string name="operation_uncompleted">Uncompleted</string>
+    <!--endregion -->
 </resources>
