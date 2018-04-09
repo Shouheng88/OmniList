@@ -16,6 +16,7 @@ public class ColorUtils {
 
     private static Boolean isDarkTheme;
     private static Integer primaryColor;
+    private static Integer primaryDarkColor;
     private static Integer accentColor;
 
     private static final int DEFAULT_COLOR_ALPHA = 50;
@@ -27,11 +28,18 @@ public class ColorUtils {
         return isDarkTheme;
     }
 
-    public static int primaryColor(){
+    public static int primaryColor() {
         if (primaryColor == null) {
             primaryColor = ColorPreferences.getInstance().getPrimaryColor();
         }
         return primaryColor;
+    }
+
+    public static int primaryDarkColor(){
+        if (primaryDarkColor == null) {
+            primaryDarkColor = calStatusBarColor(primaryColor());
+        }
+        return primaryDarkColor;
     }
 
     public static int accentColor(){

@@ -34,8 +34,8 @@ public class Colorful {
             String [] colors = themeString.split(Util.SPLIT);
             isDark = Boolean.parseBoolean(colors[0]);
             isTranslucent = Boolean.parseBoolean(colors[1]);
-            accentColor = Colorful.AccentColor.getByAccentName(colors[3]);
-            isColoredNavigation = Boolean.parseBoolean(colors[4]);
+            accentColor = Colorful.AccentColor.getByAccentName(colors[2]);
+            isColoredNavigation = Boolean.parseBoolean(colors[3]);
         }
 
         delegate = new ThemeDelegate(context, accentColor, isTranslucent, isDark);

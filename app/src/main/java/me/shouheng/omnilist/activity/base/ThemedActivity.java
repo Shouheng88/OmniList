@@ -20,8 +20,7 @@ import me.shouheng.omnilist.utils.preferences.ColorPreferences;
 
 /**
  * Created by wang shouheng on 2017/12/21.*/
-@SuppressLint("Registered")
-public class ThemedActivity extends ColorfulActivity {
+public abstract class ThemedActivity extends ColorfulActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +28,11 @@ public class ThemedActivity extends ColorfulActivity {
         updateTheme();
     }
 
-    protected boolean isDarkTheme(){
+    protected boolean isDarkTheme() {
         return ColorUtils.isDarkTheme();
     }
 
-    protected int accentColor(){
+    protected int accentColor() {
         return ColorUtils.accentColor();
     }
 
@@ -47,7 +46,7 @@ public class ThemedActivity extends ColorfulActivity {
         updateNavigationBar();
     }
 
-    public void reUpdateTheme(){
+    public void reUpdateTheme() {
         updateTheme();
         this.recreate();
     }
