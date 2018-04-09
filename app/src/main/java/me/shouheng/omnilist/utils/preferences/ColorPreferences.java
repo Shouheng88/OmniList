@@ -3,7 +3,8 @@ package me.shouheng.omnilist.utils.preferences;
 import android.content.Context;
 import android.graphics.Color;
 
-import me.shouheng.colorful.Colorful;
+import org.polaric.colorful.Colorful;
+
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.utils.base.BasePreferencesUtils;
@@ -37,16 +38,16 @@ public class ColorPreferences extends BasePreferencesUtils {
         return getBoolean(getKey(R.string.key_is_dark_theme), false);
     }
 
-    public int getPrimaryColor() {
-        return getInt(getKey(R.string.key_primary_color), Color.parseColor("#617fde"));
+    public void setThemeColor(Colorful.ThemeColor themeColor){
+        putString(getKey(R.string.key_primary_color), themeColor.getIdentifyName());
     }
 
-    public void setPrimaryColor(int primaryColor) {
-        putInt(getKey(R.string.key_primary_color), primaryColor);
+    public Colorful.ThemeColor getThemeColor(){
+        return Colorful.ThemeColor.getByPrimaryName(getString(getKey(R.string.key_primary_color), Colorful.Defaults.primaryColor.getIdentifyName()));
     }
 
     public Colorful.AccentColor getAccentColor() {
-        return Colorful.AccentColor.getByAccentName(getString(getKey(R.string.key_accent_color), Colorful.AccentColor.GREEN_700.getColorName()));
+        return Colorful.AccentColor.getByAccentName(getString(getKey(R.string.key_accent_color), Colorful.Defaults.accentColor.getColorName()));
     }
 
     public void setAccentColor(Colorful.AccentColor accentColor) {

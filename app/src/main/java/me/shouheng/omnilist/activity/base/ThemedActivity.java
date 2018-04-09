@@ -12,8 +12,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import me.shouheng.colorful.Colorful;
-import me.shouheng.colorful.ColorfulActivity;
+import org.polaric.colorful.Colorful;
+import org.polaric.colorful.ColorfulActivity;
+
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.utils.preferences.ColorPreferences;
@@ -38,6 +39,7 @@ public abstract class ThemedActivity extends ColorfulActivity {
 
     public void updateTheme() {
         Colorful.config(this)
+                .primaryColor(ColorUtils.getThemeColor())
                 .accentColor(ColorUtils.getAccentColor())
                 .translucent(false)
                 .dark(ColorPreferences.getInstance().isDarkTheme())

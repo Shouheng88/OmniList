@@ -1,11 +1,13 @@
 package me.shouheng.omnilist.utils;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
-import me.shouheng.colorful.Colorful;
+import org.polaric.colorful.Colorful;
+
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.utils.preferences.ColorPreferences;
 
@@ -16,7 +18,6 @@ public class ColorUtils {
 
     private static Boolean isDarkTheme;
     private static Integer primaryColor;
-    private static Integer primaryDarkColor;
     private static Integer accentColor;
 
     private static final int DEFAULT_COLOR_ALPHA = 50;
@@ -30,16 +31,10 @@ public class ColorUtils {
 
     public static int primaryColor() {
         if (primaryColor == null) {
-            primaryColor = ColorPreferences.getInstance().getPrimaryColor();
+            Colorful.ThemeColor themeColor = ColorPreferences.getInstance().getThemeColor();
+            primaryColor = PalmApp.getColorCompact(themeColor.getColorRes());
         }
         return primaryColor;
-    }
-
-    public static int primaryDarkColor(){
-        if (primaryDarkColor == null) {
-            primaryDarkColor = calStatusBarColor(primaryColor());
-        }
-        return primaryDarkColor;
     }
 
     public static int accentColor(){
@@ -48,6 +43,10 @@ public class ColorUtils {
             ColorUtils.accentColor = PalmApp.getColorCompact(accentColor.getColorRes());
         }
         return accentColor;
+    }
+
+    public static Colorful.ThemeColor getThemeColor() {
+        return ColorPreferences.getInstance().getThemeColor();
     }
 
     public static Colorful.AccentColor getAccentColor() {

@@ -308,40 +308,15 @@ public class Colorful {
 
     public static class Defaults {
 
-        private static ThemeColor primaryColor = ThemeColor.LIGHT_BLUE;
+        public final static ThemeColor primaryColor = ThemeColor.LIGHT_BLUE;
 
-        private static AccentColor accentColor = AccentColor.BLUE_700;
+        public final static AccentColor accentColor = AccentColor.BLUE_700;
 
-        private static boolean trans = false;
+        public final static boolean trans = false;
 
-        private static boolean darkTheme = false;
+        public final static boolean darkTheme = false;
 
-        private static boolean isColoredNavigation = false;
-
-        public Defaults primaryColor(ThemeColor primary) {
-            primaryColor = primary;
-            return this;
-        }
-
-        public Defaults accentColor(AccentColor accent) {
-            accentColor = accent;
-            return this;
-        }
-
-        public Defaults translucent(boolean translucent) {
-            trans = translucent;
-            return this;
-        }
-
-        public Defaults dark(boolean dark) {
-            darkTheme = dark;
-            return this;
-        }
-
-        public Defaults coloredNavigation(boolean colored) {
-            isColoredNavigation = colored;
-            return this;
-        }
+        public final static boolean isColoredNavigation = false;
     }
 
     public static class Config {

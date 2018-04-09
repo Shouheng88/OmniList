@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_today"
+            android:title="@string/drawer_menu_today"
+            android:icon="@drawable/ic_widgets_black_24dp"/>
+
+        <item android:id="@+id/nav_categories"
+            android:title="@string/drawer_menu_category"
+            android:icon="@drawable/ic_category_list"/>
+
+        <item android:id="@+id/nav_calendar"
+            android:title="@string/drawer_menu_calendar"
+            android:icon="@drawable/ic_event_black_24dp"/>
+
+    </group>
+
+    <group android:id="@+id/group2"
+        android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_archive"
+            android:title="@string/drawer_menu_archive"
+            android:icon="@drawable/ic_archive_grey"/>
+
+        <item android:id="@+id/nav_trash"
+            android:title="@string/drawer_menu_trash"
+            android:icon="@drawable/ic_trash_black"/>
+
+    </group>
+
+    <group android:id="@+id/group3"
+        android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_settings"
+            android:title="@string/drawer_menu_setting"
+            android:icon="@drawable/ic_settings_black"/>
+
+        <item android:id="@+id/nav_sync"
+            android:title="@string/drawer_menu_sync"
+            android:icon="@drawable/ic_sync_black"/>
+
+    </group>
+
+</menu>

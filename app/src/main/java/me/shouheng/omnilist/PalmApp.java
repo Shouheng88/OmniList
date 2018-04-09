@@ -11,8 +11,10 @@ import android.support.multidex.MultiDex;
 
 import com.facebook.stetho.Stetho;
 import com.crashlytics.android.Crashlytics;
+
+import org.polaric.colorful.Colorful;
+
 import io.fabric.sdk.android.Fabric;
-import me.shouheng.colorful.Colorful;
 
 /**
  * Created by shouh on 2018/4/8.*/
