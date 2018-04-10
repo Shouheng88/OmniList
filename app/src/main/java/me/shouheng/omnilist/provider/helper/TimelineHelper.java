@@ -1,6 +1,5 @@
 package me.shouheng.omnilist.provider.helper;
 
-import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
@@ -16,7 +15,7 @@ public class TimelineHelper {
 
     public static <T extends Model> void addTimeLine(T model, Operation operation) {
         if (!hasTimeLine(model, operation)) return;
-        TimelineStore.getInstance(PalmApp.getContext()).saveModel(ModelFactory.getTimeLine(model, operation));
+        TimelineStore.getInstance().saveModel(ModelFactory.getTimeLine(model, operation));
     }
 
     public static <T extends Model> TimeLine getTimeLine(T model, Operation operation) {
@@ -24,6 +23,7 @@ public class TimelineHelper {
         return ModelFactory.getTimeLine(model, operation);
     }
 
+    // todo
     private static<T extends Model> boolean hasTimeLine(T model, Operation operation) {
         return model != null && ((model instanceof Weather && Operation.ADD == operation)
                 || (model instanceof Location && Operation.ADD == operation)

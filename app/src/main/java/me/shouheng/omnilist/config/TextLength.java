@@ -1,8 +1,7 @@
 package me.shouheng.omnilist.config;
 
 /**
- * 文字的长度的设置
- *
+ * todo refactor
  * Created by wangshouheng on 2017/10/7. */
 public enum TextLength {
     TITLE_TEXT_LENGTH(120),

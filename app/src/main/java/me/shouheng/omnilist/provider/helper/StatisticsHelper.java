@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Status;
@@ -94,7 +93,7 @@ public class StatisticsHelper {
                     + " AND " + TimelineSchema.ADDED_TIME + " < " + endMillis
                     + " AND " + TimelineSchema.MODEL_TYPE + " = " + modelType.id
                     + " AND " + TimelineSchema.OPERATION + " = " + Operation.ADD.id;
-            int count = TimelineStore.getInstance(PalmApp.getContext()).getCount(whereSQL, Status.DELETED, true);
+            int count = TimelineStore.getInstance().getCount(whereSQL, Status.DELETED, true);
             states.add(count);
         }
         return states;

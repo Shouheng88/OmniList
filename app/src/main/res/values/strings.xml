@@ -267,4 +267,29 @@
     <string name="operation_synced">Synced</string>
     <string name="operation_uncompleted">Uncompleted</string>
     <!--endregion -->
+
+    <!--region Category-->
+    <string name="pick_category">Pick category</string>
+    <string name="no_category_available">No available category</string>
+    <string name="pick_portrait">Pick portrait</string>
+    <string name="edit_tag">Edit category</string>
+    <string name="tag_name">Category name</string>
+    <string name="pick_tag_color">Pick category color</string>
+    <plurals name="assignments_number">
+        <item quantity="one">%d assignment</item>
+        <item quantity="other">%d assignments</item>
+    </plurals>
+    <string name="tag_delete_message">Delete category will delete its child assignment as well.</string>
+    <string name="tags_list_empty">Empty categories list</string>
+    <string name="tags_list_empty_sub_normal">add category by licking + in dashboard</string>
+    <string name="tags_list_empty_sub_archived">no archived categories found</string>
+    <string name="tags_list_empty_sub_trashed">no trashed categories found</string>
+    <!--endregion-->
+
+    <!--region Common->Capture-->
+    <string name="empty_list_to_capture">Empty list to capture</string>
+    <string name="capture_list">Capture</string>
+    <string name="capturing">Capturing&#8230;</string>
+    <!--endregion-->
+
 </resources>

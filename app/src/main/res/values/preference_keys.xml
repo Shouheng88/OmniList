@@ -19,4 +19,6 @@
     <string name="key_first_day_of_week" translatable="false">first_day_of_week</string>
     <string name="key_video_size_limit" translatable="false">video_size_limit</string>
     <string name="key_auto_compress_image" translatable="false">key_auto_compress_image</string>
+    <string name="key_list_animation" translatable="false">list_animation</string>
+    <string name="key_system_animation" translatable="false">system_animation</string>
 </resources>

@@ -48,4 +48,12 @@ public class UserPreferences extends BasePreferences {
     public boolean isImageAutoCompress() {
         return getBoolean(getKey(R.string.key_auto_compress_image), true);
     }
+
+    public boolean listAnimationEnabled() {
+        return getBoolean(getKey(R.string.key_list_animation), true);
+    }
+
+    public boolean systemAnimationEnabled() {
+        return getBoolean(getKey(R.string.key_system_animation), true);
+    }
 }

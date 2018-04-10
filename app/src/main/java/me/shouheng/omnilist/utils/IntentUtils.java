@@ -11,6 +11,7 @@ import java.util.List;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.config.Constants;
+import me.shouheng.omnilist.manager.ModelHelper;
 
 /**
  * Created by wangshouheng on 2017/3/13. */

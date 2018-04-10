@@ -8,29 +8,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.RelativeLayout;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
+import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.manager.FragmentHelper;
+import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.preferences.LockPreferences;
+import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
+
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         OnAttachingFileListener {
-
-    private ActivityMainNavHeaderBinding headerBinding;
-
-    private LockPreferences lockPreferences;
 
     private final int REQUEST_FAB_SORT = 0x0001;
     private final int REQUEST_ADD_NOTE = 0x0002;
@@ -42,6 +50,13 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private final int REQUEST_NOTE_VIEW = 0x0008;
     private final int REQUEST_SETTING = 0x0009;
     private final int REQUEST_SETTING_BACKUP = 0x000A;
+
+    private ActivityMainNavHeaderBinding headerBinding;
+
+    private LockPreferences lockPreferences;
+
+    private RecyclerView.OnScrollListener onScrollListener;
+    private FloatingActionButton[] fabs;
 
     @Override
     protected void beforeSetContentView() {
@@ -168,6 +183,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 case R.id.nav_today:
                     break;
                 case R.id.nav_categories:
+                    toCategoriesFragment();
                     break;
                 case R.id.nav_calendar:
                     break;
@@ -187,11 +203,69 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }, 500);
     }
 
+    private void toCategoriesFragment() {
+        if (getCurrentFragment() instanceof CategoriesFragment) return;
+        CategoriesFragment categoriesFragment = CategoriesFragment.newInstance();
+        categoriesFragment.setScrollListener(onScrollListener);
+        FragmentHelper.replace(this, categoriesFragment, R.id.fragment_container);
+        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_categories).setChecked(true), 300);
+    }
+
+    private boolean isCategoryFragment() {
+        Fragment f = getCurrentFragment();
+        return f != null && f instanceof CategoriesFragment;
+    }
+
+    private boolean isDashboard() {
+        Fragment f = getCurrentFragment();
+        return f != null && (f instanceof CategoriesFragment);
+    }
     // endregion
 
     private void initViewModels() {}
 
-    private void initFloatButtons() {}
+    private void initFloatButtons() {
+        getBinding().menu.setMenuButtonColorNormal(accentColor());
+        getBinding().menu.setMenuButtonColorPressed(accentColor());
+        getBinding().menu.setOnMenuButtonLongClickListener(v -> {
+            // todo
+//            startActivityForResult(FabSortActivity.class, REQUEST_FAB_SORT);
+            return false;
+        });
+        getBinding().menu.setOnMenuToggleListener(opened -> getBinding().rlMenuContainer.setVisibility(opened ? View.VISIBLE : View.GONE));
+        getBinding().rlMenuContainer.setOnClickListener(view -> getBinding().menu.close(true));
+
+        fabs = new FloatingActionButton[]{getBinding().fab1, getBinding().fab2, getBinding().fab3, getBinding().fab4, getBinding().fab5};
+
+        for (int i=0; i<fabs.length; i++) {
+            fabs[i].setColorNormal(accentColor());
+            fabs[i].setColorPressed(accentColor());
+            int finalI = i;
+            // todo
+//            fabs[i].setOnClickListener(view -> resolveFabClick(finalI));
+        }
+
+        onScrollListener = new CustomRecyclerScrollViewListener() {
+            @Override
+            public void show() {
+                getBinding().menu.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+            }
+
+            @Override
+            public void hide() {
+                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) getBinding().menu.getLayoutParams();
+                int fabMargin = lp.bottomMargin;
+                getBinding().menu.animate().translationY(getBinding().menu.getHeight() + fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == SCROLL_STATE_IDLE){
+                    LogUtils.d("onScrollStateChanged: SCROLL_STATE_IDLE");
+                }
+            }
+        };
+    }
 
     private void initFabSortItems() {}
 

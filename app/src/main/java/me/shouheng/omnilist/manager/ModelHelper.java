@@ -1,34 +1,27 @@
-package me.shouheng.omnilist.utils;
+package me.shouheng.omnilist.manager;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.text.ClipboardManager;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
-import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
-import me.shouheng.omnilist.widget.FlowLayout;
+import me.shouheng.omnilist.utils.FileHelper;
+import me.shouheng.omnilist.utils.TimeUtils;
+import me.shouheng.omnilist.utils.ToastUtils;
 
 
 /**
