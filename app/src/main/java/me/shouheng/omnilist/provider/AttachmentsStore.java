@@ -24,18 +24,7 @@ public class AttachmentsStore extends BaseStore<Attachment> {
 
     private static AttachmentsStore sInstance = null;
 
-    public static AttachmentsStore getInstance(Context context){
-        if (sInstance == null){
-            synchronized (AttachmentsStore.class) {
-                if (sInstance == null) {
-                    sInstance = new AttachmentsStore(context.getApplicationContext());
-                }
-            }
-        }
-        return sInstance;
-    }
-
-    public static AttachmentsStore getInstance(){
+    public static AttachmentsStore getInstance() {
         if (sInstance == null){
             synchronized (AttachmentsStore.class) {
                 if (sInstance == null) {

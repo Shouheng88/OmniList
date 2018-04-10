@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.List;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Portrait;
 import me.shouheng.omnilist.provider.schema.CategorySchema;
@@ -18,11 +19,11 @@ public class CategoryStore extends BaseStore<Category> {
 
     private static CategoryStore sInstance = null;
 
-    public static CategoryStore getInstance(Context context){
+    public static CategoryStore getInstance(){
         if (sInstance == null){
             synchronized (CategoryStore.class) {
                 if (sInstance == null) {
-                    sInstance = new CategoryStore(context.getApplicationContext());
+                    sInstance = new CategoryStore(PalmApp.getContext());
                 }
             }
         }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.TimeLine;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Operation;
@@ -19,11 +20,11 @@ public class TimelineStore extends BaseStore<TimeLine> {
 
     private static TimelineStore sInstance = null;
 
-    public static TimelineStore getInstance(Context context){
+    public static TimelineStore getInstance(){
         if (sInstance == null){
             synchronized (TimelineStore.class) {
                 if (sInstance == null) {
-                    sInstance = new TimelineStore(context.getApplicationContext());
+                    sInstance = new TimelineStore(PalmApp.getContext());
                 }
             }
         }

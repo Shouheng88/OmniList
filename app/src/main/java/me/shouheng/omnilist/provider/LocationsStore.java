@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import java.util.List;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Status;
@@ -22,11 +23,11 @@ public class LocationsStore extends BaseStore<Location> {
 
     private static LocationsStore sInstance = null;
 
-    public static LocationsStore getInstance(Context context){
+    public static LocationsStore getInstance(){
         if (sInstance == null){
             synchronized (LocationsStore.class) {
                 if (sInstance == null) {
-                    sInstance = new LocationsStore(context.getApplicationContext());
+                    sInstance = new LocationsStore(PalmApp.getContext());
                 }
             }
         }

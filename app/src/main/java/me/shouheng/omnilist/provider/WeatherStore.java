@@ -1,6 +1,7 @@
 package me.shouheng.omnilist.provider;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -21,15 +22,15 @@ public class WeatherStore extends BaseStore<Weather> {
         if (sInstance == null){
             synchronized (WeatherStore.class) {
                 if (sInstance == null) {
-                    sInstance = new WeatherStore();
+                    sInstance = new WeatherStore(PalmApp.getContext());
                 }
             }
         }
         return sInstance;
     }
 
-    private WeatherStore() {
-        super(PalmApp.getContext());
+    private WeatherStore(Context context) {
+        super(context);
     }
 
     @Override
