@@ -68,6 +68,17 @@
             android:name="io.fabric.ApiKey"
             android:value="aa14224ea2102fef301d211dac552635f37b1f9e" />
 
+        <!--region baidu map-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="5kgf1yj2n9H6wnhwGZMSg522qlOAhLQp" />
+        <!--endregion-->
+
     </application>
 
 </manifest>
