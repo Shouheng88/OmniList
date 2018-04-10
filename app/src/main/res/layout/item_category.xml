@@ -71,22 +71,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.shouheng.omnilist.widget.themed.SupportTextVieww
+        <me.shouheng.omnilist.widget.themed.SupportTextView
             android:id="@+id/tv_title"
             android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:ellipsize="end"
             tools:text="标题Title\nTitle"
             android:lines="1"
-            android:padding="3dp"
-            android:background="@drawable/label_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_sub_title"
             android:ellipsize="end"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="副标题subTitle"
             android:layout_marginTop="2dp"
             android:maxLines="1"

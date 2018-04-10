@@ -1,9 +1,12 @@
 package me.shouheng.omnilist.activity;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,27 +21,41 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.github.clans.fab.FloatingActionButton;
+
+import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
+import me.shouheng.omnilist.config.Config;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
+import me.shouheng.omnilist.dialog.CategoryEditDialog;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
-import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.manager.FragmentHelper;
+import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.model.Category;
+import me.shouheng.omnilist.model.data.Status;
+import me.shouheng.omnilist.model.tools.FabSortItem;
+import me.shouheng.omnilist.model.tools.ModelFactory;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.LogUtils;
+import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.LockPreferences;
+import me.shouheng.omnilist.utils.preferences.UserPreferences;
+import me.shouheng.omnilist.viewmodel.CategoryViewModel;
 import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
-        OnAttachingFileListener {
+        OnAttachingFileListener,
+        CategoriesFragment.OnCategoriesInteractListener {
 
     private final int REQUEST_FAB_SORT = 0x0001;
     private final int REQUEST_ADD_NOTE = 0x0002;
@@ -54,9 +71,16 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private ActivityMainNavHeaderBinding headerBinding;
 
     private LockPreferences lockPreferences;
+    private UserPreferences userPreferences;
 
     private RecyclerView.OnScrollListener onScrollListener;
-    private FloatingActionButton[] fabs;
+    private FloatingActionButton[] floatingActionButtons;
+
+    private CategoryEditDialog categoryEditDialog;
+
+    private CategoryViewModel categoryViewModel;
+
+    private long onBackPressed;
 
     @Override
     protected void beforeSetContentView() {
@@ -71,6 +95,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     @Override
     protected void doCreateView(Bundle savedInstanceState) {
         lockPreferences = LockPreferences.getInstance();
+        userPreferences = UserPreferences.getInstance();
 
         IntroActivity.launchIfNecessary(this);
 
@@ -96,7 +121,6 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
         initHeaderView();
 
-        // init float action buttons
         initFloatButtons();
 
         initFabSortItems();
@@ -187,62 +211,45 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                     break;
                 case R.id.nav_calendar:
                     break;
-//                case R.id.nav_sync:
+                case R.id.nav_sync:
 //                    SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
-//                    break;
-//                case R.id.nav_settings:
+                    break;
+                case R.id.nav_settings:
 //                    SettingsActivity.start(this, REQUEST_SETTING);
-//                    break;
-//                case R.id.nav_archive:
+                    break;
+                case R.id.nav_archive:
 //                    startActivityForResult(ArchiveActivity.class, REQUEST_ARCHIVE);
-//                    break;
-//                case R.id.nav_trash:
+                    break;
+                case R.id.nav_trash:
 //                    startActivityForResult(TrashedActivity.class, REQUEST_TRASH);
-//                    break;
+                    break;
             }
         }, 500);
     }
-
-    private void toCategoriesFragment() {
-        if (getCurrentFragment() instanceof CategoriesFragment) return;
-        CategoriesFragment categoriesFragment = CategoriesFragment.newInstance();
-        categoriesFragment.setScrollListener(onScrollListener);
-        FragmentHelper.replace(this, categoriesFragment, R.id.fragment_container);
-        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_categories).setChecked(true), 300);
-    }
-
-    private boolean isCategoryFragment() {
-        Fragment f = getCurrentFragment();
-        return f != null && f instanceof CategoriesFragment;
-    }
-
-    private boolean isDashboard() {
-        Fragment f = getCurrentFragment();
-        return f != null && (f instanceof CategoriesFragment);
-    }
     // endregion
 
-    private void initViewModels() {}
+    private void initViewModels() {
+        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
+    }
 
+    // region float action buttons
     private void initFloatButtons() {
         getBinding().menu.setMenuButtonColorNormal(accentColor());
         getBinding().menu.setMenuButtonColorPressed(accentColor());
         getBinding().menu.setOnMenuButtonLongClickListener(v -> {
-            // todo
-//            startActivityForResult(FabSortActivity.class, REQUEST_FAB_SORT);
+            startActivityForResult(FabSortActivity.class, REQUEST_FAB_SORT);
             return false;
         });
         getBinding().menu.setOnMenuToggleListener(opened -> getBinding().rlMenuContainer.setVisibility(opened ? View.VISIBLE : View.GONE));
         getBinding().rlMenuContainer.setOnClickListener(view -> getBinding().menu.close(true));
 
-        fabs = new FloatingActionButton[]{getBinding().fab1, getBinding().fab2, getBinding().fab3, getBinding().fab4, getBinding().fab5};
+        floatingActionButtons = new FloatingActionButton[]{getBinding().fab1, getBinding().fab2, getBinding().fab3, getBinding().fab4, getBinding().fab5};
 
-        for (int i=0; i<fabs.length; i++) {
-            fabs[i].setColorNormal(accentColor());
-            fabs[i].setColorPressed(accentColor());
+        for (int i = 0; i< floatingActionButtons.length; i++) {
+            floatingActionButtons[i].setColorNormal(accentColor());
+            floatingActionButtons[i].setColorPressed(accentColor());
             int finalI = i;
-            // todo
-//            fabs[i].setOnClickListener(view -> resolveFabClick(finalI));
+            floatingActionButtons[i].setOnClickListener(view -> resolveFabClick(finalI));
         }
 
         onScrollListener = new CustomRecyclerScrollViewListener() {
@@ -267,16 +274,130 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         };
     }
 
-    private void initFabSortItems() {}
+    private void initFabSortItems() {
+        try {
+            List<FabSortItem> fabSortItems = userPreferences.getFabSortResult();
+            for (int i = 0; i< floatingActionButtons.length; i++) {
+                floatingActionButtons[i].setImageDrawable(ColorUtils.tintDrawable(getResources().getDrawable(fabSortItems.get(i).iconRes), Color.WHITE));
+                floatingActionButtons[i].setLabelText(getString(fabSortItems.get(i).nameRes));
+            }
+        } catch (Exception e) {
+            LogUtils.d("initFabSortItems, error occurred : " + e);
+            userPreferences.setFabSortResult(UserPreferences.defaultFabOrders);
+        }
+    }
 
+    private void resolveFabClick(int index) {
+        getBinding().menu.close(true);
+        FabSortItem fabSortItem = userPreferences.getFabSortResult().get(index);
+        switch (fabSortItem) {
+            case CATEGORY:
+                editCategory();
+                break;
+            case DRAFT:
+                break;
+            case FILE:
+                break;
+            case CAPTURE:
+                break;
+        }
+    }
+
+    private void editCategory() {
+        categoryEditDialog = CategoryEditDialog.newInstance(ModelFactory.getCategory(), category ->
+                categoryViewModel.saveModel(category).observe(this, categoryResource -> {
+                    if (categoryResource == null) {
+                        ToastUtils.makeToast(R.string.text_error_when_save);
+                        return;
+                    }
+                    switch (categoryResource.status) {
+                        case SUCCESS:
+                            ToastUtils.makeToast(R.string.text_save_successfully);
+                            Fragment fragment = getCurrentFragment();
+                            if (fragment != null && fragment instanceof CategoriesFragment) {
+                                ((CategoriesFragment) fragment).addCategory(category);
+                            }
+                            break;
+                        case FAILED:
+                            ToastUtils.makeToast(R.string.text_error_when_save);
+                            break;
+                    }
+                }));
+        categoryEditDialog.show(getSupportFragmentManager(), "CATEGORY_EDIT_DIALOG");
+    }
+    // endregion
+
+    // region switch fragment
     private void toTodayFragment(boolean checkDuplicate) {
 
+    }
+
+    private void toCategoriesFragment() {
+        if (getCurrentFragment() instanceof CategoriesFragment) return;
+        CategoriesFragment categoriesFragment = CategoriesFragment.newInstance();
+        categoriesFragment.setScrollListener(onScrollListener);
+        FragmentHelper.replace(this, categoriesFragment, R.id.fragment_container);
+        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_categories).setChecked(true), 300);
     }
 
     private Fragment getCurrentFragment(){
         return getCurrentFragment(R.id.fragment_container);
     }
 
+    private boolean isTodayFragment() {
+        return false;
+    }
+
+    private boolean isCategoryFragment() {
+        Fragment f = getCurrentFragment();
+        return f != null && f instanceof CategoriesFragment;
+    }
+
+    private boolean isDashboard() {
+        Fragment f = getCurrentFragment();
+        return f != null && (f instanceof CategoriesFragment);
+    }
+    // endregion
+
+    // region back pressed event
+    @Override
+    public void onBackPressed() {
+        if (isDashboard()){
+            if (getBinding().drawerLayout.isDrawerOpen(GravityCompat.START)){
+                getBinding().drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                if (getBinding().menu.isOpened()) {
+                    getBinding().menu.close(true);
+                    return;
+                }
+                // todo
+                if (isTodayFragment()) {
+//                    if (((NotesFragment) getCurrentFragment()).isTopStack()) {
+//                        againExit();
+//                    } else {
+//                        super.onBackPressed();
+//                    }
+                } else {
+//                    toNotesFragment(true);
+                }
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void againExit() {
+        if (onBackPressed + Config.BACK_TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+            return;
+        } else {
+            ToastUtils.makeToast(R.string.text_tab_again_exit);
+        }
+        onBackPressed = System.currentTimeMillis();
+    }
+    // endregion
+
+    // region options menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -299,6 +420,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
         return super.onOptionsItemSelected(item);
     }
+    // endregion
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -346,13 +468,55 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
     }
 
+    @Override
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, int selectedColor) {
+        if (categoryEditDialog != null) {
+            categoryEditDialog.updateUIBySelectedColor(selectedColor);
+        }
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof CategoriesFragment) {
+            ((CategoriesFragment) currentFragment).setSelectedColor(selectedColor);
+        }
+    }
+
+    // region category interaction
+    @Override
+    public void onCategorySelected(Category category) {
+
+    }
+
+    @Override
+    public void onResumeToCategory() {
+        setDrawerLayoutLocked(false);
+    }
+
+    @Override
+    public void onCategoryLoadStateChanged(Status status) {
+        onLoadStateChanged(status);
+    }
+    // endregion
+
     private void updateListIfNecessary() {
 
     }
 
+    // region attachment handler
     @Override
     public void onAttachingFileErrorOccurred(Attachment attachment) {}
 
     @Override
     public void onAttachingFileFinished(Attachment attachment) {}
+    // endregion
+
+    private void onLoadStateChanged(Status status) {
+        switch (status) {
+            case SUCCESS:
+            case FAILED:
+                getBinding().sl.setVisibility(View.GONE);
+                break;
+            case LOADING:
+                getBinding().sl.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 }

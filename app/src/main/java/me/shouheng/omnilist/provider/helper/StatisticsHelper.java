@@ -70,7 +70,7 @@ public class StatisticsHelper {
 //        stats.setSketches(sketches);
 //        stats.setFiles(files);
 //
-//        stats.setNotesStats(getAddedStatistics(ModelType.NOTE, StatisticViewModel.DAYS_OF_ADDED_MODEL));
+//        stats.setNotesStats(getAddedStatistics(ModelType.ASSIGNMENT, StatisticViewModel.DAYS_OF_ADDED_MODEL));
 //
 //        LogUtils.d(stats);
         return stats;

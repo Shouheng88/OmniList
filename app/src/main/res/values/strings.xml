@@ -292,4 +292,22 @@
     <string name="capturing">Capturing&#8230;</string>
     <!--endregion-->
 
+    <!--region Fab-->
+    <string name="fab_opt_assignment">Assignment</string>
+    <string name="fab_opt_category">Category</string>
+    <string name="fab_opt_capture">Capture</string>
+    <string name="fab_opt_file">File</string>
+    <string name="fab_opt_draft">Sketch</string>
+    <string name="fab_opt_link">Link</string>
+    <string name="fab_opt_record">Record</string>
+    <string name="fab_opt_notice">Alarm</string>
+    <string name="fab_quick_assignment">Quick create</string>
+
+    <string name="fab_sort_custom_fab">Custom fabs</string>
+    <string name="fab_sort_custom">Custom&#8230;</string>
+    <string name="fab_sort_custom_fab_tip">Drag the rear icon to sort, the top 5 ones will be showed in dashboard.</string>
+    <string name="fab_sort_save">Save</string>
+    <string name="fab_sort_save_or_lose">Save or discard your modifications</string>
+    <string name="fab_sort_save_successfully">Successfully saved</string>
+    <!--endregion-->
 </resources>

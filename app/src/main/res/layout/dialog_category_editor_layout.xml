@@ -38,7 +38,7 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <me.shouheng.notepal.widget.WatcherTextView
+        <me.shouheng.omnilist.widget.WatcherTextView
             android:id="@+id/wtv"
             android:layout_gravity="end"
             app:max_length="@integer/label_length"
@@ -67,7 +67,7 @@
             android:layout_margin="5dp"
             android:layout_height="40dp">
 
-            <me.shouheng.notepal.widget.CircleImageView
+            <me.shouheng.omnilist.widget.CircleImageView
                 android:id="@+id/civ_category_color"
                 android:layout_width="40dp"
                 android:layout_height="40dp" />
@@ -92,7 +92,7 @@
             android:layout_margin="5dp"
             android:layout_height="40dp">
 
-            <me.shouheng.notepal.widget.CircleImageView
+            <me.shouheng.omnilist.widget.CircleImageView
                 android:id="@+id/civ_portrait_background"
                 android:layout_width="40dp"
                 android:layout_height="40dp" />

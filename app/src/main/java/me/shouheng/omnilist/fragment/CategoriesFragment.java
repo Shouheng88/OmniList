@@ -319,7 +319,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
 
     public interface OnCategoriesInteractListener {
 
-        default void onCategoryDataChanged(){}
+        default void onCategoryDataChanged() {}
 
         default void onResumeToCategory() {}
 

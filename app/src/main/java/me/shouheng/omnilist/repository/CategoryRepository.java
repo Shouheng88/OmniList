@@ -26,12 +26,13 @@ public class CategoryRepository extends BaseRepository<Category> {
     public LiveData<Resource<List<Category>>> getCategories(Status status) {
         MutableLiveData<Resource<List<Category>>> result = new MutableLiveData<>();
         new NormalAsyncTask<>(result, () -> {
+            String orderSQL = CategorySchema.CATEGORY_ORDER + ", " + CategorySchema.ADDED_TIME + " DESC ";
             if (status == Status.ARCHIVED) {
-                return getStore().getArchived(null, CategorySchema.CATEGORY_ORDER);
+                return getStore().getArchived(null, orderSQL);
             } else if (status == Status.TRASHED) {
-                return getStore().getTrashed(null, CategorySchema.CATEGORY_ORDER);
+                return getStore().getTrashed(null, orderSQL);
             } else {
-                return getStore().get(null, CategorySchema.CATEGORY_ORDER);
+                return getStore().get(null, orderSQL);
             }
         }).execute();
         return result;

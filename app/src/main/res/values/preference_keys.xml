@@ -21,4 +21,5 @@
     <string name="key_auto_compress_image" translatable="false">key_auto_compress_image</string>
     <string name="key_list_animation" translatable="false">list_animation</string>
     <string name="key_system_animation" translatable="false">system_animation</string>
+    <string name="key_fab_sort_result" translatable="false">fab_sort_result</string>
 </resources>

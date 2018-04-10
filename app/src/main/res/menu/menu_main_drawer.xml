@@ -10,7 +10,7 @@
 
         <item android:id="@+id/nav_categories"
             android:title="@string/drawer_menu_category"
-            android:icon="@drawable/ic_category_list"/>
+            android:icon="@drawable/ic_folder_special_black_24dp"/>
 
         <item android:id="@+id/nav_calendar"
             android:title="@string/drawer_menu_calendar"
