@@ -9,6 +9,18 @@ import me.shouheng.omnilist.R;
 public class Constants {
     public static final String DEFAULT_LOG_TAG = "NotePal";
 
+    // region Extras
+    public final static String EXTRA_MODEL = "extra_model";
+    public final static String EXTRA_CODE = "extra_code";
+    public final static String EXTRA_REQUEST_CODE = "extra_request_code";
+    public final static String EXTRA_FRAGMENT = "extra_fragment";
+    public final static String VALUE_FRAGMENT_ASSIGNMENT = "value_fragment_assignment";
+    public final static String EXTRA_IS_GOOGLE_NOW = "extra_is_from_google_now";
+    public final static String EXTRA_IS_PREVIEW = "extra_is_preview";
+
+    public final static String ACTION_TO_NOTE_FROM_THIRD_PART = "to_note_from_third_part";
+    // endregion
+
     // region Urls
     public final static String GOOGLE_PLAY_WEB_PAGE = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
     public final static String MARKET_PAGE = "market://details?id=" + BuildConfig.APPLICATION_ID;
@@ -43,6 +55,16 @@ public class Constants {
     public final static String _3GP = ".3gp";
     public final static String _MP4 = ".mp4";
     public final static String _PDF = ".pdf";
+    // endregion
+
+    // region Action
+    public final static String ACTION_SHORTCUT = "ACTION_SHORTCUT";
+    public final static String ACTION_NOTIFICATION = "ACTION_NOTIFICATION";
+    public final static String INTENT_GOOGLE_NOW = "com.google.android.gm.action.AUTO_SEND";
+
+    public final static String ACTION_RESTART_APP = "action_restart_app";
+
+    public final static String ACTION_NOTE_CHANGE_BROADCAST = "action_broadcast_notes_changed";
     // endregion
 
     public final static String REA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD0diKVSZ/U/KHuxZFYac3lLq7K\n" +

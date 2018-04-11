@@ -52,6 +52,7 @@ import java.util.Collections;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.activity.ContentActivity;
 import me.shouheng.omnilist.adapter.AssignmentsAdapter;
 import me.shouheng.omnilist.config.BaiduConstants;
 import me.shouheng.omnilist.databinding.FragmentAssignmentsBinding;
@@ -153,10 +154,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             if (isInRecognitionMode){
                 ToastUtils.makeToast(R.string.touch_and_speak);
             } else {
-                Assignment assignment = ModelFactory.getAssignment();
-                assignment.setCategoryCode(category.getCode());
-                // todo
-//                ContentActivity.startAssignmentForResult(AssignmentsFragment.this, assignment, 0, REQUEST_FOR_EDIT);
+                ContentActivity.editAssignment(this, getNewAssignment(), REQUEST_FOR_EDIT);
             }
         });
         getBinding().fab.setColorNormal(accentColor());
@@ -223,7 +221,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     // todo
                     break;
                 case R.id.rl_item:
-                    // todo view assignment
+                    ContentActivity.editAssignment(this, mAdapter.getItem(position), REQUEST_FOR_EDIT);
                     break;
             }
         });
@@ -635,6 +633,12 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     // region create assignment
+    private Assignment getNewAssignment() {
+        Assignment assignment = ModelFactory.getAssignment();
+        assignment.setCategoryCode(category.getCode());
+        return assignment;
+    }
+
     private void hideInputLayout() {
         if (getActivity() == null) {
             LogUtils.e("activity is null");
@@ -658,9 +662,8 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     private void createAssignment(String title) {
-        Assignment assignment = ModelFactory.getAssignment();
+        Assignment assignment = getNewAssignment();
         assignment.setName(title);
-        assignment.setCategoryCode(category.getCode());
 
         assignmentViewModel.saveModel(assignment).observe(this, assignmentResource -> {
             if (assignmentResource == null) {
@@ -711,7 +714,6 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         }
         super.onDestroy();
     }
-    
 
     public interface AssignmentsFragmentInteraction {
         void onActivityAttached();

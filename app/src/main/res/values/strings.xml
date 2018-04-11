@@ -84,6 +84,8 @@
     <string name="text_pick_from_album">Pick from album</string>
 
     <string name="check_network_availability">Check network availability</string>
+
+    <string name="content_failed_to_parse_intent">Failed to parse the intent</string>
     <!--endregion-->
 
     <!--region Attachment-->
@@ -343,5 +345,7 @@
 
     <string name="no_assignments_found">没有发现任务</string>
     <string name="fragment_assignments_empty_sub">点击 + 按钮，文本框输入或点击话筒语音录入可创建任务</string>
+
+    <string name="text_no_such_assignment">Assignment not found</string>
     <!--endregion-->
 </resources>

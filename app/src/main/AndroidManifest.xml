@@ -74,6 +74,9 @@
         <activity android:name=".activity.SketchActivity"/>
         <activity android:name=".intro.IntroActivity" />
         <activity android:name=".activity.FabSortActivity" />
+        <activity
+            android:name=".activity.ContentActivity"
+            android:exported="true" />
 
         <!--region fabric-->
         <meta-data
