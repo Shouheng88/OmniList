@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_widgets_black_24dp"/>
 
         <item android:id="@+id/nav_categories"
-            android:title="@string/drawer_menu_category"
+            android:title="@string/drawer_menu_categories"
             android:icon="@drawable/ic_folder_special_black_24dp"/>
 
         <item android:id="@+id/nav_calendar"

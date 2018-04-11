@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OmniList</string>
+    <string name="app_name">Omni List</string>
 
     <!--region Common-->
     <string name="text_add_more">Add&#8230;</string>
@@ -26,8 +26,8 @@
     <string name="text_next">Next</string>
     <string name="text_last">Last</string>
     <string name="text_give_up">Give up</string>
-    <string name="text_last_modified_time">Last updated time</string>
-    <string name="text_last_sync_time">Last sync time</string>
+    <string name="text_last_modified_time">Last update</string>
+    <string name="text_last_sync_time">Last sync</string>
     <string name="text_chars_number">Total chars</string>
     <string name="text_more">More</string>
     <string name="text_pick">Pick</string>
@@ -138,13 +138,14 @@
 
     <!--region Common->DrawerItems-->
     <string name="drawer_menu_today">Today</string>
-    <string name="drawer_menu_category">Categories</string>
+    <string name="drawer_menu_categories">Categories</string>
     <string name="drawer_menu_calendar">Calendar</string>
     <string name="drawer_menu_notices">Notices</string>
     <string name="drawer_menu_setting">Settings</string>
     <string name="drawer_menu_trash">Trash</string>
     <string name="drawer_menu_archive">Archived</string>
     <string name="drawer_menu_sync">Sync</string>
+    <string name="drawer_menu_category">Category</string>
     <!--endregion-->
 
     <!--region User Info-->
@@ -232,7 +233,7 @@
     <string name="details_required">Details required</string>
     <string name="illegal_email_format">Illegal email</string>
 
-    <string name="feedback_types">Feedback type</string>
+    <string name="feedback_types">Feedback assignmentType</string>
     <string name="feedback_email_to_find_you">Email to contact you</string>
     <string name="feedback_details">Details</string>
     <string name="feedback_connect_email_required">Email requied</string>
@@ -250,6 +251,8 @@
     <string name="model_name_notebook">Notebook</string>
     <string name="model_name_alarm">Alarm</string>
     <string name="model_name_attachment">Attachment</string>
+    <string name="model_name_assignment">Assignment</string>
+    <string name="model_name_sub_assignment">Sub assignment</string>
     <string name="model_name_location">Location</string>
     <string name="model_name_mind_snagging">Snagging</string>
     <string name="model_name_timeline">Timeline</string>
@@ -266,6 +269,12 @@
     <string name="operation_archived">Archived</string>
     <string name="operation_synced">Synced</string>
     <string name="operation_uncompleted">Uncompleted</string>
+
+    <!--todo-->
+    <string name="priority_level_01">Level 1</string>
+    <string name="priority_level_02">Level 2</string>
+    <string name="priority_level_03">Level 3</string>
+    <string name="priority_level_04">Level 4</string>
     <!--endregion -->
 
     <!--region Category-->
@@ -309,5 +318,30 @@
     <string name="fab_sort_save">Save</string>
     <string name="fab_sort_save_or_lose">Save or discard your modifications</string>
     <string name="fab_sort_save_successfully">Successfully saved</string>
+    <!--endregion-->
+
+    <!--region Assignments-->
+    <string name="add_assignments">添加日程安排&#8230;</string>
+    <string name="touch_and_speak">按住说话</string>
+    <string name="baidu_speech_support">语音识别技术由百度提供</string>
+    <string name="listening">正在听&#8230;</string>
+    <string name="recognizing">正在识别&#8230;</string>
+    <string name="move_up_to_cancel">手指上划，取消识别。</string>
+    <string name="release_to_cancel">手指松开，取消识别。</string>
+
+    <string name="error_audio">音频问题</string>
+    <string name="error_speech_timeout">没有语音输入</string>
+    <string name="error_client">其它客户端错误</string>
+    <string name="error_insufficient_permissions">权限不足</string>
+    <string name="error_network">网络问题</string>
+    <string name="error_no_match">没有匹配的识别结果</string>
+    <string name="error_recognizer_busy">引擎忙</string>
+    <string name="error_server">服务端错误</string>
+    <string name="error_network_timeout">连接超时</string>
+    <string name="recognize_successfully">识别成功</string>
+    <string name="recognize_failed">识别失败</string>
+
+    <string name="no_assignments_found">没有发现任务</string>
+    <string name="fragment_assignments_empty_sub">点击 + 按钮，文本框输入或点击话筒语音录入可创建任务</string>
     <!--endregion-->
 </resources>

@@ -1,0 +1,92 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/assignment_list_background"
+            android:layout_below="@id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cd_add_assignment"
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp">
+
+                    <ImageView
+                        android:id="@+id/iv_add"
+                        android:src="@drawable/ic_add_black_24dp"
+                        android:padding="15dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp" />
+
+                    <me.shouheng.omnilist.widget.themed.SupportImageView
+                        android:id="@+id/iv_mic"
+                        android:background="?attr/selectableItemBackground"
+                        android:src="@drawable/ic_mic_black_24dp"
+                        android:layout_alignParentEnd="true"
+                        android:padding="15dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp" />
+
+                    <EditText
+                        android:id="@+id/et_assignment_title"
+                        android:hint="@string/add_assignments"
+                        android:background="@android:color/transparent"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:maxLength="@integer/title_length"
+                        android:imeOptions="actionDone"
+                        android:layout_toStartOf="@id/iv_mic"
+                        android:layout_toEndOf="@id/iv_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <me.shouheng.omnilist.widget.EmptyView
+                android:id="@+id/iv_empty"
+                android:layout_centerInParent="true"
+                app:tint_drawable="true"
+                app:empty_image="@drawable/ic_folder_special_black_24dp"
+                app:title="@string/no_assignments_found"
+                app:sub_title="@string/fragment_assignments_empty_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.shouheng.omnilist.widget.EmptySupportRecyclerView
+                android:layout_below="@id/cd_add_assignment"
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/lsr"
+            android:visibility="gone"
+            layout="@layout/layout_speech_recognition"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:src="@drawable/ic_add_white"
+            app:fab_size="normal"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

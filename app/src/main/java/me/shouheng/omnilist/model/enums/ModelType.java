@@ -5,8 +5,10 @@ import android.support.annotation.StringRes;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.model.Alarm;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Model;
+import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.TimeLine;
 import me.shouheng.omnilist.model.Weather;
 
@@ -15,6 +17,8 @@ import me.shouheng.omnilist.model.Weather;
  * Created by wangshouheng on 2017/8/12. */
 public enum ModelType {
     NONE(0, Model.class, R.string.model_name_none),
+    ASSIGNMENT(1, Assignment.class, R.string.model_name_assignment),
+    SUB_ASSIGNMENT(5, SubAssignment.class, R.string.model_name_sub_assignment),
     ALARM(10, Alarm.class, R.string.model_name_alarm),
     ATTACHMENT(11, Attachment.class, R.string.model_name_attachment),
     LOCATION(13, Location.class, R.string.model_name_location),

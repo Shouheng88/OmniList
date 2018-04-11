@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -33,6 +35,7 @@ import me.shouheng.omnilist.config.Config;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
+import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
@@ -55,7 +58,8 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         OnAttachingFileListener,
-        CategoriesFragment.OnCategoriesInteractListener {
+        CategoriesFragment.OnCategoriesInteractListener,
+        AssignmentsFragment.AssignmentsFragmentInteraction{
 
     private final int REQUEST_FAB_SORT = 0x0001;
     private final int REQUEST_ADD_NOTE = 0x0002;
@@ -479,19 +483,38 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
     }
 
-    // region category interaction
+    // region category fragment interaction
     @Override
     public void onCategorySelected(Category category) {
-
+        AssignmentsFragment assignmentsFragment = AssignmentsFragment.newInstance(
+                category, me.shouheng.omnilist.model.enums.Status.NORMAL);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, assignmentsFragment).commit();
     }
 
     @Override
     public void onResumeToCategory() {
         setDrawerLayoutLocked(false);
+        getBinding().menu.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onCategoryLoadStateChanged(Status status) {
+        onLoadStateChanged(status);
+    }
+    // endregion
+
+    // region assignments fragment interaction
+    @Override
+    public void onActivityAttached() {
+        setDrawerLayoutLocked(true);
+        getBinding().menu.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onAssignmentsLoadStateChanged(Status status) {
         onLoadStateChanged(status);
     }
     // endregion

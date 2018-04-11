@@ -11,22 +11,22 @@ import java.util.List;
 
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
+import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.TimeLine;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.provider.annotation.Column;
 import me.shouheng.omnilist.provider.schema.BaseSchema;
 import me.shouheng.omnilist.provider.schema.LocationSchema;
+import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
 import me.shouheng.omnilist.provider.schema.TimelineSchema;
-
 
 /**
  * Created by WngShhng on 2017/12/10.*/
 public class StoreHelper {
 
     /**
-     * sql fragment used to create entity db
-     */
+     * sql fragment used to create entity db */
     private final static String CREATE_MODEL_FIELDS_SQL = "("
             + BaseSchema.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + BaseSchema.CODE + " INTEGER NOT NULL, "
@@ -61,8 +61,7 @@ public class StoreHelper {
      *
      * @param model entity
      * @param <T> generic type
-     * @return the {@link ContentValues}
-     */
+     * @return the {@link ContentValues} */
     public static <T extends Model> ContentValues getBaseContentValues(T model){
         ContentValues values = new ContentValues();
         values.put(BaseSchema.CODE, model.getCode());
@@ -78,8 +77,7 @@ public class StoreHelper {
      * try to get the {@link Operation} name from given {@link Status} type
      *
      * @param toStatus status that we want to transfer to
-     * @return the operation type
-     */
+     * @return the operation type */
     public static Operation getStatusOperation(Status toStatus) {
         switch (toStatus) {
             case ARCHIVED:
@@ -100,8 +98,7 @@ public class StoreHelper {
      * @param cursor cursor get from database
      * @param type the type of the entity
      * @param <T> generic type
-     * @return the entity
-     */
+     * @return the entity */
     public static <T extends Model> T getBaseModel(Cursor cursor, Class<T> type) {
         try {
             T model;
@@ -129,8 +126,7 @@ public class StoreHelper {
      * fill the {@link Model#lastModifiedTime} field of entity
      *
      * @param model the entity
-     * @param <T> generic type of entity
-     */
+     * @param <T> generic type of entity */
     public static <T extends Model> void setLastModifiedInfo(T model) {
         model.setLastModifiedTime(new Date());
     }
@@ -141,6 +137,16 @@ public class StoreHelper {
         values.put(TimelineSchema.MODEL_CODE, timeLine.getModelCode());
         values.put(TimelineSchema.MODEL_TYPE, timeLine.getModelType().id);
         values.put(TimelineSchema.MODEL_NAME, timeLine.getModelName());
+        return values;
+    }
+
+    public static ContentValues getContentValues(SubAssignment subAssignment){
+        ContentValues values = getBaseContentValues(subAssignment);
+        values.put(SubAssignmentSchema.CONTENT, subAssignment.getContent());
+        values.put(SubAssignmentSchema.PARENT_CODE, subAssignment.getAssignmentCode());
+        values.put(SubAssignmentSchema.COMPLETED, subAssignment.isCompleted() ? 1 : 0);
+        values.put(SubAssignmentSchema.SUB_ASSIGNMENT_ORDER, subAssignment.getSubAssignmentOrder());
+        values.put(SubAssignmentSchema.SUB_ASSIGNMENT_TYPE, subAssignment.getSubAssignmentType().id);
         return values;
     }
 

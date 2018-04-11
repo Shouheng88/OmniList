@@ -34,8 +34,8 @@ public class CustomItemTouchHelper extends ItemTouchHelper.Callback {
      * 是Move动作之后的抬起动作是不可靠的，所以，我们在这里使用了一个boolean类型的{@link #moved}来辅助
      * 判断移动动作
      *
-     * @param viewHolder
-     * @param actionState */
+     * @param viewHolder view holder
+     * @param actionState action state */
     @Override
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         super.onSelectedChanged(viewHolder, actionState);

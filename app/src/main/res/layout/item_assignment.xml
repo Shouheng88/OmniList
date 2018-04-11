@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/fl_item_background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_theme_background"
+    android:layout_height="60dp"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_completed"
+            android:layout_centerVertical="true"
+            android:checked="true"
+            android:src="@drawable/ic_check_box_outline_blank_black_24dp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="13dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_priority"
+            tools:src="@drawable/ic_star_black_24dp"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp"
+            android:paddingEnd="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_toEndOf="@id/iv_completed"
+            android:layout_toStartOf="@id/iv_priority"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <me.shouheng.omnilist.widget.themed.SupportTextView
+                android:id="@+id/tv_title"
+                tools:text="标题 Title"
+                android:textSize="16sp"
+                android:textColor="@color/light_theme_text_color"
+                android:gravity="bottom"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_alarm"
+                    android:src="@drawable/ic_access_alarm_grey"
+                    android:layout_marginStart="1dp"
+                    android:tint="@color/md_grey_500"
+                    android:layout_marginEnd="1dp"
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/iv_files"
+                    android:src="@drawable/ic_attach_file_black"
+                    android:tint="@color/md_grey_500"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_time_info"
+                    tools:text="创建 Time: 3 weeks ago"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

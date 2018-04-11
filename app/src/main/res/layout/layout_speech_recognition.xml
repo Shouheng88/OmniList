@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:background="#f0ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/vr_card"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="340dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="@string/baidu_speech_support"
+                    android:textColor="@color/md_grey_500"
+                    android:textSize="12sp"
+                    android:padding="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp">
+
+                    <me.shouheng.omnilist.widget.CircleImageView
+                        android:id="@+id/civ_outer"
+                        android:src="@color/md_green_300"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp" />
+
+                    <me.shouheng.omnilist.widget.CircleImageView
+                        android:id="@+id/civ_border"
+                        android:src="@color/md_green_500"
+                        android:layout_margin="62.5dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp" />
+
+                    <me.shouheng.omnilist.widget.CircleImageView
+                        android:id="@+id/siv"
+                        android:src="@drawable/ic_circle_green"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+
+                    <RelativeLayout
+                        android:paddingBottom="25dp"
+                        android:paddingTop="25dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp">
+
+                        <RelativeLayout
+                            android:id="@+id/wave_1_up"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginBottom="25dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_red_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_1_down"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_red_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_2_down"
+                            android:layout_marginStart="36dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_green_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_2_up"
+                            android:layout_marginStart="36dp"
+                            android:layout_marginBottom="25dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_green_500"
+                                android:layout_width="8dp"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_3_up"
+                            android:layout_marginStart="55dp"
+                            android:layout_marginBottom="25dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_yellow_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_3_down"
+                            android:layout_marginStart="55dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_yellow_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_4_up"
+                            android:layout_marginStart="73dp"
+                            android:layout_marginBottom="25dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_blue_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/wave_4_down"
+                            android:layout_marginStart="73dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_width="8dp"
+                            android:layout_height="2dp">
+
+                            <View
+                                android:background="@color/md_blue_500"
+                                android:layout_width="match_parent"
+                                android:layout_height="25dp"/>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_recognize_tip"
+                    android:text="@string/listening"
+                    android:textSize="18sp"
+                    android:paddingTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_log"
+                    android:lines="1"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_result"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="invisible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_action_tip"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</layout>

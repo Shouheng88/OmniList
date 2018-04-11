@@ -6,17 +6,22 @@ import java.util.Date;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.model.Alarm;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
+import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.TimeLine;
 import me.shouheng.omnilist.model.Weather;
 import me.shouheng.omnilist.model.enums.AlarmType;
+import me.shouheng.omnilist.model.enums.AssignmentType;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Portrait;
+import me.shouheng.omnilist.model.enums.Priority;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.model.enums.WeatherType;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
@@ -136,6 +141,27 @@ public class ModelFactory {
         weather.setType(type);
         weather.setTemperature(temperature);
         return weather;
+    }
+
+    public static Assignment getAssignment(){
+        Assignment assignment = getModel(Assignment.class);
+        assert assignment != null;
+        assignment.setPriority(Priority.LEVEL_03);
+        assignment.setProgress(0);
+        assignment.setAssignmentType(AssignmentType.NORMAL);
+        assignment.setStartTime(new Date());
+        assignment.setEndTime(new Date());
+        assignment.setCompleteTime(new Date(0));
+        assignment.setAssignmentOrder(0);
+        return assignment;
+    }
+
+    public static SubAssignment getSubAssignment(){
+        SubAssignment subAssignment = getModel(SubAssignment.class);
+        assert subAssignment != null;
+        subAssignment.setCompleted(false);
+        subAssignment.setSubAssignmentType(SubAssignmentType.TODO);
+        return subAssignment;
     }
 
     private static <M extends Model> String getModelName(M model) {

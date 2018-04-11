@@ -63,4 +63,7 @@
     <dimen name="timeline_card_top_bottom_margin">3dp</dimen>
 
     <dimen name="nav_main_height">164dp</dimen>
+
+    <!--todo-->
+    <dimen name="fab_margin">8dp</dimen>
 </resources>
