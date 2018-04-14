@@ -11,11 +11,17 @@ import java.util.Date;
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.model.TimeLine;
 import me.shouheng.omnilist.model.enums.ModelType;
+import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.provider.helper.StoreHelper;
+import me.shouheng.omnilist.provider.helper.TimelineHelper;
 import me.shouheng.omnilist.provider.schema.AttachmentSchema;
 import me.shouheng.omnilist.provider.schema.BaseSchema;
+import me.shouheng.omnilist.provider.schema.TimelineSchema;
 
 
 /**
@@ -147,5 +153,29 @@ public class AttachmentsStore extends BaseStore<Attachment> {
             closeDatabase(database);
         }
         return models;
+    }
+
+    public synchronized void updateAttachments(Assignment assignment, List<Attachment> attachments) {
+        final SQLiteDatabase database = getWritableDatabase();
+        database.beginTransaction();
+        try {
+            database.delete(tableName,
+                    AttachmentSchema.MODEL_CODE + " = " + assignment.getCode()
+                    + " AND " + AttachmentSchema.MODEL_TYPE + " = " + ModelType.ASSIGNMENT.id
+                    + " AND " + AttachmentSchema.USER_ID + " = " + userId, new String[]{});
+            for (Attachment attachment : attachments){
+                if (attachment.isNew()) {
+                    // only update last modified time for new added items
+                    StoreHelper.setLastModifiedInfo(attachment);
+                    TimeLine timeLine = TimelineHelper.getTimeLine(attachment, Operation.ADD);
+                    database.insert(TimelineSchema.TABLE_NAME, null, StoreHelper.getContentValues(timeLine));
+                }
+                database.insert(tableName, null, getContentValues(attachment));
+            }
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+            closeDatabase(database);
+        }
     }
 }

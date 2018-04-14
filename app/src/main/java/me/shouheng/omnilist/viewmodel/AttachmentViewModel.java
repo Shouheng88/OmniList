@@ -2,6 +2,9 @@ package me.shouheng.omnilist.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 
+import java.util.List;
+
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.data.Resource;
 import me.shouheng.omnilist.repository.AttachmentRepository;
@@ -19,5 +22,9 @@ public class AttachmentViewModel extends BaseViewModel<Attachment> {
 
     public LiveData<Resource<Attachment>> saveIfNew(Attachment attachment) {
         return ((AttachmentRepository) getRepository()).saveIfNew(attachment);
+    }
+
+    public LiveData<Resource<List<Attachment>>> updateAttachments(Assignment assignment, List<Attachment> attachments) {
+        return ((AttachmentRepository) getRepository()).updateAttachments(assignment, attachments);
     }
 }

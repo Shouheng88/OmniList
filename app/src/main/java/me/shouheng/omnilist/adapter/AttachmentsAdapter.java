@@ -1,6 +1,8 @@
 package me.shouheng.omnilist.adapter;
 
 import android.net.Uri;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -23,6 +25,8 @@ import me.shouheng.omnilist.utils.LogUtils;
 public class AttachmentsAdapter extends BaseQuickAdapter<Attachment, BaseViewHolder> {
 
     private OnContextMenuClickedListener onContextMenuClickedListener;
+
+    private boolean isContentChanged;
 
     public AttachmentsAdapter(@Nullable List<Attachment> data) {
         super(R.layout.item_attachment, data);
@@ -48,12 +52,12 @@ public class AttachmentsAdapter extends BaseQuickAdapter<Attachment, BaseViewHol
             switch (OnContextMenuClickedListener.AttachmentMenuItem.getItemById(item.getItemId())){
                 case SHARE:
                     if (onContextMenuClickedListener != null) {
-                        onContextMenuClickedListener.onItemClicked(OnContextMenuClickedListener.AttachmentMenuItem.SHARE);
+                        onContextMenuClickedListener.onItemClicked(OnContextMenuClickedListener.AttachmentMenuItem.SHARE, attachment);
                     }
                     break;
                 case DELETE:
                     if (onContextMenuClickedListener != null) {
-                        onContextMenuClickedListener.onItemClicked(OnContextMenuClickedListener.AttachmentMenuItem.DELETE);
+                        onContextMenuClickedListener.onItemClicked(OnContextMenuClickedListener.AttachmentMenuItem.DELETE, attachment);
                     }
                     break;
             }
@@ -66,11 +70,47 @@ public class AttachmentsAdapter extends BaseQuickAdapter<Attachment, BaseViewHol
         });
     }
 
+    public void notifyPlayingStateChanged(int position, boolean playing){
+        Attachment attachment = getData().get(position);
+        if (attachment != null){
+            attachment.setAudioPlaying(playing);
+            notifyItemChanged(position);
+        }
+    }
+
+    @Override
+    public void addData(int position, @NonNull Attachment data) {
+        super.addData(position, data);
+        isContentChanged = true;
+    }
+
+    @Override
+    public void addData(@NonNull Attachment data) {
+        super.addData(data);
+        isContentChanged = true;
+    }
+
+    @Override
+    public void remove(int position) {
+        super.remove(position);
+        isContentChanged = true;
+        new Handler().postDelayed(this::notifyDataSetChanged, 500);
+    }
+
+    public boolean isContentChanged() {
+        return isContentChanged;
+    }
+
+    public void clearContentChange() {
+        isContentChanged = false;
+    }
+
     public void setOnContextMenuClickedListener(OnContextMenuClickedListener onContextMenuClickedListener) {
         this.onContextMenuClickedListener = onContextMenuClickedListener;
     }
 
     public interface OnContextMenuClickedListener {
+
         enum AttachmentMenuItem {
             DELETE(0),
             SHARE(1);
@@ -90,6 +130,7 @@ public class AttachmentsAdapter extends BaseQuickAdapter<Attachment, BaseViewHol
                 throw new IllegalArgumentException("illegal itemId");
             }
         }
-        void onItemClicked(AttachmentMenuItem menuItem);
+
+        void onItemClicked(AttachmentMenuItem menuItem, Attachment data);
     }
 }

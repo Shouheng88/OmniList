@@ -94,6 +94,7 @@ public class ModelFactory {
         assert attachment != null;
         attachment.setModelType(ModelType.NONE);
         attachment.setModelCode(0);
+        attachment.setNew(true);
         return attachment;
     }
 

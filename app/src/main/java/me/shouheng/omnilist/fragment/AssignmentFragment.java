@@ -1,6 +1,7 @@
 package me.shouheng.omnilist.fragment;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -49,11 +50,13 @@ import me.shouheng.omnilist.provider.LocationsStore;
 import me.shouheng.omnilist.provider.SubAssignmentStore;
 import me.shouheng.omnilist.provider.schema.AttachmentSchema;
 import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
-import me.shouheng.omnilist.utils.LogUtils;
+import me.shouheng.omnilist.utils.FileHelper;
+import me.shouheng.omnilist.utils.IntentUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
+import me.shouheng.omnilist.viewmodel.AttachmentViewModel;
 import me.shouheng.omnilist.viewmodel.BaseViewModel;
 import me.shouheng.omnilist.viewmodel.LocationViewModel;
 import me.shouheng.omnilist.widget.FlowLayout;
@@ -84,6 +87,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     private AssignmentViewModel assignmentViewModel;
     private LocationViewModel locationViewModel;
+    private AttachmentViewModel attachmentViewModel;
 
     public static AssignmentFragment newInstance(@NonNull Assignment assignment, @Nullable Integer requestCode){
         AssignmentFragment fragment = new AssignmentFragment();
@@ -124,6 +128,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     private void initViewModels() {
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
+        attachmentViewModel = ViewModelProviders.of(this).get(AttachmentViewModel.class);
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
     }
 
@@ -174,7 +179,17 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     }
 
-    private void updateAttachments() {}
+    private void updateAttachments() {
+        if (attachmentsAdapter.isContentChanged()) {
+            List<Attachment> attachments = attachmentsAdapter.getData();
+            for (Attachment attachment : attachments){
+                attachment.setModelCode(assignment.getCode());
+                attachment.setModelType(ModelType.ASSIGNMENT);
+            }
+            attachmentViewModel.updateAttachments(assignment, attachments);
+            attachmentsAdapter.clearContentChange();
+        }
+    }
     // endregion
 
     private void configToolbar() {
@@ -245,14 +260,21 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     AttachmentHelper.resolveClickEvent(getContext(), attachment, attachments, assignment.getName());
             }
         });
-        attachmentsAdapter.setOnContextMenuClickedListener(menuItem -> {
+        attachmentsAdapter.setOnContextMenuClickedListener((menuItem, attachment) -> {
             switch (menuItem) {
-                // todo
                 case SHARE:
-                    LogUtils.d("Share clicked");
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType(FileHelper.getMimeType(PalmApp.getContext(), attachment.getUri()));
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, attachment.getUri());
+                    if (IntentUtils.isAvailable(PalmApp.getContext(), shareIntent, null)) {
+                        startActivity(shareIntent);
+                    } else {
+                        ToastUtils.makeToast(R.string.no_available_application_to_resolve_intent);
+                    }
                     break;
                 case DELETE:
-                    LogUtils.d("Delete clicked");
+                    int pos = attachmentsAdapter.getData().indexOf(attachment);
+                    attachmentsAdapter.remove(pos);
                     break;
             }
         });
@@ -358,9 +380,12 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     @Override
     protected void onPlayingStateChanged(boolean isPlaying) {
         super.onPlayingStateChanged(isPlaying);
-        // todo
-//        if (playingPosition != -1) attachmentsAdapter.notifyPlayingStateChanged(playingPosition, isPlaying);
-        if (!isPlaying) playingPosition = -1;
+        if (playingPosition != -1) {
+            attachmentsAdapter.notifyPlayingStateChanged(playingPosition, isPlaying);
+        }
+        if (!isPlaying) {
+            playingPosition = -1;
+        }
     }
 
     @Override
@@ -418,7 +443,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     protected void onFailedGetAttachment(Attachment attachment) {
         ToastUtils.makeToast(R.string.failed_to_save_attachment);
         int index;
-        if ((index = attachmentsAdapter.getData().indexOf(attachment)) != -1){
+        if ((index = attachmentsAdapter.getData().indexOf(attachment)) != -1) {
             attachmentsAdapter.remove(index);
         }
     }
@@ -525,15 +550,15 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     @Override
     public void onBackPressed() {
-        if (getBinding().main.sliding.isPanelExpanded()){
+        if (getBinding().main.sliding.isPanelExpanded()) {
             getBinding().main.sliding.collapsePanel();
             return;
         }
-        if (getBinding().drawerLayout.isDrawerOpen(GravityCompat.END)){
+        if (getBinding().drawerLayout.isDrawerOpen(GravityCompat.END)) {
             getBinding().drawerLayout.closeDrawer(GravityCompat.END);
             return;
         }
-        if (isRecording()){
+        if (isRecording()) {
             stopRecording();
             return;
         }
@@ -549,7 +574,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     @Override
     public void onDestroy() {
         updateAttachments();
-        if (isRecording()){
+        if (isRecording()) {
             stopRecording();
         }
         if (isPlaying()) {
