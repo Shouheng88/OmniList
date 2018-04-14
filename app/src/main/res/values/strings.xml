@@ -16,7 +16,7 @@
     <string name="text_comment">Comment</string>
     <string name="text_cancel">Cancel</string>
     <string name="text_close">Close</string>
-    <string name="text_created_time">Created time</string>
+    <string name="text_created_time">Created</string>
     <string name="text_delete">Delete</string>
     <string name="text_deleted">Deleted</string>
     <string name="text_delete_still">Delete still</string>
@@ -26,9 +26,9 @@
     <string name="text_next">Next</string>
     <string name="text_last">Last</string>
     <string name="text_give_up">Give up</string>
-    <string name="text_last_modified_time">Last update</string>
-    <string name="text_last_sync_time">Last sync</string>
-    <string name="text_chars_number">Total chars</string>
+    <string name="text_last_modified_time">Updated</string>
+    <string name="text_last_sync_time">Sync</string>
+    <string name="text_chars_number">Chars</string>
     <string name="text_more">More</string>
     <string name="text_pick">Pick</string>
     <string name="text_preview">Preview</string>
@@ -347,5 +347,38 @@
     <string name="fragment_assignments_empty_sub">点击 + 按钮，文本框输入或点击话筒语音录入可创建任务</string>
 
     <string name="text_no_such_assignment">Assignment not found</string>
+
+    <string name="add_labels">添加标签</string>
+    <string name="add_location">添加位置信息</string>
+    <string name="illegal_label">标签中不允许添加分号(;)</string>
+    <string name="total_labels_too_long">标签总长度超出范围</string>
+
+    <string name="set_overdue_reason_detail">添加未完成原因详情</string>
+    <string name="set_date_and_notifications">设置日期与提醒</string>
+    <string name="sure_to_remove_alarm">确定移除该闹钟？</string>
+    <string name="alarm_is_removed">闹钟被移除</string>
+    <string name="add_sub_assignment">添加子任务</string>
+    <string name="click_to_add_title">点击添加标题</string>
+    <string name="click_to_add_comments">点击添加备注</string>
+    <string name="click_to_add_content">点击添加内容</string>
+    <plurals name="attachments_number">
+        <item quantity="one">%d 个附件</item>
+        <item quantity="other">%d 个附件</item>
+    </plurals>
+
+    <string name="attachment_list_empty">No attachment found</string>
+
+    <string name="failed_to_record">录制音频失败</string>
+    <string name="no_available_application_to_resolve_intent">没有找到可以打开的应用</string>
+    <string name="arrive_max_attachments_number">已经达到能够加入的附件的最大数量</string>
+    <string name="recording">正在录制音频&#8230;</string>
+    <string name="recorded">录制完成</string>
+    <string name="rate">设置优先级</string>
+
+    <string name="pick_one_from_four_priorities">从四个优先级中选择一个</string>
+    <string name="important_urgent">重要|紧急</string>
+    <string name="important_not_urgent">重要|不紧急</string>
+    <string name="unimportant_and_urgent">不重要|紧急</string>
+    <string name="unimportant_not_urgent">不重要|不紧急</string>
     <!--endregion-->
 </resources>

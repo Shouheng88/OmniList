@@ -43,6 +43,7 @@ public class PalmDB extends SQLiteOpenHelper {
         CategoryStore.getInstance().onCreate(db);
         WeatherStore.getInstance().onCreate(db);
         AssignmentsStore.getInstance().onCreate(db);
+        SubAssignmentStore.getInstance().onCreate(db);
     }
 
     @Override
@@ -54,6 +55,7 @@ public class PalmDB extends SQLiteOpenHelper {
         CategoryStore.getInstance().onUpgrade(db, oldVersion, newVersion);
         WeatherStore.getInstance().onUpgrade(db, oldVersion, newVersion);
         AssignmentsStore.getInstance().onUpgrade(db, oldVersion, newVersion);
+        SubAssignmentStore.getInstance().onUpgrade(db, oldVersion, newVersion);
     }
 
     @Override

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_share"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:title="@string/text_share"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_files"
+        android:icon="@drawable/ic_attach_file_black"
+        android:title="@string/add_attachment"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_rate"
+        android:title="@string/rate"
+        android:icon="@drawable/ic_level_03"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_more"
+        android:title="@string/text_more"
+        android:icon="@drawable/ic_more_vert_black"
+        app:showAsAction="always"/>
+</menu>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout android:id="@+id/drawer"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:clickable="true"
+        android:background="@color/light_theme_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/drawer_toolbar"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            android:background="@color/light_theme_background"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+        <me.shouheng.omnilist.widget.MyCircleSeeker
+            android:id="@+id/mcs"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"/>
+
+        <TextView android:id="@+id/tv_time_info"
+            android:layout_below="@id/mcs"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ScrollView android:layout_below="@id/tv_time_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView android:id="@+id/tv_add_labels"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_labels_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_labels"
+                    android:layout_height="50dp" />
+
+                <me.shouheng.omnilist.widget.FlowLayout
+                    android:id="@+id/fl_labels"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView android:id="@+id/tv_add_location"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_location1_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/add_location"
+                    android:layout_height="50dp" />
+
+                <TextView android:id="@+id/tv_location_info"
+                    android:visibility="gone"
+                    android:paddingStart="50dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+                <me.shouheng.omnilist.widget.themed.Divider
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <TextView android:id="@+id/tv_copy_link"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_insert_link_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/text_copy_link"
+                    android:layout_height="50dp" />
+
+                <TextView android:id="@+id/tv_copy_text"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_content_copy_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/text_copy_text"
+                    android:layout_height="50dp" />
+
+                <TextView android:id="@+id/tv_capture"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_add_a_photo_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/capture_list"
+                    android:layout_height="50dp" />
+
+                <me.shouheng.omnilist.widget.themed.Divider
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <TextView android:id="@+id/tv_add_to_home_screen"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_phone_android_grey_24dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/text_add_to_home_screen"
+                    android:layout_height="50dp" />
+
+                <me.shouheng.omnilist.widget.themed.Divider
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <TextView android:id="@+id/tv_statistics"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_about_grey"
+                    android:layout_width="match_parent"
+                    android:text="@string/statistic"
+                    android:layout_height="50dp" />
+
+                <TextView android:id="@+id/tv_settings"
+                    style="@style/RightDrawerTextStyleLight"
+                    android:drawableStart="@drawable/ic_settings_grey"
+                    android:layout_width="match_parent"
+                    android:text="@string/text_settings"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <View android:layout_below="@id/tv_time_info"
+            android:background="@drawable/below_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+    </RelativeLayout>
+
+</layout>

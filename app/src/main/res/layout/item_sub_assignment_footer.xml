@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_add_sub_assignment"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <me.shouheng.omnilist.widget.themed.SupportImageView
+            android:padding="15dp"
+            android:src="@drawable/ic_add_black_24dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp" />
+
+        <TextView android:id="@+id/tv_add_sub_assignment"
+            android:gravity="center_vertical"
+            android:text="@string/add_sub_assignment"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <me.shouheng.omnilist.widget.themed.Divider
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:id="@+id/ll_add_comment"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <me.shouheng.omnilist.widget.themed.SupportImageView
+            android:padding="15dp"
+            android:src="@drawable/ic_message_black_24dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp" />
+
+        <TextView android:id="@+id/tv_write_comments"
+            android:gravity="center_vertical"
+            android:text="@string/click_to_add_comments"
+            android:textSize="15sp"
+            android:layout_marginEnd="16dp"
+            android:minHeight="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <me.shouheng.omnilist.widget.themed.Divider
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+</LinearLayout>

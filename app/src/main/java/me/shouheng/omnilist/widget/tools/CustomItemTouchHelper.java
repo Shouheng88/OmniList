@@ -57,8 +57,8 @@ public class CustomItemTouchHelper extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        if (viewHolder.getItemViewType() == IItemTouchHelperAdapter.ViewType.HEADER.mId
-                || viewHolder.getItemViewType() == IItemTouchHelperAdapter.ViewType.FOOTER.mId){
+        if (viewHolder.getItemViewType() == IItemTouchHelperAdapter.ViewType.HEADER.id
+                || viewHolder.getItemViewType() == IItemTouchHelperAdapter.ViewType.FOOTER.id){
             return makeMovementFlags(0,0);
         }
         int upFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
@@ -71,8 +71,8 @@ public class CustomItemTouchHelper extends ItemTouchHelper.Callback {
      * 没跨过一个控件就调用一次该方法 */
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-        if (target.getItemViewType() == IItemTouchHelperAdapter.ViewType.HEADER.mId
-                || target.getItemViewType() == IItemTouchHelperAdapter.ViewType.FOOTER.mId){
+        if (target.getItemViewType() == IItemTouchHelperAdapter.ViewType.HEADER.id
+                || target.getItemViewType() == IItemTouchHelperAdapter.ViewType.FOOTER.id){
             return true;
         }
         moved = true;

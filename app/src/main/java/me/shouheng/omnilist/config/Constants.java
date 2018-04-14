@@ -67,6 +67,24 @@ public class Constants {
     public final static String ACTION_NOTE_CHANGE_BROADCAST = "action_broadcast_notes_changed";
     // endregion
 
+    // region App Widgets
+    public final static String INTENT_WIDGET = "widget_id";
+    public final static String ACTION_WIDGET_LIST = "action_widget_list";
+    public final static String ACTION_TAKE_PHOTO = "action_widget_take_photo";
+    public final static String ACTION_ADD_SKETCH = "action_widget_add_sketch";
+    public final static String ACTION_ADD_FILES = "action_widget_add_files";
+    public final static String ACTION_ADD_NOTE = "action_widget_add_note";
+    public final static String ACTION_ADD_MIND = "action_widget_add_mind";
+    public final static String ACTION_CONFIG = "action_widget_config";
+    public final static String EXTRA_CONFIG_SWITCH_ENABLE = "extra_widget_switch_enable";
+    public final static String ACTION_WIDGET_LAUNCH_APP = "action_widget_launch_app";
+
+    public final static String PREFS_NAME = BuildConfig.APPLICATION_ID + "_preferences";
+    public final static String PREF_WIDGET_SQL_PREFIX = "widget_sql_";
+    public final static String PREF_WIDGET_TYPE_PREFIX = "widget_type_";
+    public final static String PREF_WIDGET_NOTEBOOK_CODE_PREFIX = "widget_notebook_code";
+    // endregion
+
     public final static String REA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD0diKVSZ/U/KHuxZFYac3lLq7K\n" +
             "edqc+uOKSJgq26tgy4wmELCw8gJkempBm8NPf+uSOdWPlPLWijSf3W2KfzMMvZQ2\n" +
             "tfNQPQu+gXgdXuZC+fhqVqNgYtWVRMIspveSm3AK+52AxxzTlfAU1fpCEFOf4AHc\n" +

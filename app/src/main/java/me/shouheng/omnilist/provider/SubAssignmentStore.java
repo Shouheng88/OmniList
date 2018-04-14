@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
@@ -56,6 +57,10 @@ public class SubAssignmentStore extends BaseStore<SubAssignment> {
         values.put(SubAssignmentSchema.COMPLETED, subAssignment.isCompleted() ? 1 : 0);
         values.put(SubAssignmentSchema.SUB_ASSIGNMENT_ORDER, subAssignment.getSubAssignmentOrder());
         values.put(SubAssignmentSchema.SUB_ASSIGNMENT_TYPE, subAssignment.getSubAssignmentType().id);
+    }
+
+    public synchronized List<SubAssignment> getSubAssignments(Assignment assignment, String orderSQL){
+        return get(SubAssignmentSchema.PARENT_CODE + " = " + assignment.getCode(), orderSQL);
     }
 
     public synchronized void updateOrders(List<SubAssignment> subAssignments) {

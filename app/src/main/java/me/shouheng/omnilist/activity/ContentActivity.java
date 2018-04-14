@@ -19,7 +19,9 @@ import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivityContentBinding;
+import me.shouheng.omnilist.fragment.AssignmentFragment;
 import me.shouheng.omnilist.fragment.base.CommonFragment;
+import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AssignmentsStore;
@@ -40,6 +42,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
 
     private static Intent editIntent(Context context, @NonNull Assignment note, int requestCode) {
         Intent intent = new Intent(context, ContentActivity.class);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT);
         intent.putExtra(Constants.EXTRA_MODEL, (Serializable) note);
         intent.putExtra(Constants.EXTRA_REQUEST_CODE, requestCode);
         return intent;
@@ -126,7 +129,9 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
     }
 
     private void toAssignmentFragment(Assignment assignment, @Nullable Integer requestCode, boolean isThirdPart){
-
+        String TAG_ASSIGNMENT_FRAGMENT = "tag_assignment_fragment";
+        Fragment fragment = AssignmentFragment.newInstance(assignment, requestCode);
+        FragmentHelper.replace(this, fragment, R.id.fragment_container, TAG_ASSIGNMENT_FRAGMENT);
     }
 
     /**

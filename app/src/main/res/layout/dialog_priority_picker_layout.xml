@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/tv11"
+        style="@style/OptionListItem"
+        android:drawableStart="@drawable/ic_level_01"
+        android:text="@string/important_urgent"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView android:id="@+id/tv12"
+        style="@style/OptionListItem"
+        android:drawableStart="@drawable/ic_level_02"
+        android:text="@string/unimportant_and_urgent"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView android:id="@+id/tv21"
+        style="@style/OptionListItem"
+        android:drawableStart="@drawable/ic_level_03"
+        android:text="@string/important_not_urgent"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView android:id="@+id/tv22"
+        style="@style/OptionListItem"
+        android:drawableStart="@drawable/ic_level_04"
+        android:text="@string/unimportant_not_urgent"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+</LinearLayout>

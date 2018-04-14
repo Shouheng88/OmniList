@@ -74,6 +74,7 @@ public class AttachmentsStore extends BaseStore<Attachment> {
         values.put(AttachmentSchema.ONE_DRIVE_ITEM_ID, model.getOneDriveItemId());
     }
 
+    // region OneDrive
     public synchronized List<Attachment> getUploadForOneDrive(int pageCount) {
         Cursor cursor = null;
         List<Attachment> models;
@@ -122,13 +123,14 @@ public class AttachmentsStore extends BaseStore<Attachment> {
             closeDatabase(database);
         }
     }
+    // endregion
 
     public synchronized Attachment getAttachment(ModelType modelType, long modelCode) {
         List<Attachment> list = getAttachments(modelType, modelCode, AttachmentSchema.ADDED_TIME + " DESC ");
         return list.size() > 0 ? list.get(0) : null;
     }
 
-    private synchronized List<Attachment> getAttachments(ModelType modelType, long modelCode, String orderSQL) {
+    public synchronized List<Attachment> getAttachments(ModelType modelType, long modelCode, String orderSQL) {
         Cursor cursor = null;
         List<Attachment> models = null;
         SQLiteDatabase database = getWritableDatabase();

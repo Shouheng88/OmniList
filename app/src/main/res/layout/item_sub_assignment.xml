@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/light_theme_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_sub_assignment"
+        android:src="@drawable/ic_check_box_outline_blank_black_24dp"
+        android:padding="15.5dp"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="55dp"
+        android:layout_height="55dp" />
+
+    <TextView
+        android:id="@+id/tv_sub_assignment"
+        android:layout_marginBottom="1dp"
+        android:background="?attr/selectableItemBackground"
+        android:layout_toEndOf="@id/iv_sub_assignment"
+        android:layout_marginEnd="16dp"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:minHeight="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <me.shouheng.omnilist.widget.themed.Divider
+        android:layout_below="@id/tv_sub_assignment"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</RelativeLayout>

@@ -122,4 +122,10 @@
         <item name="android:drawablePadding">13dp</item>
     </style>
 
+    <style name="RightDrawerTextStyleLight">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">13dp</item>
+        <item name="android:paddingStart">13dp</item>
+    </style>
 </resources>

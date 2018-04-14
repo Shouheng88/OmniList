@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.List;
 
 import me.shouheng.omnilist.model.enums.AssignmentType;
 import me.shouheng.omnilist.model.enums.Priority;
@@ -73,6 +74,16 @@ public class Assignment extends Model implements Parcelable {
     /**
      * 标记当前的任务是否被选中 */
     private boolean isSelected;
+
+    private List<SubAssignment> subAssignments;
+
+    public List<SubAssignment> getSubAssignments() {
+        return subAssignments;
+    }
+
+    public void setSubAssignments(List<SubAssignment> subAssignments) {
+        this.subAssignments = subAssignments;
+    }
 
     public boolean isSelected() {
         return isSelected;

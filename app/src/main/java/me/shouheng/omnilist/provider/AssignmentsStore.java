@@ -106,11 +106,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         values.put(AssignmentSchema.ASSIGNMENT_TYPE, assignment.getAssignmentType().id);
     }
 
-    public synchronized List<Assignment> getAssignments(String whereSQL, String orderSQL) {
-        return getAssignments(whereSQL, orderSQL, Status.NORMAL, false);
-    }
-
-    public synchronized List<Assignment> getAssignments(String whereSQL, String orderSQL, Status status, boolean exclude) {
+    public synchronized List<Assignment> get(String whereSQL, String orderSQL, Status status, boolean exclude) {
         Cursor cursor = null;
         List<Assignment> assignments;
         final SQLiteDatabase database = getWritableDatabase();
@@ -130,13 +126,18 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         return assignments;
     }
 
-    public synchronized List<Assignment> getAssignments(long startTime, long endTime, String whereSQL, String orderSQL) {
-        return getAssignments(AssignmentSchema.END_TIME + " >= " + startTime
-                + " AND " + AssignmentSchema.START_TIME + " <= " + endTime
-                + (TextUtils.isEmpty(whereSQL) ? "" : " AND " + whereSQL), orderSQL);
+    @Override
+    public synchronized void saveOrUpdate(Assignment model) {
+        if (model == null) return;
+
+        if (isNewModel(model.getCode())) {
+            saveAssignment(model, model.getSubAssignments());
+        } else {
+            updateAssignment(model, model.getSubAssignments());
+        }
     }
 
-    public synchronized void saveAssignment(Assignment assignment, List<SubAssignment> subAssignments) {
+    private synchronized void saveAssignment(Assignment assignment, List<SubAssignment> subAssignments) {
         TimelineHelper.addTimeLine(assignment, Operation.ADD);
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
@@ -154,7 +155,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         }
     }
 
-    public synchronized void updateAssignment(Assignment assignment, List<SubAssignment> subAssignments) {
+    private synchronized void updateAssignment(Assignment assignment, List<SubAssignment> subAssignments) {
         StoreHelper.setLastModifiedInfo(assignment);
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();

@@ -14,10 +14,19 @@ public interface IItemTouchHelperAdapter {
         HEADER(1),
         FOOTER(2);
 
-        public final int mId;
+        public final int id;
 
-        ViewType(int mId) {
-            this.mId = mId;
+        ViewType(int id) {
+            this.id = id;
+        }
+
+        public static ViewType getTypeById(int id) {
+            for (ViewType type : values()){
+                if (type.id == id){
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("illegal id");
         }
     }
 

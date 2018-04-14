@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Status;
@@ -85,6 +86,12 @@ public class LocationsStore extends BaseStore<Location> {
             closeDatabase(database);
         }
         return location;
+    }
+
+    public synchronized Location getLocation(Assignment assignment) {
+        return getLocation(LocationSchema.MODEL_CODE + " = " + assignment.getCode()
+                        + " AND " + LocationSchema.MODEL_TYPE + " = " + ModelType.ASSIGNMENT.id,
+                LocationSchema.ADDED_TIME + " DESC ");
     }
 
     public synchronized List<Location> getDistinct(String whereSQL, String orderSQL) {

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView android:id="@+id/tv_title"
+        android:text="@string/click_to_add_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:maxLength="@integer/title_length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_alarm"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
+
+        <me.shouheng.omnilist.widget.themed.SupportImageView
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:padding="15dp"
+            android:src="@drawable/ic_access_alarm_grey" />
+
+        <TextView
+            android:id="@+id/tv_assignment_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/set_date_and_notifications"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <me.shouheng.omnilist.widget.themed.Divider
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

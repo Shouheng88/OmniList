@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto">
+
+    <me.shouheng.omnilist.widget.SlidingUpPanelLayout
+        android:id="@+id/sliding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:fadeColor="@android:color/transparent"
+        sothree:panelHeight="55dp"
+        sothree:shadowHeight="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                sothree:navigationIcon="@color/black_divider_color"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@id/toolbar"
+                android:id="@+id/rv_sub_assignments"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout android:id="@+id/ll_record"
+                android:visibility="gone"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginStart="?attr/actionBarSize"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:tint="@color/colorPrimary"
+                    android:src="@drawable/ic_stop_black_24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_stop" />
+
+                <TextView android:id="@+id/tv_minutes"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/quickcontrols_container"
+            android:background="@color/light_theme_background"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <RelativeLayout
+                android:id="@+id/rl_control"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <me.shouheng.omnilist.widget.themed.SupportImageView
+                    android:id="@+id/iv_attachment"
+                    android:padding="15.5dp"
+                    android:src="@drawable/ic_attach_file_black"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp" />
+
+                <me.shouheng.omnilist.widget.themed.SupportTextView
+                    android:id="@+id/tv_attachment_number"
+                    android:layout_toEndOf="@id/iv_attachment"
+                    android:gravity="center_vertical"
+                    android:text="@string/text_attachment"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp" />
+
+                <me.shouheng.omnilist.widget.themed.SupportImageView
+                    android:id="@+id/iv_drop_up_down"
+                    android:src="@drawable/ic_arrow_drop_up_black_24dp"
+                    android:padding="15.5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp" />
+
+            </RelativeLayout>
+
+            <!--todo replace image with large pix-->
+            <me.shouheng.omnilist.widget.EmptyView
+                android:id="@+id/iv_empty"
+                android:layout_centerInParent="true"
+                sothree:tint_drawable="true"
+                sothree:sub_title="@string/attachment_list_empty"
+                sothree:empty_image="@drawable/ic_attach_file_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.shouheng.omnilist.widget.AttachmentsRecyclerView
+                android:id="@+id/rv_files"
+                android:layout_below="@id/rl_control"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </RelativeLayout>
+
+    </me.shouheng.omnilist.widget.SlidingUpPanelLayout>
+
+</layout>
