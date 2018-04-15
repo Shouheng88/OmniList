@@ -238,6 +238,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     showSubAssignmentEditor(subAssignment, null);
                     break;
                 }
+                case R.id.tv_sub_assignment_note:
                 case R.id.tv_sub_assignment:
                     if (mAdapter.getItemViewType(position) == IItemTouchHelperAdapter.ViewType.NORMAL.id) {
                         showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);

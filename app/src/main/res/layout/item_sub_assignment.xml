@@ -14,7 +14,6 @@
 
     <TextView
         android:id="@+id/tv_sub_assignment"
-        android:layout_marginBottom="1dp"
         android:background="?attr/selectableItemBackground"
         android:layout_toEndOf="@id/iv_sub_assignment"
         android:layout_marginEnd="16dp"
@@ -24,9 +23,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:id="@+id/tv_sub_assignment_note"
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:minHeight="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <me.shouheng.omnilist.widget.themed.Divider
+        android:id="@+id/divider_todo"
         android:layout_below="@id/tv_sub_assignment"
         android:layout_marginStart="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <me.shouheng.omnilist.widget.themed.Divider
+        android:id="@+id/divider_note"
+        android:layout_below="@id/tv_sub_assignment_note"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -19,6 +20,7 @@ import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.SubAssignment;
+import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.widget.tools.IItemTouchHelperAdapter;
@@ -89,16 +91,28 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     }
 
     private void convertBody(BaseViewHolder helper, SubAssignment subAssignment) {
+        boolean isTodo = subAssignment.getSubAssignmentType() == SubAssignmentType.TODO;
+
+        helper.addOnClickListener(R.id.tv_sub_assignment);
+        helper.addOnClickListener(R.id.iv_sub_assignment);
+        helper.addOnClickListener(R.id.tv_sub_assignment_note);
+
+        helper.getView(R.id.tv_sub_assignment).setVisibility(isTodo ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.iv_sub_assignment).setVisibility(isTodo ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.tv_sub_assignment_note).setVisibility(isTodo ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.divider_note).setVisibility(isTodo ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.divider_todo).setVisibility(isTodo ? View.VISIBLE : View.GONE);
+
         TextView tvSub = helper.getView(R.id.tv_sub_assignment);
         tvSub.setText(subAssignment.getContent());
         tvSub.setAutoLinkMask(Linkify.ALL);
         tvSub.setMovementMethod(LinkMovementMethod.getInstance());
         tvSub.setPaintFlags(subAssignment.isCompleted() ? tvSub.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvSub.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         ViewUtils.setAlpha(tvSub, subAssignment.isCompleted() ? 0.4F : 1F);
-        helper.addOnClickListener(R.id.tv_sub_assignment);
 
-        helper.addOnClickListener(R.id.iv_sub_assignment);
         helper.setImageDrawable(R.id.iv_sub_assignment, subAssignment.isCompleted() ? cbFilled() : cbOutline());
+
+        helper.setText(R.id.tv_sub_assignment_note, subAssignment.getContent());
     }
 
     private void convertFooter(BaseViewHolder helper) {
