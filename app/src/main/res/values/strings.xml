@@ -380,5 +380,13 @@
     <string name="important_not_urgent">重要|不紧急</string>
     <string name="unimportant_and_urgent">不重要|紧急</string>
     <string name="unimportant_not_urgent">不重要|不紧急</string>
+
+    <string name="edit_sub_assignment">Edit sub assignment</string>
+    <string name="pick_sub_type">Type:</string>
+    <string name="item_todo">Todo</string>
+    <string name="item_note">Note</string>
     <!--endregion-->
+
+    <string name="text_has_icon">Show icon</string>
+
 </resources>

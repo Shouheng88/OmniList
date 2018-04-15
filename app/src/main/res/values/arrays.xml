@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sub_assignment_type">
+        <item>@string/item_todo</item>
+        <item>@string/item_note</item>
+    </array>
+</resources>

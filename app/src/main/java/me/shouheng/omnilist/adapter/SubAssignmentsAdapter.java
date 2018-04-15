@@ -59,6 +59,10 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         return multiItems;
     }
 
+    public static SubAssignmentsAdapter.MultiItem getMultiItem(SubAssignment subAssignment) {
+        return new MultiItem(subAssignment);
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, MultiItem item) {
         if (ColorUtils.isDarkTheme()) helper.itemView.setBackgroundResource(R.color.dark_theme_background);
@@ -85,16 +89,15 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     }
 
     private void convertBody(BaseViewHolder helper, SubAssignment subAssignment) {
-        helper.addOnClickListener(R.id.tv_sub_assignment);
-        helper.addOnClickListener(R.id.iv_sub_assignment);
-
         TextView tvSub = helper.getView(R.id.tv_sub_assignment);
         tvSub.setText(subAssignment.getContent());
         tvSub.setAutoLinkMask(Linkify.ALL);
         tvSub.setMovementMethod(LinkMovementMethod.getInstance());
         tvSub.setPaintFlags(subAssignment.isCompleted() ? tvSub.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvSub.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         ViewUtils.setAlpha(tvSub, subAssignment.isCompleted() ? 0.4F : 1F);
+        helper.addOnClickListener(R.id.tv_sub_assignment);
 
+        helper.addOnClickListener(R.id.iv_sub_assignment);
         helper.setImageDrawable(R.id.iv_sub_assignment, subAssignment.isCompleted() ? cbFilled() : cbOutline());
     }
 
@@ -160,6 +163,16 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         return super.getItemViewType(position);
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+        notifyItemChanged(0);
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+        notifyItemChanged(getData().size() - 1);
+    }
+
     public List<SubAssignment> getSubAssignments() {
         List<SubAssignment> list = new LinkedList<>();
         for (MultiItem multiItem : getData()) {
@@ -174,7 +187,7 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
 
         ViewType viewType;
 
-        SubAssignment subAssignment;
+        public SubAssignment subAssignment;
 
         MultiItem(ViewType viewType) {
             this.viewType = viewType;

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.databinding.FragmentAssignmentBinding;
 import me.shouheng.omnilist.dialog.AttachmentPickerDialog;
 import me.shouheng.omnilist.dialog.RatingsPickerDialog;
+import me.shouheng.omnilist.dialog.SimpleEditDialog;
 import me.shouheng.omnilist.fragment.base.BaseModelFragment;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
@@ -44,6 +46,7 @@ import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.enums.ModelType;
+import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AlarmsStore;
 import me.shouheng.omnilist.provider.AttachmentsStore;
 import me.shouheng.omnilist.provider.LocationsStore;
@@ -52,6 +55,7 @@ import me.shouheng.omnilist.provider.schema.AttachmentSchema;
 import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
 import me.shouheng.omnilist.utils.FileHelper;
 import me.shouheng.omnilist.utils.IntentUtils;
+import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
@@ -63,6 +67,7 @@ import me.shouheng.omnilist.widget.FlowLayout;
 import me.shouheng.omnilist.widget.SlidingUpPanelLayout;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
+import me.shouheng.omnilist.widget.tools.IItemTouchHelperAdapter;
 import me.shouheng.omnilist.widget.tools.SpaceItemDecoration;
 
 
@@ -220,13 +225,43 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.tv_title:
+                    showTitleEditor();
                     break;
                 case R.id.ll_alarm:
                     break;
                 case R.id.ll_add_comment:
+                    showCommentEditor();
                     break;
-                case R.id.ll_add_sub_assignment:
+                case R.id.ll_add_sub_assignment: {
+                    SubAssignment subAssignment = ModelFactory.getSubAssignment();
+                    subAssignment.setAssignmentCode(assignment.getCode());
+                    showSubAssignmentEditor(subAssignment, null);
                     break;
+                }
+                case R.id.tv_sub_assignment:
+                    if (mAdapter.getItemViewType(position) == IItemTouchHelperAdapter.ViewType.NORMAL.id) {
+                        showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);
+                    }
+                    break;
+                case R.id.iv_sub_assignment: {
+                    SubAssignment subAssignment = mAdapter.getItem(position).subAssignment;
+                    if (subAssignment.isCompleted()) {
+                        subAssignment.setCompleted(false);
+                        subAssignment.setInCompletedThisTime(true);
+                    } else {
+                        subAssignment.setCompleted(true);
+                        subAssignment.setCompleteThisTime(true);
+                    }
+                    setContentChanged();
+                    mAdapter.notifyItemChanged(position);
+                    break;
+                }
+            }
+        });
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            LogUtils.e(position);
+            if (mAdapter.getItemViewType(position) == IItemTouchHelperAdapter.ViewType.NORMAL.id) {
+                showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);
             }
         });
 
@@ -310,6 +345,62 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
     // endregion
 
+    // region editor
+    private void showTitleEditor() {
+        new SimpleEditDialog.Builder()
+                .setContent(TextUtils.isEmpty(assignment.getName()) ? "" : assignment.getName())
+                .setSimpleAcceptListener(content -> {
+                    if (TextUtils.isEmpty(content)){
+                        return;
+                    }
+                    setContentChanged();
+                    mAdapter.setTitle(content);
+                    assignment.setName(content);
+                })
+                .setMaxLength(TextLength.TITLE_TEXT_LENGTH.length)
+                .build().show(getFragmentManager(), "EDIT_ASSIGNMENT_TITLE");
+    }
+
+    private void showCommentEditor() {
+        new SimpleEditDialog.Builder()
+                .setContent(TextUtils.isEmpty(assignment.getComment()) ? "" : assignment.getComment())
+                .setSimpleAcceptListener(content -> {
+                    if (TextUtils.isEmpty(content)){
+                        mAdapter.setComment(getString(R.string.click_to_add_comments));
+                        assignment.setComment("");
+                        setContentChanged();
+                        return;
+                    }
+                    setContentChanged();
+                    mAdapter.setComment(content);
+                    assignment.setComment(content);
+                })
+                .setMaxLength(TextLength.COMMENT_TEXT_LENGTH.length)
+                .build().show(getFragmentManager(), "EDIT_ASSIGNMENT_COMMENTS");
+    }
+
+    private void showSubAssignmentEditor(SubAssignment subAssignment, @Nullable Integer position) {
+        new SimpleEditDialog.Builder()
+                .setTitle(getString(R.string.edit_sub_assignment))
+                .setContent(subAssignment.getContent())
+                .setSubAssignmentType(subAssignment.getSubAssignmentType())
+                .setMaxLength(TextLength.SUB_CONTENT_LENGTH.length)
+                .setOnGetSubAssignmentListener((content, subAssignmentType) -> {
+                    subAssignment.setContent(content);
+                    subAssignment.setSubAssignmentType(subAssignmentType);
+                    if (position == null) {
+                        mAdapter.addData(mAdapter.getData().size() - 1, SubAssignmentsAdapter.getMultiItem(subAssignment));
+                        getBinding().main.rvSubAssignments.smoothScrollToPosition(mAdapter.getData().size() - 1);
+                    } else {
+                        mAdapter.notifyItemChanged(position);
+                        getBinding().main.rvSubAssignments.smoothScrollToPosition(position);
+                    }
+                    setContentChanged();
+                })
+                .build().show(getFragmentManager(), "EDIT_SUB_ASSIGNMENT");
+    }
+    // endregion
+
     // region config drawer
     private void configDrawer(Assignment assignment) {
         if (isDarkTheme()) {
@@ -348,17 +439,6 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
     // endregion
 
-    private Handler handler = new Handler();
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - audioRecordingTimeStart;
-            getBinding().main.tvMinutes.setText(TimeUtils.getRecordTime(millis));
-            if (isRecording()) handler.postDelayed(runnable, 1000);
-        }
-    };
-
     // region tags
     protected String getTags() {
         return assignment.getTags();
@@ -377,6 +457,26 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
     // endregion
 
+    // region record
+    private Handler handler = new Handler();
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - audioRecordingTimeStart;
+            getBinding().main.tvMinutes.setText(TimeUtils.getRecordTime(millis));
+            if (isRecording()) handler.postDelayed(runnable, 1000);
+        }
+    };
+
+    @Override
+    protected void prepareBeforeRecord() {
+        super.prepareBeforeRecord();
+        getBinding().main.llRecord.setVisibility(View.VISIBLE);
+        handler.postDelayed(runnable, 1000);
+        getBinding().main.tvMinutes.setText("");
+    }
+
     @Override
     protected void onPlayingStateChanged(boolean isPlaying) {
         super.onPlayingStateChanged(isPlaying);
@@ -388,6 +488,15 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         }
     }
 
+    @Override
+    protected void onStopRecording(Attachment attachment) {
+        super.onStopRecording(attachment);
+        onGetAttachment(attachment);
+        getBinding().main.llRecord.setVisibility(View.GONE);
+    }
+    // endregion
+
+    // region location
     @Override
     protected void onGetLocation(Location location) {
         location.setModelCode(assignment.getCode());
@@ -405,7 +514,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvLocationInfo.setVisibility(View.VISIBLE);
         getBinding().drawer.tvLocationInfo.setText(ModelHelper.getFormatLocation(location));
     }
+    // endregion
 
+    // region attachment
     private void showAttachmentPicker() {
         new AttachmentPickerDialog.Builder(this)
                 .setAddLinkVisible(false)
@@ -415,21 +526,6 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                                 PermissionUtils.checkRecordPermission((BaseActivity) getActivity(), this::startRecording)))
                 .build()
                 .show(getFragmentManager(), "ATTACHMENT PICKER");
-    }
-
-    @Override
-    protected void prepareBeforeRecord() {
-        super.prepareBeforeRecord();
-        getBinding().main.llRecord.setVisibility(View.VISIBLE);
-        handler.postDelayed(runnable, 1000);
-        getBinding().main.tvMinutes.setText("");
-    }
-
-    @Override
-    protected void onStopRecording(Attachment attachment) {
-        super.onStopRecording(attachment);
-        onGetAttachment(attachment);
-        getBinding().main.llRecord.setVisibility(View.GONE);
     }
 
     @Override
@@ -447,7 +543,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
             attachmentsAdapter.remove(index);
         }
     }
+    // endregion
 
+    // region options menu
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         if (assignment.getPriority() != null) {
@@ -516,6 +614,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         }
         return super.onOptionsItemSelected(item);
     }
+    // endregion
 
     // region editor structure
     @Override

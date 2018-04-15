@@ -234,44 +234,45 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
 
     // region tags
     protected void showTagEditDialog() {
-        SimpleEditDialog.newInstance("", tag -> {
-            if (TextUtils.isEmpty(tag)){
-                return;
-            }
-            if (tag.indexOf(';') != -1){
-                ToastUtils.makeToast(R.string.illegal_label);
-                return;
-            }
+        new SimpleEditDialog.Builder()
+                .setContent("")
+                .setSimpleAcceptListener((tag) -> {
+                    if (TextUtils.isEmpty(tag)) {
+                        return;
+                    }
+                    if (tag.indexOf(';') != -1) {
+                        ToastUtils.makeToast(R.string.illegal_label);
+                        return;
+                    }
 
-            String tags = getTags();
+                    String tags = getTags();
+                    tags = TextUtils.isEmpty(tags) ? "" : tags;
+                    tags = tags + tag + ";";
+                    if (tags.length() > TextLength.LABELS_TOTAL_LENGTH.length) {
+                        ToastUtils.makeToast(R.string.total_labels_too_long);
+                        return;
+                    }
 
-            tags = tags == null ? "" : tags;
-            tags = tags + tag + ";";
-            if (tags.length() > TextLength.LABELS_TOTAL_LENGTH.length) {
-                ToastUtils.makeToast(R.string.total_labels_too_long);
-                return;
-            }
-
-            onGetTags(tags);
-
-            addTagToLayout(tag);
-        }).setMaxLength(TextLength.LABEL_TEXT_LENGTH.length).show(getFragmentManager(), "SHOW_ADD_LABELS_DIALOG");
+                    onGetTags(tags);
+                    addTagToLayout(tag);
+                })
+                .setMaxLength(TextLength.LABEL_TEXT_LENGTH.length)
+                .build().show(getFragmentManager(), "SHOW_ADD_LABELS_DIALOG");
     }
 
     protected void showTagsEditDialog() {
-        SimpleEditDialog.newInstance(getTags() == null ? "" : getTags(),
-                content -> {
+        new SimpleEditDialog.Builder()
+                .setContent(TextUtils.isEmpty(getTags()) ? "" : getTags())
+                .setSimpleAcceptListener(content -> {
                     content = content == null ? "" : content;
                     if (!content.endsWith(";")){
                         content = content + ";";
                     }
-
                     onGetTags(content);
-
                     addTagsToLayout(content);
                 })
                 .setMaxLength(TextLength.LABELS_TOTAL_LENGTH.length)
-                .show(getFragmentManager(), "SHOW_LABELS_LAYOUT");
+                .build().show(getFragmentManager(), "SHOW_LABELS_LAYOUT");
     }
 
     protected FlowLayout getTagsLayout(){
