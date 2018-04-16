@@ -13,7 +13,7 @@ import me.shouheng.omnilist.R;
 
 /**
  * Created by wangshouheng on 2017/11/4.*/
-public class MyCircleSeeker extends SquareFrameLayout{
+public class MyCircleSeeker extends SquareFrameLayout {
 
     private CircularSeekBar csb;
 

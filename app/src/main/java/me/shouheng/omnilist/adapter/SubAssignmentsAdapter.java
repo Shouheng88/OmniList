@@ -2,6 +2,7 @@ package me.shouheng.omnilist.adapter;
 
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -177,6 +178,18 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         return super.getItemViewType(position);
     }
 
+    @Override
+    public void addData(int position, @NonNull MultiItem data) {
+        super.addData(position, data);
+        isPositionChanged = true;
+    }
+
+    @Override
+    public void addData(@NonNull MultiItem data) {
+        super.addData(data);
+        isPositionChanged = true;
+    }
+
     public void setTitle(String title) {
         this.title = title;
         notifyItemChanged(0);
@@ -220,6 +233,11 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
 
     public boolean isPositionChanged() {
         return isPositionChanged;
+    }
+
+    public void recoverItemToPosition(SubAssignment item, int position) {
+        getData().add(position, new MultiItem(item));
+        notifyItemInserted(position);
     }
 
     public void setOnItemRemovedListener(OnItemRemovedListener onItemRemovedListener) {

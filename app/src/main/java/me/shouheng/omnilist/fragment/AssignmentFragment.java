@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -46,6 +47,7 @@ import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.enums.ModelType;
+import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AlarmsStore;
 import me.shouheng.omnilist.provider.AttachmentsStore;
@@ -63,6 +65,7 @@ import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.viewmodel.AttachmentViewModel;
 import me.shouheng.omnilist.viewmodel.BaseViewModel;
 import me.shouheng.omnilist.viewmodel.LocationViewModel;
+import me.shouheng.omnilist.viewmodel.SubAssignmentViewModel;
 import me.shouheng.omnilist.widget.FlowLayout;
 import me.shouheng.omnilist.widget.SlidingUpPanelLayout;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
@@ -72,7 +75,7 @@ import me.shouheng.omnilist.widget.tools.SpaceItemDecoration;
 
 
 public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAssignmentBinding>
-        implements OnAttachingFileListener {
+        implements OnAttachingFileListener, SubAssignmentsAdapter.OnItemRemovedListener {
 
     private final static String EXTRA_IS_THIRD_PART = "extra_is_third_part";
     private final static String EXTRA_ACTION = "extra_action";
@@ -93,6 +96,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     private AssignmentViewModel assignmentViewModel;
     private LocationViewModel locationViewModel;
     private AttachmentViewModel attachmentViewModel;
+    private SubAssignmentViewModel subAssignmentViewModel;
 
     public static AssignmentFragment newInstance(@NonNull Assignment assignment, @Nullable Integer requestCode){
         AssignmentFragment fragment = new AssignmentFragment();
@@ -135,6 +139,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
         attachmentViewModel = ViewModelProviders.of(this).get(AttachmentViewModel.class);
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
+        subAssignmentViewModel = ViewModelProviders.of(this).get(SubAssignmentViewModel.class);
     }
 
     // region handle arguments
@@ -181,7 +186,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
 
     private void updateOrders() {
-
+        if (mAdapter.isPositionChanged()) {
+            SubAssignmentStore.getInstance().updateOrders(mAdapter.getSubAssignments());
+        }
     }
 
     private void updateAttachments() {
@@ -265,6 +272,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);
             }
         });
+        mAdapter.setOnItemRemovedListener(this);
 
         getBinding().main.rvSubAssignments.setLayoutManager(new LinearLayoutManager(getActivity()));
         getBinding().main.rvSubAssignments.setItemAnimator(new CustomItemAnimator());
@@ -681,6 +689,16 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
             stopPlaying();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onItemRemoved(SubAssignmentsAdapter.MultiItem item, int position) {
+        SubAssignmentStore.getInstance().update(item.subAssignment, Status.DELETED);
+        Snackbar.make(getBinding().drawerLayout, R.string.sub_assignment_delete_msg, Snackbar.LENGTH_SHORT)
+                .setAction(getResources().getString(R.string.text_undo), v -> {
+                    mAdapter.recoverItemToPosition(item.subAssignment, position);
+                    SubAssignmentStore.getInstance().update(item.subAssignment, Status.NORMAL);
+                }).show();
     }
     // endregion
 }

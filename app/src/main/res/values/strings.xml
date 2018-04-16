@@ -385,8 +385,11 @@
     <string name="pick_sub_type">Type:</string>
     <string name="item_todo">Todo</string>
     <string name="item_note">Note</string>
+
+    <string name="sub_assignment_delete_msg">Delete sub assignment?</string>
     <!--endregion-->
 
-    <string name="text_has_icon">Show icon</string>
+    <string name="text_undo">Undo</string>
+    <string name="text_redo">Redo</string>
 
 </resources>
