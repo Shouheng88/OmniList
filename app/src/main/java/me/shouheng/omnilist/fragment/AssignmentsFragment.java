@@ -77,6 +77,7 @@ import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
 import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
+// todo 限制输入的标题的长度
 public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding> implements
         TextView.OnEditorActionListener {
 
