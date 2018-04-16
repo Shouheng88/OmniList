@@ -64,6 +64,7 @@ import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.tools.ModelFactory;
+import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.NetworkUtils;
 import me.shouheng.omnilist.utils.SpeechRecognizorUtils;
@@ -290,6 +291,19 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     break;
             }
         });
+    }
+
+    private void notifyDataChanged() {
+
+        /*
+         * Notify app widget that the list is changed. */
+        AppWidgetUtils.notifyAppWidgets(getContext());
+
+        /*
+         * Notify the attached activity that the list is changed. */
+        if (getActivity() != null && getActivity() instanceof AssignmentsFragmentInteraction) {
+            ((AssignmentsFragmentInteraction) getActivity()).onAssignmentDataChanged();
+        }
     }
     // endregion
 
@@ -687,11 +701,10 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogUtils.d( "onActivityResult: ");
         switch (requestCode){
             case REQUEST_FOR_EDIT:
-                if (resultCode == Activity.RESULT_OK){
-//                    mAdapter.setModels(AssignmentHelper.getAssignments(getContext(), category));
+                if (resultCode == Activity.RESULT_OK) {
+                    reload();
                     mAdapter.notifyDataSetChanged();
                 }
                 break;
@@ -716,6 +729,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     public interface AssignmentsFragmentInteraction {
+        default void onAssignmentDataChanged() {}
         void onActivityAttached();
         void onAssignmentsLoadStateChanged(me.shouheng.omnilist.model.data.Status status);
     }
