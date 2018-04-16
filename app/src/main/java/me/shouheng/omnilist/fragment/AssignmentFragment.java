@@ -357,6 +357,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     // region editor
     private void showTitleEditor() {
         new SimpleEditDialog.Builder()
+                .setTitle(PalmApp.getStringCompact(R.string.edit_title))
                 .setContent(TextUtils.isEmpty(assignment.getName()) ? "" : assignment.getName())
                 .setSimpleAcceptListener(content -> {
                     if (TextUtils.isEmpty(content)){
@@ -372,6 +373,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     private void showCommentEditor() {
         new SimpleEditDialog.Builder()
+                .setTitle(PalmApp.getStringCompact(R.string.edit_comment))
                 .setContent(TextUtils.isEmpty(assignment.getComment()) ? "" : assignment.getComment())
                 .setSimpleAcceptListener(content -> {
                     if (TextUtils.isEmpty(content)){

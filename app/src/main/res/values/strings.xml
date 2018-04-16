@@ -381,6 +381,8 @@
     <string name="unimportant_and_urgent">不重要|紧急</string>
     <string name="unimportant_not_urgent">不重要|不紧急</string>
 
+    <string name="edit_title">Edit title</string>
+    <string name="edit_comment">Edit comment</string>
     <string name="edit_sub_assignment">Edit sub assignment</string>
     <string name="pick_sub_type">Type:</string>
     <string name="item_todo">Todo</string>
