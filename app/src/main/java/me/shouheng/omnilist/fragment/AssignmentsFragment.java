@@ -705,7 +705,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             case REQUEST_FOR_EDIT:
                 if (resultCode == Activity.RESULT_OK) {
                     reload();
-                    mAdapter.notifyDataSetChanged();
+                    notifyDataChanged();
                 }
                 break;
         }
