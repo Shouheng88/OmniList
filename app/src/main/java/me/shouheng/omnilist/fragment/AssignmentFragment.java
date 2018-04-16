@@ -188,6 +188,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     private void updateOrders() {
         if (mAdapter.isPositionChanged()) {
             SubAssignmentStore.getInstance().updateOrders(mAdapter.getSubAssignments());
+            mAdapter.setPositionChanged(false);
         }
     }
 

@@ -152,7 +152,7 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     }
 
     @Override
-    public void onItemRemoved(int position) {
+    public void onItemRemoved(int position, int direction) {
         isPositionChanged = true;
         mJustDeletedToDoItem =  getData().remove(position);
         mIndexOfDeletedToDoItem = position;
@@ -233,6 +233,10 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
 
     public boolean isPositionChanged() {
         return isPositionChanged;
+    }
+
+    public void setPositionChanged(boolean positionChanged) {
+        isPositionChanged = positionChanged;
     }
 
     public void recoverItemToPosition(SubAssignment item, int position) {

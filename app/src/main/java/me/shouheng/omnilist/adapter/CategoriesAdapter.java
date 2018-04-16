@@ -71,7 +71,7 @@ public class CategoriesAdapter extends BaseQuickAdapter<Category, BaseViewHolder
     }
 
     @Override
-    public void onItemRemoved(int position) {
+    public void onItemRemoved(int position, int direction) {
         isPositionChanged = true;
         mJustDeletedToDoItem = getData().remove(position);
         mIndexOfDeletedToDoItem = position;

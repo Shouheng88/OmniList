@@ -30,4 +30,22 @@ public class AssignmentRepository extends BaseRepository<Assignment> {
         }).execute();
         return result;
     }
+
+    public LiveData<Resource<List<Assignment>>> updateAssignments(List<Assignment> assignments) {
+        MutableLiveData<Resource<List<Assignment>>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, () -> {
+            ((AssignmentsStore) getStore()).updateAssignments(assignments);
+            return assignments;
+        }).execute();
+        return result;
+    }
+
+    public LiveData<Resource<List<Assignment>>> updateOrders(List<Assignment> assignments) {
+        MutableLiveData<Resource<List<Assignment>>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, () -> {
+            ((AssignmentsStore) getStore()).updateOrders(assignments);
+            return assignments;
+        }).execute();
+        return result;
+    }
 }

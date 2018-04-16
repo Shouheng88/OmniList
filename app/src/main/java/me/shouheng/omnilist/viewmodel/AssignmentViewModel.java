@@ -21,4 +21,12 @@ public class AssignmentViewModel extends BaseViewModel<Assignment> {
     public LiveData<Resource<List<Assignment>>> getAssignments(Category category, Status status, boolean includeCompleted) {
         return ((AssignmentRepository) getRepository()).getAssignments(category, status, includeCompleted);
     }
+
+    public LiveData<Resource<List<Assignment>>> updateAssignments(List<Assignment> assignments) {
+        return ((AssignmentRepository) getRepository()).updateAssignments(assignments);
+    }
+
+    public LiveData<Resource<List<Assignment>>> updateOrders(List<Assignment> assignments) {
+        return ((AssignmentRepository) getRepository()).updateOrders(assignments);
+    }
 }

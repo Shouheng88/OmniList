@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.speech.SpeechRecognizer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,21 +56,27 @@ import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.ContentActivity;
 import me.shouheng.omnilist.adapter.AssignmentsAdapter;
 import me.shouheng.omnilist.config.BaiduConstants;
+import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.FragmentAssignmentsBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
 import me.shouheng.omnilist.listener.PalmAnimationListener;
 import me.shouheng.omnilist.listener.PalmAnimatorListener;
 import me.shouheng.omnilist.listener.SpeechRecognitionListener;
+import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Category;
+import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.tools.ModelFactory;
+import me.shouheng.omnilist.provider.AlarmsStore;
+import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.NetworkUtils;
 import me.shouheng.omnilist.utils.SpeechRecognizorUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
+import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 import me.shouheng.omnilist.utils.preferences.UserPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
@@ -79,7 +86,8 @@ import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
 // todo 限制输入的标题的长度
 public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding> implements
-        TextView.OnEditorActionListener {
+        TextView.OnEditorActionListener,
+        AssignmentsAdapter.OnItemRemovedListener {
 
     private static final String ARG_CATEGORY = "argument_category";
     private static final String ARG_STATUS = "argument_status";
@@ -102,6 +110,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     private Animation outerScaleAnim;
 
     private UserPreferences userPreferences;
+    private AssignmentPreferences assignmentPreferences;
 
     public static AssignmentsFragment newInstance(Category category, Status status) {
         AssignmentsFragment fragment = new AssignmentsFragment();
@@ -128,6 +137,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         }
 
         userPreferences = UserPreferences.getInstance();
+        assignmentPreferences = AssignmentPreferences.getInstance();
 
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
 
@@ -220,13 +230,25 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.iv_completed:
-                    // todo
+                    Assignment assignment = mAdapter.getItem(position);
+                    if (assignment.getProgress() == Constants.MAX_PREOGRESS) {
+                        assignment.setProgress(0);
+                        assignment.setInCompletedThisTime(true);
+                    } else {
+                        assignment.setProgress(Constants.MAX_PREOGRESS);
+                        assignment.setCompleteThisTime(true);
+                    }
+                    assignment.setChanged(!assignment.isChanged());
+                    mAdapter.setStateChanged(true);
+                    mAdapter.notifyItemChanged(position);
+                    updateState();
                     break;
                 case R.id.rl_item:
                     ContentActivity.editAssignment(this, mAdapter.getItem(position), REQUEST_FOR_EDIT);
                     break;
             }
         });
+        mAdapter.setOnItemRemovedListener(this);
 
         getBinding().ivEmpty.setSubTitle(getEmptySubTitle());
 
@@ -257,7 +279,9 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         };
         getBinding().recyclerview.addOnScrollListener(scrollListener);
 
-        ItemTouchHelper.Callback callback = new CustomItemTouchHelper(true, false, mAdapter);
+        ItemTouchHelper.Callback callback = new CustomItemTouchHelper(true,
+                assignmentPreferences.isAssignmentSlideEnable(),
+                mAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(getBinding().recyclerview);
 
@@ -305,6 +329,33 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         if (getActivity() != null && getActivity() instanceof AssignmentsFragmentInteraction) {
             ((AssignmentsFragmentInteraction) getActivity()).onAssignmentDataChanged();
         }
+    }
+
+    private void updateOrders() {
+        if (mAdapter.isPositionChanged()) {
+            assignmentViewModel.updateOrders(mAdapter.getData()).observe(this, listResource -> {
+                // do nothing
+            });
+            mAdapter.setPositionChanged(false);
+        }
+    }
+
+    private void updateState() {
+        assignmentViewModel.updateAssignments(mAdapter.getData()).observe(this, listResource -> {
+            if (listResource == null) {
+                ToastUtils.makeToast(R.string.text_error_when_save);
+                return;
+            }
+            switch (listResource.status) {
+                case FAILED:
+                    ToastUtils.makeToast(R.string.text_error_when_save);
+                    break;
+                case SUCCESS:
+                    ToastUtils.makeToast(R.string.text_update_successfully);
+                    mAdapter.setStateChanged(false);
+                    break;
+            }
+        });
     }
     // endregion
 
@@ -700,6 +751,12 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     // endregion
 
     @Override
+    public void onPause() {
+        super.onPause();
+        updateOrders();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
@@ -723,10 +780,84 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
     @Override
     public void onDestroy() {
-        if (speechRecognizer != null){
+        if (speechRecognizer != null) {
             speechRecognizer.destroy();
         }
+        if (mAdapter.isStateChanged()) {
+            updateState();
+        }
         super.onDestroy();
+    }
+
+    private void trashModel(Assignment assignment) {
+        AssignmentsStore.getInstance().update(assignment, Status.TRASHED);
+        final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
+        if (alarm != null){
+            AlarmsStore.getInstance().update(alarm, Status.DELETED);
+//            AlarmsManager.getsInstance().removeAlarm(alarm);
+        }
+    }
+
+    private void archiveModel(Assignment assignment) {
+        AssignmentsStore.getInstance().update(assignment, Status.TRASHED);
+        final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
+        if (alarm != null) {
+            AlarmsStore.getInstance().update(alarm, Status.DELETED);
+//            AlarmsManager.getsInstance().removeAlarm(alarm);
+        }
+    }
+
+    /**
+     * todo recover alarm
+     * {@link #trashModel(Assignment)} and {@link #archiveModel(Assignment)}
+     *
+     * @param assignment assignment
+     * @param position position */
+    private void recoverModel(Assignment assignment, int position) {
+        final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
+        mAdapter.addItemToPosition(assignment, position);
+        LogUtils.d("onClick: " + assignment);
+        AssignmentsStore.getInstance().update(assignment, Status.NORMAL);
+        if (alarm != null) {
+            AlarmsStore.getInstance().update(alarm, Status.NORMAL);
+//            AlarmsManager.getsInstance().addAlarm(alarm);
+        }
+    }
+
+    @Override
+    public void onItemRemovedLeft(Assignment item, int position) {
+        Operation operation = assignmentPreferences.getSlideLeftOperation();
+        int titleRes = -1;
+        if (operation == Operation.ARCHIVE) {
+            archiveModel(item);
+            titleRes = R.string.assignment_archive_msg;
+        } else if (operation == Operation.TRASH) {
+            trashModel(item);
+            titleRes = R.string.assignment_trash_msg;
+        }
+        if (titleRes == -1) throw new IllegalArgumentException("Left slide option illegal!");
+
+        Snackbar.make(getBinding().coordinatorLayout, titleRes, Snackbar.LENGTH_SHORT)
+                .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
+                .show();
+    }
+
+    @Override
+    public void onItemRemovedRight(Assignment item, int position) {
+        Operation operation = assignmentPreferences.getSlideRightOperation();
+        int titleRes = -1;
+        if (operation == Operation.ARCHIVE) {
+            archiveModel(item);
+            titleRes = R.string.assignment_archive_msg;
+        } else if (operation == Operation.TRASH) {
+            trashModel(item);
+            titleRes = R.string.assignment_trash_msg;
+        }
+        if (titleRes == -1) throw new IllegalArgumentException("Right slide option illegal!");
+
+        Snackbar.make(getBinding().coordinatorLayout, titleRes, Snackbar.LENGTH_SHORT)
+                .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
+                .show();
     }
 
     public interface AssignmentsFragmentInteraction {

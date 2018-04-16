@@ -43,6 +43,7 @@
     <string name="text_search">Search</string>
     <string name="text_save_or_discard">Save or discard modification?</string>
     <string name="text_save_successfully">Saved successfully</string>
+    <string name="text_update_successfully">Updated successfully</string>
     <string name="text_error_when_save">Error occurred when save data.</string>
     <string name="text_file_saved_to">File is saved to %s</string>
     <string name="text_save">Save</string>
@@ -389,6 +390,8 @@
     <string name="item_note">Note</string>
 
     <string name="sub_assignment_delete_msg">Delete sub assignment?</string>
+    <string name="assignment_trash_msg">Trash assignment?</string>
+    <string name="assignment_archive_msg">Archive assignment?</string>
     <!--endregion-->
 
     <string name="text_undo">Undo</string>

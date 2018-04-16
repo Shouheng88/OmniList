@@ -32,7 +32,7 @@ public interface IItemTouchHelperAdapter {
 
     void onItemMoved(int fromPosition, int toPosition);
 
-    void onItemRemoved(int position);
+    void onItemRemoved(int position, int direction);
 
     void afterMoved();
 }

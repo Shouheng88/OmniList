@@ -85,6 +85,8 @@ public class Constants {
     public final static String PREF_WIDGET_NOTEBOOK_CODE_PREFIX = "widget_notebook_code";
     // endregion
 
+    public final static int MAX_PREOGRESS = 100;
+
     public final static String REA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD0diKVSZ/U/KHuxZFYac3lLq7K\n" +
             "edqc+uOKSJgq26tgy4wmELCw8gJkempBm8NPf+uSOdWPlPLWijSf3W2KfzMMvZQ2\n" +
             "tfNQPQu+gXgdXuZC+fhqVqNgYtWVRMIspveSm3AK+52AxxzTlfAU1fpCEFOf4AHc\n" +

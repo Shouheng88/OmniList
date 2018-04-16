@@ -82,6 +82,6 @@ public class CustomItemTouchHelper extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-        adapter.onItemRemoved(viewHolder.getAdapterPosition());
+        adapter.onItemRemoved(viewHolder.getAdapterPosition(), direction);
     }
 }
