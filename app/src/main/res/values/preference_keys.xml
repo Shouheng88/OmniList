@@ -29,13 +29,12 @@
     <string name="key_list_animation" translatable="false">list_animation</string>
     <string name="key_system_animation" translatable="false">system_animation</string>
     <string name="key_fab_sort_result" translatable="false">fab_sort_result</string>
-    <string name="key_show_assignment_completed" translatable="false">show_assignment_completed</string>
-    <string name="key_show_category_completed" translatable="false">show_category_completed</string>
     <!--endregion-->
 
     <!--region assignment-->
     <string name="key_assignment_slide_enable" translatable="false">is_assignment_slide_enable</string>
     <string name="key_assignment_slide_left" translatable="false">action_assignment_slide_left</string>
     <string name="key_assignment_slide_right" translatable="false">action_assignment_slide_right</string>
+    <string name="key_assignment_completed" translatable="false">show_assignment_completed</string>
     <!--endregion-->
 </resources>

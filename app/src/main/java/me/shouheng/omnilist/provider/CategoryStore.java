@@ -4,12 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Portrait;
+import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.provider.schema.AssignmentSchema;
+import me.shouheng.omnilist.provider.schema.BaseSchema;
 import me.shouheng.omnilist.provider.schema.CategorySchema;
 
 
@@ -59,6 +63,27 @@ public class CategoryStore extends BaseStore<Category> {
         values.put(CategorySchema.CATEGORY_ORDER, model.getCategoryOrder());
     }
 
+    public synchronized List<Category> getCategories(String whereSQL, String orderSQL, Status status, boolean showCompleted) {
+        Cursor cursor = null;
+        List<Category> models = null;
+        SQLiteDatabase database = getWritableDatabase();
+        try {
+            cursor = database.rawQuery(" SELECT *, " + getAssignmentsCount(status, showCompleted)
+                            + " FROM " + tableName
+                            + " WHERE " + BaseSchema.USER_ID + " = " + userId
+                            + " AND ( " + CategorySchema.STATUS + " = " + status.id + " OR " + CategorySchema.COUNT + " > 0 ) "
+                            + (TextUtils.isEmpty(whereSQL) ? "" : " AND " + whereSQL)
+                            + " GROUP BY " + CategorySchema.CODE
+                            + (TextUtils.isEmpty(orderSQL) ? "" : " ORDER BY " + orderSQL),
+                    new String[]{});
+            models = getList(cursor);
+        } finally {
+            closeCursor(cursor);
+            closeDatabase(database);
+        }
+        return models;
+    }
+
     public synchronized void updateOrders(List<Category> categories){
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
@@ -74,5 +99,14 @@ public class CategoryStore extends BaseStore<Category> {
             database.endTransaction();
             closeDatabase(database);
         }
+    }
+
+    private String getAssignmentsCount(Status status, boolean showCompleted) {
+        return " (SELECT COUNT(*) FROM " + AssignmentSchema.TABLE_NAME + " AS t1 "
+                + " WHERE t1." + AssignmentSchema.CATEGORY_CODE + " = " + tableName + "." + CategorySchema.CODE
+                + " AND t1." + AssignmentSchema.USER_ID + " = " + userId
+                + (showCompleted ? "" : " AND t1." + AssignmentSchema.PROGRESS  + " != 100 ")
+                + " AND t1." + AssignmentSchema.STATUS + " = " + (status == null ? Status.NORMAL.id : status.id) + " ) "
+                + " AS " + CategorySchema.COUNT;
     }
 }

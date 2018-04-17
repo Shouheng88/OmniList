@@ -77,7 +77,6 @@ import me.shouheng.omnilist.utils.SpeechRecognizorUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
-import me.shouheng.omnilist.utils.preferences.UserPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
@@ -109,7 +108,6 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     private AudioManager mAudioManager;
     private Animation outerScaleAnim;
 
-    private UserPreferences userPreferences;
     private AssignmentPreferences assignmentPreferences;
 
     public static AssignmentsFragment newInstance(Category category, Status status) {
@@ -136,7 +134,6 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             category = (Category) arguments.get(ARG_CATEGORY);
         }
 
-        userPreferences = UserPreferences.getInstance();
         assignmentPreferences = AssignmentPreferences.getInstance();
 
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
@@ -299,7 +296,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     me.shouheng.omnilist.model.data.Status.LOADING);
         }
 
-        assignmentViewModel.getAssignments(category, status, userPreferences.showAssignmentCompleted()).observe(this, listResource -> {
+        assignmentViewModel.getAssignments(category, status, assignmentPreferences.showCompleted()).observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_failed_to_load_data);
                 return;
