@@ -424,7 +424,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 return true;
             }
             case R.id.action_search:
-//                SearchActivity.start(this, REQUEST_SEARCH);
+                SearchActivity.start(this, REQUEST_SEARCH);
                 break;
         }
         return super.onOptionsItemSelected(item);
