@@ -12,6 +12,8 @@ import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Portrait;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.provider.helper.StoreHelper;
+import me.shouheng.omnilist.provider.helper.TimelineHelper;
 import me.shouheng.omnilist.provider.schema.AssignmentSchema;
 import me.shouheng.omnilist.provider.schema.BaseSchema;
 import me.shouheng.omnilist.provider.schema.CategorySchema;
@@ -65,7 +67,7 @@ public class CategoryStore extends BaseStore<Category> {
 
     public synchronized List<Category> getCategories(String whereSQL, String orderSQL, Status status, boolean showCompleted) {
         Cursor cursor = null;
-        List<Category> models = null;
+        List<Category> models;
         SQLiteDatabase database = getWritableDatabase();
         try {
             cursor = database.rawQuery(" SELECT *, " + getAssignmentsCount(status, showCompleted)
@@ -82,6 +84,37 @@ public class CategoryStore extends BaseStore<Category> {
             closeDatabase(database);
         }
         return models;
+    }
+
+    public synchronized void update(Category model, Status fromStatus, Status toStatus) {
+        if (model == null || toStatus == null) return;
+        TimelineHelper.addTimeLine(model, StoreHelper.getStatusOperation(toStatus));
+        SQLiteDatabase database = getWritableDatabase();
+        database.beginTransaction();
+        try {
+
+            /*
+             * Update current category itself OF GIVEN STATUS. */
+            database.execSQL(" UPDATE " + tableName
+                            + " SET " + BaseSchema.STATUS + " = " + toStatus.id + " , " + BaseSchema.LAST_MODIFIED_TIME + " = ? "
+                            + " WHERE " + BaseSchema.CODE + " = " + model.getCode()
+                            + " AND " + BaseSchema.USER_ID + " = " + userId,
+                    new String[]{String.valueOf(System.currentTimeMillis())});
+
+            /*
+             * Update the status of all associated assignment OF GIVEN STATUS. */
+            database.execSQL(" UPDATE " + AssignmentSchema.TABLE_NAME
+                            + " SET " + BaseSchema.STATUS + " = " + toStatus.id + " , " + BaseSchema.LAST_MODIFIED_TIME + " = ? "
+                            + " WHERE " + AssignmentSchema.CATEGORY_CODE + " = " + model.getCode()
+                            + " AND " + BaseSchema.USER_ID + " = " + userId
+                            + " AND " + BaseSchema.STATUS + " = " + fromStatus.id,
+                    new String[]{String.valueOf(System.currentTimeMillis())});
+
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+            closeDatabase(database);
+        }
     }
 
     public synchronized void updateOrders(List<Category> categories){

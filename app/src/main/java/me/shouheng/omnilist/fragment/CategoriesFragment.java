@@ -239,12 +239,21 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
         this.scrollListener = scrollListener;
     }
 
-    private void popCategoryMenu(View v, int position, Category param) {
-        final int categoryColor = param.getColor();
+    // region pop menu
+    private void popCategoryMenu(View v, int position, Category category) {
         PopupMenu popupM = new PopupMenu(getContext(), v);
         popupM.inflate(R.menu.category_pop_menu);
+        configPopMenu(popupM);
         popupM.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
+                case R.id.action_archive:
+                    update(category, status, Status.ARCHIVED);
+                    break;
+                case R.id.action_trash:
+                    update(category, status, Status.TRASHED);
+                    break;
+                case R.id.action_move_out:
+                    update(category, status, Status.NORMAL);
                 case R.id.action_edit:
                     showEditor(position, mAdapter.getItem(position));
                     break;
@@ -257,21 +266,47 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
         popupM.show();
     }
 
+    private void configPopMenu(PopupMenu popupMenu) {
+        popupMenu.getMenu().findItem(R.id.action_move_out).setVisible(status == Status.ARCHIVED || status == Status.TRASHED);
+        popupMenu.getMenu().findItem(R.id.action_edit).setVisible(status == Status.NORMAL);
+        popupMenu.getMenu().findItem(R.id.action_trash).setVisible(status == Status.NORMAL || status == Status.ARCHIVED);
+        popupMenu.getMenu().findItem(R.id.action_archive).setVisible(status == Status.NORMAL);
+        popupMenu.getMenu().findItem(R.id.action_delete).setVisible(status == Status.TRASHED);
+    }
+
     private void showEditor(int position, Category param) {
         categoryEditDialog = CategoryEditDialog.newInstance(param, category -> update(position, category));
         categoryEditDialog.show(getFragmentManager(), "CATEGORY_EDIT_DIALOG");
     }
 
-    private void showDeleteDialog(int position, Category param) {
+    private void update(Category category, Status fromStatus, Status toStatus) {
+        categoryViewModel.update(category, fromStatus, toStatus).observe(this, notebookResource -> {
+            if (notebookResource == null) {
+                ToastUtils.makeToast(R.string.text_failed_to_modify_data);
+                return;
+            }
+            switch (notebookResource.status) {
+                case SUCCESS:
+                    reload();
+                    break;
+                case FAILED:
+                    ToastUtils.makeToast(R.string.text_failed_to_modify_data);
+                    break;
+            }
+        });
+    }
+
+    private void showDeleteDialog(int position, Category category) {
         new MaterialDialog.Builder(getContext())
                 .title(R.string.text_warning)
                 .content(R.string.tag_delete_message)
                 .positiveText(R.string.text_confirm)
-                .onPositive((materialDialog, dialogAction) -> update(position, param, Status.DELETED))
+                .onPositive((materialDialog, dialogAction) -> update(position, category, Status.DELETED))
                 .negativeText(R.string.text_cancel)
                 .onNegative((materialDialog, dialogAction) -> materialDialog.dismiss())
                 .show();
     }
+    // endregion
 
     public void setSelectedColor(int color) {
         if (categoryEditDialog != null) categoryEditDialog.updateUIBySelectedColor(color);

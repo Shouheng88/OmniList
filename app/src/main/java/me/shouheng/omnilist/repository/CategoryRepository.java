@@ -38,6 +38,15 @@ public class CategoryRepository extends BaseRepository<Category> {
         return result;
     }
 
+    public LiveData<Resource<Category>> update(Category category, Status fromStatus, Status toStatus) {
+        MutableLiveData<Resource<Category>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, () -> {
+            ((CategoryStore) getStore()).update(category, fromStatus, toStatus);
+            return category;
+        }).execute();
+        return result;
+    }
+
     public LiveData<Resource<List<Category>>> updateOrders(List<Category> categories) {
         MutableLiveData<Resource<List<Category>>> result = new MutableLiveData<>();
         new NormalAsyncTask<>(result, () -> {
