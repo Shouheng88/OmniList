@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_categories"
+            android:title="@string/drawer_menu_categories"
+            android:icon="@drawable/ic_folder_special_black_24dp"/>
+
+    </group>
+
+    <group android:id="@+id/group3"
+        android:checkableBehavior="none">
+
+        <item android:id="@+id/nav_back"
+            android:title="@string/text_back"
+            android:icon="@drawable/ic_subdirectory_arrow_left_black_24dp"/>
+
+    </group>
+
+</menu>

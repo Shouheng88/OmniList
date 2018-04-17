@@ -323,13 +323,9 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     }
 
     public interface OnCategoriesInteractListener {
-
         default void onCategoryDataChanged() {}
-
         default void onResumeToCategory() {}
-
         default void onCategorySelected(Category category) {}
-
         default void onCategoryLoadStateChanged(me.shouheng.omnilist.model.data.Status status) {}
     }
 }

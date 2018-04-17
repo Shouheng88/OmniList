@@ -222,10 +222,10 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 //                    SettingsActivity.start(this, REQUEST_SETTING);
                     break;
                 case R.id.nav_archive:
-//                    startActivityForResult(ArchiveActivity.class, REQUEST_ARCHIVE);
+                    startActivityForResult(ArchiveActivity.class, REQUEST_ARCHIVE);
                     break;
                 case R.id.nav_trash:
-//                    startActivityForResult(TrashedActivity.class, REQUEST_TRASH);
+                    startActivityForResult(TrashedActivity.class, REQUEST_TRASH);
                     break;
             }
         }, 500);
@@ -355,6 +355,11 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private boolean isCategoryFragment() {
         Fragment f = getCurrentFragment();
         return f != null && f instanceof CategoriesFragment;
+    }
+
+    private boolean isAssignmentsFragment() {
+        Fragment f = getCurrentFragment();
+        return f != null && f instanceof AssignmentsFragment;
     }
 
     private boolean isDashboard() {
@@ -520,7 +525,12 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     // endregion
 
     private void updateListIfNecessary() {
-
+        if (isCategoryFragment()) {
+            ((CategoriesFragment) getCurrentFragment()).reload();
+        }
+        if (isAssignmentsFragment()) {
+            ((AssignmentsFragment) getCurrentFragment()).reload();
+        }
     }
 
     // region attachment handler
