@@ -316,13 +316,8 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     private void notifyDataChanged() {
-
-        /*
-         * Notify app widget that the list is changed. */
         AppWidgetUtils.notifyAppWidgets(getContext());
 
-        /*
-         * Notify the attached activity that the list is changed. */
         if (getActivity() != null && getActivity() instanceof AssignmentsFragmentInteraction) {
             ((AssignmentsFragmentInteraction) getActivity()).onAssignmentDataChanged();
         }
