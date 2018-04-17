@@ -643,7 +643,10 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             // todo
 //            menu.findItem(R.id.action_filter).setIcon(R.drawable.ic_filter_list_white);
         } else {
-            menu.findItem(R.id.action_search).setVisible(true);
+            MenuItem menuItem = menu.findItem(R.id.action_search);
+            if (menuItem != null) {
+                menuItem.setVisible(true);
+            }
         }
     }
 
