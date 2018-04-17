@@ -276,9 +276,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         };
         getBinding().recyclerview.addOnScrollListener(scrollListener);
 
-        ItemTouchHelper.Callback callback = new CustomItemTouchHelper(true,
-                assignmentPreferences.isAssignmentSlideEnable(),
-                mAdapter);
+        ItemTouchHelper.Callback callback = new CustomItemTouchHelper(true, assignmentPreferences.isAssignmentSlideEnable(), mAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(getBinding().recyclerview);
 

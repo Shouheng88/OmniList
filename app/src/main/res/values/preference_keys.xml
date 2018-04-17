@@ -37,4 +37,10 @@
     <string name="key_assignment_slide_right" translatable="false">action_assignment_slide_right</string>
     <string name="key_assignment_completed" translatable="false">show_assignment_completed</string>
     <!--endregion-->
+
+    <!--region search-->
+    <string name="key_search_include_tags" translatable="false">is_tags_included</string>
+    <string name="key_search_include_archived" translatable="false">is_archived_included</string>
+    <string name="key_search_include_trashed" translatable="false">is_trashed_included</string>
+    <!--endregion-->
 </resources>
