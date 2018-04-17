@@ -32,6 +32,7 @@ import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
+import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 import me.shouheng.omnilist.viewmodel.CategoryViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
@@ -52,6 +53,8 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
 
     private Status status;
     private CategoryViewModel categoryViewModel;
+
+    private AssignmentPreferences assignmentPreferences;
 
     public static CategoriesFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,6 +81,8 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     protected void doCreateView(Bundle savedInstanceState) {
         if (getArguments() != null && getArguments().containsKey(ARG_STATUS))
             status = (Status) getArguments().get(ARG_STATUS);
+
+        assignmentPreferences = AssignmentPreferences.getInstance();
 
         categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
 
@@ -143,7 +148,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
             ((OnCategoriesInteractListener) getActivity()).onCategoryLoadStateChanged(me.shouheng.omnilist.model.data.Status.LOADING);
         }
 
-        categoryViewModel.getCategories(status).observe(this, listResource -> {
+        categoryViewModel.getCategories(status, assignmentPreferences.showCompleted()).observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_failed_to_load_data);
                 return;

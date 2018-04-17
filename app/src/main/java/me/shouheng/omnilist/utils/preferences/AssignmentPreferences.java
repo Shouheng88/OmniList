@@ -45,4 +45,8 @@ public class AssignmentPreferences extends BasePreferences {
     public boolean isAssignmentSlideEnable() {
         return getBoolean(getKey(R.string.key_assignment_slide_enable), true);
     }
+
+    public boolean showCompleted() {
+        return getBoolean(getKey(R.string.key_assignment_completed), true);
+    }
 }

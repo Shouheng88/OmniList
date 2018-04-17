@@ -100,20 +100,4 @@ public class UserPreferences extends BasePreferences {
         }
         putString(getKey(R.string.key_fab_sort_result), fabStr.toString());
     }
-
-    public void setAssignmentShowCompleted(boolean showCompleted) {
-        putBoolean(getKey(R.string.key_show_assignment_completed), showCompleted);
-    }
-
-    public boolean showAssignmentCompleted() {
-        return getBoolean(getKey(R.string.key_show_assignment_completed), true);
-    }
-
-    public void setShowCategoryCompleted(boolean showCompleted) {
-        putBoolean(getKey(R.string.key_show_category_completed), showCompleted);
-    }
-
-    public boolean showCategoryCompleted() {
-        return getBoolean(getKey(R.string.key_show_category_completed), true);
-    }
 }

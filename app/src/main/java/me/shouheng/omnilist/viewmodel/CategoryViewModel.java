@@ -20,8 +20,8 @@ public class CategoryViewModel extends BaseViewModel<Category> {
         return new CategoryRepository();
     }
 
-    public LiveData<Resource<List<Category>>> getCategories(Status status) {
-        return ((CategoryRepository) getRepository()).getCategories(status);
+    public LiveData<Resource<List<Category>>> getCategories(Status status, boolean showCompleted) {
+        return ((CategoryRepository) getRepository()).getCategories(status, showCompleted);
     }
 
     public LiveData<Resource<List<Category>>> updateOrders(List<Category> categories) {
