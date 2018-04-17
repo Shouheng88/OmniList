@@ -29,6 +29,7 @@ import me.shouheng.omnilist.dialog.CategoryEditDialog;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
@@ -180,6 +181,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
             switch (categoryResource.status) {
                 case SUCCESS:
                     mAdapter.notifyItemChanged(position);
+                    notifyDataChanged();
                     ToastUtils.makeToast(R.string.text_save_successfully);
                     break;
                 case LOADING:
@@ -222,9 +224,8 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     // endregion
 
     private void notifyDataChanged() {
-          /*
-         * Notify the snagging list is changed. The activity need to record the message, and
-         * use it when set result to caller. */
+        AppWidgetUtils.notifyAppWidgets(getContext());
+
         if (getActivity() != null && getActivity() instanceof OnCategoriesInteractListener) {
             ((OnCategoriesInteractListener) getActivity()).onCategoryDataChanged();
         }
@@ -288,6 +289,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
             switch (notebookResource.status) {
                 case SUCCESS:
                     reload();
+                    notifyDataChanged();
                     break;
                 case FAILED:
                     ToastUtils.makeToast(R.string.text_failed_to_modify_data);
