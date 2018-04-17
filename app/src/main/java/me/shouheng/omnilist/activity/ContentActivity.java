@@ -110,7 +110,8 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
             toAssignmentFragment(assignment, requestCode == -1 ? null : requestCode, false);
         } else if (Constants.ACTION_TO_NOTE_FROM_THIRD_PART.equals(intent.getAction())) {
             Assignment assignment = ModelFactory.getAssignment();
-            toAssignmentFragment(assignment, null, true);
+            int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
+            toAssignmentFragment(assignment,  requestCode == -1 ? null : requestCode, true);
         }
 
         // The case below mainly used for the intent from shortcut
