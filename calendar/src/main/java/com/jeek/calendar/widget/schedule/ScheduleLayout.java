@@ -89,11 +89,11 @@ public class ScheduleLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mcvCalendar = (MonthCalendarView) findViewById(R.id.mcvCalendar);
-        wcvCalendar = (WeekCalendarView) findViewById(R.id.wcvCalendar);
-        rlMonthCalendar = (RelativeLayout) findViewById(R.id.rlMonthCalendar);
-        rlScheduleList = (RelativeLayout) findViewById(R.id.rlScheduleList);
-        rvScheduleList = (ScheduleRecyclerView) findViewById(R.id.rvScheduleList);
+        mcvCalendar = findViewById(R.id.mcvCalendar);
+        wcvCalendar = findViewById(R.id.wcvCalendar);
+        rlMonthCalendar = findViewById(R.id.rlMonthCalendar);
+        rlScheduleList = findViewById(R.id.rlScheduleList);
+        rvScheduleList = findViewById(R.id.rvScheduleList);
         bindingMonthAndWeekCalendar();
     }
 

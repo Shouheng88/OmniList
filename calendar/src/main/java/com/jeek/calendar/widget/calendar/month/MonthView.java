@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -58,6 +59,18 @@ public class MonthView extends View {
     private OnMonthClickListener mDateClickListener;
     private OnLoadMonthTaskListener onLoadMonthTaskListener;
     private GestureDetector mGestureDetector;
+
+    public MonthView(Context context) {
+        super(context);
+    }
+
+    public MonthView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public MonthView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
 
     public MonthView(Context context, int year, int month) {
         this(context, null, year, month);
