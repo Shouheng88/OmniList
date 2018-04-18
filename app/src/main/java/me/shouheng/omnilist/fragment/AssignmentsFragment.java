@@ -830,6 +830,8 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
     @Override
     public void onItemRemovedLeft(Assignment item, int position) {
+        notifyDataChanged();
+
         if (status == Status.ARCHIVED || status == Status.TRASHED) {
             moveOutModel(item);
             Snackbar.make(getBinding().coordinatorLayout, R.string.assignment_move_out_msg, Snackbar.LENGTH_SHORT)
@@ -856,6 +858,8 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
     @Override
     public void onItemRemovedRight(Assignment item, int position) {
+        notifyDataChanged();
+
         if (status == Status.ARCHIVED || status == Status.TRASHED) {
             moveOutModel(item);
             Snackbar.make(getBinding().coordinatorLayout, R.string.assignment_move_out_msg, Snackbar.LENGTH_SHORT)
