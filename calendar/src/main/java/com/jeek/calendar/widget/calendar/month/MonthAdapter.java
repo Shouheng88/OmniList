@@ -2,6 +2,7 @@ package com.jeek.calendar.widget.calendar.month;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.util.SparseArray;
 import android.view.View;
@@ -27,7 +28,7 @@ public class MonthAdapter extends PagerAdapter {
     private int currentDayColor = Default.mCurrentDayColor;
     private int normalDayColor = Default.mNormalDayColor;
 
-    public MonthAdapter(Context context, TypedArray array, MonthCalendarView monthCalendarView) {
+    MonthAdapter(Context context, TypedArray array, MonthCalendarView monthCalendarView) {
         mContext = context;
         mArray = array;
         mMonthCalendarView = monthCalendarView;
@@ -40,7 +41,8 @@ public class MonthAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    @NonNull
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
         if (mViews.get(position) == null) {
             int date[] = getYearAndMonth(position);
             MonthView monthView = new MonthView(mContext, mArray, date[0], date[1]);
@@ -68,12 +70,12 @@ public class MonthAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 

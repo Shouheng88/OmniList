@@ -9,7 +9,7 @@ public class OnScheduleScrollListener extends GestureDetector.SimpleOnGestureLis
 
     private ScheduleLayout mScheduleLayout;
 
-    public OnScheduleScrollListener(ScheduleLayout scheduleLayout) {
+    OnScheduleScrollListener(ScheduleLayout scheduleLayout) {
         mScheduleLayout = scheduleLayout;
     }
 

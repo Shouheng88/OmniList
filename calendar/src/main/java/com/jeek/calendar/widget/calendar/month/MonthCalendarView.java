@@ -1,7 +1,6 @@
 package com.jeek.calendar.widget.calendar.month;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
@@ -9,8 +8,8 @@ import android.util.SparseArray;
 import com.jeek.calendar.library.R;
 import com.jeek.calendar.widget.calendar.tools.OnCalendarClickListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +17,8 @@ import java.util.List;
 public class MonthCalendarView extends ViewPager implements OnMonthClickListener {
 
     private MonthAdapter mMonthAdapter;
-    private List<OnCalendarClickListener> onCalendarClickListeners = new ArrayList<>();
+
+    private List<OnCalendarClickListener> onCalendarClickListeners = new LinkedList<>();
 
     public MonthCalendarView(Context context) {
         this(context, null);
@@ -26,18 +26,29 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
 
     public MonthCalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initAttrs(context, attrs);
-        addOnPageChangeListener(mOnPageChangeListener);
+        init(context, attrs);
     }
 
-    private void initAttrs(Context context, AttributeSet attrs) {
-        initMonthAdapter(context, context.obtainStyledAttributes(attrs, R.styleable.MonthCalendarView));
-    }
-
-    private void initMonthAdapter(Context context, TypedArray array) {
-        mMonthAdapter = new MonthAdapter(context, array, this);
+    private void init(Context context, AttributeSet attrs) {
+        mMonthAdapter = new MonthAdapter(context, context.obtainStyledAttributes(attrs, R.styleable.MonthCalendarView), this);
         setAdapter(mMonthAdapter);
         setCurrentItem(mMonthAdapter.getMonthCount() / 2, false);
+
+        addOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                MonthView monthView = mMonthAdapter.getViews().get(getCurrentItem());
+                if (monthView != null) {
+                    monthView.clickThisMonth(monthView.getSelectYear(), monthView.getSelectMonth(), monthView.getSelectDay());
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) { }
+        });
     }
 
     @Override
@@ -67,28 +78,9 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
         setCurrentItem(getCurrentItem() + 1, true);
     }
 
-    private OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-        @Override
-        public void onPageSelected(int position) {
-            MonthView monthView = mMonthAdapter.getViews().get(getCurrentItem());
-            if (monthView != null) {
-                monthView.clickThisMonth(
-                        monthView.getSelectYear(),
-                        monthView.getSelectMonth(),
-                        monthView.getSelectDay());
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {}
-    };
-
     /**
-     * 跳转到今天 */
-    public void setTodayToView() {
+     * To today */
+    public void focusToday() {
         setCurrentItem(mMonthAdapter.getMonthCount() / 2, true);
         MonthView monthView = mMonthAdapter.getViews().get(mMonthAdapter.getMonthCount() / 2);
         if (monthView != null) {
@@ -97,10 +89,6 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
         }
     }
 
-    /**
-     * 设置点击日期监听
-     *
-     * @param onCalendarClickListener 监听器 */
     public void addOnCalendarClickListener(OnCalendarClickListener onCalendarClickListener) {
         onCalendarClickListeners.add(onCalendarClickListener);
     }

@@ -12,8 +12,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
- * Created by Jimmy on 2016/10/6 0006.
- */
+ * Created by Jimmy on 2016/10/6 0006. */
 public class CalendarUtils {
 
     private static CalendarUtils sUtils;

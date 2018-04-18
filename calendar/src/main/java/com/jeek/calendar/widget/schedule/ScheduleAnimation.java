@@ -12,7 +12,7 @@ public class ScheduleAnimation extends Animation {
     private ScheduleState mState;
     private float mDistanceY;
 
-    public ScheduleAnimation(ScheduleLayout scheduleLayout, ScheduleState state, float distanceY) {
+    ScheduleAnimation(ScheduleLayout scheduleLayout, ScheduleState state, float distanceY) {
         mScheduleLayout = scheduleLayout;
         mState = state;
         mDistanceY = distanceY;

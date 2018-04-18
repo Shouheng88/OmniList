@@ -80,32 +80,19 @@ public class WeekView extends View {
 
     private void initAttrs(TypedArray array, DateTime dateTime) {
         if (array != null) {
-            mSelectDayColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_selected_text_color, Default.mSelectDayColor);
-            mSelectBGColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_selected_circle_color, Default.mSelectBGColor);
-            mSelectBGTodayColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_selected_circle_today_color, Default.mSelectBGTodayColor);
-            mNormalDayColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_normal_text_color, Default.mNormalDayColor);
-            mCurrentDayColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_today_text_color, Default.mCurrentDayColor);
-            mHintCircleColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_hint_circle_color, Default.mHintCircleColor);
-            mLunarTextColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_lunar_text_color, Default.mLunarTextColor);
-            mHolidayTextColor = array.getColor(
-                    R.styleable.WeekCalendarView_week_holiday_color, Default.mHolidayTextColor);
-            mDaySize = array.getInteger(
-                    R.styleable.WeekCalendarView_week_day_text_size, Default.mDaySize);
-            mLunarTextSize = array.getInteger(
-                    R.styleable.WeekCalendarView_week_day_lunar_text_size, Default.mLunarTextSize);
-            mIsShowHint = array.getBoolean(
-                    R.styleable.WeekCalendarView_week_show_task_hint, Default.mIsShowHint);
-            mIsShowLunar = array.getBoolean(
-                    R.styleable.WeekCalendarView_week_show_lunar, Default.mIsShowLunar);
-            mIsShowHolidayHint = array.getBoolean(
-                    R.styleable.WeekCalendarView_week_show_holiday_hint, Default.mIsShowHolidayHint);
+            mSelectDayColor = array.getColor(R.styleable.WeekCalendarView_week_selected_text_color, Default.mSelectDayColor);
+            mSelectBGColor = array.getColor(R.styleable.WeekCalendarView_week_selected_circle_color, Default.mSelectBGColor);
+            mSelectBGTodayColor = array.getColor(R.styleable.WeekCalendarView_week_selected_circle_today_color, Default.mSelectBGTodayColor);
+            mNormalDayColor = array.getColor(R.styleable.WeekCalendarView_week_normal_text_color, Default.mNormalDayColor);
+            mCurrentDayColor = array.getColor(R.styleable.WeekCalendarView_week_today_text_color, Default.mCurrentDayColor);
+            mHintCircleColor = array.getColor(R.styleable.WeekCalendarView_week_hint_circle_color, Default.mHintCircleColor);
+            mLunarTextColor = array.getColor(R.styleable.WeekCalendarView_week_lunar_text_color, Default.mLunarTextColor);
+            mHolidayTextColor = array.getColor(R.styleable.WeekCalendarView_week_holiday_color, Default.mHolidayTextColor);
+            mDaySize = array.getInteger(R.styleable.WeekCalendarView_week_day_text_size, Default.mDaySize);
+            mLunarTextSize = array.getInteger(R.styleable.WeekCalendarView_week_day_lunar_text_size, Default.mLunarTextSize);
+            mIsShowHint = array.getBoolean(R.styleable.WeekCalendarView_week_show_task_hint, Default.mIsShowHint);
+            mIsShowLunar = array.getBoolean(R.styleable.WeekCalendarView_week_show_lunar, Default.mIsShowLunar);
+            mIsShowHolidayHint = array.getBoolean(R.styleable.WeekCalendarView_week_show_holiday_hint, Default.mIsShowHolidayHint);
         } else {
             mSelectDayColor = Default.mSelectDayColor;
             mSelectBGColor = Default.mSelectBGColor;
