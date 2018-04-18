@@ -91,6 +91,7 @@ public class WeekAdapter extends PagerAdapter {
         return weekView;
     }
 
+    // region custom methods to add color
     public void setSelectBGColor(int selectBGColor) {
         this.selectBGColor = selectBGColor;
         int size = mViews.size();
@@ -130,4 +131,5 @@ public class WeekAdapter extends PagerAdapter {
             mViews.valueAt(i).setHolidayTextColor(normalDayColor);
         }
     }
+    // endregion
 }

@@ -525,6 +525,7 @@ public class MonthView extends View {
         }
     }
 
+    // region custom methods to add color
     public void setSelectBGColor(int selectBGColor) {
         this.mSelectBGColor = selectBGColor;
         invalidate();
@@ -549,7 +550,7 @@ public class MonthView extends View {
         this.mHolidayTextColor = holidayTextColor;
         invalidate();
     }
-
+    // endregion
 
     public void setOnDateClickListener(OnMonthClickListener dateClickListener) {
         this.mDateClickListener = dateClickListener;
