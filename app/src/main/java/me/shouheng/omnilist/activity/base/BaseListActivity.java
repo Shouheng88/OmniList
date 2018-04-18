@@ -15,6 +15,7 @@ import android.view.View;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.databinding.ActivityListBaseWithDrawerBinding;
+import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.data.Status;
@@ -23,7 +24,8 @@ import me.shouheng.omnilist.model.data.Status;
 /**
  * Created by wangshouheng on 2017/10/10.*/
 public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWithDrawerBinding> implements
-        CategoriesFragment.OnCategoriesInteractListener {
+        CategoriesFragment.OnCategoriesInteractListener,
+        AssignmentsFragment.AssignmentsFragmentInteraction {
 
     private boolean isListChanged;
 
@@ -77,8 +79,6 @@ public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWi
         });
         getBinding().navView.getMenu().findItem(R.id.nav_categories).setChecked(true);
 
-        /*
-         * Don't try to delay the execution due to the runtime exception.*/
         FragmentHelper.replace(this, getCategoryFragment(), R.id.fragment_container);
     }
 
@@ -128,6 +128,7 @@ public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWi
         }
     }
 
+    // region category fragment interaction
     @Override
     public void onResumeToCategory() {
         setDrawerLayoutLocked(false);
@@ -137,8 +138,28 @@ public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWi
     public void onCategoryLoadStateChanged(Status status) {
         onLoadStateChanged(status);
     }
+    // endregion
 
-    private void onLoadStateChanged(Status status) {
+    // region assignments fragment interaction
+
+    @Override
+    public void onAssignmentDataChanged() {
+        isListChanged = true;
+    }
+
+    @Override
+    public void onActivityAttached() {
+        setDrawerLayoutLocked(true);
+    }
+
+    @Override
+    public void onAssignmentsLoadStateChanged(Status status) {
+        onLoadStateChanged(status);
+    }
+
+    // endregion
+
+    protected void onLoadStateChanged(Status status) {
         switch (status) {
             case SUCCESS:
             case FAILED:
