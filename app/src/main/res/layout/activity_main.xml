@@ -32,7 +32,6 @@
                     android:id="@+id/rl_menu_container"
                     android:background="#a0ffffff"
                     android:visibility="gone"
-                    tools:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
