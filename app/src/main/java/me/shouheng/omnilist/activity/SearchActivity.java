@@ -19,7 +19,9 @@ import java.util.Objects;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
 import me.shouheng.omnilist.adapter.AssignmentsAdapter;
+import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivitySearchBinding;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.provider.schema.AssignmentSchema;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.SearchPreferences;
@@ -33,7 +35,7 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
 
     private final static String EXTRA_NAME_REQUEST_CODE = "extra.request.code";
 
-    private final static int REQUEST_EDIT = 0x0FFFF1;
+    private final static int REQUEST_EDIT = 0x0FF1;
 
     private AssignmentsAdapter mAdapter;
 
@@ -69,6 +71,20 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
         mAdapter = new AssignmentsAdapter(Collections.emptyList());
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
+                case R.id.iv_completed:
+                    Assignment assignment = mAdapter.getItem(position);
+                    if (assignment.getProgress() == Constants.MAX_PREOGRESS) {
+                        assignment.setProgress(0);
+                        assignment.setInCompletedThisTime(true);
+                    } else {
+                        assignment.setProgress(Constants.MAX_PREOGRESS);
+                        assignment.setCompleteThisTime(true);
+                    }
+                    assignment.setChanged(!assignment.isChanged());
+                    mAdapter.setStateChanged(true);
+                    mAdapter.notifyItemChanged(position);
+                    updateState();
+                    break;
                 case R.id.rl_item:
                     ContentActivity.editAssignment(SearchActivity.this, Objects.requireNonNull(mAdapter.getItem(position)), REQUEST_EDIT);
                     break;
@@ -84,6 +100,24 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
         getBinding().rvResult.setAdapter(mAdapter);
 
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
+    }
+
+    private void updateState() {
+        assignmentViewModel.updateAssignments(mAdapter.getData()).observe(this, listResource -> {
+            if (listResource == null) {
+                ToastUtils.makeToast(R.string.text_error_when_save);
+                return;
+            }
+            switch (listResource.status) {
+                case FAILED:
+                    ToastUtils.makeToast(R.string.text_error_when_save);
+                    break;
+                case SUCCESS:
+                    ToastUtils.makeToast(R.string.text_update_successfully);
+                    isContentChanged = true;
+                    break;
+            }
+        });
     }
 
     @Override
