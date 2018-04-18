@@ -54,4 +54,7 @@
     <color name="black_translucent">#66000000</color>
     <color name="white_translucent">#B0ffffff</color>
     <!--endregion-->
+
+    <color name="dark_menu_container_background_color">#a0000000</color>
+    <color name="light_menu_container_background_color">#a0ffffff</color>
 </resources>
