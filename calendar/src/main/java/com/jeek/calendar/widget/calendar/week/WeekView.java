@@ -334,6 +334,7 @@ public class WeekView extends View {
         clickThisWeek(date.getYear(), date.getMonthOfYear() - 1, date.getDayOfMonth());
     }
 
+    // region custom methods to add color
     public void setSelectBGColor(int selectBGColor) {
         this.mSelectBGColor = selectBGColor;
         invalidate();
@@ -358,6 +359,7 @@ public class WeekView extends View {
         this.mHolidayTextColor = holidayTextColor;
         invalidate();
     }
+    // endregion
 
     public void clickThisWeek(int year, int month, int day) {
         if (mOnWeekClickListener != null) {

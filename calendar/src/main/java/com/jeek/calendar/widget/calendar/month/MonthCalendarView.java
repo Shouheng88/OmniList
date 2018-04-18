@@ -113,6 +113,7 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
         }
     }
 
+    // region custom methods to add color
     public void setSelectedBGColor(int selectBGColor) {
         mMonthAdapter.setSelectBGColor(selectBGColor);
     }
@@ -132,4 +133,5 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
     public void setHolidayTextColor(int holidayTextColor) {
         mMonthAdapter.setHolidayTextColor(holidayTextColor);
     }
+    // endregion
 }

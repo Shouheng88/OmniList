@@ -89,6 +89,7 @@ public class MonthAdapter extends PagerAdapter {
         return mMonthCount;
     }
 
+    // region custom methods to setup the month calendar view
     public void setSelectBGColor(int selectBGColor) {
         this.selectBGColor = selectBGColor;
         int size = mViews.size();
@@ -128,4 +129,5 @@ public class MonthAdapter extends PagerAdapter {
             mViews.valueAt(i).setHolidayTextColor(normalDayColor);
         }
     }
+    // endregion
 }

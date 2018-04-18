@@ -97,6 +97,7 @@ public class WeekCalendarView extends ViewPager implements OnWeekClickListener {
         }
     }
 
+    // region custom methods to add color
     public void setSelectedBGColor(int selectBGColor) {
         mWeekAdapter.setSelectBGColor(selectBGColor);
     }
@@ -116,4 +117,5 @@ public class WeekCalendarView extends ViewPager implements OnWeekClickListener {
     public void setHolidayTextColor(int holidayTextColor) {
         mWeekAdapter.setHolidayTextColor(holidayTextColor);
     }
+    // endregion
 }
