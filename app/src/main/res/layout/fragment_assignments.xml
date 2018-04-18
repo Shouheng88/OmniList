@@ -57,7 +57,6 @@
 
             <me.shouheng.omnilist.widget.EmptyView
                 android:id="@+id/iv_empty"
-                android:layout_below="@id/cd_add_assignment"
                 android:layout_centerInParent="true"
                 app:tint_drawable="true"
                 app:empty_image="@drawable/ic_folder_special_black_24dp"
