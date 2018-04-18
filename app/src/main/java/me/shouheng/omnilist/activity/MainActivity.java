@@ -37,6 +37,7 @@ import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
 import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
+import me.shouheng.omnilist.fragment.MonthFragment;
 import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
@@ -132,7 +133,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
         initDrawerMenu();
 
-        toTodayFragment(true);
+        toTodayFragment(false);
     }
 
     private void handleIntent(Intent intent) {
@@ -210,11 +211,13 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         new Handler().postDelayed(() -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_today:
+                    toTodayFragment(true);
                     break;
                 case R.id.nav_categories:
                     toCategoriesFragment();
                     break;
                 case R.id.nav_calendar:
+                    toMonthFragment();
                     break;
                 case R.id.nav_sync:
 //                    SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
@@ -334,6 +337,18 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     // endregion
 
     // region switch fragment
+    private Fragment getCurrentFragment(){
+        return getCurrentFragment(R.id.fragment_container);
+    }
+
+    private void toMonthFragment() {
+        if (getCurrentFragment() instanceof MonthFragment) return;
+        MonthFragment monthFragment = MonthFragment.newInstance();
+//        categoriesFragment.setScrollListener(onScrollListener);
+        FragmentHelper.replace(this, monthFragment, R.id.fragment_container);
+        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_calendar).setChecked(true), 300);
+    }
+
     private void toTodayFragment(boolean checkDuplicate) {
         if (getCurrentFragment() instanceof TodayFragment && checkDuplicate) return;
         TodayFragment todayFragment = TodayFragment.newInstance();
@@ -348,10 +363,6 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         categoriesFragment.setScrollListener(onScrollListener);
         FragmentHelper.replace(this, categoriesFragment, R.id.fragment_container);
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_categories).setChecked(true), 300);
-    }
-
-    private Fragment getCurrentFragment(){
-        return getCurrentFragment(R.id.fragment_container);
     }
 
     private boolean isTodayFragment() {
@@ -371,7 +382,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     private boolean isDashboard() {
         Fragment f = getCurrentFragment();
-        return f != null && (f instanceof CategoriesFragment || f instanceof TodayFragment);
+        return f != null && (f instanceof CategoriesFragment
+                || f instanceof TodayFragment
+                || f instanceof MonthFragment);
     }
     // endregion
 

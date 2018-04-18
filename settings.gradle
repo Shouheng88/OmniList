@@ -1,1 +1,1 @@
-include ':app', ':photoview', ':colorful'
+include ':app', ':photoview', ':colorful', ':calendar'
