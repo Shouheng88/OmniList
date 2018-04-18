@@ -67,6 +67,7 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
         if (!isDarkTheme()){
             getBinding().toolbarLayout.toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAdapter = new AssignmentsAdapter(Collections.emptyList());
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -130,8 +131,8 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
         getMenuInflater().inflate(R.menu.filter_search_condition, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
 
         mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         mSearchView.setOnQueryTextListener(this);
