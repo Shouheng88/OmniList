@@ -115,7 +115,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
                     + " FROM " + tableName
                     + " WHERE " + AssignmentSchema.USER_ID + " = " + userId
                     + (TextUtils.isEmpty(whereSQL) ? "" : " AND " + whereSQL)
-                    + (status == null ? "" : " AND " + AssignmentSchema.STATUS + (exclude ? " != " : " = ") + Status.NORMAL.id)
+                    + (status == null ? "" : " AND " + AssignmentSchema.STATUS + (exclude ? " != " : " = ") + status.id)
                     + (TextUtils.isEmpty(orderSQL) ? "" : " ORDER BY " + orderSQL);
             cursor = database.rawQuery(sql, new String[]{});
             assignments = getList(cursor);

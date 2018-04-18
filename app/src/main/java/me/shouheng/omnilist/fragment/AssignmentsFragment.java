@@ -159,6 +159,9 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     private void configViews() {
+        getBinding().cdAddAssignment.setVisibility(status == Status.NORMAL ? View.VISIBLE : View.GONE);
+        getBinding().fab.setVisibility(status == Status.NORMAL ? View.VISIBLE : View.GONE);
+
         getBinding().fab.setOnClickListener(v -> {
             if (isInRecognitionMode){
                 ToastUtils.makeToast(R.string.touch_and_speak);
@@ -792,10 +795,19 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     private void archiveModel(Assignment assignment) {
-        AssignmentsStore.getInstance().update(assignment, Status.TRASHED);
+        AssignmentsStore.getInstance().update(assignment, Status.ARCHIVED);
         final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
         if (alarm != null) {
             AlarmsStore.getInstance().update(alarm, Status.DELETED);
+//            AlarmsManager.getsInstance().removeAlarm(alarm);
+        }
+    }
+
+    private void moveOutModel(Assignment assignment) {
+        AssignmentsStore.getInstance().update(assignment, Status.NORMAL);
+        final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
+        if (alarm != null) {
+            AlarmsStore.getInstance().update(alarm, Status.NORMAL);
 //            AlarmsManager.getsInstance().removeAlarm(alarm);
         }
     }
@@ -809,16 +821,23 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     private void recoverModel(Assignment assignment, int position) {
         final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
         mAdapter.addItemToPosition(assignment, position);
-        LogUtils.d("onClick: " + assignment);
-        AssignmentsStore.getInstance().update(assignment, Status.NORMAL);
+        AssignmentsStore.getInstance().update(assignment, status);
         if (alarm != null) {
-            AlarmsStore.getInstance().update(alarm, Status.NORMAL);
+            AlarmsStore.getInstance().update(alarm, status);
 //            AlarmsManager.getsInstance().addAlarm(alarm);
         }
     }
 
     @Override
     public void onItemRemovedLeft(Assignment item, int position) {
+        if (status == Status.ARCHIVED || status == Status.TRASHED) {
+            moveOutModel(item);
+            Snackbar.make(getBinding().coordinatorLayout, R.string.assignment_move_out_msg, Snackbar.LENGTH_SHORT)
+                    .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
+                    .show();
+            return;
+        }
+
         Operation operation = assignmentPreferences.getSlideLeftOperation();
         int titleRes = -1;
         if (operation == Operation.ARCHIVE) {
@@ -837,6 +856,14 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
     @Override
     public void onItemRemovedRight(Assignment item, int position) {
+        if (status == Status.ARCHIVED || status == Status.TRASHED) {
+            moveOutModel(item);
+            Snackbar.make(getBinding().coordinatorLayout, R.string.assignment_move_out_msg, Snackbar.LENGTH_SHORT)
+                    .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
+                    .show();
+            return;
+        }
+
         Operation operation = assignmentPreferences.getSlideRightOperation();
         int titleRes = -1;
         if (operation == Operation.ARCHIVE) {

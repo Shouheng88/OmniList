@@ -117,7 +117,7 @@ public abstract class BaseStore<T extends Model> {
      */
     public synchronized List<T> get(String whereSQL, String orderSQL, Status status, boolean exclude) {
         Cursor cursor = null;
-        List<T> models = null;
+        List<T> models;
         SQLiteDatabase database = getWritableDatabase();
         try {
             cursor = database.rawQuery(" SELECT * FROM " + tableName
@@ -145,7 +145,7 @@ public abstract class BaseStore<T extends Model> {
      */
     public synchronized List<T> get(String whereSQL, String[] whereArgs, String orderSQL) {
         Cursor cursor = null;
-        List<T> models = null;
+        List<T> models;
         SQLiteDatabase database = getWritableDatabase();
         try {
             cursor = database.rawQuery(" SELECT * FROM " + tableName +
