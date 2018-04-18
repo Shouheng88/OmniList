@@ -30,6 +30,8 @@ ext {
     buildToolsVersion = '26.0.2'
     targetSdkVersion = compileSdkVersion
     minSdkVersion = 17
+    jodaTimeVersion = '2.9.9'
+    gsonVersion = '2.7'
 
     supportLibVersion = '27.1.0'
     archVersion = '1.1.0'

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="calendar_week">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tues</item>
+        <item>Wed</item>
+        <item>Thur</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+    <string name="new_year_day">元旦</string>
+    <string name="valentines_day">情人节</string>
+    <string name="working_women_day">国际妇女节</string>
+    <string name="chinese_arbor_day">中国植树节</string>
+    <string name="labour_day">国际劳动节</string>
+    <string name="children_day">儿童节</string>
+    <string name="teacher_day">教师节</string>
+    <string name="chinese_national_day">中国国庆节</string>
+    <string name="singles_day">光棍节</string>
+    <string name="christmas_day">圣诞节</string>
+</resources>
