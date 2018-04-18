@@ -37,6 +37,7 @@ import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
 import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
+import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
@@ -333,7 +334,11 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     // region switch fragment
     private void toTodayFragment(boolean checkDuplicate) {
-
+        if (getCurrentFragment() instanceof TodayFragment && checkDuplicate) return;
+        TodayFragment todayFragment = TodayFragment.newInstance();
+        todayFragment.setScrollListener(onScrollListener);
+        FragmentHelper.replace(this, todayFragment, R.id.fragment_container);
+        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_today).setChecked(true), 300);
     }
 
     private void toCategoriesFragment() {
@@ -349,7 +354,8 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     }
 
     private boolean isTodayFragment() {
-        return false;
+        Fragment f = getCurrentFragment();
+        return f != null && f instanceof TodayFragment;
     }
 
     private boolean isCategoryFragment() {
@@ -364,7 +370,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     private boolean isDashboard() {
         Fragment f = getCurrentFragment();
-        return f != null && (f instanceof CategoriesFragment);
+        return f != null && (f instanceof CategoriesFragment || f instanceof TodayFragment);
     }
     // endregion
 
@@ -379,15 +385,10 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                     getBinding().menu.close(true);
                     return;
                 }
-                // todo
                 if (isTodayFragment()) {
-//                    if (((NotesFragment) getCurrentFragment()).isTopStack()) {
-//                        againExit();
-//                    } else {
-//                        super.onBackPressed();
-//                    }
+                    againExit();
                 } else {
-//                    toNotesFragment(true);
+                    toTodayFragment(true);
                 }
             }
         } else {
