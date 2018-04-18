@@ -112,4 +112,8 @@ public class WeekCalendarView extends ViewPager implements OnWeekClickListener {
     public void setNormalDayColor(int normalDayColor) {
         mWeekAdapter.setNormalDayColor(normalDayColor);
     }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        mWeekAdapter.setHolidayTextColor(holidayTextColor);
+    }
 }

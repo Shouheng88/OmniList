@@ -26,6 +26,7 @@ public class WeekAdapter extends PagerAdapter {
     private int selectBGTodayColor = Default.mSelectBGTodayColor;
     private int currentDayColor = Default.mCurrentDayColor;
     private int normalDayColor = Default.mNormalDayColor;
+    private int holidayTextColor = Default.mHolidayTextColor;
 
     private OnLoadWeekTaskListener onLoadWeekTaskListener;
 
@@ -84,6 +85,7 @@ public class WeekAdapter extends PagerAdapter {
         weekView.setSelectBGTodayColor(selectBGTodayColor);
         weekView.setCurrentDayColor(currentDayColor);
         weekView.setNormalDayColor(normalDayColor);
+        weekView.setHolidayTextColor(holidayTextColor);
         weekView.invalidate();
         mViews.put(position, weekView);
         return weekView;
@@ -118,6 +120,14 @@ public class WeekAdapter extends PagerAdapter {
         int size = mViews.size();
         for (int i=0; i<size; i++) {
             mViews.valueAt(i).setNormalDayColor(normalDayColor);
+        }
+    }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        this.holidayTextColor = holidayTextColor;
+        int size = mViews.size();
+        for (int i=0; i<size; i++) {
+            mViews.valueAt(i).setHolidayTextColor(normalDayColor);
         }
     }
 }

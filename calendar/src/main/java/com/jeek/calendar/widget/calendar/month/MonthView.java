@@ -545,6 +545,11 @@ public class MonthView extends View {
         invalidate();
     }
 
+    public void setHolidayTextColor(int holidayTextColor) {
+        this.mHolidayTextColor = holidayTextColor;
+        invalidate();
+    }
+
 
     public void setOnDateClickListener(OnMonthClickListener dateClickListener) {
         this.mDateClickListener = dateClickListener;
