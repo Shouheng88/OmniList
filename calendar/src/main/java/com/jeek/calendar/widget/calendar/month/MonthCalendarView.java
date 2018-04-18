@@ -128,4 +128,8 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
     public void setNormalDayColor(int normalDayColor) {
         mMonthAdapter.setNormalDayColor(normalDayColor);
     }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        mMonthAdapter.setHolidayTextColor(holidayTextColor);
+    }
 }

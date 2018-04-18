@@ -86,6 +86,9 @@
                         android:background="@color/colorBackground">
 
                         <me.shouheng.omnilist.widget.EmptyView
+                            app:tint_drawable="true"
+                            app:empty_image="@drawable/ic_folder_special_black_24dp"
+                            app:title="No activity"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="50dp"
                             android:layout_width="wrap_content"

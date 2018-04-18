@@ -354,6 +354,10 @@ public class WeekView extends View {
         invalidate();
     }
 
+    public void setHolidayTextColor(int holidayTextColor) {
+        this.mHolidayTextColor = holidayTextColor;
+        invalidate();
+    }
 
     public void clickThisWeek(int year, int month, int day) {
         if (mOnWeekClickListener != null) {

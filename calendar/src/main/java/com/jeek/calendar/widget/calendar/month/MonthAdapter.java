@@ -27,6 +27,7 @@ public class MonthAdapter extends PagerAdapter {
     private int selectBGTodayColor = Default.mSelectBGTodayColor;
     private int currentDayColor = Default.mCurrentDayColor;
     private int normalDayColor = Default.mNormalDayColor;
+    private int holidayTextColor = Default.mHolidayTextColor;
 
     MonthAdapter(Context context, TypedArray array, MonthCalendarView monthCalendarView) {
         mContext = context;
@@ -52,6 +53,7 @@ public class MonthAdapter extends PagerAdapter {
             monthView.setSelectBGTodayColor(selectBGTodayColor);
             monthView.setCurrentDayColor(currentDayColor);
             monthView.setNormalDayColor(normalDayColor);
+            monthView.setHolidayTextColor(holidayTextColor);
             monthView.invalidate();
             monthView.setOnDateClickListener(mMonthCalendarView);
             mViews.put(position, monthView);
@@ -116,6 +118,14 @@ public class MonthAdapter extends PagerAdapter {
         int size = mViews.size();
         for (int i=0; i<size; i++) {
             mViews.valueAt(i).setNormalDayColor(normalDayColor);
+        }
+    }
+
+    public void setHolidayTextColor(int holidayTextColor) {
+        this.holidayTextColor = holidayTextColor;
+        int size = mViews.size();
+        for (int i=0; i<size; i++) {
+            mViews.valueAt(i).setHolidayTextColor(normalDayColor);
         }
     }
 }

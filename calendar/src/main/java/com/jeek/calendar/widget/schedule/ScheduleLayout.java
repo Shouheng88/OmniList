@@ -40,6 +40,9 @@ public class ScheduleLayout extends FrameLayout {
     private int mRowSize;
     private int mMinDistance;
     private int mAutoScrollDistance;
+
+    /**
+     * Default calendar type, month or week. */
     private int mDefaultView;
     private float mDownPosition[] = new float[2];
     private boolean mIsScrolling = false;
@@ -71,19 +74,15 @@ public class ScheduleLayout extends FrameLayout {
         mAutoScrollDistance = getResources().getDimensionPixelSize(R.dimen.auto_scroll_distance);
     }
 
-    /**
-     * 初始化手势监听，当滑动的时候调用{@link #onCalendarScroll(float)}方法进行处理  */
     private void initGestureDetector() {
         mGestureDetector = new GestureDetector(getContext(), new OnScheduleScrollListener(this));
     }
 
     /**
-     * 使用当前的时间初始化日历 */
+     * Use current date initialize the view. */
     private void initDate() {
         Calendar calendar = Calendar.getInstance();
-        resetCurrentSelectDate(calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
+        resetCurrentSelectDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -98,11 +97,10 @@ public class ScheduleLayout extends FrameLayout {
     }
 
     /**
-     * 当所有的父空间加载完毕之后，从父控件中获取子控件，并分别为其赋值 */
+     * Initialize the view according to default view type. */
     private void bindingMonthAndWeekCalendar() {
         mcvCalendar.addOnCalendarClickListener(mMonthCalendarClickListener);
         wcvCalendar.addOnCalendarClickListener(mWeekCalendarClickListener);
-        // 初始化视图
         if (mDefaultView == DEFAULT_MONTH) {
             wcvCalendar.setVisibility(INVISIBLE);
             mState = ScheduleState.OPEN;
@@ -110,16 +108,12 @@ public class ScheduleLayout extends FrameLayout {
             wcvCalendar.setVisibility(VISIBLE);
             mState = ScheduleState.CLOSE;
             Calendar calendar = Calendar.getInstance();
-            int row = CalendarUtils.getWeekRow(calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH));
+            int row = CalendarUtils.getWeekRow(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             rlMonthCalendar.setY(-row * mRowSize);
             rlScheduleList.setY(rlScheduleList.getY() - 5 * mRowSize);
         }
     }
 
-    /**
-     * 使用指定的时间，初始化日历 */
     private void resetCurrentSelectDate(int year, int month, int day) {
         mCurrentSelectYear = year;
         mCurrentSelectMonth = month;
@@ -130,8 +124,7 @@ public class ScheduleLayout extends FrameLayout {
         @Override
         public void onClickDate(int year, int month, int day) {
             wcvCalendar.removeOnCalendarClickListener(mWeekCalendarClickListener);
-            int weeks = CalendarUtils.getWeeksAgo(mCurrentSelectYear,
-                    mCurrentSelectMonth, mCurrentSelectDay, year, month, day);
+            int weeks = CalendarUtils.getWeeksAgo(mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay, year, month, day);
             resetCurrentSelectDate(year, month, day);
             if (weeks != 0) {
                 int position = wcvCalendar.getCurrentItem() + weeks;
@@ -236,9 +229,7 @@ public class ScheduleLayout extends FrameLayout {
     }
 
     private boolean isRecyclerViewTouch() {
-        return mState == ScheduleState.CLOSE
-                && (rvScheduleList.getChildCount() == 0
-                || rvScheduleList.isScrollTop());
+        return mState == ScheduleState.CLOSE && (rvScheduleList.getChildCount() == 0 || rvScheduleList.isScrollTop());
     }
 
     @Override
@@ -274,8 +265,7 @@ public class ScheduleLayout extends FrameLayout {
     }
 
     private void changeCalendarState() {
-        if (rlScheduleList.getY() > mRowSize * 2 &&
-                rlScheduleList.getY() < mcvCalendar.getHeight() - mRowSize) { // 位于中间
+        if (rlScheduleList.getY() > mRowSize * 2 && rlScheduleList.getY() < mcvCalendar.getHeight() - mRowSize) { // 位于中间
             ScheduleAnimation animation = new ScheduleAnimation(this, mState, mAutoScrollDistance);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
