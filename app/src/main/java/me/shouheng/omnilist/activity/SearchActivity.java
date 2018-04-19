@@ -74,11 +74,11 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
             switch (view.getId()) {
                 case R.id.iv_completed:
                     Assignment assignment = mAdapter.getItem(position);
-                    if (assignment.getProgress() == Constants.MAX_PREOGRESS) {
+                    if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS) {
                         assignment.setProgress(0);
                         assignment.setInCompletedThisTime(true);
                     } else {
-                        assignment.setProgress(Constants.MAX_PREOGRESS);
+                        assignment.setProgress(Constants.MAX_ASSIGNMENT_PROGRESS);
                         assignment.setCompleteThisTime(true);
                     }
                     assignment.setChanged(!assignment.isChanged());

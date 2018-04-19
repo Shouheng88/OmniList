@@ -26,6 +26,7 @@ import org.polaric.colorful.BaseActivity;
 import org.polaric.colorful.PermissionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
@@ -40,6 +41,7 @@ import me.shouheng.omnilist.dialog.ReminderPickerDialog;
 import me.shouheng.omnilist.dialog.SimpleEditDialog;
 import me.shouheng.omnilist.fragment.base.BaseModelFragment;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
+import me.shouheng.omnilist.manager.AlarmsManager;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.manager.ModelHelper;
 import me.shouheng.omnilist.model.Alarm;
@@ -51,6 +53,7 @@ import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AlarmsStore;
+import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.provider.AttachmentsStore;
 import me.shouheng.omnilist.provider.LocationsStore;
 import me.shouheng.omnilist.provider.SubAssignmentStore;
@@ -66,7 +69,6 @@ import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.viewmodel.AttachmentViewModel;
 import me.shouheng.omnilist.viewmodel.BaseViewModel;
 import me.shouheng.omnilist.viewmodel.LocationViewModel;
-import me.shouheng.omnilist.viewmodel.SubAssignmentViewModel;
 import me.shouheng.omnilist.widget.FlowLayout;
 import me.shouheng.omnilist.widget.SlidingUpPanelLayout;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
@@ -97,7 +99,6 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     private AssignmentViewModel assignmentViewModel;
     private LocationViewModel locationViewModel;
     private AttachmentViewModel attachmentViewModel;
-    private SubAssignmentViewModel subAssignmentViewModel;
 
     public static AssignmentFragment newInstance(@NonNull Assignment assignment, @Nullable Integer requestCode){
         AssignmentFragment fragment = new AssignmentFragment();
@@ -140,7 +141,6 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
         attachmentViewModel = ViewModelProviders.of(this).get(AttachmentViewModel.class);
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel.class);
-        subAssignmentViewModel = ViewModelProviders.of(this).get(SubAssignmentViewModel.class);
     }
 
     // region handle arguments
@@ -251,11 +251,11 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 case R.id.tv_sub_assignment_note:
                 case R.id.tv_sub_assignment:
                     if (mAdapter.getItemViewType(position) == IItemTouchHelperAdapter.ViewType.NORMAL.id) {
-                        showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);
+                        showSubAssignmentEditor(Objects.requireNonNull(mAdapter.getItem(position)).subAssignment, position);
                     }
                     break;
                 case R.id.iv_sub_assignment: {
-                    SubAssignment subAssignment = mAdapter.getItem(position).subAssignment;
+                    SubAssignment subAssignment = Objects.requireNonNull(mAdapter.getItem(position)).subAssignment;
                     if (subAssignment.isCompleted()) {
                         subAssignment.setCompleted(false);
                         subAssignment.setInCompletedThisTime(true);
@@ -272,7 +272,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             LogUtils.e(position);
             if (mAdapter.getItemViewType(position) == IItemTouchHelperAdapter.ViewType.NORMAL.id) {
-                showSubAssignmentEditor(mAdapter.getItem(position).subAssignment, position);
+                showSubAssignmentEditor(Objects.requireNonNull(mAdapter.getItem(position)).subAssignment, position);
             }
         });
         mAdapter.setOnItemRemovedListener(this);
@@ -371,7 +371,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     assignment.setName(content);
                 })
                 .setMaxLength(TextLength.TITLE_TEXT_LENGTH.length)
-                .build().show(getFragmentManager(), "EDIT_ASSIGNMENT_TITLE");
+                .build().show(Objects.requireNonNull(getFragmentManager()), "EDIT_ASSIGNMENT_TITLE");
     }
 
     private void showCommentEditor() {
@@ -390,7 +390,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     assignment.setComment(content);
                 })
                 .setMaxLength(TextLength.COMMENT_TEXT_LENGTH.length)
-                .build().show(getFragmentManager(), "EDIT_ASSIGNMENT_COMMENTS");
+                .build().show(Objects.requireNonNull(getFragmentManager()), "EDIT_ASSIGNMENT_COMMENTS");
     }
 
     private void showSubAssignmentEditor(SubAssignment subAssignment, @Nullable Integer position) {
@@ -411,16 +411,33 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     }
                     setContentChanged();
                 })
-                .build().show(getFragmentManager(), "EDIT_SUB_ASSIGNMENT");
+                .build().show(Objects.requireNonNull(getFragmentManager()), "EDIT_SUB_ASSIGNMENT");
     }
 
-    private void showReminderPicker(Alarm alarm) {
-        new ReminderPickerDialog.Builder()
-                .setAlarm(alarm == null ? ModelFactory.getAlarm() : alarm)
-                .setOnReminderPickedListener(alarm1 -> {
+    private void showReminderPicker(Alarm paramAlarm) {
+        paramAlarm = paramAlarm == null ? ModelFactory.getAlarm() : paramAlarm;
+        paramAlarm.setModelCode(assignment.getCode());
+        paramAlarm.setModelType(ModelType.ASSIGNMENT);
 
+        new ReminderPickerDialog.Builder()
+                .setAlarm(paramAlarm)
+                .setOnReminderPickedListener(retAlarm -> {
+                    if (AssignmentFragment.this.alarm == null){
+                        AlarmsStore.getInstance().saveModel(retAlarm);
+                    } else {
+                        AlarmsStore.getInstance().update(retAlarm);
+                        AlarmsManager.getsInstance().removeAlarm(retAlarm);
+                    }
+                    AlarmsManager.getsInstance().addAlarm(retAlarm);
+
+                    AssignmentFragment.this.alarm = retAlarm;
+                    assignment.setStartTime(retAlarm.getStartDate());
+                    assignment.setEndTime(retAlarm.getEndDate());
+                    AssignmentsStore.getInstance().update(assignment);
+
+                    mAdapter.setAlarm(alarm);
                 })
-                .build().show(getFragmentManager(), "REMINDER_PICKER");
+                .build().show(Objects.requireNonNull(getFragmentManager()), "REMINDER_PICKER");
     }
     // endregion
 
@@ -544,11 +561,15 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         new AttachmentPickerDialog.Builder(this)
                 .setAddLinkVisible(false)
                 .setFilesVisible(true)
-                .setOnPickAudioSelectedListener(() ->
+                .setOnPickAudioSelectedListener(() -> {
+                    if (getActivity() != null) {
                         PermissionUtils.checkStoragePermission((BaseActivity) getActivity(), () ->
-                                PermissionUtils.checkRecordPermission((BaseActivity) getActivity(), this::startRecording)))
-                .build()
-                .show(getFragmentManager(), "ATTACHMENT PICKER");
+                                PermissionUtils.checkRecordPermission((BaseActivity) getActivity(), this::startRecording));
+                    } else {
+                        LogUtils.e("Activity is detached.");
+                    }
+                }).build()
+                .show(Objects.requireNonNull(getFragmentManager()), "ATTACHMENT PICKER");
     }
 
     @Override
@@ -624,7 +645,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     if (getActivity() != null) {
                         getActivity().invalidateOptionsMenu();
                     }
-                }).show(getFragmentManager(), "PRIORITIES_PICKER");
+                }).show(Objects.requireNonNull(getFragmentManager()), "PRIORITIES_PICKER");
                 break;
             case R.id.action_more:
                 getBinding().drawerLayout.openDrawer(GravityCompat.END, true);

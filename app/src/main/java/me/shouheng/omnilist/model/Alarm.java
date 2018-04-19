@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.Calendar;
 import java.util.Date;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.model.enums.AlarmType;
 import me.shouheng.omnilist.model.enums.ModelType;
@@ -169,16 +170,16 @@ public class Alarm extends Model {
                 "} " + super.toString();
     }
 
-    public String toChinese(Context context){
+    public String toChinese(){
         return "闹钟类型：【" + (alarmType == null ? "" : alarmType.name()) + "】" +
                 "\n实体类型：【" + (modelType == null ? "" : modelType.name()) +"】"  +
                 "\n实体编号：【" + modelCode + "】" +
-                "\n周次重复：【" + daysOfWeek.toString(context, true) + "】" +
-                "\n响铃时间：【" + TimeUtils.getShortTime(context, TimeUtils.getTimeInMillis(hour, minute)) + "】" +
-                "\n日期设置：【" + TimeUtils.getShortDate(context, endDate) + "】" +
-                "\n下次响铃：【" + TimeUtils.getDateTimeShort(context, nextTime.getTime()) + "】" +
-                "\n最后更新：【" + TimeUtils.getDateTimeShort(context, getLastModifiedTime())+  "】" +
-                "\n起止日期：【" + TimeUtils.getShortDate(context, startDate) + "-" + TimeUtils.getShortDate(context, endDate) + "】" + "\n";
+                "\n周次重复：【" + daysOfWeek.toString(PalmApp.getContext(), true) + "】" +
+                "\n响铃时间：【" + TimeUtils.getShortTime(PalmApp.getContext(), TimeUtils.getTimeInMillis(hour, minute)) + "】" +
+                "\n日期设置：【" + TimeUtils.getShortDate(PalmApp.getContext(), endDate) + "】" +
+                "\n下次响铃：【" + TimeUtils.getDateTimeShort(PalmApp.getContext(), nextTime.getTime()) + "】" +
+                "\n最后更新：【" + TimeUtils.getDateTimeShort(PalmApp.getContext(), getLastModifiedTime())+  "】" +
+                "\n起止日期：【" + TimeUtils.getShortDate(PalmApp.getContext(), startDate) + "-" + TimeUtils.getShortDate(PalmApp.getContext(), endDate) + "】" + "\n";
     }
 
     public String getAlarmInfo(Context context){

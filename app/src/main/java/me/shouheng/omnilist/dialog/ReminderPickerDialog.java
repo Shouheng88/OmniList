@@ -16,6 +16,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.databinding.DialogReminderPickerLayoutBinding;
@@ -93,7 +94,7 @@ public class ReminderPickerDialog extends DialogFragment {
 
         displayAlarmInfo();
 
-        return new AlertDialog.Builder(getContext())
+        return new AlertDialog.Builder(Objects.requireNonNull(getContext()))
                 .setView(binding.getRoot())
                 .setNegativeButton(R.string.text_cancel, null)
                 .setPositiveButton(R.string.text_confirm, (dialog, which) -> {
@@ -115,7 +116,7 @@ public class ReminderPickerDialog extends DialogFragment {
     }
 
     private void showDatePicker(View v) {
-        PopupMenu popupM = new PopupMenu(getContext(), v);
+        PopupMenu popupM = new PopupMenu(Objects.requireNonNull(getContext()), v);
         popupM.inflate(R.menu.date_picker_menu);
 
         popupM.getMenu().getItem(0).setTitle(String.format(getString(R.string.today_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getTodayDate())));
@@ -153,7 +154,7 @@ public class ReminderPickerDialog extends DialogFragment {
     }
 
     private void showTimePicker(View v) {
-        PopupMenu popupM = new PopupMenu(getContext(), v);
+        PopupMenu popupM = new PopupMenu(Objects.requireNonNull(getContext()), v);
         popupM.inflate(R.menu.time_picker_menu);
         PopupMenuUtils.forceShowIcon(popupM);
         popupM.setOnMenuItemClickListener(item -> {
@@ -212,7 +213,7 @@ public class ReminderPickerDialog extends DialogFragment {
                     alarm.setEndDate(TimeUtils.getStandardDay(year1, month1, day).getTime());
                     displayAlarmInfo();
                 }, year, month, dayOfMonth, true
-        ).show(getActivity().getSupportFragmentManager(), "DATE_PICKER");
+        ).show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "DATE_PICKER");
     }
 
     private void showCustomTimeDialog() {
@@ -220,12 +221,12 @@ public class ReminderPickerDialog extends DialogFragment {
                     alarm.setHour(hourOfDay);
                     alarm.setMinute(minute);
                     displayAlarmInfo(); }, alarm.getHour(), alarm.getMinute(), UserPreferences.getInstance().is24HourMode(), true
-        ).show(getActivity().getSupportFragmentManager(), "TIME_PICKER");
+        ).show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "TIME_PICKER");
     }
 
     private void showWeekPicker() {
         final boolean[] booleanArray = alarm.getDaysOfWeek().getBooleanArray();
-        Dialog dlg = new AlertDialog.Builder(getActivity())
+        Dialog dlg = new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                 .setTitle(R.string.set_weeks)
                 .setMultiChoiceItems(R.array.days_of_week, booleanArray, (dialog, which, isChecked) -> booleanArray[which] = isChecked)
                 .setPositiveButton(R.string.text_accept, (dialog, which) -> {

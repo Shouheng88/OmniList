@@ -16,7 +16,6 @@ public class Constants {
     public final static String EXTRA_FRAGMENT = "extra_fragment";
     public final static String VALUE_FRAGMENT_ASSIGNMENT = "value_fragment_assignment";
     public final static String EXTRA_IS_GOOGLE_NOW = "extra_is_from_google_now";
-    public final static String EXTRA_IS_PREVIEW = "extra_is_preview";
 
     public final static String ACTION_TO_NOTE_FROM_THIRD_PART = "to_note_from_third_part";
     // endregion
@@ -61,10 +60,6 @@ public class Constants {
     public final static String ACTION_SHORTCUT = "ACTION_SHORTCUT";
     public final static String ACTION_NOTIFICATION = "ACTION_NOTIFICATION";
     public final static String INTENT_GOOGLE_NOW = "com.google.android.gm.action.AUTO_SEND";
-
-    public final static String ACTION_RESTART_APP = "action_restart_app";
-
-    public final static String ACTION_NOTE_CHANGE_BROADCAST = "action_broadcast_notes_changed";
     // endregion
 
     // region App Widgets
@@ -85,7 +80,18 @@ public class Constants {
     public final static String PREF_WIDGET_NOTEBOOK_CODE_PREFIX = "widget_notebook_code";
     // endregion
 
-    public final static int MAX_PREOGRESS = 100;
+    // region Alarm
+    public final static String ACTION_ALARM_ALERT = BuildConfig.APPLICATION_ID +".alarm_alert";
+    public final static String ACTION_ALARM_SNOOZE = BuildConfig.APPLICATION_ID +".alarm_snooze";
+    public final static String ACTION_CANCEL_SNOOZE = BuildConfig.APPLICATION_ID +".action_cancel_snooze";
+    public final static String ACTION_ALARM_DISMISS = BuildConfig.APPLICATION_ID +".alarm_dismiss";
+    public final static String ACTION_POSTPONE_ALARM = BuildConfig.APPLICATION_ID + ".postpone_alarm";
+    public final static String ACTION_CANCEL_NOTIFICATION = "AlarmAlertReceiver.ACTION_CANCEL_NOTIFICATION";
+    public final static String ACTION_MARK_ASSIGNMENT_AS_DONE = BuildConfig.APPLICATION_ID + ".mark_assignment_as_done";
+    public final static String EXTRA_NOTIFICATION_ID = "extra_name_notification_id";
+    // endregion
+
+    public final static int MAX_ASSIGNMENT_PROGRESS = 100;
 
     public final static String REA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD0diKVSZ/U/KHuxZFYac3lLq7K\n" +
             "edqc+uOKSJgq26tgy4wmELCw8gJkempBm8NPf+uSOdWPlPLWijSf3W2KfzMMvZQ2\n" +
