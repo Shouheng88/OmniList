@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/from"
+                android:textSize="16sp"
+                android:textColor="@color/md_grey_500"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView android:id="@+id/tv_repeat_start_date"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                tools:text="今天 (2017年7月1日 周六)"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/to"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+            <TextView android:id="@+id/tv_repeat_end__date"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                tools:text="2017年7月1日 周六"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/notice_time"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView android:id="@+id/tv_repeat_alarm_set_time"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                tools:text="1:00 下午"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:background="?attr/selectableItemBackground"
+                android:layout_height="50dp"
+                android:layout_width="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

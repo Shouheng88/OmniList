@@ -88,7 +88,7 @@ public class UserPreferences extends BasePreferences {
         }
     }
 
-    public void setFabSortResult(List<FabSortItem> fabSortItems){
+    public void setFabSortResult(List<FabSortItem> fabSortItems) {
         int size = fabSortItems.size();
         StringBuilder fabStr = new StringBuilder();
         for (int i=0;i<size;i++) {
@@ -99,5 +99,9 @@ public class UserPreferences extends BasePreferences {
             }
         }
         putString(getKey(R.string.key_fab_sort_result), fabStr.toString());
+    }
+
+    public boolean is24HourMode() {
+        return getBoolean(getKey(R.string.key_is_24_hour_mode), true);
     }
 }
