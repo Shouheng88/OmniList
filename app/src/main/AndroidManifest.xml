@@ -81,6 +81,33 @@
             android:name=".activity.ContentActivity"
             android:exported="true" />
 
+        <!--region alarm-->
+        <receiver
+            android:name=".receiver.AlarmAlertReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.ALARM_ALERT" />
+                <action android:name="${applicationId}.ALARM_SNOOZE" />
+                <action android:name="${applicationId}.ACTION_CANCEL_SNOOZE" />
+                <action android:name="${applicationId}.ALARM_DISMISS" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".async.AlarmsService$Receiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".async.AlarmsService"
+            android:exported="false" />
+        <!--endregion-->
+
         <!--region fabric-->
         <meta-data
             android:name="io.fabric.ApiKey"

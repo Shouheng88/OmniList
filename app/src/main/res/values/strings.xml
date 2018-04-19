@@ -167,6 +167,12 @@
 
     <string name="set_weeks">设置周次</string>
     <string name="week_required">需要指定周次信息</string>
+
+    <string name="one_assignment_marked_as_done">1个任务被标记为完成</string>
+    <string name="remind_in_minutes">%d分钟后再提醒</string>
+    <string name="will_be_reminded_in_minutes">将在%d分钟之后再提醒</string>
+    <string name="mark_as_done">标记为完成</string>
+    <string name="text_dismiss">Dismiss</string>
     <!--endregion-->
 
     <!--region Common->DrawerItems-->

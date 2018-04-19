@@ -37,9 +37,6 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     private String title, comment;
     private Drawable cbFilled, cbOutline;
 
-    private SubAssignmentsAdapter.MultiItem mJustDeletedToDoItem;
-    private int mIndexOfDeletedToDoItem;
-
     private boolean isPositionChanged;
 
     public SubAssignmentsAdapter(List<SubAssignmentsAdapter.MultiItem> data, String title, String comment, Alarm alarm) {
@@ -154,11 +151,10 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     @Override
     public void onItemRemoved(int position, int direction) {
         isPositionChanged = true;
-        mJustDeletedToDoItem =  getData().remove(position);
-        mIndexOfDeletedToDoItem = position;
+        MultiItem mJustDeletedToDoItem = getData().remove(position);
         notifyItemRemoved(position);
         if (onItemRemovedListener != null){
-            onItemRemovedListener.onItemRemoved(mJustDeletedToDoItem, mIndexOfDeletedToDoItem);
+            onItemRemovedListener.onItemRemoved(mJustDeletedToDoItem, position);
         }
     }
 
@@ -198,6 +194,11 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     public void setComment(String comment) {
         this.comment = comment;
         notifyItemChanged(getData().size() - 1);
+    }
+
+    public void setAlarm(Alarm alarm) {
+        this.alarm = alarm;
+        notifyItemChanged(0);
     }
 
     public List<SubAssignment> getSubAssignments() {

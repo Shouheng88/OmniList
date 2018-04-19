@@ -44,4 +44,12 @@
     <string name="key_search_include_archived" translatable="false">is_archived_included</string>
     <string name="key_search_include_trashed" translatable="false">is_trashed_included</string>
     <!--endregion-->
+
+    <!--region notification-->
+    <string name="key_allow_wake_lock">is_wake_lock_allowed</string>
+    <string name="key_notification_light_color">notification_light_color</string>
+    <string name="key_allow_vibrate">is_vibrate_allowed</string>
+    <string name="key_notification_duration">notification_duration</string>
+    <string name="key_notification_ringtone">notification_ringtone</string>
+    <!--endregion-->
 </resources>

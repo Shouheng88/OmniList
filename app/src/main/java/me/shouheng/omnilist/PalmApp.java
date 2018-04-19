@@ -9,12 +9,14 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.multidex.MultiDex;
 
-import com.facebook.stetho.Stetho;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.stetho.Stetho;
 
 import org.polaric.colorful.Colorful;
 
 import io.fabric.sdk.android.Fabric;
+import me.shouheng.omnilist.manager.AlarmsManager;
+import me.shouheng.omnilist.manager.WakeLockManager;
 
 /**
  * Created by shouh on 2018/4/8.*/
@@ -44,6 +46,10 @@ public class PalmApp extends Application {
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
+
+        AlarmsManager.init(getApplicationContext());
+
+        WakeLockManager.init(getApplicationContext(), false);
     }
 
     public static boolean isPasswordChecked() {
