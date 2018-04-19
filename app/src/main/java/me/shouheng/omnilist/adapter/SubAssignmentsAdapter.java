@@ -82,10 +82,12 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     private void convertHeader(BaseViewHolder helper) {
         helper.addOnClickListener(R.id.tv_title);
         helper.addOnClickListener(R.id.ll_alarm);
+        helper.addOnClickListener(R.id.siv_clear);
 
         helper.setTextColor(R.id.tv_title, ColorUtils.primaryColor());
         helper.setText(R.id.tv_title, TextUtils.isEmpty(title) ? PalmApp.getStringCompact(R.string.click_to_add_title) : title);
         helper.setText(R.id.tv_assignment_alarm, alarm == null ? PalmApp.getStringCompact(R.string.set_date_and_notifications) : alarm.getAlarmInfo(mContext));
+        helper.getView(R.id.siv_clear).setVisibility(alarm == null ? View.GONE : View.VISIBLE);
     }
 
     private void convertBody(BaseViewHolder helper, SubAssignment subAssignment) {

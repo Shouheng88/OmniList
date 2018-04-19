@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -242,6 +243,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 case R.id.ll_add_comment:
                     showCommentEditor();
                     break;
+                case R.id.siv_clear:
+                    showReminderNotice();
+                    break;
                 case R.id.ll_add_sub_assignment: {
                     SubAssignment subAssignment = ModelFactory.getSubAssignment();
                     subAssignment.setAssignmentCode(assignment.getCode());
@@ -438,6 +442,22 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     mAdapter.setAlarm(alarm);
                 })
                 .build().show(Objects.requireNonNull(getFragmentManager()), "REMINDER_PICKER");
+    }
+
+    private void showReminderNotice() {
+        new AlertDialog.Builder(Objects.requireNonNull(getContext()))
+                .setTitle(R.string.text_tips)
+                .setMessage(R.string.sure_to_remove_alarm)
+                .setPositiveButton(R.string.text_confirm, (dialog, which) -> {
+                    AlarmsStore.getInstance().update(alarm, Status.DELETED);
+                    AlarmsManager.getsInstance().removeAlarm(alarm);
+                    alarm = null;
+                    mAdapter.setAlarm(null);
+                    ToastUtils.makeToast(R.string.alarm_is_removed);
+                })
+                .setNegativeButton(R.string.text_cancel, null)
+                .create()
+                .show();
     }
     // endregion
 

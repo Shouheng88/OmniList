@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_alarm"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
@@ -21,6 +21,18 @@
         android:orientation="horizontal">
 
         <me.shouheng.omnilist.widget.themed.SupportImageView
+            android:id="@+id/siv_clear"
+            android:src="@drawable/ic_clear_black"
+            android:visibility="gone"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+        <me.shouheng.omnilist.widget.themed.SupportImageView
+            android:id="@+id/siv_alarm"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:minHeight="55dp"
@@ -29,14 +41,16 @@
 
         <TextView
             android:id="@+id/tv_assignment_alarm"
+            android:layout_toStartOf="@id/siv_clear"
+            android:layout_toEndOf="@id/siv_alarm"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/set_date_and_notifications"
             android:textSize="16sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <me.shouheng.omnilist.widget.themed.Divider
         android:layout_marginStart="55dp"
