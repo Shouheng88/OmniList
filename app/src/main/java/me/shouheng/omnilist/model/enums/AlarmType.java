@@ -3,7 +3,6 @@ package me.shouheng.omnilist.model.enums;
 /**
  * Created by wangshouheng on 2017/4/30. */
 public enum AlarmType {
-    BAD_BOY(0),
     SPECIFIED_DATE(1),
     WEEK_REPEAT(2),
     MONTH_REPEAT(3);

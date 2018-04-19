@@ -137,6 +137,36 @@
     <string name="to">to</string>
     <string name="at">at</string>
     <string name="until">until</string>
+
+    <string name="today_with_date">今天 | %s</string>
+    <string name="tomorrow_with_date">明天 | %s</string>
+    <string name="day_after_tomorrow_with_date">后天 | %s</string>
+    <string name="this_friday_with_date">本周五 | %s</string>
+    <string name="this_sunday_with_date">本周日 | %s</string>
+    <string name="next_monday_with_date">下周一 | %s</string>
+    <string name="clear_date">清除日期</string>
+
+    <string name="notice_time">提醒时间</string>
+    <string name="today_date_time">今天 (%s)</string>
+    <string name="morning_with_time">早上 (9:00 AM)</string>
+    <string name="noon_with_time">中午 (12:00 PM)</string>
+    <string name="afternoon_with_time">下午 (3:00 PM)</string>
+    <string name="evening_with_time">傍晚 (6:00 PM)</string>
+    <string name="night_with_time">晚上 (9:00 PM)</string>
+    <string name="clear_time">清除时间</string>
+
+    <string name="custom">自定义&#8230;</string>
+
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期日</string>
+
+    <string name="set_weeks">设置周次</string>
+    <string name="week_required">需要指定周次信息</string>
     <!--endregion-->
 
     <!--region Common->DrawerItems-->

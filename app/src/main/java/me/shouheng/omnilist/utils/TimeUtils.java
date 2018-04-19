@@ -550,6 +550,17 @@ public class TimeUtils {
         return current < 0 ? 0 : current;
     }
 
+    public static Calendar getStandardDay(int year, int month, int day) {
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(Calendar.YEAR, year);
+        endDate.set(Calendar.MONTH, month);
+        endDate.set(Calendar.DAY_OF_MONTH, day);
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
+        endDate.set(Calendar.MILLISECOND, 0);
+        return endDate;
+    }
     // endregion
 
 

@@ -29,6 +29,7 @@
     <string name="key_list_animation" translatable="false">list_animation</string>
     <string name="key_system_animation" translatable="false">system_animation</string>
     <string name="key_fab_sort_result" translatable="false">fab_sort_result</string>
+    <string name="key_is_24_hour_mode" translatable="false">is_24_hour_mode</string>
     <!--endregion-->
 
     <!--region assignment-->

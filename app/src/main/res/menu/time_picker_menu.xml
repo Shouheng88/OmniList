@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item_morning"
+        android:icon="@drawable/wl_icon_reminder_morning"
+        android:title="@string/morning_with_time"/>
+    <item android:id="@+id/item_noon"
+        android:title="@string/noon_with_time"
+        android:icon="@drawable/wl_icon_reminder_noon"/>
+    <item android:id="@+id/item_afternoon"
+        android:icon="@drawable/wl_icon_reminder_afternoon"
+        android:title="@string/afternoon_with_time"/>
+    <item android:id="@+id/item_evening"
+        android:icon="@drawable/wl_icon_reminder_evening"
+        android:title="@string/evening_with_time"/>
+    <item android:id="@+id/item_night"
+        android:icon="@drawable/wl_icon_reminder_night"
+        android:title="@string/night_with_time" />
+    <item android:id="@+id/item_custom"
+        android:title="@string/custom"/>
+    <item android:id="@+id/item_clear_time"
+        android:title="@string/clear_time"
+        android:visible="false"
+        android:icon="@drawable/ic_clear_black"/>
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/sp_alarm_type"
+            android:entries="@array/alarm_types"
+            android:padding="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#08000000"
+            android:orientation="vertical"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp">
+
+            <include android:id="@+id/one_shot_layout"
+                layout="@layout/dialog_view_sub_one_time_alarm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp" />
+
+            <include android:id="@+id/repeat_layout"
+                layout="@layout/dialog_view_sub_repeat_alarm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView android:id="@+id/tv_reminder_info"
+                tools:text="2017年7月1日 14:30下午 提醒一次"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

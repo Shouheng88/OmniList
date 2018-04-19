@@ -4,4 +4,23 @@
         <item>@string/item_todo</item>
         <item>@string/item_note</item>
     </array>
+
+    <string-array name="alarm_types">
+        <item>@string/one_shot</item>
+        <item>@string/every_day</item>
+        <item>@string/every_weekday</item>
+        <item>@string/every_weekend</item>
+        <item>@string/custom_by_week</item>
+        <!--<item>@string/custom_by_month</item>-->
+    </string-array>
+
+    <string-array name="days_of_week">
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+        <item>@string/monday</item>
+    </string-array>
 </resources>

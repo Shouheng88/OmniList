@@ -36,6 +36,7 @@ import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.databinding.FragmentAssignmentBinding;
 import me.shouheng.omnilist.dialog.AttachmentPickerDialog;
 import me.shouheng.omnilist.dialog.RatingsPickerDialog;
+import me.shouheng.omnilist.dialog.ReminderPickerDialog;
 import me.shouheng.omnilist.dialog.SimpleEditDialog;
 import me.shouheng.omnilist.fragment.base.BaseModelFragment;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
@@ -236,6 +237,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     showTitleEditor();
                     break;
                 case R.id.ll_alarm:
+                    showReminderPicker(alarm);
                     break;
                 case R.id.ll_add_comment:
                     showCommentEditor();
@@ -410,6 +412,15 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     setContentChanged();
                 })
                 .build().show(getFragmentManager(), "EDIT_SUB_ASSIGNMENT");
+    }
+
+    private void showReminderPicker(Alarm alarm) {
+        new ReminderPickerDialog.Builder()
+                .setAlarm(alarm == null ? ModelFactory.getAlarm() : alarm)
+                .setOnReminderPickedListener(alarm1 -> {
+
+                })
+                .build().show(getFragmentManager(), "REMINDER_PICKER");
     }
     // endregion
 
