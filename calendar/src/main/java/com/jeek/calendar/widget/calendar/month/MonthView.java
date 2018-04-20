@@ -116,36 +116,20 @@ public class MonthView extends View {
 
     private void initAttrs(TypedArray array, int year, int month) {
         if (array != null) {
-            mSelectDayColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_selected_text_color, Default.mSelectDayColor);
-            mSelectBGColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_selected_circle_color, Default.mSelectBGColor);
-            mSelectBGTodayColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_selected_circle_today_color,
-                    Default.mSelectBGTodayColor);
-            mNormalDayColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_normal_text_color, Default.mNormalDayColor);
-            mCurrentDayColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_today_text_color, Default.mCurrentDayColor);
-            mHintCircleColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_hint_circle_color, Default.mHintCircleColor);
-            mLastOrNextMonthTextColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_last_or_next_month_text_color,
-                    Default.mLastOrNextMonthTextColor);
-            mLunarTextColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_lunar_text_color, Default.mLunarTextColor);
-            mHolidayTextColor = array.getColor(
-                    R.styleable.MonthCalendarView_month_holiday_color, Default.mHolidayTextColor);
-            mDaySize = array.getInteger(
-                    R.styleable.MonthCalendarView_month_day_text_size, Default.mDaySize);
-            mLunarTextSize = array.getInteger(
-                    R.styleable.MonthCalendarView_month_day_lunar_text_size, Default.mLunarTextSize);
-            mIsShowHint = array.getBoolean(
-                    R.styleable.MonthCalendarView_month_show_task_hint, Default.mIsShowHint);
-            mIsShowLunar = array.getBoolean(
-                    R.styleable.MonthCalendarView_month_show_lunar, Default.mIsShowLunar);
-            mIsShowHolidayHint = array.getBoolean(
-                    R.styleable.MonthCalendarView_month_show_holiday_hint, Default.mIsShowHolidayHint);
+            mSelectDayColor = array.getColor(R.styleable.MonthCalendarView_month_selected_text_color, Default.mSelectDayColor);
+            mSelectBGColor = array.getColor(R.styleable.MonthCalendarView_month_selected_circle_color, Default.mSelectBGColor);
+            mSelectBGTodayColor = array.getColor(R.styleable.MonthCalendarView_month_selected_circle_today_color, Default.mSelectBGTodayColor);
+            mNormalDayColor = array.getColor(R.styleable.MonthCalendarView_month_normal_text_color, Default.mNormalDayColor);
+            mCurrentDayColor = array.getColor(R.styleable.MonthCalendarView_month_today_text_color, Default.mCurrentDayColor);
+            mHintCircleColor = array.getColor(R.styleable.MonthCalendarView_month_hint_circle_color, Default.mHintCircleColor);
+            mLastOrNextMonthTextColor = array.getColor(R.styleable.MonthCalendarView_month_last_or_next_month_text_color, Default.mLastOrNextMonthTextColor);
+            mLunarTextColor = array.getColor(R.styleable.MonthCalendarView_month_lunar_text_color, Default.mLunarTextColor);
+            mHolidayTextColor = array.getColor(R.styleable.MonthCalendarView_month_holiday_color, Default.mHolidayTextColor);
+            mDaySize = array.getInteger(R.styleable.MonthCalendarView_month_day_text_size, Default.mDaySize);
+            mLunarTextSize = array.getInteger(R.styleable.MonthCalendarView_month_day_lunar_text_size, Default.mLunarTextSize);
+            mIsShowHint = array.getBoolean(R.styleable.MonthCalendarView_month_show_task_hint, Default.mIsShowHint);
+            mIsShowLunar = array.getBoolean(R.styleable.MonthCalendarView_month_show_lunar, Default.mIsShowLunar);
+            mIsShowHolidayHint = array.getBoolean(R.styleable.MonthCalendarView_month_show_holiday_hint, Default.mIsShowHolidayHint);
         } else {
             mSelectDayColor = Default.mSelectDayColor;
             mSelectBGColor = Default.mSelectBGColor;
