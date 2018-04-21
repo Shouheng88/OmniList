@@ -44,9 +44,9 @@ import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         TodayAssignmentAdapter.OnItemRemovedListener {
 
-    private RecyclerView.OnScrollListener scrollListener;
-
     private final int REQUEST_FOR_EDIT = 10;
+
+    private RecyclerView.OnScrollListener scrollListener;
 
     private AssignmentViewModel assignmentViewModel;
 
@@ -214,6 +214,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         this.scrollListener = scrollListener;
     }
 
+    // region Swipe event
     private void trashModel(Assignment assignment) {
         AssignmentsStore.getInstance().update(assignment, me.shouheng.omnilist.model.enums.Status.TRASHED);
         final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
@@ -286,10 +287,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
                 .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
                 .show();
     }
-
-    public interface TodayFragmentInteraction {
-        void onAssignmentsLoadStateChanged(Status status);
-    }
+    // endregion
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -302,5 +300,9 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
                 }
                 break;
         }
+    }
+
+    public interface TodayFragmentInteraction {
+        void onAssignmentsLoadStateChanged(Status status);
     }
 }
