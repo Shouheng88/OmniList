@@ -32,9 +32,6 @@ public class AssignmentsAdapter extends BaseQuickAdapter<Assignment, BaseViewHol
 
     private Drawable cbFilled, cbOutline;
 
-    private Assignment mJustDeletedToDoItem;
-    private int mIndexOfDeletedToDoItem;
-
     private boolean isPositionChanged;
 
     private boolean isStateChanged;
@@ -128,14 +125,13 @@ public class AssignmentsAdapter extends BaseQuickAdapter<Assignment, BaseViewHol
     @Override
     public void onItemRemoved(int position, int direction) {
         isPositionChanged = true;
-        mJustDeletedToDoItem =  getData().remove(position);
-        mIndexOfDeletedToDoItem = position;
+        Assignment mJustDeletedToDoItem = getData().remove(position);
         notifyItemRemoved(position);
         if (onItemRemovedListener != null) {
             if (direction == ItemTouchHelper.END) {
-                onItemRemovedListener.onItemRemovedRight(mJustDeletedToDoItem, mIndexOfDeletedToDoItem);
+                onItemRemovedListener.onItemRemovedRight(mJustDeletedToDoItem, position);
             } else if (direction == ItemTouchHelper.START) {
-                onItemRemovedListener.onItemRemovedLeft(mJustDeletedToDoItem, mIndexOfDeletedToDoItem);
+                onItemRemovedListener.onItemRemovedLeft(mJustDeletedToDoItem, position);
             }
         }
     }
