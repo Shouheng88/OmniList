@@ -3,6 +3,8 @@ package me.shouheng.omnilist.utils;
 import android.content.Context;
 import android.text.format.DateUtils;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.text.SimpleDateFormat;
@@ -11,7 +13,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import me.shouheng.omnilist.PalmApp;
-import me.shouheng.omnilist.utils.preferences.UserPreferences;
 
 /**
  * Created by wangshouheng on 2017/3/13. */
@@ -124,12 +125,11 @@ public class TimeUtils {
     }
 
     /**
-     * 获取短的日期，日期规则同上，这里再加上时间
+     * 格式：2018年8月8日 12:40 或者 8月8日 12:40
      *
-     * @param mContext 上下文
-     * @param date 日期
-     * @return 日期字符串 */
-    public static String getDateTimeShort(Context mContext, Date date) {
+     * @param date date to show
+     * @return short date and time string */
+    public static String shortDateTime(Date date) {
         if (date == null) return "";
         Calendar now = Calendar.getInstance();
         Calendar c = Calendar.getInstance();
@@ -138,32 +138,16 @@ public class TimeUtils {
         if (c.get(Calendar.YEAR) != now.get(Calendar.YEAR)){
             flags = flags | DateUtils.FORMAT_SHOW_YEAR;
         }
-        return DateUtils.formatDateTime(mContext, date.getTime(), flags) + " "
-                + DateUtils.formatDateTime(mContext, date.getTime(), DateUtils.FORMAT_SHOW_TIME);
+        return DateUtils.formatDateTime(PalmApp.getContext(), date.getTime(), flags) + " "
+                + DateUtils.formatDateTime(PalmApp.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_TIME);
     }
 
-
-    /**
-     * 获取短的时间字符串
-     *
-     * @param context 上下文
-     * @param time 时间
-     * @return 时间字符串 */
-    public static String getShortTime(Context context, int time){
-        Calendar date = getTodayDate();
-        date.add(Calendar.MILLISECOND, time);
-        return getShortTime(context, date.getTime());
+    public static String shortTime(int hour, int minute) {
+        return shortTime(new DateTime().withTime(hour, minute, 0, 0).toDate());
     }
 
-    public static String getShortTime(Context context, int hour, int minute){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        return getShortTime(context, calendar.getTime());
-    }
-
-    public static String getShortTime(Context mContext, Date time){
-        return DateUtils.formatDateTime(mContext, time.getTime(), DateUtils.FORMAT_SHOW_TIME);
+    private static String shortTime(Date time) {
+        return DateUtils.formatDateTime(PalmApp.getContext(), time.getTime(), DateUtils.FORMAT_SHOW_TIME);
     }
 
 
@@ -271,191 +255,55 @@ public class TimeUtils {
 
     // endregion
 
+    // region Get standard start time and end time of today, tomorrow, this friday, this sunday and next monday
 
-    // region 获取某“日”的时间信息
-
-    /**
-     * 获取今天0时0分0秒0毫秒时的标准时间的毫秒数
-     *
-     * @return 毫秒数 */
-    public static long getMillisTodayStart(){
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        return c.getTimeInMillis();
+    public static Date date(int year, int month, int day) {
+        return new DateTime(year, month + 1, day, 0, 0)
+                .withTimeAtStartOfDay()
+                .toDate();
     }
 
-    /**
-     * 获取今天的23:59 59'999''的毫秒数
-     *
-     * @return 毫秒数 */
-    public static long getMillisTodayEnd() {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
-        c.set(Calendar.MILLISECOND, 999);
-        return c.getTimeInMillis();
+    public static Date startTime(DateTime dateTime) {
+        return dateTime.withTimeAtStartOfDay().toDate();
     }
 
-    /**
-     * 获取明天0时0分0秒0毫秒时的毫秒数
-     *
-     * @return 毫秒数 */
-    public static long getStandardMillisTomorrow(){
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        c.add(Calendar.DAY_OF_YEAR, 1);
-        return c.getTimeInMillis();
+    public static Date endTime(DateTime dateTime) {
+        return dateTime.millisOfDay().withMaximumValue().toDate();
     }
 
-    /**
-     * 获取指定日期的周次，周日(1)，周一(2)，周二(3)
-     *
-     * @param month 月，0为一月
-     * @return 周次 */
-    public static int getDayOfWeek(int year, int month, int day){
-        Calendar date = Calendar.getInstance();
-        date.set(Calendar.YEAR, year);
-        date.set(Calendar.MONTH, month);
-        date.set(Calendar.DAY_OF_MONTH, day);
-        return date.get(Calendar.DAY_OF_WEEK);
+    public static Date today() {
+        return new DateTime().withTimeAtStartOfDay().toDate();
     }
 
-    /**
-     * 获取指定日期的标准开始时间，指定日期的0时0分0秒的时间
-     *
-     * @return 日期 */
-    public static Date getStartDate(int year, int month, int day){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return calendar.getTime();
+    public static Date endToday() {
+        return new DateTime().millisOfDay().withMaximumValue().toDate();
     }
 
-    /**
-     * 获取指定日期的标准结束时间，23时59分59秒999毫秒
-     *
-     * @return 结束时间 */
-    public static Date getEndDate(int year, int month, int day){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        return calendar.getTime();
+    public static Date tomorrow() {
+        return new DateTime().plusDays(1).withTimeAtStartOfDay().toDate();
     }
 
+    public static Date thisFriday() {
+        DateTime dateTime = new DateTime();
+        int week = dateTime.getDayOfWeek();
+        int offset = week == DateTimeConstants.SUNDAY ? 5 : 5 - week;
+        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+    }
+
+    public static Date thisSunday() {
+        DateTime dateTime = new DateTime();
+        int week = dateTime.getDayOfWeek();
+        int offset = week == DateTimeConstants.SUNDAY ? 0 : -week;
+        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+    }
+
+    public static Date nextMonday() {
+        DateTime dateTime = new DateTime();
+        int week = dateTime.getDayOfWeek();
+        int offset = week == DateTimeConstants.SUNDAY ? 1 : 8 - week;
+        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+    }
     // endregion
-
-
-    // region 获取今天、明天、本周五、本周日和下周一的标准时间
-
-    /**
-     * 获取今天的标准日期，小时5以后的单位的数值都是0
-     *
-     * @return  今天的Calendar对象，其中“天”之后的时间全部置为0 */
-    public static Calendar getTodayDate(){
-        final Calendar now = Calendar.getInstance();
-        now.set(Calendar.HOUR_OF_DAY, 0);
-        now.set(Calendar.MINUTE, 0);
-        now.set(Calendar.SECOND, 0);
-        now.set(Calendar.MILLISECOND, 0);
-        return now;
-    }
-
-    public static Calendar getTomorrowDate(){
-        final Calendar today = getTodayDate();
-        today.add(Calendar.DAY_OF_YEAR, 1);
-        return today;
-    }
-
-    public static Calendar getThisFridayDate(){
-        final Calendar today = getTodayDate();
-        int firstDayOfWeek = UserPreferences.getInstance().getFirstDayOfWeek();
-        int addedDays = 0;
-        switch (firstDayOfWeek) {
-            case Calendar.SUNDAY:
-                addedDays = 6 - today.get(Calendar.DAY_OF_WEEK);
-                break;
-            case Calendar.MONDAY:
-                int weekToday = today.get(Calendar.DAY_OF_WEEK);
-                if (weekToday == Calendar.SUNDAY){
-                    addedDays = -2;
-                } else {
-                    addedDays = 6 - weekToday;
-                }
-                break;
-        }
-        today.add(Calendar.DAY_OF_YEAR, addedDays);
-        return today;
-    }
-
-    public static Calendar getThisSundayDate(){
-        final Calendar today = getTodayDate();
-        int firstDayOfWeek = UserPreferences.getInstance().getFirstDayOfWeek();
-        int addedDays = 0;
-        int weekToday = today.get(Calendar.DAY_OF_WEEK);
-        switch (firstDayOfWeek) {
-            case Calendar.SUNDAY:
-                addedDays = 1 - today.get(Calendar.DAY_OF_WEEK);
-                break;
-            case Calendar.MONDAY:
-                if (weekToday == Calendar.SUNDAY){
-                    addedDays = 0;
-                } else {
-                    addedDays = 8 - weekToday;
-                }
-                break;
-        }
-        today.add(Calendar.DAY_OF_YEAR, addedDays);
-        return today;
-    }
-
-    public static Calendar getNextMondayDate(){
-        final Calendar today = getTodayDate();
-        int firstDayOfWeek = UserPreferences.getInstance().getFirstDayOfWeek();
-        int addedDays = 0;
-        int weekToday = today.get(Calendar.DAY_OF_WEEK);
-        switch (firstDayOfWeek) {
-            case Calendar.SUNDAY:
-                if (weekToday == Calendar.SUNDAY){
-                    addedDays = 1;
-                } else if (weekToday == Calendar.MONDAY){
-                    addedDays = 0;
-                } else {
-                    addedDays = 9 - weekToday;
-                }
-                break;
-            case Calendar.MONDAY:
-                if (weekToday == Calendar.MONDAY){
-                    addedDays = 0;
-                } else if (weekToday == Calendar.SUNDAY){
-                    addedDays = 1;
-                } else {
-                    addedDays = 9 - weekToday;
-                }
-                break;
-        }
-        today.add(Calendar.DAY_OF_YEAR, addedDays);
-        return today;
-    }
-
-    // endregion
-
 
     // region 其他的时间工具方法
 
@@ -550,17 +398,6 @@ public class TimeUtils {
         return current < 0 ? 0 : current;
     }
 
-    public static Calendar getStandardDay(int year, int month, int day) {
-        Calendar endDate = Calendar.getInstance();
-        endDate.set(Calendar.YEAR, year);
-        endDate.set(Calendar.MONTH, month);
-        endDate.set(Calendar.DAY_OF_MONTH, day);
-        endDate.set(Calendar.HOUR_OF_DAY, 0);
-        endDate.set(Calendar.MINUTE, 0);
-        endDate.set(Calendar.SECOND, 0);
-        endDate.set(Calendar.MILLISECOND, 0);
-        return endDate;
-    }
     // endregion
 
 
