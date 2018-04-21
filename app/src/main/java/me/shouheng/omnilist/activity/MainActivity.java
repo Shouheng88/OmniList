@@ -61,7 +61,8 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         OnAttachingFileListener,
         CategoriesFragment.OnCategoriesInteractListener,
-        AssignmentsFragment.AssignmentsFragmentInteraction{
+        AssignmentsFragment.AssignmentsFragmentInteraction,
+        TodayFragment.TodayFragmentInteraction {
 
     private final int REQUEST_FAB_SORT = 0x0001;
     private final int REQUEST_ADD_NOTE = 0x0002;
