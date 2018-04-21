@@ -344,7 +344,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private void toMonthFragment() {
         if (getCurrentFragment() instanceof MonthFragment) return;
         MonthFragment monthFragment = MonthFragment.newInstance();
-//        categoriesFragment.setScrollListener(onScrollListener);
+        monthFragment.setOnScrollListener(onScrollListener);
         FragmentHelper.replace(this, monthFragment, R.id.fragment_container);
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_calendar).setChecked(true), 300);
     }
