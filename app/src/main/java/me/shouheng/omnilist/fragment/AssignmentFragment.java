@@ -437,6 +437,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     AssignmentFragment.this.alarm = retAlarm;
                     assignment.setStartTime(retAlarm.getStartDate());
                     assignment.setEndTime(retAlarm.getEndDate());
+                    assignment.setDaysOfWeek(retAlarm.getDaysOfWeek());
+                    assignment.setNoticeTime(TimeUtils.getTimeInMillis(retAlarm.getHour(), retAlarm.getMinute()));
                     AssignmentsStore.getInstance().update(assignment);
 
                     mAdapter.setAlarm(alarm);
