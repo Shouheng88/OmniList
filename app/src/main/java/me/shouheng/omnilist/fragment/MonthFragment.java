@@ -30,6 +30,7 @@ import me.shouheng.omnilist.databinding.FragmentMonthCalendarBinding;
 import me.shouheng.omnilist.databinding.ItemTitleBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
 import me.shouheng.omnilist.model.Assignment;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
@@ -45,8 +46,6 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     private RecyclerView.OnScrollListener onScrollListener;
 
     private AssignmentsAdapter mAdapter;
-
-    private boolean isContentChanged = false;
 
     private ItemTitleBinding itemTitleBinding;
 
@@ -119,6 +118,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
 
     private void configList() {
         itemTitleBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_title, null, false);
+        itemTitleBinding.tvSectionTitle.setBackgroundColor(ColorUtils.fadeColor(ColorUtils.primaryColor(), 0.8f));
 
         mAdapter = new AssignmentsAdapter(Collections.emptyList());
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -211,7 +211,6 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                     break;
                 case SUCCESS:
                     ToastUtils.makeToast(R.string.text_update_successfully);
-                    isContentChanged = true;
                     break;
             }
         });
@@ -263,7 +262,6 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_EDIT:
-                    isContentChanged = true;
                     break;
             }
         }
