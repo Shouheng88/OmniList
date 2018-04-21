@@ -50,6 +50,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
@@ -62,6 +63,7 @@ import me.shouheng.omnilist.fragment.base.BaseFragment;
 import me.shouheng.omnilist.listener.PalmAnimationListener;
 import me.shouheng.omnilist.listener.PalmAnimatorListener;
 import me.shouheng.omnilist.listener.SpeechRecognitionListener;
+import me.shouheng.omnilist.manager.AlarmsManager;
 import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Category;
@@ -231,6 +233,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             switch (view.getId()) {
                 case R.id.iv_completed:
                     Assignment assignment = mAdapter.getItem(position);
+                    assert assignment != null;
                     if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS) {
                         assignment.setProgress(0);
                         assignment.setInCompletedThisTime(true);
@@ -244,7 +247,9 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     updateState();
                     break;
                 case R.id.rl_item:
-                    ContentActivity.editAssignment(this, mAdapter.getItem(position), REQUEST_FOR_EDIT);
+                    ContentActivity.editAssignment(this,
+                            Objects.requireNonNull(mAdapter.getItem(position)),
+                            REQUEST_FOR_EDIT);
                     break;
             }
         });
@@ -808,12 +813,11 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
         if (alarm != null) {
             AlarmsStore.getInstance().update(alarm, Status.NORMAL);
-//            AlarmsManager.getsInstance().removeAlarm(alarm);
+            AlarmsManager.getsInstance().removeAlarm(alarm);
         }
     }
 
     /**
-     * todo recover alarm
      * {@link #trashModel(Assignment)} and {@link #archiveModel(Assignment)}
      *
      * @param assignment assignment
@@ -824,7 +828,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         AssignmentsStore.getInstance().update(assignment, status);
         if (alarm != null) {
             AlarmsStore.getInstance().update(alarm, status);
-//            AlarmsManager.getsInstance().addAlarm(alarm);
+            AlarmsManager.getsInstance().addAlarm(alarm);
         }
     }
 
