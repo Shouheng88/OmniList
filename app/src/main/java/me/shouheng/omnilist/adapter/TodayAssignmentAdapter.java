@@ -23,6 +23,7 @@ import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.widget.tools.IItemTouchHelperAdapter;
 
+// todo 1. remove assignment when complete
 public class TodayAssignmentAdapter extends BaseMultiItemQuickAdapter<TodayAssignmentAdapter.MultiItem, BaseViewHolder>
         implements IItemTouchHelperAdapter {
 
