@@ -790,6 +790,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         super.onDestroy();
     }
 
+    // region Swipe event
     private void trashModel(Assignment assignment) {
         AssignmentsStore.getInstance().update(assignment, Status.TRASHED);
         final Alarm alarm = AlarmsStore.getInstance().getAlarm(assignment, null);
@@ -887,6 +888,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                 .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
                 .show();
     }
+    // endregion
 
     public interface AssignmentsFragmentInteraction {
         default void onAssignmentDataChanged() {}
