@@ -80,8 +80,8 @@ public class ModelFactory {
         alarm.setDaysOfWeek(DaysOfWeek.getInstance(0));
         alarm.setDaysOfMonth(DaysOfMonth.getInstance(0));
 
-        alarm.setStartDate(new Date());
-        alarm.setEndDate(TimeUtils.getTomorrowDate().getTime());
+        alarm.setStartDate(TimeUtils.today());
+        alarm.setEndDate(TimeUtils.endToday());
 
         alarm.setHour(c.get(Calendar.HOUR_OF_DAY));
         alarm.setMinute(c.get(Calendar.MINUTE));
@@ -150,8 +150,9 @@ public class ModelFactory {
         assignment.setPriority(Priority.LEVEL_03);
         assignment.setProgress(0);
         assignment.setAssignmentType(AssignmentType.NORMAL);
-        assignment.setStartTime(new Date());
-        assignment.setEndTime(new Date());
+        assignment.setStartTime(TimeUtils.today());
+        assignment.setEndTime(TimeUtils.endToday());
+        assignment.setDaysOfWeek(DaysOfWeek.getInstance(0));
         assignment.setCompleteTime(new Date(0));
         assignment.setAssignmentOrder(0);
         return assignment;
