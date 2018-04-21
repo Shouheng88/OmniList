@@ -5,12 +5,16 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.Collections;
 import java.util.Date;
@@ -35,6 +39,7 @@ import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
+import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
@@ -286,6 +291,31 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         Snackbar.make(getBinding().rlContainer, titleRes, Snackbar.LENGTH_SHORT)
                 .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
                 .show();
+    }
+    // endregion
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        /*For current version, we don't allow to capture the list for the section title height.*/
+        setHasOptionsMenu(true);
+    }
+
+    // region Options menu
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.capture, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_capture:
+                createScreenCapture(getBinding().rvAssignments, ViewUtils.dp2Px(PalmApp.getContext(), 60));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
     // endregion
 
