@@ -1,9 +1,10 @@
 package me.shouheng.omnilist.utils;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
 import org.polaric.colorful.Colorful;
@@ -29,7 +30,7 @@ public class ColorUtils {
         return isDarkTheme;
     }
 
-    public static int primaryColor() {
+    public static @ColorInt int primaryColor() {
         if (primaryColor == null) {
             Colorful.ThemeColor themeColor = ColorPreferences.getInstance().getThemeColor();
             primaryColor = PalmApp.getColorCompact(themeColor.getColorRes());
@@ -37,7 +38,7 @@ public class ColorUtils {
         return primaryColor;
     }
 
-    public static int accentColor(){
+    public static @ColorInt int accentColor(){
         if (accentColor == null) {
             Colorful.AccentColor accentColor = ColorPreferences.getInstance().getAccentColor();
             ColorUtils.accentColor = PalmApp.getColorCompact(accentColor.getColorRes());
@@ -59,11 +60,11 @@ public class ColorUtils {
         isDarkTheme = ColorPreferences.getInstance().isDarkTheme();
     }
 
-    public static String getColorName(int color) {
+    public static String getColorName(@ColorInt int color) {
         return "#" + getHexString(Color.red(color)) + getHexString(Color.green(color)) + getHexString( Color.blue(color));
     }
 
-    private static String getHexString(int i){
+    private static String getHexString(@ColorInt int i){
         String s = Integer.toHexString(i).toUpperCase();
         return s.length() == 1 ? "0" + s : s;
     }
@@ -74,11 +75,11 @@ public class ColorUtils {
         return wrappedDrawable;
     }
 
-    public static int calStatusBarColor(int color) {
+    public static @ColorInt int calStatusBarColor(@ColorInt int color) {
         return calStatusBarColor(color, DEFAULT_COLOR_ALPHA);
     }
 
-    public static int calStatusBarColor(int color, int alpha) {
+    public static @ColorInt int calStatusBarColor(@ColorInt int color, int alpha) {
         float a = 1 - alpha / 255f;
         int red = color >> 16 & 0xff;
         int green = color >> 8 & 0xff;
@@ -89,11 +90,15 @@ public class ColorUtils {
         return 0xff << 24 | red << 16 | green << 8 | blue;
     }
 
-    public static int parseColor(String colorHex, int defaultValue) {
+    public static @ColorInt int parseColor(String colorHex, @ColorInt int defaultValue) {
         try {
             return Color.parseColor(colorHex);
         } catch (Exception e) {
             return defaultValue;
         }
+    }
+
+    public static @ColorInt int fadeColor(@ColorInt int color, @FloatRange(from = 0, to = 1) float rate) {
+        return (color & 0x00ffffff) | ((0xff - (int)(0xff * rate)) << 24);
     }
 }

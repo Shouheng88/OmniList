@@ -330,7 +330,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_capture:
-                createScreenCapture(getBinding().rvCategories, ViewUtils.dp2Px(getContext(), 60));
+                createScreenCapture(getBinding().rvCategories, ViewUtils.dp2Px(PalmApp.getContext(), 60));
                 break;
         }
         return super.onOptionsItemSelected(item);

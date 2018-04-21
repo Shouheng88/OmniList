@@ -38,12 +38,14 @@ public class TodayAssignmentAdapter extends BaseMultiItemQuickAdapter<TodayAssig
 
     @Override
     protected void convert(BaseViewHolder helper, MultiItem item) {
-        if (ColorUtils.isDarkTheme()) helper.itemView.setBackgroundResource(R.color.dark_theme_background);
         switch (ViewType.getTypeById(helper.getItemViewType())) {
             case HEADER:
+                helper.itemView.setBackgroundColor(ColorUtils.fadeColor(ColorUtils.primaryColor(), 0.8f));
                 convertHeader(helper, item);
                 break;
             case NORMAL:
+                helper.itemView.setBackgroundResource(ColorUtils.isDarkTheme() ?
+                        R.color.dark_theme_background : R.color.light_theme_background);
                 convertAssignment(helper, item.assignment);
                 break;
         }
