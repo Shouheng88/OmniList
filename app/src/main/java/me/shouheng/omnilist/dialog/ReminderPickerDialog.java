@@ -14,6 +14,8 @@ import android.widget.AdapterView;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
 
+import org.joda.time.DateTime;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -119,28 +121,28 @@ public class ReminderPickerDialog extends DialogFragment {
         PopupMenu popupM = new PopupMenu(Objects.requireNonNull(getContext()), v);
         popupM.inflate(R.menu.date_picker_menu);
 
-        popupM.getMenu().getItem(0).setTitle(String.format(getString(R.string.today_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getTodayDate())));
-        popupM.getMenu().getItem(1).setTitle(String.format(getString(R.string.tomorrow_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getTomorrowDate())));
-        popupM.getMenu().getItem(2).setTitle(String.format(getString(R.string.this_friday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getThisFridayDate())));
-        popupM.getMenu().getItem(3).setTitle(String.format(getString(R.string.this_sunday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getThisSundayDate())));
-        popupM.getMenu().getItem(4).setTitle(String.format(getString(R.string.next_monday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.getNextMondayDate())));
+        popupM.getMenu().getItem(0).setTitle(String.format(getString(R.string.today_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.today())));
+        popupM.getMenu().getItem(1).setTitle(String.format(getString(R.string.tomorrow_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.tomorrow())));
+        popupM.getMenu().getItem(2).setTitle(String.format(getString(R.string.this_friday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.thisFriday())));
+        popupM.getMenu().getItem(3).setTitle(String.format(getString(R.string.this_sunday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.thisSunday())));
+        popupM.getMenu().getItem(4).setTitle(String.format(getString(R.string.next_monday_with_date), TimeUtils.getShortDate(getContext(), TimeUtils.nextMonday())));
 
         popupM.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.item_today:
-                    alarm.setEndDate(TimeUtils.getTodayDate().getTime());
+                    onDatePicked(TimeUtils.today());
                     break;
                 case R.id.item_tomorrow:
-                    alarm.setEndDate(TimeUtils.getTomorrowDate().getTime());
+                    onDatePicked(TimeUtils.tomorrow());
                     break;
                 case R.id.item_this_friday:
-                    alarm.setEndDate(TimeUtils.getThisFridayDate().getTime());
+                    onDatePicked(TimeUtils.thisFriday());
                     break;
                 case R.id.item_this_sunday:
-                    alarm.setEndDate(TimeUtils.getThisSundayDate().getTime());
+                    onDatePicked(TimeUtils.thisSunday());
                     break;
                 case R.id.item_next_monday:
-                    alarm.setEndDate(TimeUtils.getNextMondayDate().getTime());
+                    onDatePicked(TimeUtils.nextMonday());
                     break;
                 case R.id.item_custom:
                     showCustomDateDialog();
@@ -209,11 +211,26 @@ public class ReminderPickerDialog extends DialogFragment {
         }
 
         /*Show date picker dialog.*/
-        DatePickerDialog.newInstance((datePickerDialog, year1, month1, day) -> {
-                    alarm.setEndDate(TimeUtils.getStandardDay(year1, month1, day).getTime());
-                    displayAlarmInfo();
-                }, year, month, dayOfMonth, true
+        DatePickerDialog.newInstance((datePickerDialog, year1, month1, day) ->
+                onDatePicked(TimeUtils.date(year1, month1, day)),
+                year, month, dayOfMonth, true
         ).show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "DATE_PICKER");
+    }
+
+    private void onDatePicked(Date endDate) {
+        switch (alarm.getAlarmType()) {
+            case WEEK_REPEAT:
+            case DAILY:
+                alarm.setStartDate(TimeUtils.today());
+                alarm.setEndDate(endDate);
+                break;
+            case SPECIFIED_DATE:
+                DateTime dateTime = new DateTime(endDate);
+                alarm.setStartDate(TimeUtils.startTime(dateTime));
+                alarm.setEndDate(TimeUtils.endTime(dateTime));
+                break;
+        }
+        displayAlarmInfo();
     }
 
     private void showCustomTimeDialog() {
@@ -246,12 +263,12 @@ public class ReminderPickerDialog extends DialogFragment {
     private void displayAlarmInfo() {
         switch (alarm.getAlarmType()){
             case SPECIFIED_DATE:
-                binding.oneShotLayout.tvOneShotTime.setText(TimeUtils.getShortTime(getContext(), TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute())));
+                binding.oneShotLayout.tvOneShotTime.setText(TimeUtils.shortTime(alarm.getHour(), alarm.getMinute()));
                 binding.oneShotLayout.tvOneShotDate.setText(TimeUtils.getLongDateWithWeekday(getContext(), alarm.getEndDate()));
                 binding.tvReminderInfo.setText(alarm.getAlarmInfo(getContext()));
                 break;
             case WEEK_REPEAT:
-                binding.repeatLayout.tvRepeatAlarmSetTime.setText(TimeUtils.getShortTime(getContext(), TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute())));
+                binding.repeatLayout.tvRepeatAlarmSetTime.setText(TimeUtils.shortTime(alarm.getHour(), alarm.getMinute()));
                 binding.repeatLayout.tvRepeatEndDate.setText(TimeUtils.getLongDateWithWeekday(getContext(), alarm.getEndDate()));
                 binding.tvReminderInfo.setText(alarm.getAlarmInfo(getContext()));
                 break;
