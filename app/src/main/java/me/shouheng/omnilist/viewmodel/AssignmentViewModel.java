@@ -29,6 +29,10 @@ public class AssignmentViewModel extends BaseViewModel<Assignment> {
         return getRepository().get(getQueryConditions(queryString), whereSQL);
     }
 
+    public LiveData<Resource<List<Assignment>>> getAssignments(long startMillis, long endMillis) {
+        return ((AssignmentRepository) getRepository()).getAssignments(startMillis, endMillis);
+    }
+
     private String getQueryConditions(String queryString) {
         SearchPreferences searchPreferences = SearchPreferences.getInstance();
         return (searchPreferences.isTagsIncluded() ?

@@ -6,9 +6,11 @@ import android.os.Parcelable;
 import java.util.Date;
 import java.util.List;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.model.enums.AssignmentType;
 import me.shouheng.omnilist.model.enums.Priority;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.model.tools.DaysOfWeek;
 import me.shouheng.omnilist.provider.annotation.Column;
 import me.shouheng.omnilist.provider.annotation.Table;
 import me.shouheng.omnilist.provider.schema.AssignmentSchema;
@@ -39,6 +41,12 @@ public class Assignment extends Model implements Parcelable {
 
     @Column(name = AssignmentSchema.END_TIME)
     private Date endTime;
+
+    @Column(name = AssignmentSchema.DAYS_OF_WEEK)
+    private DaysOfWeek daysOfWeek;
+
+    @Column(name = AssignmentSchema.NOTICE_TIME)
+    private int noticeTime;
 
     @Column(name = AssignmentSchema.COMPLETED_TIME)
     private Date completeTime;
@@ -152,6 +160,8 @@ public class Assignment extends Model implements Parcelable {
         tags = in.readString();
         startTime = new Date(in.readLong());
         endTime = new Date(in.readLong());
+        daysOfWeek = DaysOfWeek.getInstance(in.readInt());
+        noticeTime = in.readInt();
         completeTime = new Date(in.readLong());
         progress = in.readInt();
         priority = Priority.getTypeById(in.readInt());
@@ -219,6 +229,22 @@ public class Assignment extends Model implements Parcelable {
         this.endTime = endTime;
     }
 
+    public DaysOfWeek getDaysOfWeek() {
+        return daysOfWeek;
+    }
+
+    public void setDaysOfWeek(DaysOfWeek daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
+    }
+
+    public int getNoticeTime() {
+        return noticeTime;
+    }
+
+    public void setNoticeTime(int noticeTime) {
+        this.noticeTime = noticeTime;
+    }
+
     public int getProgress() {
         return progress;
     }
@@ -268,6 +294,7 @@ public class Assignment extends Model implements Parcelable {
                 ", tags='" + tags + '\'' +
                 ", startTime=" + TimeUtils.formatDate(startTime, TimeUtils.DateFormat.YYYY_MMM_dd_E_hh_mm_a) +
                 ", endTime=" + TimeUtils.formatDate(endTime, TimeUtils.DateFormat.YYYY_MMM_dd_E_hh_mm_a) +
+                ", daysOfWeek=" + daysOfWeek.toString(PalmApp.getContext(), true) +
                 ", completeTime=" + TimeUtils.formatDate(completeTime, TimeUtils.DateFormat.YYYY_MMM_dd_E_hh_mm_a) +
                 ", progress=" + progress +
                 ", priority=" + priority +
@@ -298,6 +325,8 @@ public class Assignment extends Model implements Parcelable {
         dest.writeString(tags);
         dest.writeLong(startTime.getTime());
         dest.writeLong(endTime.getTime());
+        dest.writeInt(daysOfWeek.getCoded());
+        dest.writeInt(noticeTime);
         dest.writeLong(completeTime.getTime());
         dest.writeInt(progress);
         dest.writeInt(priority.id);
