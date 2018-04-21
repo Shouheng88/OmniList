@@ -191,7 +191,7 @@ public class AlarmsManager {
         if (alarm != null) {
             Calendar snoozeTime = Calendar.getInstance();
             if (rescheduleTime != null) {
-                snoozeTime.setTimeInMillis(TimeUtils.getMillisTodayStart() + rescheduleTime);
+                snoozeTime.setTimeInMillis(TimeUtils.today().getTime() + rescheduleTime);
                 /*We set the next time, only if the specified time is after now.*/
                 if (snoozeTime.after(Calendar.getInstance())) {
                     alarm.setNextTime(snoozeTime);
@@ -238,7 +238,7 @@ public class AlarmsManager {
         Calendar nextTime = Calendar.getInstance();
         switch (alarm.getAlarmType()){
             case DAILY:
-                long tomorrow = TimeUtils.getStandardMillisTomorrow();
+                long tomorrow = TimeUtils.tomorrow().getTime();
                 nextTime.setTimeInMillis(tomorrow);
                 break;
             case SPECIFIED_DATE:

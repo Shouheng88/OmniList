@@ -175,19 +175,19 @@ public class Alarm extends Model {
                 "\n实体类型：【" + (modelType == null ? "" : modelType.name()) +"】"  +
                 "\n实体编号：【" + modelCode + "】" +
                 "\n周次重复：【" + daysOfWeek.toString(PalmApp.getContext(), true) + "】" +
-                "\n响铃时间：【" + TimeUtils.getShortTime(PalmApp.getContext(), TimeUtils.getTimeInMillis(hour, minute)) + "】" +
+                "\n响铃时间：【" + TimeUtils.shortTime(hour, minute) + "】" +
                 "\n日期设置：【" + TimeUtils.getShortDate(PalmApp.getContext(), endDate) + "】" +
-                "\n下次响铃：【" + TimeUtils.getDateTimeShort(PalmApp.getContext(), nextTime.getTime()) + "】" +
-                "\n最后更新：【" + TimeUtils.getDateTimeShort(PalmApp.getContext(), getLastModifiedTime())+  "】" +
+                "\n下次响铃：【" + TimeUtils.shortDateTime(nextTime.getTime()) + "】" +
+                "\n最后更新：【" + TimeUtils.shortDateTime(getLastModifiedTime())+  "】" +
                 "\n起止日期：【" + TimeUtils.getShortDate(PalmApp.getContext(), startDate) + "-" + TimeUtils.getShortDate(PalmApp.getContext(), endDate) + "】" + "\n";
     }
 
     public String getAlarmInfo(Context context){
         switch (alarmType){
             case SPECIFIED_DATE:
-                return TimeUtils.getShortDate(context, endDate)  + " " + TimeUtils.getShortTime(context, hour, minute);
+                return TimeUtils.getShortDate(context, endDate)  + " " + TimeUtils.shortTime(hour, minute);
             case WEEK_REPEAT:
-                return daysOfWeek.toString(context, true)  + " " + TimeUtils.getShortTime(context, hour, minute) + " "
+                return daysOfWeek.toString(context, true)  + " " + TimeUtils.shortTime(hour, minute) + " "
                         + context.getString(R.string.until) + " " + TimeUtils.getShortDate(context, endDate);
             default:
                 return null;
