@@ -429,6 +429,9 @@
     <string name="assignment_trash_msg">Trash assignment?</string>
     <string name="assignment_archive_msg">Archive assignment?</string>
     <string name="assignment_move_out_msg">Move out assignment?</string>
+
+    <string name="text_overdue">Overdue</string>
+    <string name="text_today">Today</string>
     <!--endregion-->
 
     <string name="text_undo">Undo</string>
