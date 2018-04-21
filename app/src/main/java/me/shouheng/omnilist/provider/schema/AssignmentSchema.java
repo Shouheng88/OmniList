@@ -11,6 +11,8 @@ public interface AssignmentSchema extends BaseSchema {
     String TAGS = "tags";
     String START_TIME = "start_time";
     String END_TIME = "end_time";
+    String DAYS_OF_WEEK = "days_of_week";
+    String NOTICE_TIME = "notice_time";
     String COMPLETED_TIME = "completed_time";
     String PROGRESS = "progress";
     String PRIORITY = "priority";

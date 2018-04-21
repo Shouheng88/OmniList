@@ -19,6 +19,7 @@ import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Priority;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.model.tools.DaysOfWeek;
 import me.shouheng.omnilist.provider.helper.StoreHelper;
 import me.shouheng.omnilist.provider.helper.TimelineHelper;
 import me.shouheng.omnilist.provider.schema.AlarmSchema;
@@ -48,6 +49,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         super(context);
     }
 
+    // region sql fragments
     private final String GET_ATTACHMENTS_COUNT = " (SELECT COUNT(*) FROM " + AttachmentSchema.TABLE_NAME + " AS t1 "
             + " WHERE t1." + AttachmentSchema.MODEL_CODE + " = " + tableName + "." + AssignmentSchema.CODE
             + " AND t1." + AttachmentSchema.USER_ID + " = " + userId
@@ -61,6 +63,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
             + " AND t2." + AlarmSchema.MODEL_TYPE + " = " + ModelType.ASSIGNMENT.id
             + " AND t2." + AttachmentSchema.STATUS + " = " + Status.NORMAL.id + " ) "
             + " AS " + AssignmentSchema.ALARM_NUMBER;
+    // endregion
 
     @Override
     protected void afterDBCreated(SQLiteDatabase db) {}
@@ -76,6 +79,8 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         assignment.setTags(cursor.getString(cursor.getColumnIndex(AssignmentSchema.TAGS)));
         assignment.setStartTime(new Date(cursor.getLong(cursor.getColumnIndex(AssignmentSchema.START_TIME))));
         assignment.setEndTime(new Date(cursor.getLong(cursor.getColumnIndex(AssignmentSchema.END_TIME))));
+        assignment.setDaysOfWeek(DaysOfWeek.getInstance(cursor.getInt(cursor.getColumnIndex(AssignmentSchema.DAYS_OF_WEEK))));
+        assignment.setNoticeTime(cursor.getInt(cursor.getColumnIndex(AssignmentSchema.NOTICE_TIME)));
         assignment.setCompleteTime(new Date(cursor.getLong(cursor.getColumnIndex(AssignmentSchema.COMPLETED_TIME))));
         assignment.setProgress(cursor.getInt(cursor.getColumnIndex(AssignmentSchema.PROGRESS)));
         assignment.setPriority(Priority.getTypeById(cursor.getInt(cursor.getColumnIndex(AssignmentSchema.PRIORITY))));
@@ -99,6 +104,8 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         values.put(AssignmentSchema.TAGS, assignment.getTags());
         values.put(AssignmentSchema.START_TIME, assignment.getStartTime() == null ? 0 : assignment.getStartTime().getTime());
         values.put(AssignmentSchema.END_TIME, assignment.getEndTime() == null ? 0 : assignment.getEndTime().getTime());
+        values.put(AssignmentSchema.DAYS_OF_WEEK, assignment.getDaysOfWeek() == null ? 0 : assignment.getDaysOfWeek().getCoded());
+        values.put(AssignmentSchema.NOTICE_TIME, assignment.getNoticeTime());
         values.put(AssignmentSchema.COMPLETED_TIME, assignment.getCompleteTime() == null ? 0 : assignment.getCompleteTime().getTime());
         values.put(AssignmentSchema.PROGRESS, assignment.getProgress());
         values.put(AssignmentSchema.PRIORITY, assignment.getPriority().id);
@@ -267,5 +274,33 @@ public class AssignmentsStore extends BaseStore<Assignment> {
             database.endTransaction();
             closeDatabase(database);
         }
+    }
+
+    /**
+     * Get the assignment according to alarm type. Note that this method will only return the assignments
+     * based on the start and end time of alarm. Need to re-filter the return values by the alarm type
+     * and repeat value.
+     *
+     * @param startMillis start millis
+     * @param endMillis and millis
+     * @return the queried list */
+    public synchronized List<Assignment> getAssignments(long startMillis, long endMillis) {
+        Cursor cursor = null;
+        List<Assignment> assignments;
+        final SQLiteDatabase database = getWritableDatabase();
+        try {
+            String sql = " SELECT " + tableName + ".*, " + GET_ATTACHMENTS_COUNT + ", " + GET_ALARMS_COUNT
+                    + " FROM " + tableName
+                    + " WHERE " + tableName + "." + AssignmentSchema.USER_ID + " = " + userId
+                    + " AND " + tableName + "." + AssignmentSchema.START_TIME + " <= " + endMillis
+                    + " AND " + tableName + "." + AssignmentSchema.END_TIME + " >= " + startMillis
+                    + " AND " + tableName + "." + AssignmentSchema.STATUS + " = " + Status.NORMAL.id;
+            cursor = database.rawQuery(sql, new String[]{});
+            assignments = getList(cursor);
+        } finally {
+            closeCursor(cursor);
+            closeDatabase(database);
+        }
+        return assignments;
     }
 }
