@@ -219,8 +219,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
 
     private void loadAssignment(int year, int month, int day) {
         DateTime dateTime = new DateTime(year, month + 1, day, 0, 0);
-        Date endDate = TimeUtils.startTime(dateTime);
-        Date startDate = TimeUtils.endTime(dateTime);
+        Date startDate = TimeUtils.startTime(dateTime);
+        Date endDate = TimeUtils.endTime(dateTime);
         assignmentViewModel.getAssignments(startDate.getTime(), endDate.getTime()).observe(this, listResource -> {
             assert listResource != null;
             switch (listResource.status) {

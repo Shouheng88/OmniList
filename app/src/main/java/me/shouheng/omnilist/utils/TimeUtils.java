@@ -287,21 +287,21 @@ public class TimeUtils {
         DateTime dateTime = new DateTime();
         int week = dateTime.getDayOfWeek();
         int offset = week == DateTimeConstants.SUNDAY ? 5 : 5 - week;
-        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+        return dateTime.plusDays(offset).withTimeAtStartOfDay().toDate();
     }
 
     public static Date thisSunday() {
         DateTime dateTime = new DateTime();
         int week = dateTime.getDayOfWeek();
         int offset = week == DateTimeConstants.SUNDAY ? 0 : -week;
-        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+        return dateTime.plusDays(offset).withTimeAtStartOfDay().toDate();
     }
 
     public static Date nextMonday() {
         DateTime dateTime = new DateTime();
         int week = dateTime.getDayOfWeek();
         int offset = week == DateTimeConstants.SUNDAY ? 1 : 8 - week;
-        return dateTime.plus(offset).withTimeAtStartOfDay().toDate();
+        return dateTime.plusDays(offset).withTimeAtStartOfDay().toDate();
     }
     // endregion
 
