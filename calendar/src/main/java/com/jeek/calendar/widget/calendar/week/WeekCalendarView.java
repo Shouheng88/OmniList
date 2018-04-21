@@ -9,14 +9,14 @@ import android.util.SparseArray;
 import com.jeek.calendar.library.R;
 import com.jeek.calendar.widget.calendar.tools.OnCalendarClickListener;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Jimmy on 2016/10/7 0007. */
 public class WeekCalendarView extends ViewPager implements OnWeekClickListener {
 
-    private List<OnCalendarClickListener> onCalendarClickListeners = new ArrayList<>();
+    private List<OnCalendarClickListener> onCalendarClickListeners = new LinkedList<>();
     private OnLoadWeekTaskListener onLoadWeekTaskListener;
     private WeekAdapter mWeekAdapter;
 
@@ -53,15 +53,19 @@ public class WeekCalendarView extends ViewPager implements OnWeekClickListener {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
         @Override
-        public void onPageSelected(int position) {
-            WeekView weekView = mWeekAdapter.getViews().get(position);
-            if (weekView != null) {
-                weekView.clickThisWeek(weekView.getSelectYear(), weekView.getSelectMonth(), weekView.getSelectDay());
-            }
-        }
+        public void onPageSelected(int position) {}
 
         @Override
-        public void onPageScrollStateChanged(int state) {}
+        public void onPageScrollStateChanged(int state) {
+            switch (state) {
+                case ViewPager.SCROLL_STATE_IDLE:
+                    WeekView weekView = mWeekAdapter.getViews().get(getCurrentItem());
+                    if (weekView != null) {
+                        weekView.clickThisWeek(weekView.getSelectYear(), weekView.getSelectMonth(), weekView.getSelectDay());
+                    }
+                    break;
+            }
+        }
     };
 
     /**

@@ -39,15 +39,19 @@ public class MonthCalendarView extends ViewPager implements OnMonthClickListener
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
 
             @Override
-            public void onPageSelected(int position) {
-                MonthView monthView = mMonthAdapter.getViews().get(getCurrentItem());
-                if (monthView != null) {
-                    monthView.clickThisMonth(monthView.getSelectYear(), monthView.getSelectMonth(), monthView.getSelectDay());
-                }
-            }
+            public void onPageSelected(int position) {}
 
             @Override
-            public void onPageScrollStateChanged(int state) { }
+            public void onPageScrollStateChanged(int state) {
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_IDLE:
+                        MonthView monthView = mMonthAdapter.getViews().get(getCurrentItem());
+                        if (monthView != null) {
+                            monthView.clickThisMonth(monthView.getSelectYear(), monthView.getSelectMonth(), monthView.getSelectDay());
+                        }
+                        break;
+                }
+            }
         });
     }
 
