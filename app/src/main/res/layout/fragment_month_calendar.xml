@@ -66,18 +66,18 @@
                     android:id="@+id/rlScheduleList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorBackground">
+                    android:background="@color/light_theme_background">
 
-                    <com.jeek.calendar.widget.schedule.ScheduleRecyclerView
+                    <me.shouheng.omnilist.widget.EmptySupportScheduleRV
                         android:id="@+id/rvScheduleList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
+                        android:layout_marginTop="6dp"
                         android:orientation="vertical"
-                        android:overScrollMode="never"
-                        android:paddingTop="6dp"/>
+                        android:overScrollMode="never"/>
 
                     <RelativeLayout
                         android:id="@+id/rlNoTask"
@@ -98,7 +98,7 @@
 
                     <View android:background="@drawable/below_shadow"
                         android:layout_width="match_parent"
-                        android:layout_height="5dp"/>
+                        android:layout_height="3dp"/>
 
                 </RelativeLayout>
 
