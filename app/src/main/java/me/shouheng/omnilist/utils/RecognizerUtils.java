@@ -5,7 +5,7 @@ import android.speech.SpeechRecognizer;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 
-public class SpeechRecognizorUtils {
+public class RecognizerUtils {
 
     public static String getErrorMessage(int error) {
         StringBuilder sb = new StringBuilder(PalmApp.getStringCompact(R.string.recognize_failed));
