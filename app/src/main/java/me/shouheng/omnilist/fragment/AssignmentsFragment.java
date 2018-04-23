@@ -75,7 +75,7 @@ import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.NetworkUtils;
-import me.shouheng.omnilist.utils.SpeechRecognizorUtils;
+import me.shouheng.omnilist.utils.RecognizerUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
@@ -451,7 +451,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
         @Override
         public void onError(int error) {
-            showLog(SpeechRecognizorUtils.getErrorMessage(error));
+            showLog(RecognizerUtils.getErrorMessage(error));
             new Handler().postDelayed(() -> getBinding().lsr.getRoot().setVisibility(View.GONE), 1000);
         }
 

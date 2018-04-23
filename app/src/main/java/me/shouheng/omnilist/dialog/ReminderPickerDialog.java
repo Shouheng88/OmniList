@@ -26,9 +26,9 @@ import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.enums.AlarmType;
 import me.shouheng.omnilist.model.tools.DaysOfWeek;
 import me.shouheng.omnilist.utils.ColorUtils;
-import me.shouheng.omnilist.utils.PopupMenuUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
+import me.shouheng.omnilist.utils.ViewUtils;
 import me.shouheng.omnilist.utils.preferences.UserPreferences;
 
 /**
@@ -158,7 +158,7 @@ public class ReminderPickerDialog extends DialogFragment {
     private void showTimePicker(View v) {
         PopupMenu popupM = new PopupMenu(Objects.requireNonNull(getContext()), v);
         popupM.inflate(R.menu.time_picker_menu);
-        PopupMenuUtils.forceShowIcon(popupM);
+        ViewUtils.forceShowIcon(popupM);
         popupM.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()){
                 case R.id.item_morning:
