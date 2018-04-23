@@ -86,7 +86,7 @@
 
                         <me.shouheng.omnilist.widget.EmptyView
                             app:tint_drawable="true"
-                            app:empty_image="@drawable/ic_folder_special_black_24dp"
+                            app:empty_image="@drawable/ic_no_task_large"
                             app:title="No activity"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="50dp"

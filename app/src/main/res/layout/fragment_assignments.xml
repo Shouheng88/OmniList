@@ -59,7 +59,7 @@
                 android:id="@+id/iv_empty"
                 android:layout_centerInParent="true"
                 app:tint_drawable="true"
-                app:empty_image="@drawable/ic_folder_special_black_24dp"
+                app:empty_image="@drawable/ic_category_large"
                 app:title="@string/no_assignments_found"
                 app:sub_title="@string/fragment_assignments_empty_sub"
                 android:layout_width="wrap_content"
