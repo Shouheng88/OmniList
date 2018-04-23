@@ -1,5 +1,6 @@
 package me.shouheng.omnilist.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -7,10 +8,14 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v7.view.menu.MenuPopupHelper;
+import android.support.v7.widget.PopupMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+
+import java.lang.reflect.Field;
 
 /**
  * Created by Wang Shouheng on 2017/12/5. */
@@ -22,31 +27,31 @@ public class ViewUtils {
         return resId > 0 ? context.getResources().getDimensionPixelOffset(resId) : result;
     }
 
-    public static int dp2Px(Context context, float dpValues){
+    public static int dp2Px(Context context, float dpValues) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int)(dpValues * scale + 0.5f);
     }
 
-    public static int sp2Px(Context context, float spValues){
+    public static int sp2Px(Context context, float spValues) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int)(spValues * fontScale + 0.5f);
     }
 
-    public static int getWindowWidth(Context context){
+    public static int getWindowWidth(Context context) {
         WindowManager window = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();
         window.getDefaultDisplay().getRealSize(point);
         return point.x;
     }
 
-    public static int getWindowHeight(Context context){
+    public static int getWindowHeight(Context context) {
         WindowManager window = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();
         window.getDefaultDisplay().getRealSize(point);
         return point.y;
     }
 
-    public static Point getWindowSize(Context context){
+    public static Point getWindowSize(Context context) {
         WindowManager window = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Point point = new Point();
         window.getDefaultDisplay().getRealSize(point);
@@ -87,5 +92,19 @@ public class ViewUtils {
                 .setSecondaryToolbarColor(ColorUtils.calStatusBarColor(primaryColor))
                 .build();
         customTabsIntent.launchUrl(context, Uri.parse(url));
+    }
+
+    @SuppressLint("RestrictedApi")
+    public static void forceShowIcon(PopupMenu popupM) {
+        try {
+            Field field = popupM.getClass().getDeclaredField("mPopup");
+            field.setAccessible(true);
+            MenuPopupHelper menuPopupHelper = (MenuPopupHelper) field.get(popupM);
+            menuPopupHelper.setForceShowIcon(true);
+        } catch (NoSuchFieldException e) {
+            LogUtils.d("showDatePicker: NoSuchFieldException");
+        } catch (IllegalAccessException e) {
+            LogUtils.d("showDatePicker: IllegalAccessException");
+        }
     }
 }
