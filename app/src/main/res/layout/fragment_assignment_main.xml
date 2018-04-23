@@ -90,13 +90,12 @@
 
             </RelativeLayout>
 
-            <!--todo replace image with large pix-->
             <me.shouheng.omnilist.widget.EmptyView
                 android:id="@+id/iv_empty"
                 android:layout_centerInParent="true"
                 sothree:tint_drawable="true"
                 sothree:sub_title="@string/attachment_list_empty"
-                sothree:empty_image="@drawable/ic_attach_file_black"
+                sothree:empty_image="@drawable/ic_attachment_large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

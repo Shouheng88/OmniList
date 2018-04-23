@@ -8,7 +8,7 @@
 
         <me.shouheng.omnilist.widget.EmptyView
             android:id="@+id/iv_empty"
-            app:empty_image="@drawable/ic_folder_special_black_24dp"
+            app:empty_image="@drawable/ic_category_large"
             app:title="@string/tags_list_empty"
             app:tint_drawable="true"
             android:layout_centerInParent="true"
