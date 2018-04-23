@@ -146,7 +146,7 @@ public class TimeUtils {
         return shortTime(new DateTime().withTime(hour, minute, 0, 0).toDate());
     }
 
-    private static String shortTime(Date time) {
+    public static String shortTime(Date time) {
         return DateUtils.formatDateTime(PalmApp.getContext(), time.getTime(), DateUtils.FORMAT_SHOW_TIME);
     }
 

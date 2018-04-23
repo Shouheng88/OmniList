@@ -77,6 +77,7 @@
         <activity android:name=".activity.ArchiveActivity" />
         <activity android:name=".activity.TrashedActivity" />
         <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.UserInfoActivity" />
         <activity
             android:name=".activity.ContentActivity"
             android:exported="true" />

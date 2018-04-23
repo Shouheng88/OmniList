@@ -9,7 +9,9 @@ import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.tools.FabSortItem;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.base.BasePreferences;
 
 /**
@@ -103,5 +105,24 @@ public class UserPreferences extends BasePreferences {
 
     public boolean is24HourMode() {
         return getBoolean(getKey(R.string.key_is_24_hour_mode), true);
+    }
+
+    public int getTimeLineColor(Operation operation) {
+        return getInt(getKey(R.string.key_operation_color_prefix) + operation.name(), defaultTimeLineColor(operation));
+    }
+
+    private int defaultTimeLineColor(Operation operation) {
+        switch (operation) {
+            case DELETE: return PalmApp.getContext().getResources().getColor(R.color.md_red_500);
+            case TRASH: return PalmApp.getContext().getResources().getColor(R.color.md_deep_orange_500);
+            case ARCHIVE: return PalmApp.getContext().getResources().getColor(R.color.md_pink_500);
+            case COMPLETE: return PalmApp.getContext().getResources().getColor(R.color.md_purple_500);
+            case SYNCED: return PalmApp.getContext().getResources().getColor(R.color.md_light_green_900);
+            case ADD: return PalmApp.getContext().getResources().getColor(R.color.md_green_500);
+            case UPDATE: return PalmApp.getContext().getResources().getColor(R.color.md_light_green_700);
+            case INCOMPLETE: return PalmApp.getContext().getResources().getColor(R.color.md_blue_500);
+            case RECOVER: return PalmApp.getContext().getResources().getColor(R.color.md_light_blue_600);
+        }
+        return ColorUtils.accentColor();
     }
 }

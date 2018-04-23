@@ -150,9 +150,11 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         database.beginTransaction();
         try {
             database.insert(tableName, null, getContentValues(assignment));
-            for (SubAssignment subAssignment : subAssignments){
+            for (SubAssignment subAssignment : subAssignments) {
                 TimeLine timeLine = TimelineHelper.getTimeLine(subAssignment, Operation.ADD);
-                database.insert(TimelineSchema.TABLE_NAME, null, StoreHelper.getContentValues(timeLine));
+                if (timeLine != null) {
+                    database.insert(TimelineSchema.TABLE_NAME, null, StoreHelper.getContentValues(timeLine));
+                }
                 database.insert(SubAssignmentSchema.TABLE_NAME, null, StoreHelper.getContentValues(subAssignment));
             }
             database.setTransactionSuccessful();
