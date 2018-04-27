@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:key="@string/key_assignment_slide_left"
+        android:persistent="false"
+        android:title="@string/setting_assignment_list_slide_left"/>
+
+    <Preference
+        android:key="@string/key_assignment_slide_right"
+        android:persistent="false"
+        android:title="@string/setting_assignment_list_slide_right"/>
+
+    <CheckBoxPreference
+        android:key="@string/key_assignment_completed"
+        android:defaultValue="true"
+        android:title="@string/setting_show_assignment_completed"
+        android:summary="@string/setting_show_assignment_completed_sub"/>
 
 </PreferenceScreen>

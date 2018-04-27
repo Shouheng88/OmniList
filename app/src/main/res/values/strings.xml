@@ -458,17 +458,23 @@
     <string name="setting_list_animation_sub">Enable list animations</string>
     <string name="setting_is_24_hour_mode">使用24小时制</string>
     <string name="setting_is_24_hour_mode_sub">在整个应用中启用24小时制</string>
+
     <string name="video_limit">视频文件大小上限</string>
     <string name="setting_video_limit_size">设置视频附件的大小上限</string>
     <string name="setting_video_limit_size_sub">设置视频附件的大小上限为%dMB</string>
     <string name="video_limit_input_hint">输入视频大小上限(MB)</string>
+
+    <string name="auto_compress_image_title">Auto compress image</string>
+    <string name="auto_compress_image_sub_title">The compressed image will save a lot of storage and data usage</string>
     <!--endregion-->
 
     <!--region assignment-->
     <string name="setting_assignment">Assignment</string>
     <string name="setting_assignment_sub">Custom assignment behavior</string>
-    <string name="auto_compress_image_title">Auto compress image</string>
-    <string name="auto_compress_image_sub_title">The compressed image will save a lot of storage and data usage</string>
+    <string name="setting_assignment_list_slide_left">Assignment list slide left</string>
+    <string name="setting_assignment_list_slide_right">Assignment list slide right</string>
+    <string name="setting_show_assignment_completed">Show assignment completed</string>
+    <string name="setting_show_assignment_completed_sub">Won\'t display completed assignment if not check</string>
     <!--endregion-->
 
     <!--region notification-->
