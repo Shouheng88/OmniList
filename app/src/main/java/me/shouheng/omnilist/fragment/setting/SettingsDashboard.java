@@ -24,6 +24,7 @@ import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.databinding.DialogDrawerBgOptionsBinding;
 import me.shouheng.omnilist.dialog.SimpleEditDialog;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
+import me.shouheng.omnilist.listener.OnFragmentDestroyListener;
 import me.shouheng.omnilist.listener.OnSettingsChangedListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.model.Attachment;
@@ -150,5 +151,13 @@ public class SettingsDashboard extends BaseFragment implements OnAttachingFileLi
     @Override
     public void onAttachingFileFinished(Attachment attachment) {
         onGetBackgroundImage(attachment);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getActivity() instanceof OnFragmentDestroyListener) {
+            ((OnFragmentDestroyListener) getActivity()).onFragmentDestroy();
+        }
     }
 }
