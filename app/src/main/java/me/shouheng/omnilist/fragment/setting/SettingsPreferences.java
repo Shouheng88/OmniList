@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.listener.OnFragmentDestroyListener;
 
 public class SettingsPreferences extends BaseFragment {
 
@@ -29,6 +30,14 @@ public class SettingsPreferences extends BaseFragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(R.string.setting_preferences);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getActivity() instanceof OnFragmentDestroyListener) {
+            ((OnFragmentDestroyListener) getActivity()).onFragmentDestroy();
         }
     }
 }
