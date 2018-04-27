@@ -30,26 +30,26 @@ public class ActionPreferences extends BasePreferences {
     }
 
     public void setTourActivityShowed() {
-        putBoolean(getKey(R.string.key_is_tour_activity_showed), true);
+        putBoolean(R.string.key_is_tour_activity_showed, true);
     }
 
     public boolean isTourActivityShowed() {
-        return getBoolean(getKey(R.string.key_is_tour_activity_showed), false);
+        return getBoolean(R.string.key_is_tour_activity_showed, false);
     }
 
     public void setAttachmentUri(@NonNull Uri uri) {
-        putString(getKey(R.string.key_attachment_uri), uri.toString());
+        putString(R.string.key_attachment_uri, uri.toString());
     }
 
     public String getAttachmentUri() {
-        return getString(getKey(R.string.key_attachment_uri), "");
+        return getString(R.string.key_attachment_uri, "");
     }
 
     public void setAttachmentFilePath(String filePath) {
-        putString(getKey(R.string.key_attachment_file_path), filePath);
+        putString(R.string.key_attachment_file_path, filePath);
     }
 
     public String getAttachmentFilePath() {
-        return getString(getKey(R.string.key_attachment_file_path), "");
+        return getString(R.string.key_attachment_file_path, "");
     }
 }

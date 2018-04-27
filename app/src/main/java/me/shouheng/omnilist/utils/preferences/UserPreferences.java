@@ -1,6 +1,8 @@
 package me.shouheng.omnilist.utils.preferences;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.util.Calendar;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.tools.FabSortItem;
 import me.shouheng.omnilist.utils.ColorUtils;
@@ -49,35 +52,35 @@ public class UserPreferences extends BasePreferences {
     }
 
     public void setFirstDayOfWeek(int firstDay){
-        putInt(getKey(R.string.key_first_day_of_week), firstDay);
+        putInt(R.string.key_first_day_of_week, firstDay);
     }
 
     public int getFirstDayOfWeek(){
-        return getInt(getKey(R.string.key_first_day_of_week), Calendar.SUNDAY);
+        return getInt(R.string.key_first_day_of_week, Calendar.SUNDAY);
     }
 
     public void setVideoSizeLimit(int limit){
-        putInt(getKey(R.string.key_video_size_limit), limit);
+        putInt(R.string.key_video_size_limit, limit);
     }
 
     public int getVideoSizeLimit(){
-        return getInt(getKey(R.string.key_video_size_limit), 10);
+        return getInt(R.string.key_video_size_limit, 10);
     }
 
     public boolean isImageAutoCompress() {
-        return getBoolean(getKey(R.string.key_auto_compress_image), true);
+        return getBoolean(R.string.key_auto_compress_image, true);
     }
 
     public boolean listAnimationEnabled() {
-        return getBoolean(getKey(R.string.key_list_animation), true);
+        return getBoolean(R.string.key_list_animation, true);
     }
 
     public boolean systemAnimationEnabled() {
-        return getBoolean(getKey(R.string.key_system_animation), true);
+        return getBoolean(R.string.key_system_animation, true);
     }
 
     public List<FabSortItem> getFabSortResult() {
-        String fabStr = getString(getKey(R.string.key_fab_sort_result), null);
+        String fabStr = getString(R.string.key_fab_sort_result, null);
         if (!TextUtils.isEmpty(fabStr)) {
             String[] fabs = fabStr.split(FAB_SORT_SPLIT);
             List<FabSortItem> fabSortItems = new LinkedList<>();
@@ -100,11 +103,11 @@ public class UserPreferences extends BasePreferences {
                 fabStr.append(fabSortItems.get(i).name()).append(FAB_SORT_SPLIT);
             }
         }
-        putString(getKey(R.string.key_fab_sort_result), fabStr.toString());
+        putString(R.string.key_fab_sort_result, fabStr.toString());
     }
 
     public boolean is24HourMode() {
-        return getBoolean(getKey(R.string.key_is_24_hour_mode), true);
+        return getBoolean(R.string.key_is_24_hour_mode, true);
     }
 
     public int getTimeLineColor(Operation operation) {
@@ -124,5 +127,33 @@ public class UserPreferences extends BasePreferences {
             case RECOVER: return PalmApp.getContext().getResources().getColor(R.color.md_light_blue_600);
         }
         return ColorUtils.accentColor();
+    }
+
+    public void setUserInfoBG(@Nullable Uri uri) {
+        putString(R.string.key_user_info_bg, uri == null ? "" : uri.toString());
+    }
+
+    public Uri getUserInfoBG() {
+        String bgUri = getString(R.string.key_user_info_bg, null);
+        if (!TextUtils.isEmpty(bgUri)) {
+            return Uri.parse(bgUri);
+        }
+        return Uri.parse(Constants.DEFAULT_USER_INFO_BG);
+    }
+
+    public void setUserInfoBGVisible(boolean isVisible) {
+        putBoolean(R.string.key_user_info_bg_visible, isVisible);
+    }
+
+    public boolean isUserInfoBgVisible() {
+        return getBoolean(R.string.key_user_info_bg_visible, true);
+    }
+
+    public void setUserMotto(String motto) {
+        putString(R.string.key_user_info_motto, motto);
+    }
+
+    public String getUserMotto() {
+        return getString(R.string.key_user_info_motto, PalmApp.getStringCompact(R.string.setting_dashboard_user_motto_default));
     }
 }

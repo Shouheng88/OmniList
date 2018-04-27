@@ -21,6 +21,7 @@ public class Constants {
     // endregion
 
     // region Urls
+    // todo replace urls
     public final static String GOOGLE_PLAY_WEB_PAGE = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
     public final static String MARKET_PAGE = "market://details?id=" + BuildConfig.APPLICATION_ID;
     public final static String GITHUB_PAGE = "https://github.com/Shouheng88/NotePal-Page";
@@ -28,6 +29,7 @@ public class Constants {
     public final static String GOOGLE_PLUS_URL = "https://plus.google.com/u/1/communities/102252970668657211916";
     public final static String WEIBO_PAGE = "https://weibo.com/5401152113/profile?rightmod=1&wvr=6&mod=personinfo";
     public final static String TWITTER_PAGE = "https://twitter.com/ShouhengWang";
+    public final static String WIKI = "https://twitter.com/ShouhengWang";
 
     public final static String DEVELOPER_EMAIL = "shouheng2015@gmail.com";
     public final static String DEVELOPER_EMAIL_PREFIX = "【" + PalmApp.getStringCompact(R.string.app_name) +"|%s】";
@@ -60,6 +62,7 @@ public class Constants {
     public final static String ACTION_SHORTCUT = "ACTION_SHORTCUT";
     public final static String ACTION_NOTIFICATION = "ACTION_NOTIFICATION";
     public final static String INTENT_GOOGLE_NOW = "com.google.android.gm.action.AUTO_SEND";
+    public final static String ACTION_RESTART_APP = "action_restart_app";
     // endregion
 
     // region App Widgets
@@ -97,4 +100,9 @@ public class Constants {
             "edqc+uOKSJgq26tgy4wmELCw8gJkempBm8NPf+uSOdWPlPLWijSf3W2KfzMMvZQ2\n" +
             "tfNQPQu+gXgdXuZC+fhqVqNgYtWVRMIspveSm3AK+52AxxzTlfAU1fpCEFOf4AHc\n" +
             "/E33toB493pf9gS2xwIDAQAB";
+
+    public final static String BACKUP_DIR_NAME = "NotePal";
+    public final static String FILES_BACKUP_DIR_NAME = "files";
+
+    public final static String DEFAULT_USER_INFO_BG = "https://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";
 }

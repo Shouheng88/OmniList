@@ -30,34 +30,34 @@ public class ColorPreferences extends BasePreferences {
     }
 
     public void setDarkTheme(boolean isDarkTheme) {
-        putBoolean(getKey(R.string.key_is_dark_theme), isDarkTheme);
+        putBoolean(R.string.key_is_dark_theme, isDarkTheme);
     }
 
     public boolean isDarkTheme() {
-        return getBoolean(getKey(R.string.key_is_dark_theme), false);
+        return getBoolean(R.string.key_is_dark_theme, false);
     }
 
     public void setThemeColor(Colorful.ThemeColor themeColor){
-        putString(getKey(R.string.key_primary_color), themeColor.getIdentifyName());
+        putString(R.string.key_primary_color, themeColor.getIdentifyName());
     }
 
     public Colorful.ThemeColor getThemeColor(){
-        return Colorful.ThemeColor.getByPrimaryName(getString(getKey(R.string.key_primary_color), Colorful.Defaults.primaryColor.getIdentifyName()));
+        return Colorful.ThemeColor.getByPrimaryName(getString(R.string.key_primary_color, Colorful.Defaults.primaryColor.getIdentifyName()));
     }
 
     public Colorful.AccentColor getAccentColor() {
-        return Colorful.AccentColor.getByAccentName(getString(getKey(R.string.key_accent_color), Colorful.Defaults.accentColor.getColorName()));
+        return Colorful.AccentColor.getByAccentName(getString(R.string.key_accent_color, Colorful.Defaults.accentColor.getColorName()));
     }
 
     public void setAccentColor(Colorful.AccentColor accentColor) {
-        putString(getKey(R.string.key_accent_color), accentColor.getAccentName());
+        putString(R.string.key_accent_color, accentColor.getAccentName());
     }
 
     public void setColoredNavigationBar(boolean coloredNavigationBar) {
-        putBoolean(getKey(R.string.key_is_colored_navigation_bar), coloredNavigationBar);
+        putBoolean(R.string.key_colored_navigation_bar, coloredNavigationBar);
     }
 
     public boolean isColoredNavigationBar() {
-        return getBoolean(getKey(R.string.key_is_colored_navigation_bar), false);
+        return getBoolean(R.string.key_colored_navigation_bar, false);
     }
 }

@@ -26,42 +26,42 @@ public class NoticePreferences extends BasePreferences {
     }
 
     public void setAllowWakeLock(boolean allowWakeLock) {
-        putBoolean(getKey(R.string.key_allow_wake_lock), allowWakeLock);
+        putBoolean(R.string.key_allow_wake_lock, allowWakeLock);
     }
 
     public boolean getAllowWakeLock() {
-        return getBoolean(getKey(R.string.key_allow_wake_lock), false);
+        return getBoolean(R.string.key_allow_wake_lock, false);
     }
 
     public void setLightColor(int lightColor) {
-        putInt(getKey(R.string.key_notification_light_color), lightColor);
+        putInt(R.string.key_notification_light_color, lightColor);
     }
 
     public int getLightColor() {
-        return getInt(getKey(R.string.key_notification_light_color), 0);
+        return getInt(R.string.key_notification_light_color, 0);
     }
 
     public void setAllowVibrate(boolean allowVibrate) {
-        putBoolean(getKey(R.string.key_allow_vibrate), allowVibrate);
+        putBoolean(R.string.key_allow_vibrate, allowVibrate);
     }
 
     public boolean isVibrateAllowed() {
-        return getBoolean(getKey(R.string.key_allow_vibrate), true);
+        return getBoolean(R.string.key_allow_vibrate, true);
     }
 
     public void setSnoozeDuration(int duration) {
-        putInt(getKey(R.string.key_notification_duration), duration);
+        putInt(R.string.key_notification_duration, duration);
     }
 
     public int getSnoozeDuration() {
-        return getInt(getKey(R.string.key_notification_duration), 5);
+        return getInt(R.string.key_notification_duration, 5);
     }
 
     public void setNotificationRingtone(String notificationRingtone) {
-        putString(getKey(R.string.key_notification_ringtone), notificationRingtone);
+        putString(R.string.key_notification_ringtone, notificationRingtone);
     }
 
     public String getNotificationRingtone() {
-        return getString(getKey(R.string.key_notification_ringtone), null);
+        return getString(R.string.key_notification_ringtone, null);
     }
 }

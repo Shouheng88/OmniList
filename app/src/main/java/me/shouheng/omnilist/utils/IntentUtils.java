@@ -64,7 +64,11 @@ public class IntentUtils {
         openWebPage(context, Constants.GITHUB_DEVELOPER);
     }
 
-    public static void openWebPage(Context context, String url) {
+    public static void openWiki(Context context) {
+        openWebPage(context, Constants.WIKI);
+    }
+
+    private static void openWebPage(Context context, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         if (IntentUtils.isAvailable(context, intent, null)) {
             ViewUtils.launchUrl(context, url);
@@ -90,8 +94,8 @@ public class IntentUtils {
      *
      * @param i Intent to ckeck
      * @param action Action to compare with
-     * @return */
-    public static boolean checkAction(Intent i, String action) {
+     * @return is action equals tha action of intent i */
+    private static boolean checkAction(Intent i, String action) {
         return action.equals(i.getAction());
     }
 
@@ -100,7 +104,7 @@ public class IntentUtils {
      *
      * @param i Intent to ckeck
      * @param actions Multiple actions to compare with
-     * @return*/
+     * @return is the action of i contained in actions */
     public static boolean checkAction(Intent i, String... actions) {
         for (String action : actions) {
             if (checkAction(i, action)) return true;

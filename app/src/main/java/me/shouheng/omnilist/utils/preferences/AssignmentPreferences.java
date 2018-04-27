@@ -27,26 +27,26 @@ public class AssignmentPreferences extends BasePreferences {
     }
 
     public Operation getSlideLeftOperation() {
-        return Operation.getTypeById(getInt(getKey(R.string.key_assignment_slide_left), Operation.TRASH.id));
+        return Operation.getTypeById(getInt(R.string.key_assignment_slide_left, Operation.TRASH.id));
     }
 
     public void setSlideLeftOperation(Operation operation) {
-        putInt(getKey(R.string.key_assignment_slide_left), operation.id);
+        putInt(R.string.key_assignment_slide_left, operation.id);
     }
 
     public Operation getSlideRightOperation() {
-        return Operation.getTypeById(getInt(getKey(R.string.key_assignment_slide_right), Operation.ARCHIVE.id));
+        return Operation.getTypeById(getInt(R.string.key_assignment_slide_right, Operation.ARCHIVE.id));
     }
 
     public void setSlideRightOperation(Operation operation) {
-        putInt(getKey(R.string.key_assignment_slide_right), operation.id);
+        putInt(R.string.key_assignment_slide_right, operation.id);
     }
 
     public boolean isAssignmentSlideEnable() {
-        return getBoolean(getKey(R.string.key_assignment_slide_enable), true);
+        return getBoolean(R.string.key_assignment_slide_enable, true);
     }
 
     public boolean showCompleted() {
-        return getBoolean(getKey(R.string.key_assignment_completed), true);
+        return getBoolean(R.string.key_assignment_completed, true);
     }
 }

@@ -28,50 +28,50 @@ public class LockPreferences extends BasePreferences {
     }
 
     public void setPasswordRequired(boolean isRequired) {
-        putBoolean(getKey(R.string.key_is_password_required), isRequired);
+        putBoolean(R.string.key_is_password_required, isRequired);
     }
 
     public boolean isPasswordRequired() {
-        return getBoolean(getKey(R.string.key_is_password_required), false);
+        return getBoolean(R.string.key_is_password_required, false);
     }
 
     public void setPassword(String password) {
-        putString(getKey(R.string.key_password), password);
+        putString(R.string.key_password, password);
     }
 
     public String getPassword() {
-        return getString(getKey(R.string.key_password), null);
+        return getString(R.string.key_password, null);
     }
 
     public int getPasswordFreezeTime() {
-        return getInt(getKey(R.string.key_password_freeze_time), 5);
+        return getInt(R.string.key_password_freeze_time, 5);
     }
 
     public void setPasswordFreezeTime(int time) {
-        putInt(getKey(R.string.key_password_freeze_time), time);
+        putInt(R.string.key_password_freeze_time, time);
     }
 
     public void setPasswordQuestion(String question) {
-        putString(getKey(R.string.key_password_question), question);
+        putString(R.string.key_password_question, question);
     }
 
     public String getPasswordQuestion() {
-        return getString(getKey(R.string.key_password_question), null);
+        return getString(R.string.key_password_question, null);
     }
 
     public void setPasswordAnswer(String answer) {
-        putString(getKey(R.string.key_password_answer), answer);
+        putString(R.string.key_password_answer, answer);
     }
 
     public String getPasswordAnswer() {
-        return getString(getKey(R.string.key_password_answer), null);
+        return getString(R.string.key_password_answer, null);
     }
 
     public void setLastInputErrorTime(long millis) {
-        putLong(getKey(R.string.key_last_input_error_time), millis);
+        putLong(R.string.key_last_input_error_time, millis);
     }
 
     public long getLastInputErrorTime() {
-        return getLong(getKey(R.string.key_last_input_error_time), 0);
+        return getLong(R.string.key_last_input_error_time, 0);
     }
 }
