@@ -545,8 +545,8 @@
     <!--endregion-->
 
     <!--region Setting->Theme-->
-    <string name="setting_personalize_dashboard">Personalize dashboard</string>
-    <string name="setting_personalize_dashboard_sub">Decorate your dashboard</string>
+    <string name="setting_personalize_dashboard">Dashboard</string>
+    <string name="setting_personalize_dashboard_sub">Personalize your dashboard</string>
     <string name="setting_dashboard_user_info_bg_visible">Drawer background image</string>
     <string name="setting_dashboard_user_info_bg_visible_sub">Set the dashboard drawer background visible</string>
     <string name="setting_dashboard_user_info_bg">Drawer background image</string>
