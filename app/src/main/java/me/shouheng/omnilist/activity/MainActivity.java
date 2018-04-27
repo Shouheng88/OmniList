@@ -224,7 +224,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 //                    SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
                     break;
                 case R.id.nav_settings:
-//                    SettingsActivity.start(this, REQUEST_SETTING);
+                    SettingsActivity.start(this, REQUEST_SETTING);
                     break;
                 case R.id.nav_archive:
                     startActivityForResult(ArchiveActivity.class, REQUEST_ARCHIVE);

@@ -26,26 +26,26 @@ public class SearchPreferences extends BasePreferences {
     }
 
     public boolean isTagsIncluded() {
-        return getBoolean(getKey(R.string.key_search_include_tags), true);
+        return getBoolean(R.string.key_search_include_tags, true);
     }
 
     public void setTagsIncluded(boolean isInclude) {
-        putBoolean(getKey(R.string.key_search_include_tags), isInclude);
+        putBoolean(R.string.key_search_include_tags, isInclude);
     }
 
     public boolean isArchivedIncluded() {
-        return getBoolean(getKey(R.string.key_search_include_archived), true);
+        return getBoolean(R.string.key_search_include_archived, true);
     }
 
     public void setArchivedIncluded(boolean isInclude) {
-        putBoolean(getKey(R.string.key_search_include_archived), isInclude);
+        putBoolean(R.string.key_search_include_archived, isInclude);
     }
 
     public boolean isTrashedIncluded() {
-        return getBoolean(getKey(R.string.key_search_include_trashed), true);
+        return getBoolean(R.string.key_search_include_trashed, true);
     }
 
     public void setTrashedIncluded(boolean isInclude) {
-        putBoolean(getKey(R.string.key_search_include_trashed), isInclude);
+        putBoolean(R.string.key_search_include_trashed, isInclude);
     }
 }
