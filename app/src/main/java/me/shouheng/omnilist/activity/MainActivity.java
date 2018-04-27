@@ -43,6 +43,7 @@ import me.shouheng.omnilist.fragment.MonthFragment;
 import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
+import me.shouheng.omnilist.listener.OnSettingsChangedListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Attachment;
@@ -468,20 +469,14 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 init();
                 break;
             case REQUEST_SETTING:
-//                int[] changedTypes = data.getIntArrayExtra(SettingsActivity.KEY_CONTENT_CHANGE_TYPES);
-//                boolean drawerUpdated = false, listUpdated = false;
-//                for (int changedType : changedTypes) {
-//                    if (changedType == OnSettingsChangedListener.ChangedType.DRAWER_CONTENT.id && !drawerUpdated) {
-//                        setupHeader();
-//                        drawerUpdated = true;
-//                    }
-//                    if (changedType == OnSettingsChangedListener.ChangedType.NOTE_LIST_TYPE.id && !listUpdated) {
-//                        if (isNotesFragment()) {
-//                            toNotesFragment(false);
-//                        }
-//                        listUpdated = true;
-//                    }
-//                }
+                int[] changedTypes = data.getIntArrayExtra(SettingsActivity.KEY_CONTENT_CHANGE_TYPES);
+                boolean drawerUpdated = false;
+                for (int changedType : changedTypes) {
+                    if (changedType == OnSettingsChangedListener.ChangedType.DRAWER_CONTENT.id && !drawerUpdated) {
+                        setupHeader();
+                        drawerUpdated = true;
+                    }
+                }
                 break;
         }
     }
