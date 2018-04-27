@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.util.List;
@@ -160,36 +162,27 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
         setupHeader();
         headerBinding.getRoot().setOnLongClickListener(v -> true);
-        headerBinding.getRoot().setOnClickListener(
-                view -> startActivityForResult(UserInfoActivity.class, REQUEST_USER_INFO));
+        headerBinding.getRoot().setOnClickListener(view -> startActivityForResult(UserInfoActivity.class, REQUEST_USER_INFO));
     }
 
     private void setupHeader() {
-//        headerBinding.userMotto.setText(preferencesUtils.getUserMotto());
-//
-//        boolean enabled = preferencesUtils.isUserInfoBgEnable();
-//        headerBinding.userBg.setVisibility(enabled ? View.VISIBLE : View.GONE);
-//        if (enabled) {
-//            Uri customUri = preferencesUtils.getUserInfoBG();
-//            if (customUri != null) {
-//                Glide.with(PalmApp.getContext())
-//                        .load(customUri)
-//                        .centerCrop()
-//                        .crossFade()
-//                        .into(headerBinding.userBg);
-//            } else {
-//                Glide.with(PalmApp.getContext())
-//                        .load(R.drawable.theme_bg_1)
-//                        .centerCrop()
-//                        .crossFade()
-//                        .into(headerBinding.userBg);
-//            }
-//        }
+        headerBinding.userMotto.setText(userPreferences.getUserMotto());
+
+        boolean enabled = userPreferences.isUserInfoBgVisible();
+        headerBinding.userBg.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        if (enabled) {
+            Uri customUri = userPreferences.getUserInfoBG();
+            Glide.with(PalmApp.getContext())
+                    .load(customUri)
+                    .centerCrop()
+                    .crossFade()
+                    .into(headerBinding.userBg);
+        }
     }
 
     private void setDrawerLayoutLocked(boolean lockDrawer){
-        getBinding().drawerLayout.setDrawerLockMode(lockDrawer ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED
-                : DrawerLayout.LOCK_MODE_UNLOCKED);
+        getBinding().drawerLayout.setDrawerLockMode(lockDrawer ?
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     private void initDrawerMenu() {
