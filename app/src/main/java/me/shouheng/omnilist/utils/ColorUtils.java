@@ -56,8 +56,12 @@ public class ColorUtils {
     }
 
     public static void forceUpdateThemeStatus() {
+        Colorful.ThemeColor primaryColor = ColorPreferences.getInstance().getThemeColor();
+        ColorUtils.primaryColor = PalmApp.getColorCompact(primaryColor.getColorRes());
+
         Colorful.AccentColor accentColor = ColorPreferences.getInstance().getAccentColor();
         ColorUtils.accentColor = PalmApp.getColorCompact(accentColor.getColorRes());
+
         isDarkTheme = ColorPreferences.getInstance().isDarkTheme();
     }
 
