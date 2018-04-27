@@ -2,9 +2,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference
-        android:key="system_animation"
+        android:key="@string/key_system_animation"
         android:defaultValue="true"
         android:title="@string/setting_system_animation"
         android:summary="@string/setting_system_animation_sub"/>
+
+    <CheckBoxPreference
+        android:key="@string/key_is_24_hour_mode"
+        android:title="@string/setting_is_24_hour_mode"
+        android:defaultValue="true"
+        android:summary="@string/setting_is_24_hour_mode_sub"
+        android:persistent="true"/>
+
+    <Preference
+        android:key="@string/key_video_size_limit"
+        android:defaultValue="10"
+        android:persistent="false"
+        android:title="@string/setting_video_limit_size"
+        android:summary="@string/setting_video_limit_size_sub"/>
+
+    <CheckBoxPreference
+        android:key="@string/key_auto_compress_image"
+        android:defaultValue="true"
+        android:title="@string/auto_compress_image_title"
+        android:summary="@string/auto_compress_image_sub_title" />
 
 </PreferenceScreen>
