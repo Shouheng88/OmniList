@@ -552,7 +552,7 @@
     <string name="setting_dashboard_user_info_bg">Drawer background image</string>
     <string name="setting_dashboard_user_info_bg_sub">Setup your drawer dashboard background image</string>
     <string name="setting_dashboard_user_motto">Drawer user motto</string>
-    <string name="setting_dashboard_user_motto_sub">Setup your onw motto in dashboard drawer</string>
+    <string name="setting_dashboard_user_motto_sub">Setup your own motto in dashboard drawer</string>
     <string name="setting_dashboard_user_motto_default">Welcome to MarkNote</string>
 
     <string name="setting_theme">Theme</string>
