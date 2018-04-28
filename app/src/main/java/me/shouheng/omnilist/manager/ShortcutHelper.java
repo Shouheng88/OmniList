@@ -3,6 +3,7 @@ package me.shouheng.omnilist.manager;
 import android.content.Context;
 import android.content.Intent;
 
+import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.MainActivity;
 import me.shouheng.omnilist.config.Constants;
@@ -34,13 +35,13 @@ public class ShortcutHelper {
          if (model instanceof Assignment) {
             return ((Assignment) model).getName();
         }
-        return "PalmCollege";
+        return PalmApp.getStringCompact(R.string.app_name);
     }
 
     private static <T extends Model> String getFragmentToDispatch(T model) {
         if (model instanceof Assignment) {
             return Constants.VALUE_FRAGMENT_ASSIGNMENT;
         }
-        return "PalmCollege";
+        return PalmApp.getStringCompact(R.string.app_name);
     }
 }

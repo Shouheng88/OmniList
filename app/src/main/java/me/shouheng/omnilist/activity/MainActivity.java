@@ -34,6 +34,7 @@ import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
 import me.shouheng.omnilist.config.Config;
+import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
@@ -141,9 +142,21 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         toTodayFragment(false);
     }
 
+    // region handle intent
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
+
+        // if the action is empty or the activity is recreated for theme change, don;t handle intent
+        if (TextUtils.isEmpty(action) || recreateForThemeChange) return;
+
+        switch (action) {
+            case Constants.ACTION_SHORTCUT:
+                intent.setClass(this, ContentActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
+    // endregion
 
     private void configToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);

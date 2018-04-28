@@ -496,7 +496,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         showLocationInfo();
 
         // todo
-        getBinding().drawer.tvCopyLink.setOnClickListener(null);
+        getBinding().drawer.tvCopyLink.setOnClickListener(v ->
+                ModelHelper.copyLink(getActivity(), assignment));
         getBinding().drawer.tvCopyText.setOnClickListener(v -> {
             Activity activity = getActivity();
             if (activity != null) {
@@ -510,14 +511,14 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 ToastUtils.makeToast(R.string.content_was_copied_to_clipboard);
             }
         });
-        getBinding().drawer.tvAddToHomeScreen.setOnClickListener(null);
+        getBinding().drawer.tvAddToHomeScreen.setOnClickListener(v -> addShortcut());
         getBinding().drawer.tvStatistics.setOnClickListener(null);
         getBinding().drawer.tvSettings.setOnClickListener(null);
         getBinding().drawer.tvExport.setOnClickListener(v -> export());
     }
 
     private void share() {
-        new BottomSheet.Builder(getActivity())
+        new BottomSheet.Builder(Objects.requireNonNull(getActivity()))
                 .setSheet(R.menu.share)
                 .setTitle(R.string.text_share)
                 .setListener(new BottomSheetListener() {
@@ -546,7 +547,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
 
     private void export() {
-        new BottomSheet.Builder(getActivity())
+        new BottomSheet.Builder(Objects.requireNonNull(getActivity()))
                 .setSheet(R.menu.export)
                 .setTitle(R.string.text_export)
                 .setListener(new BottomSheetListener() {
