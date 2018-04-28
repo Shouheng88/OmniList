@@ -198,7 +198,7 @@ public class SettingsSecurity extends BaseFragment {
                 if (resultCode != Activity.RESULT_OK && TextUtils.isEmpty(lockPreferences.getPassword())) {
                     /* remove the password requirement if the password is not set */
                     lockPreferences.setPasswordRequired(false);
-                    ((CheckBoxPreference) findPreference(R.string.key_password_question)).setChecked(false);
+                    ((CheckBoxPreference) findPreference(R.string.key_is_password_required)).setChecked(false);
                 } else {
                     showAlertIfNecessary();
                 }
