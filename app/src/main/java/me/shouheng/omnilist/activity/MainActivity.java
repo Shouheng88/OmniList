@@ -53,6 +53,7 @@ import me.shouheng.omnilist.model.tools.FabSortItem;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.LogUtils;
+import me.shouheng.omnilist.utils.SynchronizeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.LockPreferences;
 import me.shouheng.omnilist.utils.preferences.UserPreferences;
@@ -215,7 +216,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                     toMonthFragment();
                     break;
                 case R.id.nav_sync:
-//                    SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
+                    SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
                     break;
                 case R.id.nav_settings:
                     SettingsActivity.start(this, REQUEST_SETTING);
@@ -407,6 +408,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     private void againExit() {
         if (onBackPressed + Config.BACK_TIME_INTERVAL > System.currentTimeMillis()) {
+            SynchronizeUtils.syncOneDrive(this);
             super.onBackPressed();
             return;
         } else {
