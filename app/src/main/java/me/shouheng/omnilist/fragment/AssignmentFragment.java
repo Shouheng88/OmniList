@@ -22,10 +22,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.kennyc.bottomsheet.BottomSheet;
+import com.kennyc.bottomsheet.BottomSheetListener;
 
 import org.polaric.colorful.BaseActivity;
 import org.polaric.colorful.PermissionUtils;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
@@ -497,7 +500,42 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvAddToHomeScreen.setOnClickListener(null);
         getBinding().drawer.tvStatistics.setOnClickListener(null);
         getBinding().drawer.tvSettings.setOnClickListener(null);
-        getBinding().drawer.tvCapture.setOnClickListener(v -> createScreenCapture(getBinding().main.rvSubAssignments));
+        getBinding().drawer.tvExport.setOnClickListener(v -> {});
+    }
+
+    private void share() {
+        new BottomSheet.Builder(getActivity())
+                .setSheet(R.menu.share)
+                .setTitle(R.string.text_share)
+                .setListener(new BottomSheetListener() {
+                    @Override
+                    public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
+
+                    @Override
+                    public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.action_share_text:
+                                ModelHelper.share(getContext(), assignment.getName(), assignment.getComment(), attachmentsAdapter.getData());
+                                break;
+                            case R.id.action_share_html:
+                                // todo
+//                                outHtml(true);
+                                break;
+                            case R.id.action_share_image:
+                                createScreenCapture(getBinding().main.rvSubAssignments);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
+                })
+                .show();
+    }
+
+    @Override
+    protected void onGetScreenCutFile(File file) {
+        ModelHelper.shareFile(getContext(), file, Constants.MIME_TYPE_IMAGE);
     }
     // endregion
 
@@ -673,9 +711,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 getBinding().drawerLayout.openDrawer(GravityCompat.END, true);
                 break;
             case R.id.action_share:
-                // todo 更多的分享途径
-//                ModelHelper.share(getContext(), assignment.getName(),
-//                        ModelHelper.getDescription(getContext(), assignment, subAssignments), attachments);
+                share();
                 break;
         }
         return super.onOptionsItemSelected(item);

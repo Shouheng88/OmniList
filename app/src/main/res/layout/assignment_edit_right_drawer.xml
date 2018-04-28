@@ -89,11 +89,11 @@
                     android:text="@string/text_copy_text"
                     android:layout_height="50dp" />
 
-                <TextView android:id="@+id/tv_capture"
+                <TextView android:id="@+id/tv_export"
                     style="@style/RightDrawerTextStyleLight"
-                    android:drawableStart="@drawable/ic_add_a_photo_grey_24dp"
+                    android:drawableStart="@drawable/ic_system_update_alt_grey_24dp"
                     android:layout_width="match_parent"
-                    android:text="@string/capture_list"
+                    android:text="@string/text_export"
                     android:layout_height="50dp" />
 
                 <me.shouheng.omnilist.widget.themed.Divider
