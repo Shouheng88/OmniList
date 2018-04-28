@@ -500,7 +500,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvAddToHomeScreen.setOnClickListener(null);
         getBinding().drawer.tvStatistics.setOnClickListener(null);
         getBinding().drawer.tvSettings.setOnClickListener(null);
-        getBinding().drawer.tvExport.setOnClickListener(v -> {});
+        getBinding().drawer.tvExport.setOnClickListener(v -> export());
     }
 
     private void share() {
@@ -518,8 +518,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                                 ModelHelper.share(getContext(), assignment.getName(), assignment.getComment(), attachmentsAdapter.getData());
                                 break;
                             case R.id.action_share_html:
-                                // todo
-//                                outHtml(true);
+                                viewHtml();
                                 break;
                             case R.id.action_share_image:
                                 createScreenCapture(getBinding().main.rvSubAssignments);
@@ -531,6 +530,54 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
                 })
                 .show();
+    }
+
+    private void export() {
+        new BottomSheet.Builder(getActivity())
+                .setSheet(R.menu.export)
+                .setTitle(R.string.text_export)
+                .setListener(new BottomSheetListener() {
+                    @Override
+                    public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
+
+                    @Override
+                    public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.export_html:
+                                viewHtml();
+                                break;
+                            case R.id.capture:
+                                createScreenCapture(getBinding().main.rvSubAssignments);
+                                break;
+                            case R.id.print:
+                                viewHtml();
+                                break;
+                            case R.id.export_text:
+                                outText();
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
+                })
+                .show();
+    }
+
+    private void viewHtml() {
+        // todo
+    }
+
+    private void outText() {
+        // todo
+//        try {
+//            File exDir = FileHelper.getTextExportDir();
+//            File outFile = new File(exDir, FileHelper.getDefaultFileName(".text"));
+//            FileUtils.writeStringToFile(outFile, note.getContent(), "utf-8");
+//            ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), outFile.getPath()));
+//        } catch (IOException e) {
+//            ToastUtils.makeToast(R.string.failed_to_create_file);
+//        }
     }
 
     @Override
