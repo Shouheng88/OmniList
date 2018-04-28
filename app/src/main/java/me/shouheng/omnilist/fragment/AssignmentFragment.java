@@ -497,7 +497,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvAddToHomeScreen.setOnClickListener(null);
         getBinding().drawer.tvStatistics.setOnClickListener(null);
         getBinding().drawer.tvSettings.setOnClickListener(null);
-        getBinding().drawer.tvCapture.setOnClickListener(null);
+        getBinding().drawer.tvCapture.setOnClickListener(v -> createScreenCapture(getBinding().main.rvSubAssignments));
     }
     // endregion
 
