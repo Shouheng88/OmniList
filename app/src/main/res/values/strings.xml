@@ -480,6 +480,17 @@
     <!--region notification-->
     <string name="setting_notification">Notification</string>
     <string name="setting_notification_sub">Custom your own notification behavior</string>
+
+    <string name="vibration">振动</string>
+    <string name="vibration_options_sub">弹出通知时允许振动提示</string>
+    <string name="ringtone">铃声</string>
+    <string name="ringtone_sub">选择或者关闭弹出通知时的铃声</string>
+    <string name="pick_notification_ringtone">选择通知提示音</string>
+    <string name="notification_postpone">通知延时</string>
+    <string name="notification_postpone_sub">设置按下延时之后的延时时间</string>
+    <string name="snooze_minutes">睡眠时间</string>
+    <string name="input_the_snooze_minutes_in_minute">输入睡眠时间(分钟)</string>
+    <string name="snooze_time_too_long">睡眠时间过长</string>
     <!--endregion-->
 
     <!--region backup-->
