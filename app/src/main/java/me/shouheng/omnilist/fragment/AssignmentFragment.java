@@ -495,7 +495,6 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvAddLocation.setOnClickListener(v -> tryToLocate());
         showLocationInfo();
 
-        // todo
         getBinding().drawer.tvCopyLink.setOnClickListener(v ->
                 ModelHelper.copyLink(getActivity(), assignment));
         getBinding().drawer.tvCopyText.setOnClickListener(v -> {
@@ -512,7 +511,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
             }
         });
         getBinding().drawer.tvAddToHomeScreen.setOnClickListener(v -> addShortcut());
-        getBinding().drawer.tvStatistics.setOnClickListener(null);
+        getBinding().drawer.tvStatistics.setOnClickListener(v -> ModelHelper.showStatistic(getContext(),
+                assignment, mAdapter.getSubAssignments(), alarm, attachmentsAdapter.getData()));
         getBinding().drawer.tvSettings.setOnClickListener(null);
         getBinding().drawer.tvExport.setOnClickListener(v -> export());
     }

@@ -72,6 +72,8 @@
     <string name="text_move_out">Move out</string>
     <string name="text_tab_again_exit">Again to exit</string>
     <string name="text_attachment">Attachment</string>
+    <string name="text_sub_assignment_number">Sub assignment</string>
+    <string name="text_alarm">Alarm</string>
     <string name="working">Working&#8230;</string>
     <string name="text_input_password_and_continue">Input password</string>
     <string name="text_ok">OK</string>
