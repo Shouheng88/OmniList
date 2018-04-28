@@ -22,7 +22,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp">
 
-                    <ImageView
+                    <me.shouheng.omnilist.widget.themed.SupportImageView
                         android:id="@+id/iv_add"
                         android:src="@drawable/ic_add_black_24dp"
                         android:padding="15dp"
