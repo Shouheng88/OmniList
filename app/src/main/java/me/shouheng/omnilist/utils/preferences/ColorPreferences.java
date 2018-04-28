@@ -58,6 +58,6 @@ public class ColorPreferences extends BasePreferences {
     }
 
     public boolean isColoredNavigationBar() {
-        return getBoolean(R.string.key_colored_navigation_bar, false);
+        return getBoolean(R.string.key_colored_navigation_bar, true);
     }
 }
