@@ -78,6 +78,7 @@
     <string name="text_failed_to_load_data">Failed to load data.</string>
     <string name="text_failed_to_modify_data">Failed to modify data.</string>
     <string name="text_pick_from_album">Pick from album</string>
+    <string name="text_notification">Notification</string>
 
     <string name="check_network_availability">Check network availability</string>
 

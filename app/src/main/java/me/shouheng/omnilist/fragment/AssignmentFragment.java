@@ -1,5 +1,6 @@
 package me.shouheng.omnilist.fragment;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -496,7 +497,19 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
         // todo
         getBinding().drawer.tvCopyLink.setOnClickListener(null);
-        getBinding().drawer.tvCopyText.setOnClickListener(null);
+        getBinding().drawer.tvCopyText.setOnClickListener(v -> {
+            Activity activity = getActivity();
+            if (activity != null) {
+                ModelHelper.copyToClipboard(activity, ModelHelper.getMarkdown(
+                        assignment,
+                        mAdapter.getSubAssignments(),
+                        location,
+                        alarm,
+                        attachmentsAdapter.getData()
+                ));
+                ToastUtils.makeToast(R.string.content_was_copied_to_clipboard);
+            }
+        });
         getBinding().drawer.tvAddToHomeScreen.setOnClickListener(null);
         getBinding().drawer.tvStatistics.setOnClickListener(null);
         getBinding().drawer.tvSettings.setOnClickListener(null);
