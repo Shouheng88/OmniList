@@ -36,10 +36,6 @@
     <string name="text_reset">Rest</string>
     <string name="text_send">Send</string>
     <string name="text_settings">Settings</string>
-    <string name="text_share">Share</string>
-    <string name="text_share_image">Share image</string>
-    <string name="text_share_text">Share text</string>
-    <string name="text_share_html">Share html</string>
     <string name="text_search">Search</string>
     <string name="text_save_or_discard">Save or discard modification?</string>
     <string name="text_save_successfully">Saved successfully</string>
@@ -79,7 +75,6 @@
     <string name="working">Working&#8230;</string>
     <string name="text_input_password_and_continue">Input password</string>
     <string name="text_ok">OK</string>
-    <string name="text_export_html">Export html</string>
     <string name="text_failed_to_load_data">Failed to load data.</string>
     <string name="text_failed_to_modify_data">Failed to modify data.</string>
     <string name="text_pick_from_album">Pick from album</string>
@@ -650,5 +645,16 @@
     <string name="dialog_notice_content_part5">4.MarkNote will continue to push out many new functions and features, if you like this application, you may support developing in <![CDATA[<b>"Settings->Support developing"</b>]]>.</string>
     <string name="dialog_notice_content_part6">5.Furthermore, you can also get latest developing messages by subscribe our <![CDATA[<b>Google+ community, Twitter or Weibo</b>]]>. You may even join the beta test.</string>
     <string name="dialog_notice_content_part7">Please give more patience to MarkNote, we will work better.<![CDATA[<br/><br/>]]>Last, wish you have a happy journey with MarkNote!</string>
+
+    <string name="text_export">Export</string>
+    <string name="text_export_image">Export image</string>
+    <string name="text_export_text">Export text</string>
+    <string name="text_export_html">Export html</string>
+    <string name="text_export_pdf">Export pdf</string>
+
+    <string name="text_share">Share</string>
+    <string name="text_share_image">Share image</string>
+    <string name="text_share_text">Share text</string>
+    <string name="text_share_html">Share html</string>
 
 </resources>
