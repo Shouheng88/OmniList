@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item android:id="@+id/action_filter"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_filter_list_white_24dp"
+        android:title="@string/text_filter"
+        app:showAsAction="ifRoom">
+        <menu xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            tools:context="org.horaapps.leafpic.activities.MainActivity">
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_show_completed"
+                    android:title="@string/text_show_completed"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/action_hide_completed"
+                    android:title="@string/text_hide_completed"
+                    app:showAsAction="never" />
+            </group>
+        </menu>
+    </item>
+</menu>
