@@ -53,8 +53,11 @@ import static java.lang.Long.parseLong;
  * Created by wangshouheng on 2017/4/7.*/
 public class FileHelper {
 
-    private static final String EXTERNAL_STORAGE_FOLDER = "NotePal";
-    private static final String EXTERNAL_STORAGE_BACKUP_DIR = "Backup";
+    private final static String EXTERNAL_STORAGE_FOLDER = "Omni List";
+    private final static String HTML_EXPORT_DIR_NAME = "Exported Html";
+    private final static String TEXT_EXPORT_DIR_NAME = "Exported Text";
+    private final static String EXTERNAL_STORAGE_BACKUP_DIR = "Backup";
+
     private final static String DATE_FORMAT_SORTABLE = "yyyyMMdd_HHmmss_SSS";
     private static final String ANSI_INVALID_CHARACTERS = "\\/:*?\"<>|";
 
@@ -650,6 +653,18 @@ public class FileHelper {
     public static File getExternalStoragePublicDir() {
         String path = Environment.getExternalStorageDirectory() + File.separator + EXTERNAL_STORAGE_FOLDER + File.separator;
         File dir = new File(path);
+        if (!dir.exists()) dir.mkdirs();
+        return dir;
+    }
+
+    public static File getHtmlExportDir() {
+        File dir = new File(getExternalStoragePublicDir(), HTML_EXPORT_DIR_NAME);
+        if (!dir.exists()) dir.mkdirs();
+        return dir;
+    }
+
+    public static File getTextExportDir() {
+        File dir = new File(getExternalStoragePublicDir(), TEXT_EXPORT_DIR_NAME);
         if (!dir.exists()) dir.mkdirs();
         return dir;
     }
