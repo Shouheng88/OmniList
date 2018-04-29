@@ -147,6 +147,7 @@ public class StoreHelper {
         values.put(SubAssignmentSchema.COMPLETED, subAssignment.isCompleted() ? 1 : 0);
         values.put(SubAssignmentSchema.SUB_ASSIGNMENT_ORDER, subAssignment.getSubAssignmentOrder());
         values.put(SubAssignmentSchema.SUB_ASSIGNMENT_TYPE, subAssignment.getSubAssignmentType().id);
+        values.put(SubAssignmentSchema.PORTRAIT, subAssignment.getPortrait().id);
         return values;
     }
 

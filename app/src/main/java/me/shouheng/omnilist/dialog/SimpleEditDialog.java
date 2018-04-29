@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.databinding.DialogSimpleEditLayoutBinding;
+import me.shouheng.omnilist.model.enums.Portrait;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.utils.ColorUtils;
 
@@ -30,6 +31,7 @@ public class SimpleEditDialog extends DialogFragment {
     private String previousContent;
     private boolean isNumeric;
     private Integer maxLength;
+    private Portrait portrait;
     private SubAssignmentType subAssignmentType;
     private SimpleAcceptListener simpleAcceptListener;
     private OnGetSubAssignmentListener onGetSubAssignmentListener;
@@ -41,24 +43,29 @@ public class SimpleEditDialog extends DialogFragment {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.dialog_simple_edit_layout, null, false);
 
         if (subAssignmentType != null) {
+            refreshLayout();
+            binding.civPortraitBackground.setFillingCircleColor(ColorUtils.primaryColor());
+            if (portrait != null) {
+                binding.ivPortrait.setImageResource(portrait.iconRes);
+            }
             binding.llType.setVisibility(View.VISIBLE);
             binding.spType.setSelection(subAssignmentType.ordinal());
             binding.spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     switch (position) {
-                        case 0:
-                            subAssignmentType = SubAssignmentType.TODO;
-                            break;
-                        case 1:
-                            subAssignmentType = SubAssignmentType.NOTE;
-                            break;
+                        case 0: subAssignmentType = SubAssignmentType.TODO;break;
+                        case 1: subAssignmentType = SubAssignmentType.NOTE;break;
+                        case 2: subAssignmentType = SubAssignmentType.NOTE_WITH_PORTRAIT;break;
                     }
+                    // refresh picker layout
+                    refreshLayout();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) { }
             });
+            binding.flCategoryPortrait.setOnClickListener(v -> showPortraitPickerDialog());
         }
 
         binding.etContent.setText(content);
@@ -84,7 +91,10 @@ public class SimpleEditDialog extends DialogFragment {
                         simpleAcceptListener.onAccept(content);
                     }
                     if (onGetSubAssignmentListener != null) {
-                        onGetSubAssignmentListener.onAccept(content, subAssignmentType);
+                        if (portrait == null || subAssignmentType == null) {
+                            throw new IllegalArgumentException("portrait and sub assignment is required if you want to edit sub assignment");
+                        }
+                        onGetSubAssignmentListener.onAccept(content, subAssignmentType, portrait);
                     }
                 })
                 .setNegativeButton(R.string.text_give_up, (dialog, which) -> dismiss())
@@ -106,11 +116,25 @@ public class SimpleEditDialog extends DialogFragment {
         }
     };
 
+    private void showPortraitPickerDialog() {
+        String SHOW_PORTRAIT_DIALOG = "SHOW_PORTRAIT_DIALOG";
+        PortraitPickerDialog.newInstance(ColorUtils.primaryColor(), (portraitId, portraitRes) -> {
+            portrait = Portrait.getPortraitById(portraitId);
+            binding.ivPortrait.setImageResource(portraitRes);
+        }).show(getFragmentManager(), SHOW_PORTRAIT_DIALOG);
+    }
+
+    private void refreshLayout() {
+        binding.llPickPortrait.setVisibility(
+                subAssignmentType == SubAssignmentType.NOTE_WITH_PORTRAIT ? View.VISIBLE : View.GONE);
+    }
+
     private void setBuilder(Builder builder) {
         this.maxLength = builder.maxLength;
         this.isNumeric = builder.isNumeric;
         this.title = builder.title;
         this.content = builder.content;
+        this.portrait = builder.portrait;
         this.previousContent = builder.content;
         this.subAssignmentType = builder.subAssignmentType;
         this.simpleAcceptListener = builder.simpleAcceptListener;
@@ -122,7 +146,7 @@ public class SimpleEditDialog extends DialogFragment {
     }
 
     public interface OnGetSubAssignmentListener {
-        void onAccept(String content, SubAssignmentType subAssignmentType);
+        void onAccept(String content, SubAssignmentType subAssignmentType, Portrait portrait);
     }
 
     public static class Builder {
@@ -133,6 +157,7 @@ public class SimpleEditDialog extends DialogFragment {
         private boolean isNumeric;
         private Integer maxLength;
         private SubAssignmentType subAssignmentType;
+        private Portrait portrait;
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -156,6 +181,11 @@ public class SimpleEditDialog extends DialogFragment {
 
         public Builder setSubAssignmentType(SubAssignmentType subAssignmentType) {
             this.subAssignmentType = subAssignmentType;
+            return this;
+        }
+
+        public Builder setPortrait(Portrait portrait) {
+            this.portrait = portrait;
             return this;
         }
 

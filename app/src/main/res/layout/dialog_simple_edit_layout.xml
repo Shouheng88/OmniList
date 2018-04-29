@@ -13,6 +13,8 @@
             tools:visibility="visible"
             android:paddingTop="16dp"
             android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -29,6 +31,62 @@
                 android:entries="@array/sub_assignment_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_pick_portrait"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <me.shouheng.omnilist.widget.themed.Divider
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/text_portrait"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:id="@+id/fl_category_portrait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <me.shouheng.omnilist.widget.CircleImageView
+                        android:id="@+id/civ_portrait_background"
+                        tools:src="@color/colorAccent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_portrait"
+                        android:tint="@android:color/white"
+                        android:src="@drawable/ic_folder_black_24dp"
+                        android:padding="5dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package me.shouheng.omnilist.model;
 
 
+import me.shouheng.omnilist.model.enums.Portrait;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.provider.annotation.Column;
 import me.shouheng.omnilist.provider.annotation.Table;
@@ -25,6 +26,9 @@ public class SubAssignment extends Model {
 
     @Column(name = SubAssignmentSchema.SUB_ASSIGNMENT_TYPE)
     private SubAssignmentType subAssignmentType;
+
+    @Column(name = SubAssignmentSchema.PORTRAIT)
+    private Portrait portrait;
 
     // region Android端字段，不计入数据库
 
@@ -106,6 +110,14 @@ public class SubAssignment extends Model {
         this.subAssignmentType = subAssignmentType;
     }
 
+    public Portrait getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(Portrait portrait) {
+        this.portrait = portrait;
+    }
+
     @Override
     public String toString() {
         return "SubAssignment{" +
@@ -117,6 +129,7 @@ public class SubAssignment extends Model {
                 ", completeThisTime=" + completeThisTime +
                 ", inCompletedThisTime=" + inCompletedThisTime +
                 ", contentChanged=" + contentChanged +
+                ", portraitId=" + portrait +
                 ", id=" + id +
                 ", code=" + code +
                 ", userId=" + userId +

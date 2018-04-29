@@ -27,6 +27,7 @@ import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
 import me.shouheng.omnilist.model.SubAssignment;
+import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.utils.FileHelper;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
@@ -72,7 +73,7 @@ public class ModelHelper {
         sb.append(PalmApp.getStringCompact(R.string.text_last_sync_time))
                 .append(": ")
                 .append(assignment.getLastSyncTime().getTime() == 0 ? "--" : TimeUtils.getPrettyTime(assignment.getLastModifiedTime()))
-                .append("\n");
+                .append("\n\n");
 
         // Append notification
         if (alarm != null) {
@@ -92,13 +93,10 @@ public class ModelHelper {
 
         // Append sub assignment
         for (SubAssignment subAssignment : subAssignments) {
-            switch (subAssignment.getSubAssignmentType()) {
-                case TODO:
-                    sb.append(subAssignment.isCompleted() ? "- [x] " : "- [ ] ").append(subAssignment.getContent()).append("\n\n");
-                    break;
-                case NOTE:
-                    sb.append(subAssignment.getContent()).append("\n\n");
-                    break;
+            if (subAssignment.getSubAssignmentType() == SubAssignmentType.TODO) {
+                sb.append(subAssignment.isCompleted() ? "- [x] " : "- [ ] ").append(subAssignment.getContent()).append("\n\n");
+            } else {
+                sb.append(subAssignment.getContent()).append("\n\n");
             }
         }
 

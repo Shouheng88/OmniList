@@ -10,4 +10,5 @@ public interface SubAssignmentSchema extends BaseSchema {
     String COMPLETED = "completed";
     String SUB_ASSIGNMENT_ORDER = "sub_assignment_order";
     String SUB_ASSIGNMENT_TYPE = "sub_assignment_type";
+    String PORTRAIT = "portrait";
 }
