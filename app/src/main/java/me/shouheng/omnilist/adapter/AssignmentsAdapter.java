@@ -1,7 +1,6 @@
 package me.shouheng.omnilist.adapter;
 
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,8 +29,6 @@ public class AssignmentsAdapter extends BaseQuickAdapter<Assignment, BaseViewHol
 
     private OnItemRemovedListener onItemRemovedListener;
 
-    private Drawable cbFilled, cbOutline;
-
     private boolean isPositionChanged;
 
     private boolean isStateChanged;
@@ -42,7 +39,8 @@ public class AssignmentsAdapter extends BaseQuickAdapter<Assignment, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, Assignment assignment) {
-        helper.itemView.setBackgroundColor(PalmApp.getColorCompact(ColorUtils.isDarkTheme() ? R.color.dark_theme_background : R.color.light_theme_background));
+        helper.itemView.setBackgroundColor(PalmApp.getColorCompact(ColorUtils.isDarkTheme() ?
+                R.color.dark_theme_background : R.color.light_theme_background));
 
         helper.setText(R.id.tv_title, assignment.getName());
 
@@ -63,27 +61,17 @@ public class AssignmentsAdapter extends BaseQuickAdapter<Assignment, BaseViewHol
     private void updateUIByCompletedState(BaseViewHolder helper, Assignment assignment) {
         boolean completed = assignment.getProgress() == 100;
 
-        helper.setImageDrawable(R.id.iv_completed, completed ? cbFilled() : cbOutline());
+        helper.setImageDrawable(R.id.iv_completed, ColorUtils.tintDrawable(
+                PalmApp.getDrawableCompact(completed ? R.drawable.ic_check_box_black_24dp
+                        : R.drawable.ic_check_box_outline_blank_black_24dp), ColorUtils.accentColor()));
         ViewHelper.setAlpha(helper.itemView,  completed ? 0.4F : 1F);
 
         TextView tvTitle = helper.getView(R.id.tv_title);
         TextView tvCreatedTime = helper.getView(R.id.tv_time_info);
-        tvTitle.setPaintFlags(completed ? tvTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-        tvCreatedTime.setPaintFlags(completed ? tvCreatedTime.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvCreatedTime.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-    }
-
-    private Drawable cbFilled() {
-        if (cbFilled == null) {
-            cbFilled = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_black_24dp), ColorUtils.accentColor());
-        }
-        return cbFilled;
-    }
-
-    private Drawable cbOutline() {
-        if (cbOutline == null) {
-            cbOutline = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_outline_blank_black_24dp), ColorUtils.accentColor());
-        }
-        return cbOutline;
+        tvTitle.setPaintFlags(completed ? tvTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
+                : tvTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        tvCreatedTime.setPaintFlags(completed ? tvCreatedTime.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
+                : tvCreatedTime.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
     }
 
     public void setOnItemRemovedListener(OnItemRemovedListener onItemRemovedListener) {
