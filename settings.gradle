@@ -1,1 +1,1 @@
-include ':app', ':photoview', ':colorful', ':calendar'
+include ':app', ':photoview', ':colorful', ':calendar', 'md-support'
