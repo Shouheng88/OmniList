@@ -232,6 +232,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.iv_completed:
+                    /* Modify assignment value. */
                     Assignment assignment = mAdapter.getItem(position);
                     assert assignment != null;
                     if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS) {
@@ -243,8 +244,8 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     }
                     assignment.setChanged(!assignment.isChanged());
                     mAdapter.setStateChanged(true);
-                    mAdapter.notifyItemChanged(position);
-                    updateState();
+                    /* Update assignment state in database. */
+                    updateState(position);
                     break;
                 case R.id.rl_item:
                     ContentActivity.editAssignment(this,
@@ -297,19 +298,14 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     public void reload() {
-        if (getActivity() instanceof AssignmentsFragmentInteraction) {
-            ((AssignmentsFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(
-                    me.shouheng.omnilist.model.data.Status.LOADING);
-        }
-
+        notifyStatus(me.shouheng.omnilist.model.data.Status.LOADING);
         assignmentViewModel.getAssignments(category, status, assignmentPreferences.showCompleted()).observe(this, listResource -> {
             if (listResource == null) {
+                notifyStatus(me.shouheng.omnilist.model.data.Status.FAILED);
                 ToastUtils.makeToast(R.string.text_failed_to_load_data);
                 return;
             }
-            if (getActivity() instanceof AssignmentsFragmentInteraction) {
-                ((AssignmentsFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(listResource.status);
-            }
+            notifyStatus(listResource.status);
             switch (listResource.status) {
                 case SUCCESS:
                     mAdapter.setNewData(listResource.data);
@@ -338,7 +334,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         }
     }
 
-    private void updateState() {
+    private void updateState(Integer position) {
         assignmentViewModel.updateAssignments(mAdapter.getData()).observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_error_when_save);
@@ -349,11 +345,27 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                     ToastUtils.makeToast(R.string.text_error_when_save);
                     break;
                 case SUCCESS:
+                    if (position != null) {
+                        /* Remove or update item. */
+                        Assignment assignment = mAdapter.getItem(position);
+                        assert assignment != null;
+                        if (assignmentPreferences.showCompleted()) {
+                            mAdapter.notifyItemChanged(position);
+                        } else if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS){
+                            mAdapter.remove(position);
+                        }
+                    }
                     ToastUtils.makeToast(R.string.text_update_successfully);
                     mAdapter.setStateChanged(false);
                     break;
             }
         });
+    }
+
+    private void notifyStatus(me.shouheng.omnilist.model.data.Status status) {
+        if (getActivity() instanceof AssignmentsFragmentInteraction) {
+            ((AssignmentsFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(status);
+        }
     }
     // endregion
 
@@ -636,18 +648,20 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
     // endregion
 
+    // region options menu
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (isInEditMode) {
             menu.findItem(R.id.action_search).setVisible(false);
-            // todo
-//            menu.findItem(R.id.action_filter).setIcon(R.drawable.ic_filter_list_white);
         } else {
             MenuItem menuItem = menu.findItem(R.id.action_search);
             if (menuItem != null) {
                 menuItem.setVisible(true);
             }
+            /*Set current selection.*/
+            menu.findItem(assignmentPreferences.showCompleted() ?
+                    R.id.action_show_completed : R.id.action_hide_completed).setChecked(true);
         }
     }
 
@@ -657,6 +671,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             inflater.inflate(R.menu.edit_mode, menu);
         } else {
             inflater.inflate(R.menu.capture, menu);
+            inflater.inflate(R.menu.list_filter, menu);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -674,15 +689,26 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                 break;
             case R.id.action_clear:
                 isInEditMode = false;
-                getActivity().invalidateOptionsMenu();
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
                 getBinding().etAssignmentTitle.setText("");
                 break;
             case R.id.action_capture:
                 createScreenCapture(getBinding().recyclerview, ViewUtils.dp2Px(PalmApp.getContext(), 60));
                 break;
+            case R.id.action_show_completed:
+                assignmentPreferences.setShowCompleted(true);
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+                reload();
+                break;
+            case R.id.action_hide_completed:
+                assignmentPreferences.setShowCompleted(false);
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+                reload();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+    // endregion
 
     @Override
     protected void onGetScreenCutFile(File file) {
@@ -785,7 +811,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
             speechRecognizer.destroy();
         }
         if (mAdapter.isStateChanged()) {
-            updateState();
+            updateState(null);
         }
         super.onDestroy();
     }

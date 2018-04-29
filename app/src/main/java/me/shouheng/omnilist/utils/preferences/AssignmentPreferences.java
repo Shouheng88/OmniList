@@ -49,4 +49,8 @@ public class AssignmentPreferences extends BasePreferences {
     public boolean showCompleted() {
         return getBoolean(R.string.key_assignment_completed, true);
     }
+
+    public void setShowCompleted(boolean showCompleted) {
+        putBoolean(R.string.key_assignment_completed, showCompleted);
+    }
 }

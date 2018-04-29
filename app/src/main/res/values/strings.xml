@@ -668,4 +668,8 @@
     <string name="image">Image</string>
     <string name="other">Other</string>
 
+    <string name="text_filter">Filter</string>
+    <string name="text_show_completed">Show completed</string>
+    <string name="text_hide_completed">Hide completed</string>
+
 </resources>

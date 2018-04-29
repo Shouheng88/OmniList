@@ -8,6 +8,8 @@ import me.shouheng.omnilist.provider.annotation.Table;
 import me.shouheng.omnilist.provider.schema.TimelineSchema;
 
 /**
+ * todo 有问题
+ *
  * Created by wangshouheng on 2017/8/13. */
 @Table(name = TimelineSchema.TABLE_NAME)
 public class TimeLine extends Model {
