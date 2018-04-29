@@ -660,4 +660,11 @@
     <string name="text_share_text">Share text</string>
     <string name="text_share_html">Share html</string>
 
+    <string name="openas">Open as</string>
+    <string name="text">Text</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
+    <string name="image">Image</string>
+    <string name="other">Other</string>
+
 </resources>
