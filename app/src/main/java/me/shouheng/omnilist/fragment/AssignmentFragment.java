@@ -100,6 +100,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     private MaterialMenuDrawable materialMenu;
 
     private int playingPosition = -1;
+    private boolean isSharingImage;
 
     private Assignment assignment;
     private List<SubAssignment> subAssignments;
@@ -535,12 +536,13 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
                         switch (menuItem.getItemId()) {
                             case R.id.action_share_text:
-                                ModelHelper.share(getContext(), assignment.getName(), assignment.getComment(), attachmentsAdapter.getData());
+                                ModelHelper.share(getContext(), assignment.getName(), getMarkdown(), attachmentsAdapter.getData());
                                 break;
                             case R.id.action_share_html:
                                 viewHtml();
                                 break;
                             case R.id.action_share_image:
+                                isSharingImage = true;
                                 createScreenCapture(getBinding().main.rvSubAssignments);
                                 break;
                         }
@@ -567,6 +569,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                                 viewHtml();
                                 break;
                             case R.id.capture:
+                                isSharingImage = false;
                                 createScreenCapture(getBinding().main.rvSubAssignments);
                                 break;
                             case R.id.print:
@@ -612,7 +615,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     @Override
     protected void onGetScreenCutFile(File file) {
-        ModelHelper.shareFile(getContext(), file, Constants.MIME_TYPE_IMAGE);
+        if (isSharingImage) {
+            ModelHelper.shareFile(getContext(), file, Constants.MIME_TYPE_IMAGE);
+        }
     }
     // endregion
 
