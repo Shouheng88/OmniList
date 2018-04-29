@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.Collections;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
@@ -145,18 +146,14 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
 
     // region ViewModel
     public void reload() {
-        if (getActivity() instanceof OnCategoriesInteractListener) {
-            ((OnCategoriesInteractListener) getActivity()).onCategoryLoadStateChanged(me.shouheng.omnilist.model.data.Status.LOADING);
-        }
-
+        notifyStatus(me.shouheng.omnilist.model.data.Status.LOADING);
         categoryViewModel.getCategories(status, assignmentPreferences.showCompleted()).observe(this, listResource -> {
             if (listResource == null) {
+                notifyStatus(me.shouheng.omnilist.model.data.Status.FAILED);
                 ToastUtils.makeToast(R.string.text_failed_to_load_data);
                 return;
             }
-            if (getActivity() instanceof OnCategoriesInteractListener) {
-                ((OnCategoriesInteractListener) getActivity()).onCategoryLoadStateChanged(listResource.status);
-            }
+            notifyStatus(listResource.status);
             switch (listResource.status) {
                 case SUCCESS:
                     mAdapter.setNewData(listResource.data);
@@ -168,7 +165,6 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
                     break;
             }
         });
-
         notifyDataChanged();
     }
 
@@ -220,6 +216,12 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
             }
             LogUtils.d(listResource.message);
         });
+    }
+
+    private void notifyStatus(me.shouheng.omnilist.model.data.Status status) {
+        if (getActivity() instanceof OnCategoriesInteractListener) {
+            ((OnCategoriesInteractListener) getActivity()).onCategoryLoadStateChanged(status);
+        }
     }
     // endregion
 
@@ -320,9 +322,18 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
         setHasOptionsMenu(true);
     }
 
+    // region options menu
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(assignmentPreferences.showCompleted() ?
+                R.id.action_show_completed : R.id.action_hide_completed).setChecked(true);
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.capture, menu);
+        inflater.inflate(R.menu.list_filter, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -332,9 +343,20 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
             case R.id.action_capture:
                 createScreenCapture(getBinding().rvCategories, ViewUtils.dp2Px(PalmApp.getContext(), 60));
                 break;
+            case R.id.action_show_completed:
+                assignmentPreferences.setShowCompleted(true);
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+                reload();
+                break;
+            case R.id.action_hide_completed:
+                assignmentPreferences.setShowCompleted(false);
+                Objects.requireNonNull(getActivity()).invalidateOptionsMenu();
+                reload();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+    // endregion
 
     @Override
     public void onPause() {
