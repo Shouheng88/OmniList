@@ -26,6 +26,7 @@ import me.shouheng.omnilist.fragment.base.CommonFragment;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.LogUtils;
@@ -133,7 +134,8 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         if (intent.hasExtra(Constants.EXTRA_CODE)) {
             long code = intent.getLongExtra(Constants.EXTRA_CODE, -1);
             int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
-            Assignment assignment = AssignmentsStore.getInstance().get(code);
+            /*Get assignment of code in all status except deleted.*/
+            Assignment assignment = AssignmentsStore.getInstance().get(code, Status.DELETED, true);
             if (assignment == null){
                 ToastUtils.makeToast(R.string.text_no_such_assignment);
                 LogUtils.d("Failed to resolve intent : " + intent);
