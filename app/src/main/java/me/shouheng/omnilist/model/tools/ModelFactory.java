@@ -163,6 +163,7 @@ public class ModelFactory {
         assert subAssignment != null;
         subAssignment.setCompleted(false);
         subAssignment.setSubAssignmentType(SubAssignmentType.TODO);
+        subAssignment.setPortrait(Portrait.WRITE);
         return subAssignment;
     }
 

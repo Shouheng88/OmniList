@@ -422,6 +422,7 @@
     <string name="pick_sub_type">Type:</string>
     <string name="item_todo">Todo</string>
     <string name="item_note">Note</string>
+    <string name="item_note_with_portrait">Note(Portrait)</string>
 
     <string name="sub_assignment_delete_msg">Delete sub assignment?</string>
     <string name="assignment_trash_msg">Trash assignment?</string>

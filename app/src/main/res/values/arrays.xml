@@ -3,6 +3,7 @@
     <array name="sub_assignment_type">
         <item>@string/item_todo</item>
         <item>@string/item_note</item>
+        <item>@string/item_note_with_portrait</item>
     </array>
 
     <string-array name="alarm_types">

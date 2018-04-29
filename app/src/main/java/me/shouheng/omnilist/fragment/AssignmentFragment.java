@@ -60,6 +60,7 @@ import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Status;
+import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AlarmsStore;
 import me.shouheng.omnilist.provider.AssignmentsStore;
@@ -269,6 +270,10 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     break;
                 case R.id.iv_sub_assignment: {
                     SubAssignment subAssignment = Objects.requireNonNull(mAdapter.getItem(position)).subAssignment;
+                    if (subAssignment.getSubAssignmentType() == SubAssignmentType.NOTE_WITH_PORTRAIT) {
+                        // Do not handle click event for icon layout.
+                        break;
+                    }
                     if (subAssignment.isCompleted()) {
                         subAssignment.setCompleted(false);
                         subAssignment.setInCompletedThisTime(true);
@@ -411,10 +416,12 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 .setTitle(getString(R.string.edit_sub_assignment))
                 .setContent(subAssignment.getContent())
                 .setSubAssignmentType(subAssignment.getSubAssignmentType())
+                .setPortrait(subAssignment.getPortrait())
                 .setMaxLength(TextLength.SUB_CONTENT_LENGTH.length)
-                .setOnGetSubAssignmentListener((content, subAssignmentType) -> {
+                .setOnGetSubAssignmentListener((content, subAssignmentType, portrait) -> {
                     subAssignment.setContent(content);
                     subAssignment.setSubAssignmentType(subAssignmentType);
+                    subAssignment.setPortrait(portrait);
                     if (position == null) {
                         mAdapter.addData(mAdapter.getData().size() - 1, SubAssignmentsAdapter.getMultiItem(subAssignment));
                         getBinding().main.rvSubAssignments.smoothScrollToPosition(mAdapter.getData().size() - 1);

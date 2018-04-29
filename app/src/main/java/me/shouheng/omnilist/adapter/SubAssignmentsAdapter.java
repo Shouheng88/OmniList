@@ -1,7 +1,6 @@
 package me.shouheng.omnilist.adapter;
 
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -35,7 +34,6 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
 
     private Alarm alarm;
     private String title, comment;
-    private Drawable cbFilled, cbOutline;
 
     private boolean isPositionChanged;
 
@@ -91,17 +89,19 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     }
 
     private void convertBody(BaseViewHolder helper, SubAssignment subAssignment) {
-        boolean isTodo = subAssignment.getSubAssignmentType() == SubAssignmentType.TODO;
+        SubAssignmentType subAssignmentType = subAssignment.getSubAssignmentType();
+        boolean showIcon = subAssignmentType == SubAssignmentType.TODO
+                || subAssignmentType == SubAssignmentType.NOTE_WITH_PORTRAIT;
 
         helper.addOnClickListener(R.id.tv_sub_assignment);
         helper.addOnClickListener(R.id.iv_sub_assignment);
         helper.addOnClickListener(R.id.tv_sub_assignment_note);
 
-        helper.getView(R.id.tv_sub_assignment).setVisibility(isTodo ? View.VISIBLE : View.GONE);
-        helper.getView(R.id.iv_sub_assignment).setVisibility(isTodo ? View.VISIBLE : View.GONE);
-        helper.getView(R.id.tv_sub_assignment_note).setVisibility(isTodo ? View.GONE : View.VISIBLE);
-        helper.getView(R.id.divider_note).setVisibility(isTodo ? View.GONE : View.VISIBLE);
-        helper.getView(R.id.divider_todo).setVisibility(isTodo ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.tv_sub_assignment).setVisibility(showIcon ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.iv_sub_assignment).setVisibility(showIcon ? View.VISIBLE : View.GONE);
+        helper.getView(R.id.tv_sub_assignment_note).setVisibility(showIcon ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.divider_note).setVisibility(showIcon ? View.GONE : View.VISIBLE);
+        helper.getView(R.id.divider_todo).setVisibility(showIcon ? View.VISIBLE : View.GONE);
 
         TextView tvSub = helper.getView(R.id.tv_sub_assignment);
         tvSub.setText(subAssignment.getContent());
@@ -110,7 +110,13 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         tvSub.setPaintFlags(subAssignment.isCompleted() ? tvSub.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvSub.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         ViewUtils.setAlpha(tvSub, subAssignment.isCompleted() ? 0.4F : 1F);
 
-        helper.setImageDrawable(R.id.iv_sub_assignment, subAssignment.isCompleted() ? cbFilled() : cbOutline());
+        helper.setImageDrawable(R.id.iv_sub_assignment,
+                ColorUtils.tintDrawable(PalmApp.getDrawableCompact(
+                        subAssignmentType == SubAssignmentType.TODO ?
+                                subAssignment.isCompleted() ?
+                                        R.drawable.ic_check_box_black_24dp :
+                                        R.drawable.ic_check_box_outline_blank_black_24dp :
+                                subAssignment.getPortrait().iconRes), ColorUtils.accentColor()));
 
         helper.setText(R.id.tv_sub_assignment_note, subAssignment.getContent());
     }
@@ -119,20 +125,6 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         helper.addOnClickListener(R.id.ll_add_comment);
         helper.addOnClickListener(R.id.ll_add_sub_assignment);
         helper.setText(R.id.tv_write_comments, TextUtils.isEmpty(comment) ? PalmApp.getStringCompact(R.string.click_to_add_comments) : comment);
-    }
-
-    private Drawable cbFilled() {
-        if (cbFilled == null) {
-            cbFilled = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_black_24dp), ColorUtils.accentColor());
-        }
-        return cbFilled;
-    }
-
-    private Drawable cbOutline() {
-        if (cbOutline == null) {
-            cbOutline = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_outline_blank_black_24dp), ColorUtils.accentColor());
-        }
-        return cbOutline;
     }
 
     @Override
