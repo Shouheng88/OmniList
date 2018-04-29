@@ -37,6 +37,7 @@ import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
+import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
@@ -52,6 +53,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     private AssignmentsAdapter mAdapter;
 
     private ItemTitleBinding itemTitleBinding;
+
+    private AssignmentPreferences assignmentPreferences;
 
     public static MonthFragment newInstance() {
         Bundle args = new Bundle();
@@ -128,6 +131,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.iv_completed:
+                    /* Modify assignment value. */
                     Assignment assignment = mAdapter.getItem(position);
                     assert assignment != null;
                     if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS) {
@@ -139,8 +143,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                     }
                     assignment.setChanged(!assignment.isChanged());
                     mAdapter.setStateChanged(true);
-                    mAdapter.notifyItemChanged(position);
-                    updateState();
+                    /* Update assignment state in database. */
+                    updateState(position);
                     break;
                 case R.id.rl_item:
                     ContentActivity.editAssignment(MonthFragment.this,
@@ -169,6 +173,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     }
 
     private void initValues() {
+        assignmentPreferences = AssignmentPreferences.getInstance();
+
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -203,7 +209,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         loadAssignment(year, month, day);
     }
 
-    private void updateState() {
+    private void updateState(int position) {
         assignmentViewModel.updateAssignments(mAdapter.getData()).observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_error_when_save);
@@ -214,6 +220,14 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                     ToastUtils.makeToast(R.string.text_error_when_save);
                     break;
                 case SUCCESS:
+                    /* Remove or update item. */
+                    Assignment assignment = mAdapter.getItem(position);
+                    assert assignment != null;
+                    if (assignmentPreferences.showCompleted()) {
+                        mAdapter.notifyItemChanged(position + 1);
+                    } else if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS){
+                        mAdapter.remove(position);
+                    }
                     ToastUtils.makeToast(R.string.text_update_successfully);
                     break;
             }
@@ -224,20 +238,21 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         DateTime dateTime = new DateTime(year, month + 1, day, 0, 0);
         Date startDate = TimeUtils.startTime(dateTime);
         Date endDate = TimeUtils.endTime(dateTime);
-        assignmentViewModel.getAssignments(startDate.getTime(), endDate.getTime()).observe(this, listResource -> {
-            assert listResource != null;
-            switch (listResource.status) {
-                case FAILED:
-                    ToastUtils.makeToast(R.string.text_failed_to_load_data);
-                    break;
-                case SUCCESS:
-                    assert listResource.data != null;
-                    List<Assignment> assignments = filterAssignments(listResource.data, year, month, day);
-                    sortAssignments(assignments);
-                    mAdapter.setNewData(assignments);
-                    break;
-            }
-        });
+        assignmentViewModel.getAssignments(startDate.getTime(), endDate.getTime(), assignmentPreferences.showCompleted())
+                .observe(this, listResource -> {
+                    assert listResource != null;
+                    switch (listResource.status) {
+                        case FAILED:
+                            ToastUtils.makeToast(R.string.text_failed_to_load_data);
+                            break;
+                        case SUCCESS:
+                            assert listResource.data != null;
+                            List<Assignment> assignments = filterAssignments(listResource.data, year, month, day);
+                            sortAssignments(assignments);
+                            mAdapter.setNewData(assignments);
+                            break;
+                    }
+                });
     }
 
     private List<Assignment> filterAssignments(List<Assignment> assignments, int year, int month, int day) {

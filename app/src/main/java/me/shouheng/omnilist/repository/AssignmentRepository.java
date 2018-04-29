@@ -68,9 +68,13 @@ public class AssignmentRepository extends BaseRepository<Assignment> {
         return result;
     }
 
-    public LiveData<Resource<List<Assignment>>> getAssignments(long startMillis, long endMillis) {
+    public LiveData<Resource<List<Assignment>>> getAssignments(
+            long startMillis, long endMillis, boolean includeCompleted) {
         MutableLiveData<Resource<List<Assignment>>> result = new MutableLiveData<>();
-        new NormalAsyncTask<>(result, () -> ((AssignmentsStore) getStore()).getAssignments(startMillis, endMillis)).execute();
+        new NormalAsyncTask<>(result, () ->
+                ((AssignmentsStore) getStore()).getAssignments(startMillis, endMillis,
+                        (includeCompleted ? "" : AssignmentSchema.TABLE_NAME + "." + AssignmentSchema.PROGRESS + " != 100 "))
+        ).execute();
         return result;
     }
 

@@ -286,7 +286,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
      * @param startMillis start millis
      * @param endMillis and millis
      * @return the queried list */
-    public synchronized List<Assignment> getAssignments(long startMillis, long endMillis) {
+    public synchronized List<Assignment> getAssignments(long startMillis, long endMillis, String whereSQL) {
         Cursor cursor = null;
         List<Assignment> assignments;
         final SQLiteDatabase database = getWritableDatabase();
@@ -296,7 +296,8 @@ public class AssignmentsStore extends BaseStore<Assignment> {
                     + " WHERE " + tableName + "." + AssignmentSchema.USER_ID + " = " + userId
                     + " AND " + tableName + "." + AssignmentSchema.START_TIME + " <= " + endMillis
                     + " AND " + tableName + "." + AssignmentSchema.END_TIME + " >= " + startMillis
-                    + " AND " + tableName + "." + AssignmentSchema.STATUS + " = " + Status.NORMAL.id;
+                    + " AND " + tableName + "." + AssignmentSchema.STATUS + " = " + Status.NORMAL.id
+                    + (TextUtils.isEmpty(whereSQL) ? "" : " AND " + whereSQL);
             cursor = database.rawQuery(sql, new String[]{});
             assignments = getList(cursor);
         } finally {

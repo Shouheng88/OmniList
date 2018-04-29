@@ -26,8 +26,8 @@ public class AssignmentViewModel extends BaseViewModel<Assignment> {
         return ((AssignmentRepository) getRepository()).getAssignments(queryString, whereSQL);
     }
 
-    public LiveData<Resource<List<Assignment>>> getAssignments(long startMillis, long endMillis) {
-        return ((AssignmentRepository) getRepository()).getAssignments(startMillis, endMillis);
+    public LiveData<Resource<List<Assignment>>> getAssignments(long startMillis, long endMillis, boolean includeCompleted) {
+        return ((AssignmentRepository) getRepository()).getAssignments(startMillis, endMillis, includeCompleted);
     }
 
     public LiveData<Resource<List<Assignment>>> updateAssignments(List<Assignment> assignments) {
