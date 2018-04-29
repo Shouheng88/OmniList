@@ -7,7 +7,7 @@ import me.shouheng.omnilist.R;
 /**
  * Created by shouh on 2018/4/8.*/
 public class Constants {
-    public static final String DEFAULT_LOG_TAG = "NotePal";
+    public static final String DEFAULT_LOG_TAG = "OmniList";
 
     // region Extras
     public final static String EXTRA_MODEL = "extra_model";
@@ -33,7 +33,7 @@ public class Constants {
 
     public final static String DEVELOPER_EMAIL = "shouheng2015@gmail.com";
     public final static String DEVELOPER_EMAIL_PREFIX = "【" + PalmApp.getStringCompact(R.string.app_name) +"|%s】";
-    public final static String DEVELOPER_EMAIL_EMAIL_PREFIX = "\nContact Email:";
+    public final static String DEVELOPER_EMAIL_EMAIL_PREFIX = "\nEmail:";
     // endregion
 
     // region Attachment
@@ -101,7 +101,7 @@ public class Constants {
             "tfNQPQu+gXgdXuZC+fhqVqNgYtWVRMIspveSm3AK+52AxxzTlfAU1fpCEFOf4AHc\n" +
             "/E33toB493pf9gS2xwIDAQAB";
 
-    public final static String BACKUP_DIR_NAME = "NotePal";
+    public final static String BACKUP_DIR_NAME = "OmniList";
     public final static String FILES_BACKUP_DIR_NAME = "files";
 
     public final static String DEFAULT_USER_INFO_BG = "https://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg";

@@ -26,10 +26,12 @@ import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.kennyc.bottomsheet.BottomSheet;
 import com.kennyc.bottomsheet.BottomSheetListener;
 
+import org.apache.commons.io.FileUtils;
 import org.polaric.colorful.BaseActivity;
 import org.polaric.colorful.PermissionUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -583,15 +585,20 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
 
     private void outText() {
-        // todo
-//        try {
-//            File exDir = FileHelper.getTextExportDir();
-//            File outFile = new File(exDir, FileHelper.getDefaultFileName(".text"));
-//            FileUtils.writeStringToFile(outFile, note.getContent(), "utf-8");
-//            ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), outFile.getPath()));
-//        } catch (IOException e) {
-//            ToastUtils.makeToast(R.string.failed_to_create_file);
-//        }
+        try {
+            File exDir = FileHelper.getTextExportDir();
+            File outFile = new File(exDir, FileHelper.getDefaultFileName(".md"));
+            FileUtils.writeStringToFile(outFile, ModelHelper.getMarkdown(
+                    assignment,
+                    mAdapter.getSubAssignments(),
+                    location,
+                    alarm,
+                    attachmentsAdapter.getData()
+            ), "utf-8");
+            ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), outFile.getPath()));
+        } catch (IOException e) {
+            ToastUtils.makeToast(R.string.failed_to_create_file);
+        }
     }
 
     @Override
