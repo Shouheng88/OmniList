@@ -68,7 +68,7 @@ public class IntentUtils {
         openWebPage(context, Constants.WIKI);
     }
 
-    private static void openWebPage(Context context, String url) {
+    public static void openWebPage(Context context, String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         if (IntentUtils.isAvailable(context, intent, null)) {
             ViewUtils.launchUrl(context, url);

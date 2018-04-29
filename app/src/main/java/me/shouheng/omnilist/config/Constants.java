@@ -14,8 +14,13 @@ public class Constants {
     public final static String EXTRA_CODE = "extra_code";
     public final static String EXTRA_REQUEST_CODE = "extra_request_code";
     public final static String EXTRA_FRAGMENT = "extra_fragment";
-    public final static String VALUE_FRAGMENT_ASSIGNMENT = "value_fragment_assignment";
     public final static String EXTRA_IS_GOOGLE_NOW = "extra_is_from_google_now";
+
+    public final static String VALUE_FRAGMENT_ASSIGNMENT = "value_fragment_assignment";
+
+    public final static String EXTRA_ATTACHMENTS = "extra_attachments";
+    public final static String EXTRA_MARKDOWN_CONTENT = "extra_markdown_content";
+    public final static String VALUE_FRAGMENT_ASSIGNMENT_VIEWER = "value_assignment_viewer";
 
     public final static String ACTION_TO_NOTE_FROM_THIRD_PART = "to_note_from_third_part";
     // endregion

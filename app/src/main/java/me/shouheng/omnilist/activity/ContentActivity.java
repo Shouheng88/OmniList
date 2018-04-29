@@ -14,15 +14,18 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog.ColorCallback;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivityContentBinding;
 import me.shouheng.omnilist.fragment.AssignmentFragment;
+import me.shouheng.omnilist.fragment.AssignmentViewFragment;
 import me.shouheng.omnilist.fragment.base.CommonFragment;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Assignment;
+import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.LogUtils;
@@ -31,7 +34,7 @@ import me.shouheng.omnilist.utils.ToastUtils;
 
 public class ContentActivity extends CommonActivity<ActivityContentBinding> implements ColorCallback {
 
-    // region edit and view note
+    // region edit assignment
     public static void editAssignment(Fragment fragment, @NonNull Assignment assignment, int requestCode){
         fragment.startActivityForResult(editIntent(fragment.getContext(), assignment, requestCode), requestCode);
     }
@@ -48,6 +51,15 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         return intent;
     }
     // endregion
+
+    public static void viewAssignment(Fragment fragment, Assignment assignment, ArrayList<Attachment> attachments, String mdText) {
+        Intent intent = new Intent(fragment.getContext(), ContentActivity.class);
+        intent.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT_VIEWER);
+        intent.putExtra(Constants.EXTRA_MODEL, (Serializable) assignment);
+        intent.putParcelableArrayListExtra(Constants.EXTRA_ATTACHMENTS, attachments);
+        intent.putExtra(Constants.EXTRA_MARKDOWN_CONTENT, mdText);
+        fragment.startActivity(intent);
+    }
 
     public static void resolveThirdPart(Activity activity, Intent i, int requestCode) {
         i.setClass(activity, ContentActivity.class);
@@ -87,7 +99,10 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         }
         switch (intent.getStringExtra(Constants.EXTRA_FRAGMENT)) {
             case Constants.VALUE_FRAGMENT_ASSIGNMENT:
-                handleAssignmentIntent();
+                handleAssignmentEdit();
+                break;
+            case Constants.VALUE_FRAGMENT_ASSIGNMENT_VIEWER:
+                handleAssignmentViewer();
                 break;
             default:
                 ToastUtils.makeToast(R.string.content_failed_to_parse_intent);
@@ -96,7 +111,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         }
     }
 
-    private void handleAssignmentIntent() {
+    private void handleAssignmentEdit() {
         Intent intent = getIntent();
         if (intent.hasExtra(Constants.EXTRA_MODEL)) {
             if (!(intent.getSerializableExtra(Constants.EXTRA_MODEL) instanceof Assignment)) {
@@ -133,6 +148,16 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         String TAG_ASSIGNMENT_FRAGMENT = "tag_assignment_fragment";
         Fragment fragment = AssignmentFragment.newInstance(assignment, requestCode);
         FragmentHelper.replace(this, fragment, R.id.fragment_container, TAG_ASSIGNMENT_FRAGMENT);
+    }
+
+    private void handleAssignmentViewer() {
+        String TAG_ASSIGNMENT_VIEWER = "tag_assignment_viewer";
+        Intent intent = getIntent();
+        Assignment assignment = (Assignment) intent.getSerializableExtra(Constants.EXTRA_MODEL);
+        ArrayList<Attachment> attachments = intent.getParcelableArrayListExtra(Constants.EXTRA_ATTACHMENTS);
+        String mdText = intent.getStringExtra(Constants.EXTRA_MARKDOWN_CONTENT);
+        Fragment fragment = AssignmentViewFragment.newInstance(assignment, attachments, mdText);
+        FragmentHelper.replace(this, fragment, R.id.fragment_container, TAG_ASSIGNMENT_VIEWER);
     }
 
     /**

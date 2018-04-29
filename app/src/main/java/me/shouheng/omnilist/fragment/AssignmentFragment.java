@@ -32,11 +32,13 @@ import org.polaric.colorful.PermissionUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.activity.ContentActivity;
 import me.shouheng.omnilist.adapter.AttachmentsAdapter;
 import me.shouheng.omnilist.adapter.SubAssignmentsAdapter;
 import me.shouheng.omnilist.config.Constants;
@@ -84,8 +86,9 @@ import me.shouheng.omnilist.widget.tools.IItemTouchHelperAdapter;
 import me.shouheng.omnilist.widget.tools.SpaceItemDecoration;
 
 
-public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAssignmentBinding>
-        implements OnAttachingFileListener, SubAssignmentsAdapter.OnItemRemovedListener {
+public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAssignmentBinding> implements
+        SubAssignmentsAdapter.OnItemRemovedListener,
+        OnAttachingFileListener {
 
     private final static String EXTRA_IS_THIRD_PART = "extra_is_third_part";
     private final static String EXTRA_ACTION = "extra_action";
@@ -502,13 +505,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         getBinding().drawer.tvCopyText.setOnClickListener(v -> {
             Activity activity = getActivity();
             if (activity != null) {
-                ModelHelper.copyToClipboard(activity, ModelHelper.getMarkdown(
-                        assignment,
-                        mAdapter.getSubAssignments(),
-                        location,
-                        alarm,
-                        attachmentsAdapter.getData()
-                ));
+                ModelHelper.copyToClipboard(activity, getMarkdown());
                 ToastUtils.makeToast(R.string.content_was_copied_to_clipboard);
             }
         });
@@ -581,24 +578,29 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
 
     private void viewHtml() {
-        // todo
+        ArrayList<Attachment> attachments = new ArrayList<>(attachmentsAdapter.getData());
+        ContentActivity.viewAssignment(this, assignment, attachments, getMarkdown());
     }
 
     private void outText() {
         try {
             File exDir = FileHelper.getTextExportDir();
             File outFile = new File(exDir, FileHelper.getDefaultFileName(".md"));
-            FileUtils.writeStringToFile(outFile, ModelHelper.getMarkdown(
-                    assignment,
-                    mAdapter.getSubAssignments(),
-                    location,
-                    alarm,
-                    attachmentsAdapter.getData()
-            ), "utf-8");
+            FileUtils.writeStringToFile(outFile, getMarkdown(), "utf-8");
             ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), outFile.getPath()));
         } catch (IOException e) {
             ToastUtils.makeToast(R.string.failed_to_create_file);
         }
+    }
+
+    private String getMarkdown() {
+        return ModelHelper.getMarkdown(
+                assignment,
+                mAdapter.getSubAssignments(),
+                location,
+                alarm,
+                attachmentsAdapter.getData()
+        );
     }
 
     @Override
