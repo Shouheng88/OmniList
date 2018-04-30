@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/intro_background"
     android:background="#2196f3"
     android:orientation="vertical"
@@ -18,7 +19,9 @@
         android:paddingTop="@dimen/intro_top_padding"
         android:paddingBottom="@dimen/intro_bottom_padding"/>
 
-    <ImageView android:id="@+id/intro_image"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/intro_image"
+        tools:src="@drawable/omni_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
@@ -28,7 +31,8 @@
         android:paddingRight="@dimen/intro_side_padding"
         android:paddingEnd="@dimen/intro_side_padding"/>
 
-    <ImageView android:id="@+id/intro_image_small"
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/intro_image_small"
         android:layout_width="450dp"
         android:layout_height="0dp"
         android:layout_weight="5"
@@ -41,7 +45,8 @@
         android:paddingEnd="@dimen/intro_side_padding"
         android:visibility="gone"/>
 
-    <TextView android:id="@+id/intro_description"
+    <TextView
+        android:id="@+id/intro_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

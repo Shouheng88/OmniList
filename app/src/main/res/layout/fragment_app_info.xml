@@ -28,10 +28,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <!--todo-->
-                    <android.support.v7.widget.AppCompatImageView
+                    <me.shouheng.omnilist.widget.CircleImageView
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_google_plus"
+                        android:src="@drawable/omni_list"
                         android:layout_margin="20dp"
                         android:layout_width="160dp"
                         android:layout_height="160dp" />
