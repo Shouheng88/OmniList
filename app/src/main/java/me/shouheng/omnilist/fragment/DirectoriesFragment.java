@@ -111,7 +111,7 @@ public class DirectoriesFragment extends BaseFragment<FragmentDirectoriesBinding
     private void showSelectionTips() {
         new MaterialDialog.Builder(getContext())
                 .title(R.string.text_tips)
-                .content(R.string.available_directory_found)
+                .content(String.format(PalmApp.getStringCompact(R.string.available_directory_found), Constants.BACKUP_DIR_NAME))
                 .positiveText(R.string.text_get_it)
                 .show();
     }

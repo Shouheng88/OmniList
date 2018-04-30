@@ -26,7 +26,10 @@
     <string name="text_trash">Trash</string>
     <string name="text_archived">Archive</string>
     <string name="text_move_out">Move out</string>
-
+    <string name="text_undo">Undo</string>
+    <string name="text_redo">Redo</string>
+    <string name="text_get_it">Get it</string>
+    
     <string name="text_comments">Comments</string>
     <string name="text_created_time">Created</string>
     <string name="text_last_modified_time">Updated</string>
@@ -81,6 +84,21 @@
 
     <string name="input_password_and_continue">Input password</string>
     <string name="share_message_chooser">Select share mode</string>
+
+    <plurals name="assignments_number">
+        <item quantity="zero">%d assignment</item>
+        <item quantity="one">%d assignment</item>
+        <item quantity="other">%d assignments</item>
+    </plurals>
+    <plurals name="attachments_number">
+        <item quantity="zero">%d attachment</item>
+        <item quantity="one">%d 个附件</item>
+        <item quantity="other">%d 个附件</item>
+    </plurals>
+    <!--capture screen-->
+    <string name="empty_list_to_capture">Empty list to capture</string>
+    <string name="capture_list">Capture</string>
+    <string name="capturing">Capturing&#8230;</string>
     <!--endregion-->
 
     <!--region menu items-->
@@ -127,6 +145,24 @@
     <string name="opacity">Opacity</string>
     <string name="saturation">Saturation</string>
     <string name="file_not_exist">File not found</string>
+
+    <string name="text_export">Export</string>
+    <string name="text_export_image">Export image</string>
+    <string name="text_export_text">Export text</string>
+    <string name="text_export_html">Export html</string>
+    <string name="text_export_pdf">Export pdf</string>
+
+    <string name="text_share">Share</string>
+    <string name="text_share_image">Share image</string>
+    <string name="text_share_text">Share text</string>
+    <string name="text_share_html">Share html</string>
+
+    <string name="openas">Open as</string>
+    <string name="text">Text</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
+    <string name="image">Image</string>
+    <string name="other">Other</string>
     <!--endregion-->
 
     <!--region alarm and time-->
@@ -219,10 +255,20 @@
     <string name="intro_4_title">Media</string>
     <string name="intro_4_description">Work with sketch, picture, photo\n video, audio, file, location\nhtml, markdown, pdf</string>
     <string name="intro_5_title">Explore</string>
-    <string name="intro_5_description">Speech recognition, calendar\nand many other funny features\nStart to explore it</string>
+    <string name="intro_5_description">Speech recognition, calendar\nand many other funny features\nstart to explore it&#8230;</string>
     <string name="intro_6_title">Enjoy</string>
     <string name="intro_6_description">Don\'t forget to subscribe\nour community!</string>
     <!--endregion introduction-->
+    
+    <!--region notice-->
+    <string name="dialog_notice_content_part1">Hello, user!<![CDATA[<br/><br/>]]>Due to the limit of time, Omni List still has few weakness. Here we invite you to improve it with us:</string>
+    <string name="dialog_notice_content_part2">1.If you like Omni List you may associate developer by translating it in to other languages(Find in <![CDATA[<b>\"Settings->About->Translation\"</b>]]>), or give rating and feedback in application market.</string>
+    <string name="dialog_notice_content_part3">2.If you have special requirements, or if you are unsatisfied about current functions, feed back to developer by any of below ways: <![CDATA[<b>Google+ community, Twitter, Weibo or directly sending an email</b>]]>.</string>
+    <string name="dialog_notice_content_part4">3.If you find bugs or crashes in Omni List, you can feed back in <![CDATA[<b>"Settings->Feedback"</b>]]> or <![CDATA[<b>directly sending an email to developer</b>]]>.</string>
+    <string name="dialog_notice_content_part5">4.Omni List will continue to push out many new functions and features, if you like this application, you may support developing in <![CDATA[<b>"Settings->Support developing"</b>]]>.</string>
+    <string name="dialog_notice_content_part6">5.Furthermore, you can also get latest developing messages by subscribe our <![CDATA[<b>Google+ community, Twitter or Weibo</b>]]>. You may even join the beta test.</string>
+    <string name="dialog_notice_content_part7">Please give more patience to Omni List, we will work better.<![CDATA[<br/><br/>]]>Last, wish you have a happy journey with Omni List!</string>
+    <!--endregion-->
 
     <!--region enums-->
     <string name="model_name_none">None</string>
@@ -252,10 +298,155 @@
     <string name="priority_level_03">重要|不紧急</string>
     <string name="priority_level_04">重要|紧急</string>
     <!--endregion -->
+
+    <!--region fab options-->
+    <string name="fab_opt_assignment">Assignment</string>
+    <string name="fab_opt_category">Category</string>
+    <string name="fab_opt_capture">Capture</string>
+    <string name="fab_opt_file">File</string>
+    <string name="fab_opt_draft">Sketch</string>
+    <string name="fab_opt_link">Link</string>
+    <string name="fab_opt_record">Record</string>
+    <string name="fab_opt_notice">Alarm</string>
+    <string name="fab_quick_assignment">Quick create</string>
+
+    <string name="fab_sort_custom_fab">Custom fabs</string>
+    <string name="fab_sort_custom">Custom&#8230;</string>
+    <string name="fab_sort_custom_fab_tip">Drag the rear icon to sort, the top 5 ones will be showed in dashboard.</string>
+    <string name="fab_sort_save">Save</string>
+    <string name="fab_sort_save_or_lose">Save or discard your modifications</string>
+    <string name="fab_sort_save_successfully">Successfully saved</string>
+    <!--endregion-->
+    <!--endregion-->
+
+    <!--region business-->
+    <!--region business.category-->
+    <string name="pick_category">Pick category</string>
+    <string name="no_category_available">No available category</string>
+    <string name="edit_category">Edit category</string>
+    <string name="category_name">Category name</string>
+    <string name="pick_portrait">Pick portrait</string>
+    <string name="pick_category_color">Pick category color</string>
+    <string name="category_delete_message">Delete category will delete its assignments as well.</string>
+    <string name="category_list_empty">Empty categories list</string>
+    <string name="category_list_empty_sub_normal">add category by licking + in dashboard</string>
+    <string name="category_list_empty_sub_archived">no archived categories found</string>
+    <string name="category_list_empty_sub_trashed">no trashed categories found</string>
+
+    <string name="text_filter">Filter</string>
+    <string name="text_show_completed">Show completed</string>
+    <string name="text_hide_completed">Hide completed</string>
+    <!--endregion-->
+
+    <!--region business.assignments-->
+    <string name="add_assignments">添加日程安排&#8230;</string>
+    <string name="touch_and_speak">按住说话</string>
+    <string name="baidu_speech_support">语音识别技术由百度提供</string>
+    <string name="listening">正在听&#8230;</string>
+    <string name="recognizing">正在识别&#8230;</string>
+    <string name="move_up_to_cancel">手指上划，取消识别。</string>
+    <string name="release_to_cancel">手指松开，取消识别。</string>
+
+    <string name="error_audio">音频问题</string>
+    <string name="error_speech_timeout">没有语音输入</string>
+    <string name="error_client">其它客户端错误</string>
+    <string name="error_insufficient_permissions">权限不足</string>
+    <string name="error_network">网络问题</string>
+    <string name="error_no_match">没有匹配的识别结果</string>
+    <string name="error_recognizer_busy">引擎忙</string>
+    <string name="error_server">服务端错误</string>
+    <string name="error_network_timeout">连接超时</string>
+    <string name="recognize_successfully">识别成功</string>
+    <string name="recognize_failed">识别失败</string>
+
+    <string name="no_assignments_found">没有发现任务</string>
+    <string name="assignments_empty_list_sub_normal">点击 + 按钮，文本框输入或点击话筒语音录入</string>
+    <string name="assignments_empty_list_sub_archived">no archived assignment found</string>
+    <string name="assignments_empty_list_sub_trashed">no trashed assignment found</string>
+
+    <string name="text_no_such_assignment">No such assignment</string>
+
+    <string name="add_labels">添加标签</string>
+    <string name="add_location">添加位置信息</string>
+    <string name="illegal_label">标签中不允许添加分号(;)</string>
+    <string name="total_labels_too_long">标签总长度超出范围</string>
+
+    <string name="set_overdue_reason_detail">添加未完成原因详情</string>
+    <string name="set_date_and_notifications">设置日期与提醒</string>
+    <string name="sure_to_remove_alarm">确定移除该闹钟？</string>
+    <string name="alarm_is_removed">闹钟被移除</string>
+    <string name="add_sub_assignment">添加子任务</string>
+    <string name="click_to_add_title">点击添加标题</string>
+    <string name="click_to_add_comments">点击添加备注</string>
+    <string name="click_to_add_content">点击添加内容</string>
+
+    <string name="attachment_list_empty">No attachment found</string>
+
+    <string name="failed_to_record">录制音频失败</string>
+    <string name="no_available_application_to_resolve_intent">没有找到可以打开的应用</string>
+    <string name="arrive_max_attachments_number">已经达到能够加入的附件的最大数量</string>
+    <string name="recording">正在录制音频&#8230;</string>
+    <string name="recorded">录制完成</string>
+    <string name="rate">设置优先级</string>
+
+    <string name="pick_one_from_four_priorities">从四个优先级中选择一个</string>
+
+    <string name="edit_title">Edit title</string>
+    <string name="edit_comment">Edit comment</string>
+    <string name="edit_sub_assignment">Edit sub assignment</string>
+    <string name="pick_sub_type">Type:</string>
+    <string name="item_todo">Todo</string>
+    <string name="item_note">Note</string>
+    <string name="item_note_with_portrait">Note(Portrait)</string>
+
+    <string name="sub_assignment_delete_msg">Delete sub assignment?</string>
+    <string name="assignment_trash_msg">Trash assignment?</string>
+    <string name="assignment_archive_msg">Archive assignment?</string>
+    <string name="assignment_move_out_msg">Move out assignment?</string>
+
+    <string name="text_overdue">Overdue</string>
+    <string name="text_today">Today</string>
+    <string name="no_task_in_given_day">No assignment</string>
+    <string name="today_list_empty">No task today</string>
+    <string name="today_list_empty_sub">enjoy your leisure time</string>
+    <!--endregion-->
+
+    <!--region business.search-->
+    <string name="include_tags">Include tags</string>
+    <string name="include_archived">Include archived</string>
+    <string name="include_trashed">Include trashed</string>
+    <string name="search_by_conditions">Search &#8230;</string>
+    <string name="no_search_result_found">Result not found</string>
+    <string name="try_other_conditions">try another condition and search again</string>
+    <!--endregion-->
     <!--endregion-->
 
     <!--region setting-->
+    <string name="setting_universal">Universal</string>
+
+    <!--region setting.preferences-->
+    <string name="setting_preferences">Preferences</string>
+    <string name="setting_preferences_sub">Custom your own preferences</string>
+    <string name="setting_system_animation">System animations</string>
+    <string name="setting_system_animation_sub">Enable system animations</string>
+    <string name="setting_list_animation">List animations</string>
+    <string name="setting_list_animation_sub">Enable list animations</string>
+    <string name="setting_is_24_hour_mode">使用24小时制</string>
+    <string name="setting_is_24_hour_mode_sub">在整个应用中启用24小时制</string>
+
+    <string name="video_limit">视频文件大小上限</string>
+    <string name="setting_video_limit_size">设置视频附件的大小上限</string>
+    <string name="setting_video_limit_size_sub">设置视频附件的大小上限为%dMB</string>
+    <string name="video_limit_input_hint">输入视频大小上限(MB)</string>
+
+    <string name="auto_compress_image_title">Auto compress image</string>
+    <string name="auto_compress_image_sub_title">The compressed image will save a lot of storage and data usage</string>
+    <!--endregion-->
+
     <!--region setting.security-->
+    <string name="setting_data_security">Security</string>
+    <string name="setting_data_security_sub">Add application independent lock</string>
+
     <string name="setting_password_required">Enable password</string>
     <string name="setting_password_required_sub">Input password to continue</string>
     <string name="setting_set_password">Set password</string>
@@ -307,160 +498,8 @@
     <string name="feedback_function_improvement">Function improvement</string>
     <string name="feedback_function_requirement">Function requirement</string>
     <!--endregion-->
-    <!--endregion-->
 
-    <!--region category-->
-    <string name="pick_category">Pick category</string>
-    <string name="no_category_available">No available category</string>
-    <string name="pick_portrait">Pick portrait</string>
-    <string name="edit_tag">Edit category</string>
-    <string name="tag_name">Category name</string>
-    <string name="pick_tag_color">Pick category color</string>
-    <plurals name="assignments_number">
-        <item quantity="zero">%d assignment</item>
-        <item quantity="one">%d assignment</item>
-        <item quantity="other">%d assignments</item>
-    </plurals>
-    <string name="tag_delete_message">Delete category will delete its child assignment as well.</string>
-    <string name="tags_list_empty">Empty categories list</string>
-    <string name="tags_list_empty_sub_normal">add category by licking + in dashboard</string>
-    <string name="tags_list_empty_sub_archived">no archived categories found</string>
-    <string name="tags_list_empty_sub_trashed">no trashed categories found</string>
-    <!--endregion-->
-
-    <!--region Common->Capture-->
-    <string name="empty_list_to_capture">Empty list to capture</string>
-    <string name="capture_list">Capture</string>
-    <string name="capturing">Capturing&#8230;</string>
-    <!--endregion-->
-
-    <!--region Fab-->
-    <string name="fab_opt_assignment">Assignment</string>
-    <string name="fab_opt_category">Category</string>
-    <string name="fab_opt_capture">Capture</string>
-    <string name="fab_opt_file">File</string>
-    <string name="fab_opt_draft">Sketch</string>
-    <string name="fab_opt_link">Link</string>
-    <string name="fab_opt_record">Record</string>
-    <string name="fab_opt_notice">Alarm</string>
-    <string name="fab_quick_assignment">Quick create</string>
-
-    <string name="fab_sort_custom_fab">Custom fabs</string>
-    <string name="fab_sort_custom">Custom&#8230;</string>
-    <string name="fab_sort_custom_fab_tip">Drag the rear icon to sort, the top 5 ones will be showed in dashboard.</string>
-    <string name="fab_sort_save">Save</string>
-    <string name="fab_sort_save_or_lose">Save or discard your modifications</string>
-    <string name="fab_sort_save_successfully">Successfully saved</string>
-    <!--endregion-->
-
-    <!--region Assignments-->
-    <string name="add_assignments">添加日程安排&#8230;</string>
-    <string name="touch_and_speak">按住说话</string>
-    <string name="baidu_speech_support">语音识别技术由百度提供</string>
-    <string name="listening">正在听&#8230;</string>
-    <string name="recognizing">正在识别&#8230;</string>
-    <string name="move_up_to_cancel">手指上划，取消识别。</string>
-    <string name="release_to_cancel">手指松开，取消识别。</string>
-
-    <string name="error_audio">音频问题</string>
-    <string name="error_speech_timeout">没有语音输入</string>
-    <string name="error_client">其它客户端错误</string>
-    <string name="error_insufficient_permissions">权限不足</string>
-    <string name="error_network">网络问题</string>
-    <string name="error_no_match">没有匹配的识别结果</string>
-    <string name="error_recognizer_busy">引擎忙</string>
-    <string name="error_server">服务端错误</string>
-    <string name="error_network_timeout">连接超时</string>
-    <string name="recognize_successfully">识别成功</string>
-    <string name="recognize_failed">识别失败</string>
-
-    <string name="no_assignments_found">没有发现任务</string>
-    <string name="fragment_assignments_empty_sub">点击 + 按钮，文本框输入或点击话筒语音录入可创建任务</string>
-
-    <string name="text_no_such_assignment">Assignment not found</string>
-
-    <string name="add_labels">添加标签</string>
-    <string name="add_location">添加位置信息</string>
-    <string name="illegal_label">标签中不允许添加分号(;)</string>
-    <string name="total_labels_too_long">标签总长度超出范围</string>
-
-    <string name="set_overdue_reason_detail">添加未完成原因详情</string>
-    <string name="set_date_and_notifications">设置日期与提醒</string>
-    <string name="sure_to_remove_alarm">确定移除该闹钟？</string>
-    <string name="alarm_is_removed">闹钟被移除</string>
-    <string name="add_sub_assignment">添加子任务</string>
-    <string name="click_to_add_title">点击添加标题</string>
-    <string name="click_to_add_comments">点击添加备注</string>
-    <string name="click_to_add_content">点击添加内容</string>
-    <plurals name="attachments_number">
-        <item quantity="one">%d 个附件</item>
-        <item quantity="other">%d 个附件</item>
-    </plurals>
-
-    <string name="attachment_list_empty">No attachment found</string>
-
-    <string name="failed_to_record">录制音频失败</string>
-    <string name="no_available_application_to_resolve_intent">没有找到可以打开的应用</string>
-    <string name="arrive_max_attachments_number">已经达到能够加入的附件的最大数量</string>
-    <string name="recording">正在录制音频&#8230;</string>
-    <string name="recorded">录制完成</string>
-    <string name="rate">设置优先级</string>
-
-    <string name="pick_one_from_four_priorities">从四个优先级中选择一个</string>
-
-
-    <string name="edit_title">Edit title</string>
-    <string name="edit_comment">Edit comment</string>
-    <string name="edit_sub_assignment">Edit sub assignment</string>
-    <string name="pick_sub_type">Type:</string>
-    <string name="item_todo">Todo</string>
-    <string name="item_note">Note</string>
-    <string name="item_note_with_portrait">Note(Portrait)</string>
-
-    <string name="sub_assignment_delete_msg">Delete sub assignment?</string>
-    <string name="assignment_trash_msg">Trash assignment?</string>
-    <string name="assignment_archive_msg">Archive assignment?</string>
-    <string name="assignment_move_out_msg">Move out assignment?</string>
-
-    <string name="text_overdue">Overdue</string>
-    <string name="text_today">Today</string>
-    <!--endregion-->
-
-    <string name="text_undo">Undo</string>
-    <string name="text_redo">Redo</string>
-
-    <!--region Common->Search-->
-    <string name="include_tags">Include tags</string>
-    <string name="include_archived">Include archived</string>
-    <string name="include_trashed">Include trashed</string>
-    <string name="search_by_conditions">Search &#8230;</string>
-    <string name="no_search_result_found">Result not found</string>
-    <string name="try_other_conditions">try another condition and search again</string>
-    <!--endregion-->
-
-    <!--region setting-->
-    <string name="setting_universal">Universal</string>
-
-    <!--region preferences-->
-    <string name="setting_preferences">Preferences</string>
-    <string name="setting_preferences_sub">Custom your own preferences</string>
-    <string name="setting_system_animation">System animations</string>
-    <string name="setting_system_animation_sub">Enable system animations</string>
-    <string name="setting_list_animation">List animations</string>
-    <string name="setting_list_animation_sub">Enable list animations</string>
-    <string name="setting_is_24_hour_mode">使用24小时制</string>
-    <string name="setting_is_24_hour_mode_sub">在整个应用中启用24小时制</string>
-
-    <string name="video_limit">视频文件大小上限</string>
-    <string name="setting_video_limit_size">设置视频附件的大小上限</string>
-    <string name="setting_video_limit_size_sub">设置视频附件的大小上限为%dMB</string>
-    <string name="video_limit_input_hint">输入视频大小上限(MB)</string>
-
-    <string name="auto_compress_image_title">Auto compress image</string>
-    <string name="auto_compress_image_sub_title">The compressed image will save a lot of storage and data usage</string>
-    <!--endregion-->
-
-    <!--region assignment-->
+    <!--region setting.assignment-->
     <string name="setting_assignment">Assignment</string>
     <string name="setting_assignment_sub">Custom assignment behavior</string>
     <string name="setting_assignment_list_slide_left">Assignment list slide left</string>
@@ -469,7 +508,7 @@
     <string name="setting_show_assignment_completed_sub">Won\'t display completed assignment if not check</string>
     <!--endregion-->
 
-    <!--region notification-->
+    <!--region setting.notification-->
     <string name="setting_notification">Notification</string>
     <string name="setting_notification_sub">Custom your own notification behavior</string>
 
@@ -485,7 +524,7 @@
     <string name="snooze_time_too_long">睡眠时间过长</string>
     <!--endregion-->
 
-    <!--region backup-->
+    <!--region setting.backup-->
     <string name="setting_backup">Backup</string>
     <string name="setting_backup_sub">Import, export and synchronize data</string>
 
@@ -540,7 +579,7 @@
     <string name="error_when_try_to_backup">Error when try to synchronize : %1$s</string>
     <string name="backup_dir_selected_message">Successfully get synchronization directory</string>
     <string name="pick_backup_directory_message">Get into the folder you want to synchronize to and select \"DONE\".</string>
-    <string name="available_directory_found">Available folder \"NotePal\" is found in current folder. You can press \"Done\" to complete selection.</string>
+    <string name="available_directory_found">Available folder \"%s\" is found in current folder. You can press \"Done\" to complete selection.</string>
     <string name="login_drive_message">Sign in your OneDrive account before synchronize.</string>
     <string name="text_syncing">Synchronizing&#8230;</string>
     <string name="synchronize_path_changed_message">The system detected that you have changed the synchronization path. All the synchronization state will be cleared. That means you have to re-synchronize everything again, which may take few time to accomplish.</string>
@@ -554,12 +593,7 @@
     <string name="sync_every_day">Daily</string>
     <!--endregion-->
 
-    <!--region security-->
-    <string name="setting_data_security">Security</string>
-    <string name="setting_data_security_sub">Add application independent lock</string>
-    <!--endregion-->
-
-    <!--region Setting->Theme-->
+    <!--region setting.theme-->
     <string name="setting_personalize_dashboard">Dashboard</string>
     <string name="setting_personalize_dashboard_sub">Personalize your dashboard</string>
     <string name="setting_dashboard_user_info_bg_visible">Drawer background image</string>
@@ -568,7 +602,7 @@
     <string name="setting_dashboard_user_info_bg_sub">Setup your drawer dashboard background image</string>
     <string name="setting_dashboard_user_motto">Drawer user motto</string>
     <string name="setting_dashboard_user_motto_sub">Setup your own motto in dashboard drawer</string>
-    <string name="setting_dashboard_user_motto_default">Welcome to MarkNote</string>
+    <string name="setting_dashboard_user_motto_default">Welcome to Omni List</string>
 
     <string name="setting_theme">Theme</string>
     <string name="setting_dark_theme">Dark theme</string>
@@ -586,7 +620,7 @@
     <string name="setting_colored_navigation_bar_sub">Use colored navigation bar</string>
     <!--endregion-->
 
-    <!--region Setting->Help-->
+    <!--region setting.help-->
     <string name="setting_help">Help</string>
     <string name="setting_online_user_guide">User guide</string>
     <string name="setting_online_user_guide_sub">Get online user guide</string>
@@ -595,74 +629,31 @@
     <string name="show_introduction_again">Show intro page again?</string>
     <!--endregion-->
 
-    <!--region Setting->Other-->
+    <!--region setting.other-->
     <string name="setting_others">Others</string>
-    <string name="setting_support_development">Support developing</string>
+    <string name="setting_support_development">Support development</string>
     <string name="setting_support_development_sub">You support will be used to add new features and functions</string>
-    <string name="support_development_content">You support will be used to add new features and functions. You may choose one of the support channels below:</string>
-    <string name="alipay">AliPay</string>
-    <string name="wechat">WeChat</string>
-    <string name="next_time">Next time</string>
-    <string name="donate_dialog_content">You may launch the AliPay or WeChat and scan the QR code or save the image to album and scan from it.</string>
-    <string name="download_donate_picture">Save image</string>
     <string name="setting_feedback">Feedback</string>
     <string name="setting_feedback_sub">Help developer make application better</string>
     <string name="setting_about">About</string>
     <string name="setting_about_sub">Details about this application</string>
-    <!--endregion-->
 
-    <!--region Setting->AppInfo-->
     <string name="app_info">App info</string>
-    <string name="app_description">A material designed open source markdown note-taking application</string>\
+    <string name="app_description">A material designed assignment arrangement and note-taking application</string>\
     <string name="help_development">Associations</string>
     <string name="translation">Translation</string>
     <string name="translate_to_other_languages">Translate %s into other languages</string>
     <string name="rating">Rating</string>
     <string name="give_good_rating_if_you_like">Give us a good rating if you like %s</string>
     <string name="thanks">Thanks</string>
-    <string name="thanks_details">Location API offered by Baidu\nYou use this application</string>
+    <string name="thanks_details">Location API offered by Baidu\nSpeech recognition API offered by Baidu\nYou use this application</string>
     <string name="developer_and_license">Developer &amp; License</string>
     <string name="developers">Developers</string>
-    <string name="developer_name">WngShhng (shouheng2015@gmail.com)</string>
+    <string name="developer_name">Designed and developed with passion and love by WngShhng (shouheng2015@gmail.com)</string>
     <string name="open_source_libraries_permissions">Open source license</string>
     <string name="view_third_part_libraries">View the open source projects included in this application</string>
     <string name="changelog">Changelog</string>
     <string name="changelog_sub_title">Get the changelog of application</string>
     <!--endregion-->
     <!--endregion-->
-
-    <string name="text_get_it">Get it</string>
-    <string name="text_undone">Undone</string>
-
-    <string name="need_to_complete">Need to complete</string>
-    <string name="dialog_notice_content_part1">Hello, user!<![CDATA[<br/><br/>]]>Due to the limit of time, MarkNote still has few weakness. Here we invite you to improve it with us:</string>
-    <string name="dialog_notice_content_part2">1.If you like MarkNote you may associate developer by translating it in to other languages(Find in <![CDATA[<b>\"Settings->About->Translation\"</b>]]>), or give rating and feedback in application market.</string>
-    <string name="dialog_notice_content_part3">2.If you have special requirements, or if you are unsatisfied about current functions, feed back to developer by any of below ways: <![CDATA[<b>Google+ community, Twitter, Weibo or directly sending an email</b>]]>.</string>
-    <string name="dialog_notice_content_part4">3.If you find bugs or crashes in MarkNote, you can feed back in <![CDATA[<b>"Settings->Feedback"</b>]]> or <![CDATA[<b>directly sending an email to developer</b>]]>.</string>
-    <string name="dialog_notice_content_part5">4.MarkNote will continue to push out many new functions and features, if you like this application, you may support developing in <![CDATA[<b>"Settings->Support developing"</b>]]>.</string>
-    <string name="dialog_notice_content_part6">5.Furthermore, you can also get latest developing messages by subscribe our <![CDATA[<b>Google+ community, Twitter or Weibo</b>]]>. You may even join the beta test.</string>
-    <string name="dialog_notice_content_part7">Please give more patience to MarkNote, we will work better.<![CDATA[<br/><br/>]]>Last, wish you have a happy journey with MarkNote!</string>
-
-    <string name="text_export">Export</string>
-    <string name="text_export_image">Export image</string>
-    <string name="text_export_text">Export text</string>
-    <string name="text_export_html">Export html</string>
-    <string name="text_export_pdf">Export pdf</string>
-
-    <string name="text_share">Share</string>
-    <string name="text_share_image">Share image</string>
-    <string name="text_share_text">Share text</string>
-    <string name="text_share_html">Share html</string>
-
-    <string name="openas">Open as</string>
-    <string name="text">Text</string>
-    <string name="audio">Audio</string>
-    <string name="video">Video</string>
-    <string name="image">Image</string>
-    <string name="other">Other</string>
-
-    <string name="text_filter">Filter</string>
-    <string name="text_show_completed">Show completed</string>
-    <string name="text_hide_completed">Hide completed</string>
-
 </resources>

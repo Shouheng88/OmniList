@@ -30,7 +30,6 @@ import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
 
-// todo 所有的列表为空的时候展示的图片换成大图
 public class SearchActivity extends CommonActivity<ActivitySearchBinding> implements OnQueryTextListener {
 
     private final static String EXTRA_NAME_REQUEST_CODE = "extra.request.code";

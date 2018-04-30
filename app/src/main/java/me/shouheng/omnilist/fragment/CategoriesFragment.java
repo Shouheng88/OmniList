@@ -138,10 +138,10 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     private String getEmptySubTitle() {
         if (status == null) return null;
         return PalmApp.getContext().getString(
-                status == Status.NORMAL ? R.string.tags_list_empty_sub_normal :
-                        status == Status.TRASHED ? R.string.tags_list_empty_sub_trashed :
-                                status == Status.ARCHIVED ? R.string.tags_list_empty_sub_archived :
-                                        R.string.tags_list_empty_sub_normal);
+                status == Status.NORMAL ? R.string.category_list_empty_sub_normal :
+                        status == Status.TRASHED ? R.string.category_list_empty_sub_trashed :
+                                status == Status.ARCHIVED ? R.string.category_list_empty_sub_archived :
+                                        R.string.category_list_empty_sub_normal);
     }
 
     // region ViewModel
@@ -303,7 +303,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
     private void showDeleteDialog(int position, Category category) {
         new MaterialDialog.Builder(getContext())
                 .title(R.string.text_warning)
-                .content(R.string.tag_delete_message)
+                .content(R.string.category_delete_message)
                 .positiveText(R.string.text_confirm)
                 .onPositive((materialDialog, dialogAction) -> update(position, category, Status.DELETED))
                 .negativeText(R.string.text_cancel)

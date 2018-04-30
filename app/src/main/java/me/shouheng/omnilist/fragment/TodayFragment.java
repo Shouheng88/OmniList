@@ -120,9 +120,6 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         });
         mAdapter.setOnItemRemovedListener(this);
 
-        // todo nothing to do
-        getBinding().ivEmpty.setSubTitle("Nothing todo today");
-
         getBinding().rvAssignments.setEmptyView(getBinding().ivEmpty);
         getBinding().rvAssignments.setHasFixedSize(true);
         getBinding().rvAssignments.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST, isDarkTheme()));
