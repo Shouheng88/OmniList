@@ -85,7 +85,7 @@ public class ModelHelper {
 
         // Append location
         if (location != null) {
-            sb.append(PalmApp.getStringCompact(R.string.text_location_info))
+            sb.append(PalmApp.getStringCompact(R.string.text_location))
                     .append(": ")
                     .append(getFormatLocation(location))
                     .append("\n\n");
@@ -208,7 +208,7 @@ public class ModelHelper {
             }
         }
 
-        addStat(context, llStats, context.getString(R.string.text_chars_number), String.valueOf(len));
+        addStat(context, llStats, context.getString(R.string.text_chars), String.valueOf(len));
 
         new AlertDialog.Builder(context)
                 .setTitle(R.string.text_statistic)

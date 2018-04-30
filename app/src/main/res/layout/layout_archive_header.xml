@@ -10,8 +10,8 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:title="@string/items"
-        app:title="@string/items"
+        android:title="@string/text_items"
+        app:title="@string/text_items"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 

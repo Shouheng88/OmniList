@@ -47,7 +47,7 @@ public class DataBackupIntentService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         mNotificationsHelper = new NotificationsHelper(this)
-                .createNotification(R.drawable.ic_save_white, getString(R.string.working), null)
+                .createNotification(R.drawable.ic_save_white, getString(R.string.text_working), null)
                 .setIndeterminate()
                 .setOngoing()
                 .show();
