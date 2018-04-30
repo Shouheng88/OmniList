@@ -68,7 +68,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/light_theme_background">
 
-                    <me.shouheng.omnilist.widget.EmptySupportScheduleRV
+                    <com.jeek.calendar.widget.schedule.ScheduleRecyclerView
                         android:id="@+id/rvScheduleList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -80,16 +80,15 @@
 
                     <RelativeLayout
                         android:id="@+id/rlNoTask"
+                        android:layout_marginTop="60dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorBackground">
+                        android:layout_height="match_parent">
 
                         <me.shouheng.omnilist.widget.EmptyView
                             app:tint_drawable="true"
-                            app:empty_image="@drawable/ic_no_task_large"
+                            app:empty_image="@drawable/ic_large_no_task"
                             app:title="No activity"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="50dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jeek.calendar.widget.calendar.tools.OnCalendarClickListener;
 
@@ -153,6 +154,32 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
             }
         });
         mAdapter.addHeaderView(itemTitleBinding.getRoot());
+        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                showEmptyView();
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                showEmptyView();
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                showEmptyView();
+            }
+
+            void showEmptyView() {
+                if(mAdapter.getItemCount() == 1) {
+                    getBinding().rlNoTask.setVisibility(View.VISIBLE);
+                } else {
+                    getBinding().rlNoTask.setVisibility(View.GONE);
+                }
+            }
+        });
 
         getBinding().rvScheduleList.setLayoutManager(new LinearLayoutManager(getContext()));
         getBinding().rvScheduleList.setHasFixedSize(true);
@@ -161,7 +188,6 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         getBinding().rvScheduleList.setItemAnimator(new CustomItemAnimator());
         getBinding().rvScheduleList.setLayoutManager(new LinearLayoutManager(getActivity()));
         getBinding().rvScheduleList.setAdapter(mAdapter);
-        getBinding().rvScheduleList.setEmptyView(getBinding().rlNoTask);
 
         if (onScrollListener != null) {
             getBinding().rvScheduleList.addOnScrollListener(onScrollListener);

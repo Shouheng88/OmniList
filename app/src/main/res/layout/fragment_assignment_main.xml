@@ -95,7 +95,7 @@
                 android:layout_centerInParent="true"
                 sothree:tint_drawable="true"
                 sothree:sub_title="@string/attachment_list_empty"
-                sothree:empty_image="@drawable/ic_attachment_large"
+                sothree:empty_image="@drawable/ic_large_attachment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
