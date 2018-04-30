@@ -36,20 +36,76 @@ import me.shouheng.omnilist.utils.LogUtils;
  * Created by Employee on 2018/3/15.*/
 public class StatisticViewModel extends ViewModel {
 
-    /**
-     * The days count of added model statistic. */
     public final static int DAYS_OF_ADDED_MODEL = 7;
+    private final int DEFAULT_ADDED_VALUE = 0;
+    private final int DEFAULT_TOTAL_VALUE = 0;
 
-    /**
-     * The default value of added model */
-    private final static int DEFAULT_ADDED_VALUE = 0;
+    public LiveData<Resource<Stats>> getStats() {
+        MutableLiveData<Resource<Stats>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, StatisticsHelper::getStats).execute();
+        return result;
+    }
 
-    private final static int DEFAULT_TOTAL_VALUE = 0;
+    public LiveData<Resource<List<Integer>>> getAddedModelData(ModelType modelType) {
+        MutableLiveData<Resource<List<Integer>>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, () -> StatisticsHelper.getAddedStatistics(modelType, DAYS_OF_ADDED_MODEL)).execute();
+        return result;
+    }
 
-    // region line chart data of added models
-    public LineChartData getDefaultNoteData(int lineColor) {
+    // region column chart data with default values
+    public ColumnChartData getDefaultModelsData() {
+        ColumnChartData data = new ColumnChartData(Arrays.asList(
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_lime_600)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_light_blue_500)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_green_600)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_pink_500)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_red_500))));
+
+        Axis axisX = Axis.generateAxisFromCollection(Arrays.asList(0.0f, 1.0f, 2.0f, 3.0f, 4.0f),
+                Arrays.asList(PalmApp.getStringCompact(R.string.model_name_category),
+                        PalmApp.getStringCompact(R.string.model_name_assignment),
+                        PalmApp.getStringCompact(R.string.model_name_sub_assignment),
+                        PalmApp.getStringCompact(R.string.model_name_attachment),
+                        PalmApp.getStringCompact(R.string.model_name_location)));
+
+        data.setAxisXBottom(axisX);
+        data.setAxisYLeft(null);
+
+        return data;
+    }
+
+    private Column getColumn(float value, int color) {
+        Column column = new Column(Collections.singletonList(new SubcolumnValue(value, color)));
+        column.setHasLabels(true);
+        return column;
+    }
+    // endregion
+
+    // region line chart data with default values
+    public ColumnChartData getDefaultAttachmentData() {
+        ColumnChartData data = new ColumnChartData(Arrays.asList(
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_lime_600)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_light_blue_500)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_pink_500)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_green_600)),
+                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_red_500))));
+
+        Axis axisX = Axis.generateAxisFromCollection(Arrays.asList(0.0f, 1.0f, 2.0f, 3.0f, 4.0f),
+                Arrays.asList(PalmApp.getStringCompact(R.string.attachment_type_files),
+                        PalmApp.getStringCompact(R.string.attachment_type_images),
+                        PalmApp.getStringCompact(R.string.attachment_type_sketches),
+                        PalmApp.getStringCompact(R.string.attachment_type_videos),
+                        PalmApp.getStringCompact(R.string.attachment_type_recordings)));
+
+        data.setAxisXBottom(axisX);
+        data.setAxisYLeft(null);
+
+        return data;
+    }
+
+    public LineChartData getDefaultAssignmentData(int lineColor) {
         List<Integer> defaultValues = new LinkedList<>();
-        for (int i=0; i<DAYS_OF_ADDED_MODEL; i++) {
+        for (int i=0; i<StatisticViewModel.DAYS_OF_ADDED_MODEL; i++) {
             defaultValues.add(DEFAULT_ADDED_VALUE);
         }
         return getLineChartData(Collections.singletonList(getLine(defaultValues, lineColor)));
@@ -77,10 +133,10 @@ public class StatisticViewModel extends ViewModel {
     }
 
     private LineChartData getLineChartData(List<Line> lines) {
-        DateTime daysAgo = new DateTime().withTimeAtStartOfDay().minusDays(DAYS_OF_ADDED_MODEL - 1);
+        DateTime daysAgo = new DateTime().withTimeAtStartOfDay().minusDays(StatisticViewModel.DAYS_OF_ADDED_MODEL - 1);
         List<String> days = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd", Locale.getDefault());
-        for (int i=0; i<DAYS_OF_ADDED_MODEL; i++){
+        for (int i=0; i<StatisticViewModel.DAYS_OF_ADDED_MODEL; i++){
             days.add(sdf.format(daysAgo.toDate()));
             daysAgo = daysAgo.plusDays(1);
         }
@@ -94,72 +150,6 @@ public class StatisticViewModel extends ViewModel {
         Axis axis = Axis.generateAxisFromCollection(Arrays.asList(0.0f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f), days);
         data.setAxisXBottom(axis);
         return data;
-    }
-
-    public LiveData<Resource<List<Integer>>> getAddedModelData(ModelType modelType) {
-        MutableLiveData<Resource<List<Integer>>> result = new MutableLiveData<>();
-        new NormalAsyncTask<>(result, () -> StatisticsHelper.getAddedStatistics(modelType, DAYS_OF_ADDED_MODEL)).execute();
-        return result;
-    }
-    // endregion
-
-    // region get models statistic
-    public ColumnChartData getDefaultModelsData() {
-        ColumnChartData data = new ColumnChartData(Arrays.asList(
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_lime_600)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_light_blue_500)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_green_600)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_pink_500)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_red_500))));
-
-        Axis axisX = Axis.generateAxisFromCollection(Arrays.asList(0.0f, 1.0f, 2.0f, 3.0f, 4.0f),
-                Arrays.asList(PalmApp.getStringCompact(R.string.model_name_note),
-                        PalmApp.getStringCompact(R.string.model_name_notebook),
-                        PalmApp.getStringCompact(R.string.model_name_category),
-                        PalmApp.getStringCompact(R.string.model_name_attachment),
-                        PalmApp.getStringCompact(R.string.model_name_location)));
-
-        data.setAxisXBottom(axisX);
-        data.setAxisYLeft(null);
-
-        return data;
-    }
-
-    private Column getColumn(float value, int color) {
-        Column column = new Column(Collections.singletonList(new SubcolumnValue(value, color)));
-        column.setHasLabels(true);
-        return column;
-    }
-    // endregion
-
-    // region get attachment stats
-    public ColumnChartData getDefaultAttachmentData() {
-        ColumnChartData data = new ColumnChartData(Arrays.asList(
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_lime_600)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_light_blue_500)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_pink_500)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_green_600)),
-                getColumn(DEFAULT_TOTAL_VALUE, PalmApp.getColorCompact(R.color.md_red_500))));
-
-        Axis axisX = Axis.generateAxisFromCollection(Arrays.asList(0.0f, 1.0f, 2.0f, 3.0f, 4.0f),
-                Arrays.asList(PalmApp.getStringCompact(R.string.attachment_type_files),
-                        PalmApp.getStringCompact(R.string.attachment_type_images),
-                        PalmApp.getStringCompact(R.string.attachment_type_sketches),
-                        PalmApp.getStringCompact(R.string.attachment_type_videos),
-                        PalmApp.getStringCompact(R.string.attachment_type_recordings)));
-
-        data.setAxisXBottom(axisX);
-        data.setAxisYLeft(null);
-
-        return data;
-    }
-    // endregion
-
-    // region get all stats one shot
-    public LiveData<Resource<Stats>> getStats() {
-        MutableLiveData<Resource<Stats>> result = new MutableLiveData<>();
-        new NormalAsyncTask<>(result, StatisticsHelper::getStats).execute();
-        return result;
     }
     // endregion
 }

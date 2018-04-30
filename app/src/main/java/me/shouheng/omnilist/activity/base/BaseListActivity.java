@@ -61,7 +61,7 @@ public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWi
         getBinding().drawerLayout.openDrawer(GravityCompat.START);
         View header = getBinding().navView.inflateHeaderView(R.layout.layout_archive_header);
         Toolbar drawerToolbar = header.findViewById(R.id.toolbar);
-        drawerToolbar.setTitle(R.string.items);
+        drawerToolbar.setTitle(R.string.text_items);
         drawerToolbar.setBackgroundColor(primaryColor());
 
         getBinding().navView.setNavigationItemSelectedListener(menuItem -> {

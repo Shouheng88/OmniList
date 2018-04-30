@@ -17,6 +17,7 @@ import me.shouheng.omnilist.databinding.FragmentStatisticsBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
 import me.shouheng.omnilist.model.data.Status;
 import me.shouheng.omnilist.model.tools.Stats;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.viewmodel.StatisticViewModel;
@@ -27,8 +28,6 @@ public class StatisticsFragment extends BaseFragment<FragmentStatisticsBinding> 
 
     private StatisticViewModel statisticViewModel;
 
-    private int primaryColor;
-
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_statistics;
@@ -36,34 +35,24 @@ public class StatisticsFragment extends BaseFragment<FragmentStatisticsBinding> 
 
     @Override
     protected void doCreateView(Bundle savedInstanceState) {
-        configValues();
-
-        configToolbar();
-
-        showDefaultValues();
-
-        outputStats();
-    }
-
-    private void configValues() {
         statisticViewModel = ViewModelProviders.of(this).get(StatisticViewModel.class);
-        primaryColor = primaryColor();
-    }
 
-    private void configToolbar() {
+        /*Config toolbar*/
         if (getActivity() != null) {
             ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if (ab != null) ab.setTitle(R.string.statistic);
+            if (ab != null) {
+                ab.setTitle(R.string.statistic);
+            }
         }
-    }
 
-    private void showDefaultValues() {
+        /*Config default values*/
         getBinding().lcvNote.setValueSelectionEnabled(false);
-        getBinding().lcvNote.setLineChartData(statisticViewModel.getDefaultNoteData(primaryColor));
-
+        getBinding().lcvNote.setLineChartData(statisticViewModel.getDefaultAssignmentData(ColorUtils.primaryColor()));
         getBinding().ccvModels.setColumnChartData(statisticViewModel.getDefaultModelsData());
-
         getBinding().ccvAttachment.setColumnChartData(statisticViewModel.getDefaultAttachmentData());
+
+        /*Output stats*/
+        outputStats();
     }
 
     private void outputStats() {
@@ -96,13 +85,14 @@ public class StatisticsFragment extends BaseFragment<FragmentStatisticsBinding> 
         }
     }
 
+    // region animate to value
     private void outputStats(Stats stats) {
-        outputNotesStats(stats.getNotesStats());
+        outputNotesStats(stats.getAssignmentsStats());
 
         outputModelsStats(Arrays.asList(
-                stats.getTotalNotes(),
-                stats.getTotalNotebooks(),
-                stats.getTotalMinds(),
+                stats.getTotalCategories(),
+                stats.getTotalAssignments(),
+                stats.getTotalSubAssignments(),
                 stats.getTotalAttachments(),
                 stats.getTotalLocations()));
 
@@ -147,6 +137,7 @@ public class StatisticsFragment extends BaseFragment<FragmentStatisticsBinding> 
         }
         getBinding().ccvAttachment.startDataAnimation();
     }
+    // endregion
 
     public interface OnStatisticInteractListener {
         void onStatisticLoadStateChanged(Status status);

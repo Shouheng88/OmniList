@@ -75,7 +75,7 @@ public class UserInfoFragment extends CommonFragment<FragmentUserInfoBinding> {
 
     private void outputStatistic() {
         getBinding().lcv.setValueSelectionEnabled(false);
-        getBinding().lcv.setLineChartData(statisticViewModel.getDefaultNoteData(primaryColor()));
+        getBinding().lcv.setLineChartData(statisticViewModel.getDefaultAssignmentData(primaryColor()));
         statisticViewModel.getAddedModelData(ModelType.ASSIGNMENT).observe(this, listResource -> {
             LogUtils.d(listResource);
             if (listResource == null) {

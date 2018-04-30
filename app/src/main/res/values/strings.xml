@@ -1,93 +1,101 @@
 <resources>
     <string name="app_name">Omni List</string>
 
-    <!--region Common-->
-    <string name="text_add_more">Add&#8230;</string>
+    <!--region common-->
+    <!--region common-->
+    <!--actions-->
     <string name="text_add_to_home_screen">Add shortcut</string>
-    <string name="text_about">About</string>
     <string name="text_accept">Accept</string>
-    <string name="text_tags">Tags</string>
-    <string name="text_add_tags">Add Tags</string>
-    <string name="text_add_location">Add location</string>
     <string name="text_clear">Clear</string>
     <string name="text_copy_text">Copy content</string>
-    <string name="text_comments">Comments</string>
     <string name="text_copy_link">Copy link</string>
-    <string name="text_comment">Comment</string>
     <string name="text_cancel">Cancel</string>
     <string name="text_close">Close</string>
-    <string name="text_created_time">Created</string>
     <string name="text_delete">Delete</string>
-    <string name="text_deleted">Deleted</string>
-    <string name="text_delete_still">Delete still</string>
     <string name="text_edit">Edit</string>
-    <string name="text_find_in_page">Find in page</string>
-    <string name="text_font">Font</string>
-    <string name="text_next">Next</string>
-    <string name="text_last">Last</string>
     <string name="text_give_up">Give up</string>
-    <string name="text_last_modified_time">Updated</string>
-    <string name="text_last_sync_time">Sync</string>
-    <string name="text_chars_number">Chars</string>
-    <string name="text_more">More</string>
     <string name="text_pick">Pick</string>
-    <string name="text_preview">Preview</string>
-    <string name="text_print_pdf">Print PDF</string>
     <string name="text_reset">Rest</string>
     <string name="text_send">Send</string>
-    <string name="text_settings">Settings</string>
     <string name="text_search">Search</string>
-    <string name="text_save_or_discard">Save or discard modification?</string>
-    <string name="text_save_successfully">Saved successfully</string>
-    <string name="text_update_successfully">Updated successfully</string>
-    <string name="text_error_when_save">Error occurred when save data.</string>
-    <string name="text_file_saved_to">File is saved to %s</string>
     <string name="text_save">Save</string>
-    <string name="text_statistic">Statistics</string>
-    <string name="text_save_and_retry_to_add_shortcut">The project hasn\'t been saved, unable to add shortcut. Please try again after saved.</string>
-    <string name="text_save_and_retry">Save and retry</string>
-    <string name="text_tips">Tips</string>
-    <string name="text_warning">Warning</string>
-    <string name="text_location_info">Location</string>
-    <string name="text_no_location_info">Location not found</string>
-    <string name="text_show_location">Show location</string>
-    <string name="failed_to_get_location">Failed to get location</string>
-    <string name="trying_to_get_location">Trying to get location&#8230;</string>
-    <string name="content_was_copied_to_clipboard">Content has been saved to clipboard</string>
-    <string name="share_message_chooser">Select share mode</string>
-    <string name="cannot_get_link_of_not_synced_item">Unable to get link of un-synchronized project</string>
-    <string name="title_required">Title required</string>
-    <string name="successfully_add_shortcut">Successfully add shortcut</string>
     <string name="text_login">Login</string>
     <string name="text_register">Register</string>
     <string name="text_confirm">Confirm</string>
     <string name="text_back">Back</string>
-    <string name="text_color">Color</string>
-    <string name="text_portrait">Portrait</string>
-    <string name="set_successfully">Set successfully</string>
-    <string name="items">Items</string>
-    <string name="text_other_ways">Other ways</string>
     <string name="text_trash">Trash</string>
     <string name="text_archived">Archive</string>
     <string name="text_move_out">Move out</string>
+
+    <string name="text_comments">Comments</string>
+    <string name="text_created_time">Created</string>
+    <string name="text_last_modified_time">Updated</string>
+    <string name="text_last_sync_time">Sync</string>
+    <string name="text_chars">Chars</string>
+    <string name="text_more">More</string>
+    <string name="text_settings">Settings</string>
+    <string name="text_statistic">Statistics</string>
+    <string name="text_tips">Tips</string>
+    <string name="text_warning">Warning</string>
+    <!--location-->
+    <string name="text_location">Location</string>
+    <string name="text_location_not_found">Location not found</string>
+    <string name="failed_to_get_location">Failed to get location</string>
+    <string name="trying_to_get_location">Trying to get location&#8230;</string>
+    <!--modification-->
+    <string name="text_save_or_discard">Save or discard modification?</string>
+    <string name="text_save_successfully">Saved successfully</string>
+    <string name="text_update_successfully">Updated successfully</string>
+    <string name="text_error_when_save">Error occurred when save data.</string>
+    <string name="title_required">Title required</string>
+    <string name="text_file_saved_to">File is saved to %s</string>
+    <string name="cannot_get_link_of_not_synced_item">Unable to get link of un-synchronized project</string>
+    <string name="content_was_copied_to_clipboard">Content has been saved to clipboard</string>
+    <!--shortcut-->
+    <string name="text_save_and_retry_to_add_shortcut">The project hasn\'t been saved, unable to add shortcut. Please try again after saved.</string>
+    <string name="text_save_and_retry">Save and retry</string>
+    <string name="successfully_add_shortcut">Successfully add shortcut</string>
+    <!--loading-->
+    <string name="text_failed_to_load_data">Failed to load data.</string>
+    <string name="text_failed_to_modify_data">Failed to modify data.</string>
+    <string name="set_successfully">Set successfully</string>
+    <!--find in page-->
+    <string name="text_find_in_page">Find in page</string>
+    <string name="text_font">Font</string>
+    <string name="text_next">Next</string>
+    <string name="text_last">Last</string>
+    <string name="content_failed_to_parse_intent">Failed to parse the intent</string>
+    <string name="check_network_availability">Check network availability</string>
+
+    <string name="text_color">Color</string>
+    <string name="text_portrait">Portrait</string>
+    <string name="text_items">Items</string>
     <string name="text_tab_again_exit">Again to exit</string>
     <string name="text_attachment">Attachment</string>
     <string name="text_sub_assignment_number">Sub assignment</string>
     <string name="text_alarm">Alarm</string>
-    <string name="working">Working&#8230;</string>
-    <string name="text_input_password_and_continue">Input password</string>
+    <string name="text_working">Working&#8230;</string>
     <string name="text_ok">OK</string>
-    <string name="text_failed_to_load_data">Failed to load data.</string>
-    <string name="text_failed_to_modify_data">Failed to modify data.</string>
     <string name="text_pick_from_album">Pick from album</string>
     <string name="text_notification">Notification</string>
 
-    <string name="check_network_availability">Check network availability</string>
-
-    <string name="content_failed_to_parse_intent">Failed to parse the intent</string>
+    <string name="input_password_and_continue">Input password</string>
+    <string name="share_message_chooser">Select share mode</string>
     <!--endregion-->
 
-    <!--region Attachment-->
+    <!--region menu items-->
+    <string name="drawer_menu_today">Today</string>
+    <string name="drawer_menu_categories">Categories</string>
+    <string name="drawer_menu_calendar">Calendar</string>
+    <string name="drawer_menu_notices">Notices</string>
+    <string name="drawer_menu_setting">Settings</string>
+    <string name="drawer_menu_trash">Trash</string>
+    <string name="drawer_menu_archive">Archived</string>
+    <string name="drawer_menu_sync">Sync</string>
+    <string name="drawer_menu_category">Category</string>
+    <!--endregion-->
+
+    <!--region attachment-->
     <string name="failed_to_create_file">Failed to create file</string>
     <string name="storage_not_available">Storage unavailable</string>
     <string name="failed_to_save_attachment">Failed to save attachment</string>
@@ -121,7 +129,7 @@
     <string name="file_not_exist">File not found</string>
     <!--endregion-->
 
-    <!--region Alarm-->
+    <!--region alarm and time-->
     <string name="pick_alarm_type">Pick alarm type</string>
     <string name="one_shot">One shot</string>
     <string name="every_day">Every day</string>
@@ -173,19 +181,7 @@
     <string name="text_dismiss">Dismiss</string>
     <!--endregion-->
 
-    <!--region Common->DrawerItems-->
-    <string name="drawer_menu_today">Today</string>
-    <string name="drawer_menu_categories">Categories</string>
-    <string name="drawer_menu_calendar">Calendar</string>
-    <string name="drawer_menu_notices">Notices</string>
-    <string name="drawer_menu_setting">Settings</string>
-    <string name="drawer_menu_trash">Trash</string>
-    <string name="drawer_menu_archive">Archived</string>
-    <string name="drawer_menu_sync">Sync</string>
-    <string name="drawer_menu_category">Category</string>
-    <!--endregion-->
-
-    <!--region User Info-->
+    <!--region user info page-->
     <string name="user_info_click_to_see_personal_info">User Info</string>
     <string name="user_info">User info</string>
     <string name="school">School | Company</string>
@@ -197,39 +193,69 @@
     <string name="storage_left_monthly">Storage left</string>
     <string name="storage_left_and_click_grant_tips">%d MB left, click to get more storage</string>
     <string name="not_login_try_after_login">Not login, try again after login</string>
-    <string name="timeline_detail">What you have done in NotePal</string>
-    <string name="statistic_of_this_week">Statistics of current week</string>
-    <string name="activities_in_seven_days">Notes added during recent 7 days</string>
+    <string name="timeline_detail">Moment you shared with Omni List</string>
+    <string name="activities_in_seven_days">Assignments added during recent 7 days</string>
     <string name="logout">Logout</string>
 
     <string name="statistic_activities">Activities during recent 7 days</string>
-    <string name="statistic_title_activities">Notes and snagging added during recent 7 days</string>
+    <string name="statistic_title_activities">Assignments added during recent 7 days</string>
     <string name="statistic_models_added">Models added</string>
     <string name="statistic_title_models_added">Statistics of added models</string>
     <string name="statistic_attachments_added">Attachments added</string>
     <string name="statistic_title_attachments_added">Statistics of added attachments</string>
 
     <string name="no_more_data">No more data&#8230;</string>
-    <string name="no_activity_in_timeline">You have no activity in timeline</string>
-    <string name="activities_on_app_will_display_here">your activities in application will be showed here</string>
+    <string name="no_activity_in_timeline">You haven\'t share any moment with Omni List</string>
+    <string name="no_activity_in_timeline_sub">start your arrangement and Omni List will remember every good moment with you</string>
     <!--endregion-->
 
-    <!--region Common->Intro Page-->
+    <!--region intro page-->
     <string name="intro_1_title">Welcome to %s</string>
-    <string name="intro_1_description">Thanks for using %s\nthe markdown support application\nfor productivity\n and leisure note-taking</string>
-    <string name="intro_2_title">Markdown</string>
-    <string name="intro_2_description">Markdown grammar support\nshare and export note\nas pictures and PDF files</string>
-    <string name="intro_3_title">Snagging</string>
-    <string name="intro_3_description">Light weight note\nnote anywhere and anytime</string>
-    <string name="intro_4_title">Colorful</string>
-    <string name="intro_4_description">Light and dark\n13 kinds of primary color\n16 kinds of accent color</string>
-    <string name="intro_5_title">Attachment</string>
-    <string name="intro_5_description">Multiple kinds of attachments\nsketch, picture, photo, video\naudio, file, location</string>
+    <string name="intro_1_description">Thanks for using %s\nthe assignment arrangement application\nfor productivity\n and leisure note-taking</string>
+    <string name="intro_2_title">Control</string>
+    <string name="intro_2_description">Manage your assignment with\ncolorful and beautify icon</string>
+    <string name="intro_3_title">Color</string>
+    <string name="intro_3_description">Light and dark theme\n13 kinds of primary color\n16 kinds of accent color</string>
+    <string name="intro_4_title">Media</string>
+    <string name="intro_4_description">Work with sketch, picture, photo\n video, audio, file, location\nhtml, markdown, pdf</string>
+    <string name="intro_5_title">Explore</string>
+    <string name="intro_5_description">Speech recognition, calendar\nand many other funny features\nStart to explore it</string>
     <string name="intro_6_title">Enjoy</string>
     <string name="intro_6_description">Don\'t forget to subscribe\nour community!</string>
     <!--endregion introduction-->
 
-    <!--region Setting->Security-->
+    <!--region enums-->
+    <string name="model_name_none">None</string>
+    <string name="model_name_alarm">Alarm</string>
+    <string name="model_name_category">Category</string>
+    <string name="model_name_attachment">Attachment</string>
+    <string name="model_name_assignment">Assignment</string>
+    <string name="model_name_sub_assignment">Sub assignment</string>
+    <string name="model_name_location">Location</string>
+    <string name="model_name_mind_snagging">Snagging</string>
+    <string name="model_name_timeline">Timeline</string>
+    <string name="model_name_weather">Weather</string>
+
+    <string name="operation_none">None</string>
+    <string name="operation_added">Added</string>
+    <string name="operation_modified">Modified</string>
+    <string name="operation_deleted">Deleted</string>
+    <string name="operation_completed">Completed</string>
+    <string name="operation_trashed">Trashed</string>
+    <string name="operation_recover">Recovered</string>
+    <string name="operation_archived">Archived</string>
+    <string name="operation_synced">Synced</string>
+    <string name="operation_uncompleted">Uncompleted</string>
+
+    <string name="priority_level_01">不重要|不紧急</string>
+    <string name="priority_level_02">不重要|紧急</string>
+    <string name="priority_level_03">重要|不紧急</string>
+    <string name="priority_level_04">重要|紧急</string>
+    <!--endregion -->
+    <!--endregion-->
+
+    <!--region setting-->
+    <!--region setting.security-->
     <string name="setting_password_required">Enable password</string>
     <string name="setting_password_required_sub">Input password to continue</string>
     <string name="setting_set_password">Set password</string>
@@ -262,7 +288,7 @@
     <string name="setting_no_security_question_message">You have not set the security question, be sure to set the question in case that you forget the password.</string>
     <!--endregion-->
 
-    <!--region Setting->Feedback-->
+    <!--region setting.feedback-->
     <string name="feedback">Feedback</string>
     <string name="email_to_find_you">Email to contact you</string>
     <string name="details">Details</string>
@@ -281,40 +307,9 @@
     <string name="feedback_function_improvement">Function improvement</string>
     <string name="feedback_function_requirement">Function requirement</string>
     <!--endregion-->
+    <!--endregion-->
 
-    <!--region Enums-->
-    <string name="model_name_none">None</string>
-    <string name="model_name_note">Note</string>
-    <string name="model_name_notebook">Notebook</string>
-    <string name="model_name_alarm">Alarm</string>
-    <string name="model_name_attachment">Attachment</string>
-    <string name="model_name_assignment">Assignment</string>
-    <string name="model_name_sub_assignment">Sub assignment</string>
-    <string name="model_name_location">Location</string>
-    <string name="model_name_mind_snagging">Snagging</string>
-    <string name="model_name_timeline">Timeline</string>
-    <string name="model_name_weather">Weather</string>
-    <string name="model_name_category">Category</string>
-
-    <string name="operation_none">None</string>
-    <string name="operation_added">Added</string>
-    <string name="operation_modified">Modified</string>
-    <string name="operation_deleted">Deleted</string>
-    <string name="operation_completed">Completed</string>
-    <string name="operation_trashed">Trashed</string>
-    <string name="operation_recover">Recovered</string>
-    <string name="operation_archived">Archived</string>
-    <string name="operation_synced">Synced</string>
-    <string name="operation_uncompleted">Uncompleted</string>
-
-    <!--todo-->
-    <string name="priority_level_01">Level 1</string>
-    <string name="priority_level_02">Level 2</string>
-    <string name="priority_level_03">Level 3</string>
-    <string name="priority_level_04">Level 4</string>
-    <!--endregion -->
-
-    <!--region Category-->
+    <!--region category-->
     <string name="pick_category">Pick category</string>
     <string name="no_category_available">No available category</string>
     <string name="pick_portrait">Pick portrait</string>
@@ -322,6 +317,7 @@
     <string name="tag_name">Category name</string>
     <string name="pick_tag_color">Pick category color</string>
     <plurals name="assignments_number">
+        <item quantity="zero">%d assignment</item>
         <item quantity="one">%d assignment</item>
         <item quantity="other">%d assignments</item>
     </plurals>
@@ -411,10 +407,7 @@
     <string name="rate">设置优先级</string>
 
     <string name="pick_one_from_four_priorities">从四个优先级中选择一个</string>
-    <string name="important_urgent">重要|紧急</string>
-    <string name="important_not_urgent">重要|不紧急</string>
-    <string name="unimportant_and_urgent">不重要|紧急</string>
-    <string name="unimportant_not_urgent">不重要|不紧急</string>
+
 
     <string name="edit_title">Edit title</string>
     <string name="edit_comment">Edit comment</string>
