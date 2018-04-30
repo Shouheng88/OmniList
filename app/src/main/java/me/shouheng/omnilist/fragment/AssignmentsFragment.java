@@ -293,8 +293,12 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
     }
 
     private String getEmptySubTitle() {
-        return null;
-        // todo
+        if (status == null) return null;
+        return PalmApp.getContext().getString(
+                status == Status.NORMAL ? R.string.assignments_empty_list_sub_normal :
+                        status == Status.TRASHED ? R.string.assignments_empty_list_sub_trashed :
+                                status == Status.ARCHIVED ? R.string.assignments_empty_list_sub_archived :
+                                        R.string.assignments_empty_list_sub_normal);
     }
 
     public void reload() {

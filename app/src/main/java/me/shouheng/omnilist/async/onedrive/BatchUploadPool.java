@@ -11,8 +11,6 @@ import me.shouheng.omnilist.utils.preferences.SyncPreferences;
 
 
 /**
- * todo 1. Find out why two files are not synchronized to OneDrive; 2. Test new strategy.
- *
  * Created by shouh on 2018/4/1.*/
 public class BatchUploadPool {
 

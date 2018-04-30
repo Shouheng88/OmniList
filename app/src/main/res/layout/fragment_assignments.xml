@@ -61,7 +61,7 @@
                 app:tint_drawable="true"
                 app:empty_image="@drawable/ic_large_category"
                 app:title="@string/no_assignments_found"
-                app:sub_title="@string/fragment_assignments_empty_sub"
+                app:sub_title="@string/assignments_empty_list_sub_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

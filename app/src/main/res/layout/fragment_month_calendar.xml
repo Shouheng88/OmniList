@@ -87,7 +87,7 @@
                         <me.shouheng.omnilist.widget.EmptyView
                             app:tint_drawable="true"
                             app:empty_image="@drawable/ic_large_no_task"
-                            app:title="No activity"
+                            app:title="@string/no_task_in_given_day"
                             android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>

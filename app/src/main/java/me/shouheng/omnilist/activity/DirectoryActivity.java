@@ -143,7 +143,7 @@ public class DirectoryActivity extends CommonActivity<ActivityDirectoryBinding> 
                         clearLastSyncState();
                         finishWithOK();
                     })
-                    .negativeText(R.string.text_undone)
+                    .negativeText(R.string.text_undo)
                     .onNegative((dialog, which) -> {
                         syncPreferences.setOneDriveBackupItemId(oldOneDriveBackupItemId);
                         syncPreferences.setOneDriveLastBackupItemId(oldOneDriveBackupItemId);
