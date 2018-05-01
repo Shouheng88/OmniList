@@ -20,6 +20,7 @@ import org.polaric.colorful.PermissionUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
@@ -134,7 +135,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
 
         CommonActivity activity = (CommonActivity) getActivity();
         if (isContentChanged()){
-            new MaterialDialog.Builder(getContext())
+            new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
                     .title(R.string.text_tips)
                     .content(R.string.text_save_or_discard)
                     .positiveText(R.string.text_save)
@@ -200,7 +201,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
                         ShortcutHelper.addShortcut(getActivity().getApplicationContext(), getModel());
                         ToastUtils.makeToast(R.string.successfully_add_shortcut);
                     } else {
-                        new MaterialDialog.Builder(getContext())
+                        new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
                                 .title(R.string.text_tips)
                                 .content(R.string.text_save_and_retry_to_add_shortcut)
                                 .positiveText(R.string.text_save_and_retry)
@@ -248,7 +249,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
                     String tags = getTags();
                     tags = TextUtils.isEmpty(tags) ? "" : tags;
                     tags = tags + tag + ";";
-                    if (tags.length() > TextLength.LABELS_TOTAL_LENGTH.length) {
+                    if (tags.length() > TextLength.TAGS_TOTAL_LENGTH.getLength()) {
                         ToastUtils.makeToast(R.string.total_labels_too_long);
                         return;
                     }
@@ -256,8 +257,8 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
                     onGetTags(tags);
                     addTagToLayout(tag);
                 })
-                .setMaxLength(TextLength.LABEL_TEXT_LENGTH.length)
-                .build().show(getFragmentManager(), "SHOW_ADD_LABELS_DIALOG");
+                .setMaxLength(TextLength.TAG_SINGLE_LENGTH.getLength())
+                .build().show(Objects.requireNonNull(getFragmentManager()), "SHOW_ADD_LABELS_DIALOG");
     }
 
     protected void showTagsEditDialog() {
@@ -271,8 +272,8 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
                     onGetTags(content);
                     addTagsToLayout(content);
                 })
-                .setMaxLength(TextLength.LABELS_TOTAL_LENGTH.length)
-                .build().show(getFragmentManager(), "SHOW_LABELS_LAYOUT");
+                .setMaxLength(TextLength.TAGS_TOTAL_LENGTH.getLength())
+                .build().show(Objects.requireNonNull(getFragmentManager()), "SHOW_LABELS_LAYOUT");
     }
 
     protected FlowLayout getTagsLayout(){
@@ -389,7 +390,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
             mPlayer = new MediaPlayer();
         }
         try {
-            mPlayer.setDataSource(getActivity(), attachment.getUri());
+            mPlayer.setDataSource(Objects.requireNonNull(getActivity()), attachment.getUri());
             mPlayer.prepare();
             mPlayer.start();
             onPlayingStateChanged(true);
@@ -415,7 +416,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
 
     // region locate
     protected void tryToLocate() {
-        if (!NetworkUtils.isNetworkAvailable(getActivity())){
+        if (!NetworkUtils.isNetworkAvailable(Objects.requireNonNull(getActivity()))){
             ToastUtils.makeToast(R.string.check_network_availability);
             return;
         }

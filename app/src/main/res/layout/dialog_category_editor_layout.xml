@@ -26,12 +26,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_category_name"
                 android:padding="8dp"
                 android:hint="@string/category_name"
                 android:maxLines="1"
-                android:maxLength="@integer/label_length"
+                android:maxLength="@integer/category_title_length"
                 android:singleLine="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -41,7 +41,7 @@
         <me.shouheng.omnilist.widget.WatcherTextView
             android:id="@+id/wtv"
             android:layout_gravity="end"
-            app:max_length="@integer/label_length"
+            app:max_length="@integer/category_title_length"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="rcv_animationDurationHide">420</integer>
-    <integer name="rcv_animationDurationReveal">420</integer>
+    <integer name="assignment_title_length">125</integer>
+    <integer name="assignment_comment_length">250</integer>
 
-    <integer name="title_length">125</integer>
-    <integer name="sub_content_length">250</integer>
-    <integer name="labels_length">50</integer>
-    <integer name="label_length">20</integer>
+    <integer name="sub_assignment_title_length">125</integer>
+    <integer name="sub_assignment_content_length">250</integer>
+
+    <integer name="category_title_length">125</integer>
+
+    <integer name="tag_single_length">20</integer>
+    <integer name="tags_total_length">125</integer>
+
     <integer name="email_address_length">50</integer>
     <integer name="feedback_details_length">450</integer>
-    <integer name="mind_snagging_content_length">450</integer>
 
-    <integer name="question_length">125</integer>
-    <integer name="answer_length">50</integer>
+    <integer name="security_question_length">125</integer>
+    <integer name="security_question_answer_length">50</integer>
+
+    <integer name="motto_length">250</integer>
+
+    <integer name="timeline_name_length">250</integer>
+
+    <integer name="max_attachment_number">6</integer>
 </resources>

@@ -11,7 +11,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:padding="16dp"
-        android:maxLength="@integer/title_length"
+        android:maxLength="@integer/assignment_title_length"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

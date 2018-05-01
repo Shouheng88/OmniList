@@ -87,7 +87,7 @@ public class SettingsDashboard extends BaseFragment implements OnAttachingFileLi
                 .setSimpleAcceptListener(content -> {
                     notifyDashboardChanged();
                     userPreferences.setUserMotto(content);
-                }).setMaxLength(TextLength.MOTTO_TEXT_LENGTH.length)
+                }).setMaxLength(TextLength.MOTTO_LENGTH.getLength())
                 .build().show(((AppCompatActivity) getActivity()).getSupportFragmentManager(), "MOTTO_EDITOR");
     }
 

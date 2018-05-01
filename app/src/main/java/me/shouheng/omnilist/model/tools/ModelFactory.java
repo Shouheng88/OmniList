@@ -176,8 +176,8 @@ public class ModelFactory {
         else if (model instanceof Attachment) modelName = ((Attachment) model).getUri().toString();
         else if (model instanceof Location) modelName = ModelHelper.getFormatLocation(((Location) model));
         else if (model instanceof Weather) modelName = ModelHelper.getFormatWeather((Weather) model);
-        if (modelName != null && modelName.length() > TextLength.TIMELINE_TITLE_LENGTH.length) {
-            return modelName.substring(0, TextLength.TIMELINE_TITLE_LENGTH.length);
+        if (modelName != null && modelName.length() > TextLength.TIMELINE_NAME_LENGTH.getLength()) {
+            return modelName.substring(0, TextLength.TIMELINE_NAME_LENGTH.getLength());
         }
         return modelName;
     }

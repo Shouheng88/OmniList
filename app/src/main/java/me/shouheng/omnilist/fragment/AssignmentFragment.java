@@ -390,7 +390,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     mAdapter.setTitle(content);
                     assignment.setName(content);
                 })
-                .setMaxLength(TextLength.TITLE_TEXT_LENGTH.length)
+                .setMaxLength(TextLength.ASSIGNMENT_TITLE_LENGTH.getLength())
                 .build().show(Objects.requireNonNull(getFragmentManager()), "EDIT_ASSIGNMENT_TITLE");
     }
 
@@ -409,7 +409,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     mAdapter.setComment(content);
                     assignment.setComment(content);
                 })
-                .setMaxLength(TextLength.COMMENT_TEXT_LENGTH.length)
+                .setMaxLength(TextLength.ASSIGNMENT_COMMENT_LENGTH.getLength())
                 .build().show(Objects.requireNonNull(getFragmentManager()), "EDIT_ASSIGNMENT_COMMENTS");
     }
 
@@ -419,7 +419,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 .setContent(subAssignment.getContent())
                 .setSubAssignmentType(subAssignment.getSubAssignmentType())
                 .setPortrait(subAssignment.getPortrait())
-                .setMaxLength(TextLength.SUB_CONTENT_LENGTH.length)
+                .setMaxLength(TextLength.SUB_ASSIGNMENT_CONTENT_LENGTH.getLength())
                 .setOnGetSubAssignmentListener((content, subAssignmentType, portrait) -> {
                     subAssignment.setContent(content);
                     subAssignment.setSubAssignmentType(subAssignmentType);
@@ -778,7 +778,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 }
                 break;
             case R.id.action_files:
-                if (attachmentsAdapter.getData().size() >= TextLength.MAX_ATTACHMENT_NUMBER.length) {
+                if (attachmentsAdapter.getData().size() >= TextLength.MAX_ATTACHMENT_NUMBER.getLength()) {
                     ToastUtils.makeToast(R.string.arrive_max_attachments_number);
                     break;
                 }
