@@ -282,6 +282,7 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                         subAssignment.setCompleted(true);
                         subAssignment.setCompleteThisTime(true);
                     }
+                    subAssignment.setContentChanged(true);
                     setContentChanged();
                     mAdapter.notifyItemChanged(position);
                     break;
@@ -423,10 +424,13 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     subAssignment.setContent(content);
                     subAssignment.setSubAssignmentType(subAssignmentType);
                     subAssignment.setPortrait(portrait);
+                    subAssignment.setContentChanged(true);
                     if (position == null) {
+                        subAssignment.setNewSubAssignment(true);
                         mAdapter.addData(mAdapter.getData().size() - 1, SubAssignmentsAdapter.getMultiItem(subAssignment));
                         getBinding().main.rvSubAssignments.smoothScrollToPosition(mAdapter.getData().size() - 1);
                     } else {
+                        subAssignment.setNewSubAssignment(false);
                         mAdapter.notifyItemChanged(position);
                         getBinding().main.rvSubAssignments.smoothScrollToPosition(position);
                     }

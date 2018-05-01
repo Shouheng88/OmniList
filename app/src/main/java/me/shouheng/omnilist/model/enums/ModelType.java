@@ -1,6 +1,5 @@
 package me.shouheng.omnilist.model.enums;
 
-import android.location.Location;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
@@ -8,6 +7,8 @@ import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.model.Category;
+import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
 import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.TimeLine;
@@ -18,8 +19,9 @@ import me.shouheng.omnilist.model.Weather;
  * Created by wangshouheng on 2017/8/12. */
 public enum ModelType {
     NONE(0, Model.class, R.string.model_name_none, R.drawable.circle),
-    ASSIGNMENT(1, Assignment.class, R.string.model_name_assignment, R.drawable.ic_storage_black_24dp),
-    SUB_ASSIGNMENT(5, SubAssignment.class, R.string.model_name_sub_assignment, R.drawable.ic_assignment_turned_in_black_24dp),
+    CATEGORY(17, Category.class, R.string.model_name_category, R.drawable.ic_folder_special_black_24dp),
+    ASSIGNMENT(1, Assignment.class, R.string.model_name_assignment, R.drawable.ic_assignment_turned_in_black_24dp),
+    SUB_ASSIGNMENT(5, SubAssignment.class, R.string.model_name_sub_assignment, R.drawable.ic_storage_black_24dp),
     ALARM(10, Alarm.class, R.string.model_name_alarm, R.drawable.ic_access_alarm_grey),
     ATTACHMENT(11, Attachment.class, R.string.model_name_attachment, R.drawable.ic_attach_file_black),
     LOCATION(13, Location.class, R.string.model_name_location, R.drawable.ic_location1_grey_24dp),

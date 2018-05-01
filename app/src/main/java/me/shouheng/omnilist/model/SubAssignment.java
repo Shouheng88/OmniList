@@ -30,19 +30,21 @@ public class SubAssignment extends Model {
     @Column(name = SubAssignmentSchema.PORTRAIT)
     private Portrait portrait;
 
-    // region Android端字段，不计入数据库
-
+    // region Only used for Android business
+    private boolean contentChanged;
     /**
-     * 不计入数据库，用于记录是否在本次操作中完成了该任务 */
+     * New sub assignment added or updated the existed one. */
+    private boolean newSubAssignment;
     private boolean completeThisTime;
-
-    /**
-     * 不计入数据库，标记记录在本次设置成了未完成的状态 */
     private boolean inCompletedThisTime;
 
-    /**
-     * 不计入数据库，用于标记记录的内容是否被更改 */
-    private boolean contentChanged;
+    public boolean isNewSubAssignment() {
+        return newSubAssignment;
+    }
+
+    public void setNewSubAssignment(boolean newSubAssignment) {
+        this.newSubAssignment = newSubAssignment;
+    }
 
     public boolean isInCompletedThisTime() {
         return inCompletedThisTime;
