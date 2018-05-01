@@ -25,7 +25,7 @@ import java.util.Objects;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.ContentActivity;
-import me.shouheng.omnilist.adapter.TodayAssignmentAdapter;
+import me.shouheng.omnilist.adapter.TodayAdapter;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.FragmentTodayBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
@@ -47,7 +47,7 @@ import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
 public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
-        TodayAssignmentAdapter.OnItemRemovedListener {
+        TodayAdapter.OnItemRemovedListener {
 
     private final int REQUEST_FOR_EDIT = 10;
 
@@ -55,7 +55,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
 
     private AssignmentViewModel assignmentViewModel;
 
-    private TodayAssignmentAdapter mAdapter;
+    private TodayAdapter mAdapter;
 
     private AssignmentPreferences assignmentPreferences;
 
@@ -94,7 +94,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
     }
 
     private void configList() {
-        mAdapter = new TodayAssignmentAdapter(Collections.emptyList());
+        mAdapter = new TodayAdapter(Collections.emptyList());
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.iv_completed:
@@ -109,6 +109,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
                     }
                     assignment.setChanged(!assignment.isChanged());
                     mAdapter.notifyItemChanged(position);
+                    /* Update assignment state in database. */
                     updateState();
                     break;
                 case R.id.rl_item:
@@ -132,23 +133,19 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(getBinding().rvAssignments);
 
-        reload();
+        reload(true);
     }
 
     // region Date options
-    public void reload() {
-        if (getActivity() instanceof TodayFragmentInteraction) {
-            ((TodayFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(Status.LOADING);
-        }
-
+    public void reload(boolean showShader) {
+        if (showShader) notifyStatus(Status.LOADING);
         assignmentViewModel.getToday().observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_failed_to_load_data);
+                if (showShader)  notifyStatus(Status.FAILED);
                 return;
             }
-            if (getActivity() instanceof TodayFragmentInteraction) {
-                ((TodayFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(listResource.status);
-            }
+            if (showShader) notifyStatus(listResource.status);
             switch (listResource.status) {
                 case SUCCESS:
                     assert listResource.data != null;
@@ -161,8 +158,8 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         });
     }
 
-    private List<TodayAssignmentAdapter.MultiItem> setupAssignments(List<Assignment> assignments) {
-        List<TodayAssignmentAdapter.MultiItem> multiItems = new LinkedList<>();
+    private List<TodayAdapter.MultiItem> setupAssignments(List<Assignment> assignments) {
+        List<TodayAdapter.MultiItem> multiItems = new LinkedList<>();
         List<Assignment> today = new LinkedList<>();
         List<Assignment> overdue = new LinkedList<>();
 
@@ -175,15 +172,15 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
             }
         }
         if (!today.isEmpty()) {
-            multiItems.add(new TodayAssignmentAdapter.MultiItem(PalmApp.getStringCompact(R.string.text_today)));
+            multiItems.add(new TodayAdapter.MultiItem(PalmApp.getStringCompact(R.string.text_today)));
             for (Assignment assignment : today) {
-                multiItems.add(new TodayAssignmentAdapter.MultiItem(assignment));
+                multiItems.add(new TodayAdapter.MultiItem(assignment));
             }
         }
         if (!overdue.isEmpty()) {
-            multiItems.add(new TodayAssignmentAdapter.MultiItem(PalmApp.getStringCompact(R.string.text_overdue)));
+            multiItems.add(new TodayAdapter.MultiItem(PalmApp.getStringCompact(R.string.text_overdue)));
             for (Assignment assignment : overdue) {
-                multiItems.add(new TodayAssignmentAdapter.MultiItem(assignment));
+                multiItems.add(new TodayAdapter.MultiItem(assignment));
             }
         }
 
@@ -201,10 +198,17 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
                     ToastUtils.makeToast(R.string.text_error_when_save);
                     break;
                 case SUCCESS:
+                    reload(false);
                     ToastUtils.makeToast(R.string.text_update_successfully);
                     break;
             }
         });
+    }
+
+    private void notifyStatus(Status status) {
+        if (getActivity() instanceof TodayFragmentInteraction) {
+            ((TodayFragmentInteraction) getActivity()).onAssignmentsLoadStateChanged(status);
+        }
     }
     // endregion
 
@@ -322,7 +326,7 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         switch (requestCode){
             case REQUEST_FOR_EDIT:
                 if (resultCode == Activity.RESULT_OK) {
-                    reload();
+                    reload(true);
                     notifyDataChanged();
                 }
                 break;

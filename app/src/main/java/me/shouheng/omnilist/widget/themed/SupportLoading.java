@@ -30,9 +30,8 @@ public class SupportLoading extends RelativeLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        WidgetSupportLoadingBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
-                R.layout.widget_support_loading, this, true);
-
+        WidgetSupportLoadingBinding binding = DataBindingUtil.inflate(
+                LayoutInflater.from(context), R.layout.widget_support_loading, this, true);
         boolean isDarkTheme = ColorUtils.isDarkTheme();
         binding.rlBg.setBackgroundResource(isDarkTheme ? R.color.dark_theme_background : R.color.light_theme_background);
     }
