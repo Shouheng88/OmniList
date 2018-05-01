@@ -26,15 +26,14 @@ public class Constants {
     // endregion
 
     // region Urls
-    // todo replace urls
     public final static String GOOGLE_PLAY_WEB_PAGE = "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID;
     public final static String MARKET_PAGE = "market://details?id=" + BuildConfig.APPLICATION_ID;
-    public final static String GITHUB_PAGE = "https://github.com/Shouheng88/NotePal-Page";
+    public final static String GITHUB_PAGE = "https://github.com/Shouheng88/Omni-List";
     public final static String GITHUB_DEVELOPER = "https://github.com/Shouheng88";
-    public final static String GOOGLE_PLUS_URL = "https://plus.google.com/u/1/communities/102252970668657211916";
+    public final static String GOOGLE_PLUS_URL = "https://plus.google.com/communities/111484201678876118795";
     public final static String WEIBO_PAGE = "https://weibo.com/5401152113/profile?rightmod=1&wvr=6&mod=personinfo";
     public final static String TWITTER_PAGE = "https://twitter.com/ShouhengWang";
-    public final static String WIKI = "https://twitter.com/ShouhengWang";
+    public final static String WIKI = "https://github.com/Shouheng88/Omni-List";
 
     public final static String DEVELOPER_EMAIL = "shouheng2015@gmail.com";
     public final static String DEVELOPER_EMAIL_PREFIX = "【" + PalmApp.getStringCompact(R.string.app_name) +"|%s】";
@@ -47,12 +46,9 @@ public class Constants {
     public final static String MIME_TYPE_VIDEO = "video/mp4";
     public final static String MIME_TYPE_SKETCH = "image/png";
     public final static String MIME_TYPE_FILES = "file/*";
-    public final static String MIME_TYPE_HTML = "text/html";
     public final static String MIME_TYPE_IMAGE_EXTENSION = ".jpeg";
     public final static String MIME_TYPE_AUDIO_EXTENSION = ".amr";
-    public final static String MIME_TYPE_VIDEO_EXTENSION = ".mp4";
     public final static String MIME_TYPE_SKETCH_EXTENSION = ".png";
-    public final static String MIME_TYPE_CONTACT_EXTENSION = ".vcf";
 
     public final static String VIDEO_MIME_TYPE = "video/*";
     public final static String SCHEME_HTTPS = "https";
