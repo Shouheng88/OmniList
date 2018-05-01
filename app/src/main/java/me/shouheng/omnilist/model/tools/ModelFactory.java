@@ -5,6 +5,7 @@ import java.util.Date;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.config.TextLength;
+import me.shouheng.omnilist.manager.ModelHelper;
 import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
@@ -169,15 +170,12 @@ public class ModelFactory {
 
     private static <M extends Model> String getModelName(M model) {
         String modelName = null;
-        if (model instanceof Attachment) return ((Attachment) model).getUri().toString();
-        else if (model instanceof Location) {
-            Location location = ((Location) model);
-            modelName = location.getCountry() + "|" + location.getCity() + "|" + location.getDistrict();
-        }
-        else if (model instanceof Weather) {
-            Weather weather = ((Weather) model);
-            modelName = PalmApp.getStringCompact(weather.getType().nameRes) + "|" + weather.getTemperature();
-        }
+        if (model instanceof Assignment) modelName = ((Assignment) model).getName();
+        else if (model instanceof SubAssignment) modelName = ((SubAssignment) model).getContent();
+        else if (model instanceof Category) modelName = ((Category) model).getName();
+        else if (model instanceof Attachment) modelName = ((Attachment) model).getUri().toString();
+        else if (model instanceof Location) modelName = ModelHelper.getFormatLocation(((Location) model));
+        else if (model instanceof Weather) modelName = ModelHelper.getFormatWeather((Weather) model);
         if (modelName != null && modelName.length() > TextLength.TIMELINE_TITLE_LENGTH.length) {
             return modelName.substring(0, TextLength.TIMELINE_TITLE_LENGTH.length);
         }

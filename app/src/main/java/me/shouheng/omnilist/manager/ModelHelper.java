@@ -27,6 +27,7 @@ import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Location;
 import me.shouheng.omnilist.model.Model;
 import me.shouheng.omnilist.model.SubAssignment;
+import me.shouheng.omnilist.model.Weather;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.utils.FileHelper;
 import me.shouheng.omnilist.utils.TimeUtils;
@@ -171,6 +172,10 @@ public class ModelHelper {
                 + location.getProvince() + "|"
                 + location.getCity() + "|"
                 + location.getDistrict();
+    }
+
+    public static String getFormatWeather(Weather weather) {
+        return PalmApp.getStringCompact(weather.getType().nameRes) + "|" + weather.getTemperature();
     }
 
     public static void showStatistic(Context context,

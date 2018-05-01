@@ -151,6 +151,7 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         try {
             database.insert(tableName, null, getContentValues(assignment));
             for (SubAssignment subAssignment : subAssignments) {
+                /*All the sub assignment is new.*/
                 TimeLine timeLine = TimelineHelper.getTimeLine(subAssignment, Operation.ADD);
                 if (timeLine != null) {
                     database.insert(TimelineSchema.TABLE_NAME, null, StoreHelper.getContentValues(timeLine));
@@ -169,27 +170,39 @@ public class AssignmentsStore extends BaseStore<Assignment> {
         SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
         try {
+            /*Update assignment.*/
             database.update(tableName, getContentValues(assignment),
                     AssignmentSchema.CODE + " = ? " + " AND " + AssignmentSchema.USER_ID + " = ? ",
                     new String[]{String.valueOf(assignment.getCode()), String.valueOf(userId)});
+            /*Delete associated sub assignments.*/
             database.delete(SubAssignmentSchema.TABLE_NAME,
                     SubAssignmentSchema.PARENT_CODE + " = ? " + " AND " + SubAssignmentSchema.USER_ID + " = ? ",
                     new String[]{String.valueOf(assignment.getCode()), String.valueOf(userId)});
-            for (SubAssignment sub : subAssignments){
+            /*Insert sub assignment.*/
+            for (SubAssignment sub : subAssignments) {
+                /*Insert new sub assignment.*/
                 StoreHelper.setLastModifiedInfo(sub);
                 database.insert(SubAssignmentSchema.TABLE_NAME, null, StoreHelper.getContentValues(sub));
+                /*Get timeline for sub assignment.*/
                 if (sub.isContentChanged()) {
-                    TimeLine timeLine = null;
-                    if (sub.isCompleteThisTime()) {
-                        timeLine = TimelineHelper.getTimeLine(sub, Operation.COMPLETE);
-                    } else if (sub.isInCompletedThisTime()) {
-                        timeLine = TimelineHelper.getTimeLine(sub, Operation.INCOMPLETE);
+                    TimeLine timeLine;
+                    if (sub.isNewSubAssignment()) {
+                        timeLine = TimelineHelper.getTimeLine(sub, Operation.ADD);
+                    } else {
+                        if (sub.isCompleteThisTime()) {
+                            timeLine = TimelineHelper.getTimeLine(sub, Operation.COMPLETE);
+                        } else if (sub.isInCompletedThisTime()) {
+                            timeLine = TimelineHelper.getTimeLine(sub, Operation.INCOMPLETE);
+                        } else {
+                            timeLine = TimelineHelper.getTimeLine(sub, Operation.UPDATE);
+                        }
                     }
                     if (timeLine != null) {
                         database.insert(TimelineSchema.TABLE_NAME, null, StoreHelper.getContentValues(timeLine));
                     }
                 }
             }
+            /*Commit transaction.*/
             database.setTransactionSuccessful();
         } finally {
             database.endTransaction();
