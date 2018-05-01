@@ -64,6 +64,5 @@
 
     <dimen name="nav_main_height">134dp</dimen>
 
-    <!--todo-->
     <dimen name="fab_margin">8dp</dimen>
 </resources>
