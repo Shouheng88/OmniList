@@ -38,13 +38,13 @@
                         android:layout_width="55dp"
                         android:layout_height="55dp" />
 
-                    <EditText
+                    <android.support.v7.widget.AppCompatEditText
                         android:id="@+id/et_assignment_title"
                         android:hint="@string/add_assignments"
                         android:background="@android:color/transparent"
                         android:singleLine="true"
                         android:maxLines="1"
-                        android:maxLength="@integer/title_length"
+                        android:maxLength="@integer/assignment_title_length"
                         android:imeOptions="actionDone"
                         android:layout_toStartOf="@id/iv_mic"
                         android:layout_toEndOf="@id/iv_add"

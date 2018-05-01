@@ -32,7 +32,7 @@
                     android:id="@+id/et_question"
                     android:padding="8dp"
                     android:hint="@string/text_question"
-                    android:maxLength="@integer/question_length"
+                    android:maxLength="@integer/security_question_length"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -41,7 +41,7 @@
             <me.shouheng.omnilist.widget.WatcherTextView
                 android:id="@+id/wtv_question"
                 android:layout_gravity="end"
-                app:max_length="@integer/question_length"
+                app:max_length="@integer/security_question_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -56,7 +56,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:inputType="textPassword"
-                    android:maxLength="@integer/answer_length"
+                    android:maxLength="@integer/security_question_answer_length"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -65,7 +65,7 @@
             <me.shouheng.omnilist.widget.WatcherTextView
                 android:id="@+id/wtv_answer"
                 android:layout_gravity="end"
-                app:max_length="@integer/answer_length"
+                app:max_length="@integer/security_question_answer_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -81,7 +81,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:inputType="textPassword"
-                    android:maxLength="@integer/answer_length"
+                    android:maxLength="@integer/security_question_answer_length"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -90,7 +90,7 @@
             <me.shouheng.omnilist.widget.WatcherTextView
                 android:id="@+id/wtv_confirm_answer"
                 android:layout_gravity="end"
-                app:max_length="@integer/answer_length"
+                app:max_length="@integer/security_question_answer_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
