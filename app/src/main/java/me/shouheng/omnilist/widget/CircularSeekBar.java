@@ -777,7 +777,6 @@ public class CircularSeekBar extends View {
                     }
 
                     if (lockAtStart && lockEnabled) {
-                        // TODO: Add a check if mProgress is already 0, in which case don't call the listener
                         mProgress = 0;
                         recalculateAll();
                         invalidate();
