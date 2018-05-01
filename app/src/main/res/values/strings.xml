@@ -407,6 +407,7 @@
     <string name="text_overdue">Overdue</string>
     <string name="text_today">Today</string>
     <string name="no_task_in_given_day">No assignment</string>
+    <string name="no_task_in_given_day_sub">arrange your agenda by Omni List</string>
     <string name="today_list_empty">No task today</string>
     <string name="today_list_empty_sub">enjoy your leisure time</string>
     <!--endregion-->
