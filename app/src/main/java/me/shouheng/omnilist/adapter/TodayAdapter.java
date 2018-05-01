@@ -1,7 +1,6 @@
 package me.shouheng.omnilist.adapter;
 
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
@@ -23,15 +22,12 @@ import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.widget.tools.IItemTouchHelperAdapter;
 
-// todo 1. remove assignment when complete
-public class TodayAssignmentAdapter extends BaseMultiItemQuickAdapter<TodayAssignmentAdapter.MultiItem, BaseViewHolder>
+public class TodayAdapter extends BaseMultiItemQuickAdapter<TodayAdapter.MultiItem, BaseViewHolder>
         implements IItemTouchHelperAdapter {
 
     private OnItemRemovedListener onItemRemovedListener;
 
-    private Drawable cbFilled, cbOutline;
-
-    public TodayAssignmentAdapter(List<MultiItem> data) {
+    public TodayAdapter(List<MultiItem> data) {
         super(data);
         addItemType(ViewType.HEADER.id, R.layout.item_title);
         addItemType(ViewType.NORMAL.id, R.layout.item_assignment);
@@ -58,7 +54,8 @@ public class TodayAssignmentAdapter extends BaseMultiItemQuickAdapter<TodayAssig
     }
 
     private void convertAssignment(BaseViewHolder helper, Assignment assignment) {
-        helper.itemView.setBackgroundColor(PalmApp.getColorCompact(ColorUtils.isDarkTheme() ? R.color.dark_theme_background : R.color.light_theme_background));
+        helper.itemView.setBackgroundColor(PalmApp.getColorCompact(ColorUtils.isDarkTheme() ?
+                R.color.dark_theme_background : R.color.light_theme_background));
 
         helper.setText(R.id.tv_title, assignment.getName());
 
@@ -79,27 +76,15 @@ public class TodayAssignmentAdapter extends BaseMultiItemQuickAdapter<TodayAssig
     private void updateUIByCompletedState(BaseViewHolder helper, Assignment assignment) {
         boolean completed = assignment.getProgress() == 100;
 
-        helper.setImageDrawable(R.id.iv_completed, completed ? cbFilled() : cbOutline());
+        helper.setImageDrawable(R.id.iv_completed, ColorUtils.tintDrawable(PalmApp.getDrawableCompact(
+                completed ? R.drawable.ic_check_box_black_24dp : R.drawable.ic_check_box_outline_blank_black_24dp),
+                ColorUtils.accentColor()));
         ViewHelper.setAlpha(helper.itemView,  completed ? 0.4F : 1F);
 
         TextView tvTitle = helper.getView(R.id.tv_title);
         TextView tvCreatedTime = helper.getView(R.id.tv_time_info);
         tvTitle.setPaintFlags(completed ? tvTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         tvCreatedTime.setPaintFlags(completed ? tvCreatedTime.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : tvCreatedTime.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-    }
-
-    private Drawable cbFilled() {
-        if (cbFilled == null) {
-            cbFilled = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_black_24dp), ColorUtils.accentColor());
-        }
-        return cbFilled;
-    }
-
-    private Drawable cbOutline() {
-        if (cbOutline == null) {
-            cbOutline = ColorUtils.tintDrawable(mContext.getResources().getDrawable(R.drawable.ic_check_box_outline_blank_black_24dp), ColorUtils.accentColor());
-        }
-        return cbOutline;
     }
 
     @Override
