@@ -339,6 +339,8 @@
     <!--endregion-->
 
     <!--region business.assignments-->
+    <string name="default_assignment_title">无标题日程 %s</string>
+
     <string name="add_assignments">添加日程安排&#8230;</string>
     <string name="touch_and_speak">按住说话</string>
     <string name="baidu_speech_support">语音识别技术由百度提供</string>
@@ -419,6 +421,19 @@
     <string name="search_by_conditions">Search &#8230;</string>
     <string name="no_search_result_found">Result not found</string>
     <string name="try_other_conditions">try another condition and search again</string>
+    <!--endregion-->
+
+    <!--region widget-->
+    <string name="text_configuration">Configuration</string>
+    <string name="widget_list_options">LIST OPTIONS</string>
+    <string name="text_show">Show</string>
+    <string name="widget_list_type_overdue">Overdue</string>
+    <string name="widget_list_type_category">Given category</string>
+    <string name="widget_select_category_tips">Pick category</string>
+    <string name="widget_category_required">Category required</string>
+    <string name="widget_filter_options">FILTER OPTIONS</string>
+    <string name="widget_show_completed">Show completed assignment</string>
+    <string name="quick_edit_assignment">Edit assignment</string>
     <!--endregion-->
     <!--endregion-->
 

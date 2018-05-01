@@ -30,4 +30,9 @@
         <item>@string/feedback_function_improvement</item>
         <item>@string/feedback_function_requirement</item>
     </string-array>
+
+    <string-array name="widget_list_types">
+        <item>@string/widget_list_type_overdue</item>
+        <item>@string/widget_list_type_category</item>
+    </string-array>
 </resources>
