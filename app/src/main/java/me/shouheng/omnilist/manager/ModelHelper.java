@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -176,6 +177,11 @@ public class ModelHelper {
 
     public static String getFormatWeather(Weather weather) {
         return PalmApp.getStringCompact(weather.getType().nameRes) + "|" + weather.getTemperature();
+    }
+
+    public static String getDefaultTitle() {
+        return String.format(PalmApp.getStringCompact(R.string.default_assignment_title),
+                TimeUtils.getLongDateTime(PalmApp.getContext(), new Date()));
     }
 
     public static void showStatistic(Context context,

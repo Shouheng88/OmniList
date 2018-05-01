@@ -81,7 +81,8 @@ public class Constants {
     public final static String PREFS_NAME = BuildConfig.APPLICATION_ID + "_preferences";
     public final static String PREF_WIDGET_SQL_PREFIX = "widget_sql_";
     public final static String PREF_WIDGET_TYPE_PREFIX = "widget_type_";
-    public final static String PREF_WIDGET_NOTEBOOK_CODE_PREFIX = "widget_notebook_code";
+    public final static String PREF_WIDGET_OVERDUE_PREFIX = "widget_is_overdue_";
+    public final static String PREF_WIDGET_CATEGORY_CODE_PREFIX = "widget_notebook_code";
     // endregion
 
     // region Alarm
