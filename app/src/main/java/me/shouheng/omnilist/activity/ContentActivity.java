@@ -68,7 +68,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         i.setAction(Constants.ACTION_TO_NOTE_FROM_THIRD_PART);
         i.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT);
         i.putExtra(Constants.EXTRA_REQUEST_CODE, requestCode);
-        activity.startActivity(i);
+        activity.startActivityForResult(i, requestCode);
     }
 
     public static void resolveAction(Activity activity, @NonNull Assignment assignment, String action, int requestCode) {
@@ -77,7 +77,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         i.putExtra(Constants.EXTRA_MODEL, (Parcelable) assignment);
         i.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT);
         i.putExtra(Constants.EXTRA_REQUEST_CODE, requestCode);
-        activity.startActivity(i);
+        activity.startActivityForResult(i, requestCode);
     }
 
     @Override
