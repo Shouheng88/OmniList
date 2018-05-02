@@ -34,6 +34,7 @@ import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.FragmentMonthCalendarBinding;
 import me.shouheng.omnilist.databinding.ItemTitleBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
@@ -43,7 +44,8 @@ import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
-public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> implements OnCalendarClickListener {
+public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> implements
+        OnCalendarClickListener, OnDataChangeListener {
 
     private final static int REQUEST_EDIT = 0x0FF1;
 
@@ -56,6 +58,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     private ItemTitleBinding itemTitleBinding;
 
     private AssignmentPreferences assignmentPreferences;
+
+    private int curYear, curMonth, curDay;
 
     public static MonthFragment newInstance() {
         Bundle args = new Bundle();
@@ -202,15 +206,15 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         assignmentPreferences = AssignmentPreferences.getInstance();
 
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        curYear = calendar.get(Calendar.YEAR);
+        curMonth = calendar.get(Calendar.MONTH);
+        curDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         /*Use current date as clicked date.*/
-        showDateSubTitle(year, month, day);
+        showDateSubTitle(curYear, curMonth, curDay);
 
         /*Load assignments today.*/
-        loadAssignment(year, month, day);
+        loadAssignment();
     }
 
     private void showDateSubTitle(int year, int month, int day) {
@@ -231,8 +235,11 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
 
     @Override
     public void onClickDate(int year, int month, int day) {
+        curYear = year;
+        curMonth = month;
+        curDay = day;
         showDateSubTitle(year, month, day);
-        loadAssignment(year, month, day);
+        loadAssignment();
     }
 
     private void updateState(int position) {
@@ -260,8 +267,8 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         });
     }
 
-    private void loadAssignment(int year, int month, int day) {
-        DateTime dateTime = new DateTime(year, month + 1, day, 0, 0);
+    public void loadAssignment() {
+        DateTime dateTime = new DateTime(curYear, curMonth + 1, curDay, 0, 0);
         Date startDate = TimeUtils.startTime(dateTime);
         Date endDate = TimeUtils.endTime(dateTime);
         assignmentViewModel.getAssignments(startDate.getTime(), endDate.getTime(), assignmentPreferences.showCompleted())
@@ -273,7 +280,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                             break;
                         case SUCCESS:
                             assert listResource.data != null;
-                            List<Assignment> assignments = filterAssignments(listResource.data, year, month, day);
+                            List<Assignment> assignments = filterAssignments(listResource.data, curYear, curMonth, curDay);
                             sortAssignments(assignments);
                             mAdapter.setNewData(assignments);
                             break;
@@ -281,6 +288,10 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                 });
     }
 
+    /**
+     * filter assignment by week field
+     *
+     * @return assignments to display */
     private List<Assignment> filterAssignments(List<Assignment> assignments, int year, int month, int day) {
         int week = new DateTime(year, month + 1, day, 0, 0).getDayOfWeek();
         List<Assignment> ret = new LinkedList<>();
@@ -333,5 +344,10 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDataChanged() {
+        loadAssignment();
     }
 }

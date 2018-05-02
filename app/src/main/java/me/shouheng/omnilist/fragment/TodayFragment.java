@@ -29,6 +29,7 @@ import me.shouheng.omnilist.adapter.TodayAdapter;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.FragmentTodayBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
 import me.shouheng.omnilist.manager.AlarmsManager;
 import me.shouheng.omnilist.model.Alarm;
 import me.shouheng.omnilist.model.Assignment;
@@ -47,7 +48,7 @@ import me.shouheng.omnilist.widget.tools.CustomItemTouchHelper;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
 public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
-        TodayAdapter.OnItemRemovedListener {
+        TodayAdapter.OnItemRemovedListener, OnDataChangeListener {
 
     private final int REQUEST_FOR_EDIT = 10;
 
@@ -331,6 +332,11 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onDataChanged() {
+        reload(false);
     }
 
     public interface TodayFragmentInteraction {

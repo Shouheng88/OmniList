@@ -130,6 +130,11 @@ public abstract class BaseListActivity extends CommonActivity<ActivityListBaseWi
 
     // region category fragment interaction
     @Override
+    public void onCategoryDataChanged() {
+        isListChanged = true;
+    }
+
+    @Override
     public void onResumeToCategory() {
         setDrawerLayoutLocked(false);
     }

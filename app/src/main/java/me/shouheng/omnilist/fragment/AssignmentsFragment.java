@@ -60,6 +60,7 @@ import me.shouheng.omnilist.config.BaiduConstants;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.FragmentAssignmentsBinding;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
 import me.shouheng.omnilist.listener.PalmAnimationListener;
 import me.shouheng.omnilist.listener.PalmAnimatorListener;
 import me.shouheng.omnilist.listener.SpeechRecognitionListener;
@@ -86,8 +87,7 @@ import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
 import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 
 public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding> implements
-        TextView.OnEditorActionListener,
-        AssignmentsAdapter.OnItemRemovedListener {
+        TextView.OnEditorActionListener, AssignmentsAdapter.OnItemRemovedListener, OnDataChangeListener {
 
     private static final String ARG_CATEGORY = "argument_category";
     private static final String ARG_STATUS = "argument_status";
@@ -916,6 +916,11 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         Snackbar.make(getBinding().coordinatorLayout, titleRes, Snackbar.LENGTH_SHORT)
                 .setAction(getResources().getString(R.string.text_undo), v -> recoverModel(item, position))
                 .show();
+    }
+
+    @Override
+    public void onDataChanged() {
+        reload();
     }
     // endregion
 

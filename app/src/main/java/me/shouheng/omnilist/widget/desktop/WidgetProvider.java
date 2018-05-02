@@ -45,7 +45,7 @@ public abstract class WidgetProvider extends AppWidgetProvider {
 
         SparseArray<PendingIntent> map = new SparseArray<>();
         map.put(R.id.iv_launch_app, pendingIntentLaunchApp(context, widgetId));
-        map.put(R.id.iv_add_record, pendingIntentAddNote(context, widgetId));
+        map.put(R.id.iv_add_record, pendingIntentAddRecord(context, widgetId));
         map.put(R.id.iv_add_mind, pendingIntentAddMind(context, widgetId));
         map.put(R.id.iv_add_photo, pendingIntentAddPhoto(context, widgetId));
         map.put(R.id.iv_add_sketch, pendingIntentAddSketch(context, widgetId));
@@ -56,9 +56,9 @@ public abstract class WidgetProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(widgetId, views);
     }
 
-    private PendingIntent pendingIntentAddNote(Context context, int widgetId) {
+    private PendingIntent pendingIntentAddRecord(Context context, int widgetId) {
         Intent intentAddNote = new Intent(context, MainActivity.class);
-        intentAddNote.setAction(Constants.ACTION_ADD_NOTE);
+        intentAddNote.setAction(Constants.ACTION_ADD_RECORD);
         intentAddNote.putExtra(Constants.INTENT_WIDGET, widgetId);
         return PendingIntent.getActivity(context, widgetId, intentAddNote, PendingIntent.FLAG_CANCEL_CURRENT);
     }
@@ -86,7 +86,7 @@ public abstract class WidgetProvider extends AppWidgetProvider {
 
     private PendingIntent pendingIntentAddMind(Context context, int widgetId) {
         Intent intentAddMind = new Intent(context, QuickActivity.class);
-        intentAddMind.setAction(Constants.ACTION_ADD_MIND);
+        intentAddMind.setAction(Constants.ACTION_ADD_QUICK_ASSIGNMENT);
         intentAddMind.putExtra(Constants.INTENT_WIDGET, widgetId);
         return PendingIntent.getActivity(context, widgetId, intentAddMind, PendingIntent.FLAG_CANCEL_CURRENT);
     }
