@@ -107,7 +107,7 @@ public class OneDriveManager {
         IClientConfig config = DefaultClientConfig.createWithAuthenticator(new MSAAuthenticator() {
             @Override
             public String getClientId() {
-                return "493c9a39-1906-4205-96eb-444911bd7e37";
+                return "7ea3737d-d276-413f-9732-7e7ab0a2022d";
             }
 
             @Override
