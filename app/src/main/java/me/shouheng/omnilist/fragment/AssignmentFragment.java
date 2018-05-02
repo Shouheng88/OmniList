@@ -61,6 +61,7 @@ import me.shouheng.omnilist.model.SubAssignment;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
+import me.shouheng.omnilist.model.tools.DaysOfWeek;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AlarmsStore;
 import me.shouheng.omnilist.provider.AssignmentsStore;
@@ -88,8 +89,7 @@ import me.shouheng.omnilist.widget.tools.SpaceItemDecoration;
 
 
 public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAssignmentBinding> implements
-        SubAssignmentsAdapter.OnItemRemovedListener,
-        OnAttachingFileListener {
+        SubAssignmentsAdapter.OnItemRemovedListener, OnAttachingFileListener {
 
     private final static String EXTRA_IS_THIRD_PART = "extra_is_third_part";
     private final static String EXTRA_ACTION = "extra_action";
@@ -476,6 +476,15 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     AlarmsManager.getsInstance().removeAlarm(alarm);
                     alarm = null;
                     mAdapter.setAlarm(null);
+
+                    // Need to remove the alarm info from assignment
+                    assignment.setNoticeTime(0);
+                    assignment.setStartTime(TimeUtils.today());
+                    assignment.setEndTime(TimeUtils.endToday());
+                    assignment.setDaysOfWeek(DaysOfWeek.getInstance(0));
+
+                    setContentChanged();
+
                     ToastUtils.makeToast(R.string.alarm_is_removed);
                 })
                 .setNegativeButton(R.string.text_cancel, null)
