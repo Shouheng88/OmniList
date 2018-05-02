@@ -3,6 +3,7 @@ package me.shouheng.omnilist.utils;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -10,7 +11,11 @@ import android.view.View;
 
 import org.polaric.colorful.Colorful;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import me.shouheng.omnilist.PalmApp;
+import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.utils.preferences.ColorPreferences;
 
 
@@ -107,26 +112,25 @@ public class ColorUtils {
         return (color & 0x00ffffff) | ((0xff - (int)(0xff * rate)) << 24);
     }
 
-    // todo add ripple when release
     public static void addRipple(View view) {
         Drawable drawable;
-//        if (PalmUtils.isLollipop() && (drawable = PalmApp.getDrawableCompact(R.drawable.ripple)) != null) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                view.setForeground(drawable);
-//            } else {
-//                try {
-//                    Method method = View.class.getMethod("setForeground", Drawable.class);
-//                    if (method != null) {
-//                        method.invoke(view, drawable);
-//                    }
-//                } catch (NoSuchMethodException e) {
-//                    LogUtils.e("NoSuchMethodException" + e);
-//                } catch (IllegalAccessException e) {
-//                    LogUtils.e("IllegalAccessException" + e);
-//                } catch (InvocationTargetException e) {
-//                    LogUtils.e("InvocationTargetException" + e);
-//                }
-//            }
-//        }
+        if (PalmUtils.isLollipop() && (drawable = PalmApp.getDrawableCompact(R.drawable.ripple)) != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                view.setForeground(drawable);
+            } else {
+                try {
+                    Method method = View.class.getMethod("setForeground", Drawable.class);
+                    if (method != null) {
+                        method.invoke(view, drawable);
+                    }
+                } catch (NoSuchMethodException e) {
+                    LogUtils.e("NoSuchMethodException" + e);
+                } catch (IllegalAccessException e) {
+                    LogUtils.e("IllegalAccessException" + e);
+                } catch (InvocationTargetException e) {
+                    LogUtils.e("InvocationTargetException" + e);
+                }
+            }
+        }
     }
 }
