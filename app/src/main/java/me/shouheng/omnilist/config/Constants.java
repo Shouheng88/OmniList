@@ -72,8 +72,8 @@ public class Constants {
     public final static String ACTION_TAKE_PHOTO = "action_widget_take_photo";
     public final static String ACTION_ADD_SKETCH = "action_widget_add_sketch";
     public final static String ACTION_ADD_FILES = "action_widget_add_files";
-    public final static String ACTION_ADD_NOTE = "action_widget_add_note";
-    public final static String ACTION_ADD_MIND = "action_widget_add_mind";
+    public final static String ACTION_ADD_RECORD = "action_widget_add_record";
+    public final static String ACTION_ADD_QUICK_ASSIGNMENT = "action_widget_add_quick_assignment";
     public final static String ACTION_CONFIG = "action_widget_config";
     public final static String EXTRA_CONFIG_SWITCH_ENABLE = "extra_widget_switch_enable";
     public final static String ACTION_WIDGET_LAUNCH_APP = "action_widget_launch_app";

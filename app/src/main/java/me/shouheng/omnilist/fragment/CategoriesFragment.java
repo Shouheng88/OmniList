@@ -28,6 +28,7 @@ import me.shouheng.omnilist.adapter.CategoriesAdapter;
 import me.shouheng.omnilist.databinding.FragmentCategoriesBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
 import me.shouheng.omnilist.fragment.base.BaseFragment;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.utils.AppWidgetUtils;
@@ -44,7 +45,7 @@ import me.shouheng.omnilist.widget.tools.DividerItemDecoration;
 /**
  * Created by wangshouheng on 2017/3/29.*/
 public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> implements
-        BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.OnItemClickListener, OnDataChangeListener {
 
     private final static String ARG_STATUS = "arg_status";
 
@@ -158,8 +159,6 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
                 case SUCCESS:
                     mAdapter.setNewData(listResource.data);
                     break;
-                case LOADING:
-                    break;
                 case FAILED:
                     ToastUtils.makeToast(R.string.text_failed_to_load_data);
                     break;
@@ -257,6 +256,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
                     break;
                 case R.id.action_move_out:
                     update(category, status, Status.NORMAL);
+                    break;
                 case R.id.action_edit:
                     showEditor(position, mAdapter.getItem(position));
                     break;
@@ -279,7 +279,7 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
 
     private void showEditor(int position, Category param) {
         categoryEditDialog = CategoryEditDialog.newInstance(param, category -> update(position, category));
-        categoryEditDialog.show(getFragmentManager(), "CATEGORY_EDIT_DIALOG");
+        categoryEditDialog.show(Objects.requireNonNull(getFragmentManager()), "CATEGORY_EDIT_DIALOG");
     }
 
     private void update(Category category, Status fromStatus, Status toStatus) {
@@ -379,6 +379,11 @@ public class CategoriesFragment extends BaseFragment<FragmentCategoriesBinding> 
         if (getActivity() != null && getActivity() instanceof OnCategoriesInteractListener) {
             ((OnCategoriesInteractListener) getActivity()).onResumeToCategory();
         }
+    }
+
+    @Override
+    public void onDataChanged() {
+        reload();
     }
 
     public interface OnCategoriesInteractListener {

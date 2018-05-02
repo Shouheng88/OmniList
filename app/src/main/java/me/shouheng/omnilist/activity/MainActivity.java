@@ -44,9 +44,11 @@ import me.shouheng.omnilist.fragment.MonthFragment;
 import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
 import me.shouheng.omnilist.listener.OnSettingsChangedListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.manager.FragmentHelper;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.data.Status;
@@ -70,13 +72,12 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         TodayFragment.TodayFragmentInteraction {
 
     private final int REQUEST_FAB_SORT = 0x0001;
-    private final int REQUEST_ADD_NOTE = 0x0002;
     private final int REQUEST_ARCHIVE = 0x0003;
     private final int REQUEST_TRASH = 0x0004;
     private final int REQUEST_USER_INFO = 0x0005;
     private final int REQUEST_PASSWORD = 0x0006;
     private final int REQUEST_SEARCH = 0x0007;
-    private final int REQUEST_NOTE_VIEW = 0x0008;
+    private final int REQUEST_EDIT_ASSIGNMENT = 0x0008;
     private final int REQUEST_SETTING = 0x0009;
     private final int REQUEST_SETTING_BACKUP = 0x000A;
 
@@ -153,6 +154,15 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
             case Constants.ACTION_SHORTCUT:
                 intent.setClass(this, ContentActivity.class);
                 startActivity(intent);
+                break;
+            case Constants.ACTION_ADD_RECORD:
+                break;
+            case Constants.ACTION_WIDGET_LIST:
+                Assignment assignment;
+                if (intent.hasExtra(Constants.EXTRA_MODEL)
+                        && (assignment = (Assignment) intent.getSerializableExtra(Constants.EXTRA_MODEL)) != null) {
+                    editAssignment(assignment);
+                }
                 break;
         }
     }
@@ -343,6 +353,10 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 }));
         categoryEditDialog.show(getSupportFragmentManager(), "CATEGORY_EDIT_DIALOG");
     }
+
+    private void editAssignment(Assignment assignment) {
+        ContentActivity.editAssignment(this, assignment, REQUEST_EDIT_ASSIGNMENT);
+    }
     // endregion
 
     // region switch fragment
@@ -377,16 +391,6 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private boolean isTodayFragment() {
         Fragment f = getCurrentFragment();
         return f != null && f instanceof TodayFragment;
-    }
-
-    private boolean isCategoryFragment() {
-        Fragment f = getCurrentFragment();
-        return f != null && f instanceof CategoriesFragment;
-    }
-
-    private boolean isAssignmentsFragment() {
-        Fragment f = getCurrentFragment();
-        return f != null && f instanceof AssignmentsFragment;
     }
 
     private boolean isDashboard() {
@@ -467,16 +471,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
             case REQUEST_FAB_SORT:
                 initFabSortItems();
                 break;
-            case REQUEST_NOTE_VIEW:
-            case REQUEST_ADD_NOTE:
-//                if (isNotesFragment()) ((NotesFragment) getCurrentFragment()).reload();
-                break;
+            case REQUEST_EDIT_ASSIGNMENT:
             case REQUEST_TRASH:
-                updateListIfNecessary();
-                break;
             case REQUEST_ARCHIVE:
-                updateListIfNecessary();
-                break;
             case REQUEST_SEARCH:
                 updateListIfNecessary();
                 break;
@@ -544,11 +541,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     // endregion
 
     private void updateListIfNecessary() {
-        if (isCategoryFragment()) {
-            ((CategoriesFragment) getCurrentFragment()).reload();
-        }
-        if (isAssignmentsFragment()) {
-            ((AssignmentsFragment) getCurrentFragment()).reload();
+        Fragment f = getCurrentFragment();
+        if (f instanceof OnDataChangeListener) {
+            ((OnDataChangeListener) f).onDataChanged();
         }
     }
 
