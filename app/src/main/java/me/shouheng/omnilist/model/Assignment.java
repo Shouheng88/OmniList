@@ -36,6 +36,7 @@ public class Assignment extends Model implements Parcelable {
     @Column(name = AssignmentSchema.TAGS)
     private String tags;
 
+    // region Alarm fields
     @Column(name = AssignmentSchema.START_TIME)
     private Date startTime;
 
@@ -47,6 +48,7 @@ public class Assignment extends Model implements Parcelable {
 
     @Column(name = AssignmentSchema.NOTICE_TIME)
     private int noticeTime;
+    // endregion
 
     @Column(name = AssignmentSchema.COMPLETED_TIME)
     private Date completeTime;
