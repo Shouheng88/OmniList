@@ -73,6 +73,7 @@ public class Constants {
     public final static String ACTION_ADD_SKETCH = "action_widget_add_sketch";
     public final static String ACTION_ADD_FILES = "action_widget_add_files";
     public final static String ACTION_ADD_RECORD = "action_widget_add_record";
+    public final static String ACTION_ADD_ASSIGNMENT = "action_widget_add_assignment";
     public final static String ACTION_ADD_QUICK_ASSIGNMENT = "action_widget_add_quick_assignment";
     public final static String ACTION_CONFIG = "action_widget_config";
     public final static String EXTRA_CONFIG_SWITCH_ENABLE = "extra_widget_switch_enable";

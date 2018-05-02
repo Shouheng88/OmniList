@@ -28,6 +28,8 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 
+import org.polaric.colorful.PermissionUtils;
+
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
@@ -38,6 +40,7 @@ import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
+import me.shouheng.omnilist.dialog.picker.CategoryPickerDialog;
 import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.fragment.MonthFragment;
@@ -55,6 +58,7 @@ import me.shouheng.omnilist.model.data.Status;
 import me.shouheng.omnilist.model.tools.FabSortItem;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.utils.ColorUtils;
+import me.shouheng.omnilist.utils.IntentUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.SynchronizeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
@@ -155,8 +159,6 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 intent.setClass(this, ContentActivity.class);
                 startActivity(intent);
                 break;
-            case Constants.ACTION_ADD_RECORD:
-                break;
             case Constants.ACTION_WIDGET_LIST:
                 Assignment assignment;
                 if (intent.hasExtra(Constants.EXTRA_MODEL)
@@ -164,6 +166,49 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                     editAssignment(assignment);
                 }
                 break;
+            case Constants.ACTION_WIDGET_LAUNCH_APP:
+                // do nothing just open the app.
+                break;
+            case Constants.ACTION_ADD_RECORD:
+            case Constants.ACTION_TAKE_PHOTO:
+            case Constants.ACTION_ADD_SKETCH:
+                startAction(action);
+                break;
+            case Intent.ACTION_SEND:
+            case Intent.ACTION_SEND_MULTIPLE:
+            case Constants.INTENT_GOOGLE_NOW:
+                PermissionUtils.checkStoragePermission(this, this::handleThirdPart);
+                break;
+            case Constants.ACTION_RESTART_APP:
+                // Recreate
+                recreate();
+        }
+    }
+
+    private void startAction(String action) {
+        ToastUtils.makeToast(R.string.widget_pick_category_at_first);
+        CategoryPickerDialog.newInstance()
+                .setOnItemSelectedListener((dialog, category, position) -> {
+                    Assignment assignment = ModelFactory.getAssignment();
+                    assignment.setCategoryCode(category.getCode());
+                    PermissionUtils.checkStoragePermission(this, () ->
+                            ContentActivity.resolveAction(MainActivity.this,
+                                    assignment,
+                                    action,
+                                    REQUEST_EDIT_ASSIGNMENT)
+                    );
+                    dialog.dismiss();
+                })
+                .show(getSupportFragmentManager(), "CATEGORY_PICKER");
+    }
+
+    private void handleThirdPart() {
+        Intent i = getIntent();
+        if (IntentUtils.checkAction(i,
+                Intent.ACTION_SEND,
+                Intent.ACTION_SEND_MULTIPLE,
+                Constants.INTENT_GOOGLE_NOW) && i.getType() != null) {
+            ContentActivity.resolveThirdPart(this, i, REQUEST_EDIT_ASSIGNMENT);
         }
     }
     // endregion
@@ -322,11 +367,25 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
             case CATEGORY:
                 editCategory();
                 break;
-            case DRAFT:
+            case ASSIGNMENT:
+                startAction(Constants.ACTION_ADD_ASSIGNMENT);
                 break;
             case FILE:
+                startAction(Constants.ACTION_ADD_FILES);
                 break;
             case CAPTURE:
+                startAction(Constants.ACTION_TAKE_PHOTO);
+                break;
+            case DRAFT:
+                startAction(Constants.ACTION_ADD_SKETCH);
+                break;
+            case QUICK:
+                Intent i = new Intent(this, QuickActivity.class);
+                i.setAction(Constants.ACTION_ADD_QUICK_ASSIGNMENT);
+                startActivityForResult(i, REQUEST_EDIT_ASSIGNMENT);
+                break;
+            case RECORD:
+                startAction(Constants.ACTION_ADD_RECORD);
                 break;
         }
     }

@@ -15,7 +15,7 @@ public enum FabSortItem {
     CAPTURE(R.string.fab_opt_capture, R.drawable.ic_add_a_photo_white),
     DRAFT(R.string.fab_opt_draft, R.drawable.ic_gesture_grey_24dp),
     RECORD(R.string.fab_opt_record, R.drawable.ic_mic_white_24dp),
-    NOTICE(R.string.fab_opt_notice, R.drawable.ic_access_alarm_white),
+//    NOTICE(R.string.fab_opt_notice, R.drawable.ic_access_alarm_white),
     QUICK(R.string.fab_quick_assignment, R.drawable.ic_lightbulb_outline_black_24dp);
 
     @StringRes

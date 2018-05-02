@@ -138,6 +138,12 @@ public class QuickActivity extends BaseActivity implements OnAttachingFileListen
                     public void onDismiss() {
                         finish();
                     }
+
+                    private void finish() {
+                        Intent intent = new Intent();
+                        setResult(Activity.RESULT_OK, intent);
+                        QuickActivity.this.finish();
+                    }
                 })
                 .setOnAttachmentClickListener(this::resolveAttachmentClick)
                 .setOnConfirmListener(this::saveMindSnagging)
