@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
+import me.shouheng.omnilist.utils.ColorUtils;
+
 
 /**
  * Created by WangShouheng on 2018/3/1. */
@@ -26,5 +28,7 @@ public class SupportCardView extends CardView {
         init();
     }
 
-    private void init() {}
+    private void init() {
+        ColorUtils.addRipple(this);
+    }
 }

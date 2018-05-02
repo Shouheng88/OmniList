@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.databinding.WidgetCardTitleViewBinding;
+import me.shouheng.omnilist.utils.ColorUtils;
 
 /**
  * Created by wang shouheng on 2018/2/23.*/
@@ -43,6 +44,8 @@ public class CardTitleView extends LinearLayout {
         String mTitle = attr.getString(R.styleable.CardTitleView_card_title);
         String mSubTitle = attr.getString(R.styleable.CardTitleView_card_sub_title);
         attr.recycle();
+
+        ColorUtils.addRipple(binding.ll);
 
         binding.tvTitle.setText(mTitle);
         binding.tvSubTitle.setText(mSubTitle);
