@@ -19,6 +19,9 @@ import me.shouheng.omnilist.manager.AlarmsManager;
 import me.shouheng.omnilist.manager.WakeLockManager;
 
 /**
+ * todo 1. replace images in intro page.
+ * todo 2. translate text.
+ *
  * Created by shouh on 2018/4/8.*/
 public class PalmApp extends Application {
 
