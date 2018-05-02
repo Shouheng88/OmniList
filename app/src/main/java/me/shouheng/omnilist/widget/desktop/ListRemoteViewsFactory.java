@@ -61,7 +61,7 @@ public class ListRemoteViewsFactory implements RemoteViewsFactory, SharedPrefere
             assignmentList = store.get(
                     AssignmentSchema.START_TIME + " <= " + todayEnd +
                             " AND " + AssignmentSchema.PROGRESS + " != " + Constants.MAX_ASSIGNMENT_PROGRESS,
-                    AssignmentSchema.END_TIME, Status.NORMAL, false);
+                    AssignmentSchema.START_TIME + " DESC ", Status.NORMAL, false);
         } else {
             assignmentList = store.get(condition, AssignmentSchema.ASSIGNMENT_ORDER);
         }
@@ -140,6 +140,7 @@ public class ListRemoteViewsFactory implements RemoteViewsFactory, SharedPrefere
         String sqlCondition;
         if (isOverdue) {
             editor.putBoolean(Constants.PREF_WIDGET_OVERDUE_PREFIX + String.valueOf(mAppWidgetId), true);
+            editor.putLong(Constants.PREF_WIDGET_CATEGORY_CODE_PREFIX + String.valueOf(mAppWidgetId), 0L);
         } else {
             sqlCondition = AssignmentSchema.CATEGORY_CODE + " = " + category.getCode() +
                     (includeCompleted ? "" : " AND " + AssignmentSchema.PROGRESS + " != " + Constants.MAX_ASSIGNMENT_PROGRESS);

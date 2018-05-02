@@ -72,12 +72,11 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     private void doCreateView() {
-        binding.tvTitle.setTextColor(ColorUtils.primaryColor());
+        binding.tvTitle.setBackgroundColor(ColorUtils.primaryColor());
         binding.tvListFilterTip.setTextColor(ColorUtils.accentColor());
         binding.tvListOptionsTip.setTextColor(ColorUtils.accentColor());
         binding.btnPositive.setTextColor(ColorUtils.accentColor());
 
-        binding.spType.setSelection(selectedCategory == null ? 0 : 1);
         binding.spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -137,6 +136,8 @@ public class ConfigActivity extends AppCompatActivity {
     }
 
     private void updateWhenSelectCategory() {
+        binding.spType.setSelection(selectedCategory == null ? 0 : 1);
+        binding.tvCategory.setVisibility(selectedCategory == null ? View.GONE : View.VISIBLE);
         if (selectedCategory != null) {
             binding.tvCategory.setText(selectedCategory.getName());
             binding.tvCategory.setTextColor(selectedCategory.getColor());

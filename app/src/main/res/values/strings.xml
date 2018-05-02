@@ -431,6 +431,7 @@
     <string name="widget_list_type_category">Given category</string>
     <string name="widget_select_category_tips">Pick category</string>
     <string name="widget_category_required">Category required</string>
+    <string name="widget_pick_category_at_first">Pick category first</string>
     <string name="widget_filter_options">FILTER OPTIONS</string>
     <string name="widget_show_completed">Show completed assignment</string>
     <string name="quick_edit_assignment">Edit assignment</string>
