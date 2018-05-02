@@ -13,7 +13,7 @@ import android.widget.RemoteViews;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.ConfigActivity;
 import me.shouheng.omnilist.activity.MainActivity;
-import me.shouheng.omnilist.activity.QuickNoteActivity;
+import me.shouheng.omnilist.activity.QuickActivity;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.utils.LogUtils;
 
@@ -85,7 +85,7 @@ public abstract class WidgetProvider extends AppWidgetProvider {
     }
 
     private PendingIntent pendingIntentAddMind(Context context, int widgetId) {
-        Intent intentAddMind = new Intent(context, QuickNoteActivity.class);
+        Intent intentAddMind = new Intent(context, QuickActivity.class);
         intentAddMind.setAction(Constants.ACTION_ADD_MIND);
         intentAddMind.putExtra(Constants.INTENT_WIDGET, widgetId);
         return PendingIntent.getActivity(context, widgetId, intentAddMind, PendingIntent.FLAG_CANCEL_CURRENT);

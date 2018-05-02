@@ -199,7 +199,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.QuickNoteActivity"
+            android:name=".activity.QuickActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|navigation"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"

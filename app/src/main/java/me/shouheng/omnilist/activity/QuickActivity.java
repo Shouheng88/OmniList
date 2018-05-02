@@ -1,8 +1,11 @@
 package me.shouheng.omnilist.activity;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -12,26 +15,34 @@ import java.util.Collections;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.dialog.AttachmentPickerDialog;
 import me.shouheng.omnilist.dialog.QuickEditorDialog;
+import me.shouheng.omnilist.dialog.picker.CategoryPickerDialog;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.manager.AttachmentHelper;
+import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
+import me.shouheng.omnilist.model.Category;
 import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.utils.AppWidgetUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.LockPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
+import me.shouheng.omnilist.viewmodel.CategoryViewModel;
 
 
-public class QuickNoteActivity extends BaseActivity implements OnAttachingFileListener {
+public class QuickActivity extends BaseActivity implements OnAttachingFileListener {
 
     private final static int REQUEST_PASSWORD = 0x0016;
+
+    private Category selectedCategory;
 
     private QuickEditorDialog quickEditorDialog;
 
     private AssignmentViewModel assignmentViewModel;
+    private CategoryViewModel categoryViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +57,7 @@ public class QuickNoteActivity extends BaseActivity implements OnAttachingFileLi
 
     private void init() {
         assignmentViewModel = ViewModelProviders.of(this).get(AssignmentViewModel.class);
+        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
 
         handleIntent(getIntent());
     }
@@ -59,7 +71,56 @@ public class QuickNoteActivity extends BaseActivity implements OnAttachingFileLi
             return;
         }
 
-        editMindSnagging();
+        long categoryCode = 0;
+        int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+        Bundle extras = intent.getExtras();
+        if (extras != null && extras.containsKey(Constants.INTENT_WIDGET)) {
+            mAppWidgetId = extras.getInt(Constants.INTENT_WIDGET, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+        if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+            SharedPreferences sharedPreferences = getApplication().getSharedPreferences(
+                    Constants.PREFS_NAME, Context.MODE_MULTI_PROCESS);
+            categoryCode = sharedPreferences.getLong(
+                    Constants.PREF_WIDGET_CATEGORY_CODE_PREFIX + String.valueOf(mAppWidgetId),
+                    0);
+        }
+
+        if (categoryCode == 0) {
+            /* Should show category picker dialog at first */
+            ToastUtils.makeToast(R.string.widget_pick_category_at_first);
+            showCategoryPicker();
+        } else {
+            /* Fetch category from database */
+            fetchCategory(categoryCode);
+        }
+    }
+
+    private void fetchCategory(long nbCode) {
+        categoryViewModel.get(nbCode).observe(this, notebookResource -> {
+            if (notebookResource == null) {
+                ToastUtils.makeToast(R.string.text_failed_to_load_data);
+                return;
+            }
+            switch (notebookResource.status) {
+                case FAILED:
+                    ToastUtils.makeToast(R.string.text_failed_to_load_data);
+                    break;
+                case SUCCESS:
+                    selectedCategory = notebookResource.data;
+                    editMindSnagging();
+                    break;
+            }
+        });
+    }
+
+    private void showCategoryPicker() {
+        CategoryPickerDialog.newInstance()
+                .setOnItemSelectedListener((dialog, category, position) -> {
+                    selectedCategory = category;
+                    editMindSnagging();
+                    dialog.dismiss();
+                })
+                .show(getSupportFragmentManager(), "CATEGORY_PICKER");
     }
 
     private void editMindSnagging() {
@@ -93,7 +154,11 @@ public class QuickNoteActivity extends BaseActivity implements OnAttachingFileLi
     }
 
     private void saveMindSnagging(String content, Attachment attachment) {
-        assignmentViewModel.saveAssignment(ModelFactory.getAssignment(), content, attachment)
+        // Fill the parent code
+        Assignment assignment = ModelFactory.getAssignment();
+        assignment.setCategoryCode(selectedCategory.getCode());
+        // Save to database
+        assignmentViewModel.saveAssignment(assignment, content, attachment)
                 .observe(this, noteResource -> {
                     if (noteResource == null) {
                         ToastUtils.makeToast(R.string.text_failed_to_modify_data);
@@ -102,7 +167,7 @@ public class QuickNoteActivity extends BaseActivity implements OnAttachingFileLi
                     switch (noteResource.status) {
                         case SUCCESS:
                             ToastUtils.makeToast(R.string.text_save_successfully);
-                            AppWidgetUtils.notifyAppWidgets(QuickNoteActivity.this);
+                            AppWidgetUtils.notifyAppWidgets(QuickActivity.this);
                             break;
                         case FAILED:
                             ToastUtils.makeToast(R.string.text_failed_to_modify_data);
