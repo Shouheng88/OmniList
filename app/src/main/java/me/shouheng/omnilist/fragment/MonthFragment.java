@@ -149,7 +149,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                     assignment.setChanged(!assignment.isChanged());
                     mAdapter.setStateChanged(true);
                     /* Update assignment state in database. */
-                    updateState(position);
+                    updateState();
                     break;
                 case R.id.rl_item:
                     ContentActivity.editAssignment(MonthFragment.this,
@@ -242,7 +242,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         loadAssignment();
     }
 
-    private void updateState(int position) {
+    private void updateState() {
         assignmentViewModel.updateAssignments(mAdapter.getData()).observe(this, listResource -> {
             if (listResource == null) {
                 ToastUtils.makeToast(R.string.text_error_when_save);
@@ -253,14 +253,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
                     ToastUtils.makeToast(R.string.text_error_when_save);
                     break;
                 case SUCCESS:
-                    /* Remove or update item. */
-                    Assignment assignment = mAdapter.getItem(position);
-                    assert assignment != null;
-                    if (assignmentPreferences.showCompleted()) {
-                        mAdapter.notifyItemChanged(position + 1);
-                    } else if (assignment.getProgress() == Constants.MAX_ASSIGNMENT_PROGRESS){
-                        mAdapter.remove(position);
-                    }
+                    loadAssignment();
                     ToastUtils.makeToast(R.string.text_update_successfully);
                     break;
             }
@@ -340,6 +333,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_EDIT:
+                    loadAssignment();
                     break;
             }
         }
