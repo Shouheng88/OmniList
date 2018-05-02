@@ -9,6 +9,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog.ColorCallback;
@@ -147,8 +148,9 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
     }
 
     private void toAssignmentFragment(Assignment assignment, @Nullable Integer requestCode, boolean isThirdPart){
+        String action = getIntent() == null || TextUtils.isEmpty(getIntent().getAction()) ? null : getIntent().getAction();
         String TAG_ASSIGNMENT_FRAGMENT = "tag_assignment_fragment";
-        Fragment fragment = AssignmentFragment.newInstance(assignment, requestCode);
+        Fragment fragment = AssignmentFragment.newInstance(assignment, requestCode, action, isThirdPart);
         FragmentHelper.replace(this, fragment, R.id.fragment_container, TAG_ASSIGNMENT_FRAGMENT);
     }
 
@@ -168,9 +170,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
      * @param colorChooserDialog the dialog
      * @param i the color selected */
     @Override
-    public void onColorSelection(@NonNull ColorChooserDialog colorChooserDialog, @ColorInt int i) {
-
-    }
+    public void onColorSelection(@NonNull ColorChooserDialog colorChooserDialog, @ColorInt int i) {}
 
     @Override
     public void onColorChooserDismissed(@NonNull ColorChooserDialog colorChooserDialog) {}

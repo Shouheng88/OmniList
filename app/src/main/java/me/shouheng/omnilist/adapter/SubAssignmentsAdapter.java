@@ -2,6 +2,7 @@ package me.shouheng.omnilist.adapter;
 
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -47,13 +48,16 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
         addItemType(ViewType.FOOTER.id, R.layout.item_sub_assignment_footer);
     }
 
-    public static List<SubAssignmentsAdapter.MultiItem> getMultiItems(List<SubAssignment> subAssignments) {
+    public static List<SubAssignmentsAdapter.MultiItem> getMultiItems(@Nullable List<SubAssignment> subAssignments) {
         List<MultiItem> multiItems = new LinkedList<>();
+        if (subAssignments == null) return multiItems;
+
         multiItems.add(new MultiItem(ViewType.HEADER));
         for (SubAssignment subAssignment : subAssignments) {
             multiItems.add(new MultiItem(subAssignment));
         }
         multiItems.add(new MultiItem(ViewType.FOOTER));
+
         return multiItems;
     }
 
@@ -183,6 +187,10 @@ public class SubAssignmentsAdapter extends BaseMultiItemQuickAdapter<SubAssignme
     public void setTitle(String title) {
         this.title = title;
         notifyItemChanged(0);
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public void setComment(String comment) {

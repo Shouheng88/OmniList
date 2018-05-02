@@ -3,6 +3,8 @@ package me.shouheng.omnilist.fragment;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -33,6 +35,7 @@ import org.polaric.colorful.PermissionUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +44,7 @@ import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.ContentActivity;
 import me.shouheng.omnilist.adapter.AttachmentsAdapter;
 import me.shouheng.omnilist.adapter.SubAssignmentsAdapter;
+import me.shouheng.omnilist.async.CreateAttachmentTask;
 import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.config.TextLength;
 import me.shouheng.omnilist.databinding.FragmentAssignmentBinding;
@@ -103,20 +107,29 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     private boolean isSharingImage;
 
     private Assignment assignment;
-    private List<SubAssignment> subAssignments;
-    private List<Attachment> attachments;
     private Location location;
     private Alarm alarm;
+    private List<SubAssignment> subAssignments = new LinkedList<>();
+    private List<Attachment> attachments = new LinkedList<>();
 
     private AssignmentViewModel assignmentViewModel;
     private LocationViewModel locationViewModel;
     private AttachmentViewModel attachmentViewModel;
 
-    public static AssignmentFragment newInstance(@NonNull Assignment assignment, @Nullable Integer requestCode){
+    public static AssignmentFragment newInstance(@NonNull Assignment assignment,
+                                                 @Nullable Integer requestCode,
+                                                 @Nullable String action,
+                                                 boolean isThirdPart) {
         AssignmentFragment fragment = new AssignmentFragment();
         Bundle args = new Bundle();
+        args.putBoolean(EXTRA_IS_THIRD_PART, isThirdPart);
+        if (action != null) {
+            args.putString(EXTRA_ACTION, action);
+        }
         args.putSerializable(Constants.EXTRA_MODEL, assignment);
-        if (requestCode != null) args.putInt(Constants.EXTRA_REQUEST_CODE, requestCode);
+        if (requestCode != null) {
+            args.putInt(Constants.EXTRA_REQUEST_CODE, requestCode);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -183,13 +196,48 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
             if (getActivity() != null) {
                 PermissionUtils.checkStoragePermission((BaseActivity) getActivity(), () -> AttachmentHelper.pickFiles(this));
             }
+        } else if (Constants.ACTION_ADD_RECORD.equals(arguments.getString(EXTRA_ACTION))) {
+            if (getActivity() != null) {
+                PermissionUtils.checkStoragePermission((BaseActivity) getActivity(), () ->
+                        PermissionUtils.checkRecordPermission((BaseActivity) getActivity(), this::startRecording));
+            }
         } else {
             // The cases above is new model, don't need to fetch data.
             fetchData(assignment);
         }
     }
 
-    private void handleThirdPart() {}
+    private void handleThirdPart() {
+        if (!(getActivity() instanceof OnInteractionListener)) return;
+
+        Intent intent = ((OnInteractionListener) getActivity()).getThirdPartIntent();
+
+        String title = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        assignment.setName(title);
+
+        String comment = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (!TextUtils.isEmpty(comment)) {
+            comment = comment.substring(0, TextLength.ASSIGNMENT_COMMENT_LENGTH.getLength());
+        }
+        assignment.setComment(comment);
+
+        // Single attachment data
+        Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+        // Due to the fact that Google Now passes intent as text but with
+        // audio recording attached the case must be handled in specific way
+        if (uri != null && !Constants.INTENT_GOOGLE_NOW.equals(intent.getAction())) {
+            new CreateAttachmentTask(this, uri, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
+        // Multiple attachment data
+        ArrayList<Uri> uris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        if (uris != null) {
+            for (Uri uriSingle : uris) {
+                new CreateAttachmentTask(this, uriSingle, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+    }
 
     private void fetchData(Assignment assignment) {
         location = LocationsStore.getInstance().getLocation(assignment);
@@ -729,9 +777,13 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     @Override
     protected void onGetAttachment(@NonNull Attachment attachment) {
-        setContentChanged();
-        attachmentsAdapter.addData(attachment);
-        ToastUtils.makeToast(R.string.text_save_successfully);
+        if (attachmentsAdapter.getData().size() >= TextLength.MAX_ATTACHMENT_NUMBER.getLength()) {
+            ToastUtils.makeToast(R.string.arrive_max_attachments_number);
+        } else {
+            setContentChanged();
+            attachmentsAdapter.addData(attachment);
+            ToastUtils.makeToast(R.string.text_save_successfully);
+        }
     }
 
     @Override
@@ -823,6 +875,14 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     }
 
     @Override
+    protected boolean checkContent() {
+        if (TextUtils.isEmpty(mAdapter.getTitle())) {
+            assignment.setName(ModelHelper.getDefaultTitle());
+        }
+        return super.checkContent();
+    }
+
+    @Override
     protected Assignment getModel() {
         return assignment;
     }
@@ -889,4 +949,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                 }).show();
     }
     // endregion
+
+    public interface OnInteractionListener {
+        Intent getThirdPartIntent();
+    }
 }
