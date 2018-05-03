@@ -1,0 +1,672 @@
+<resources>
+    <string name="app_name">多功能清單</string>
+
+    <!--region common-->
+    <!--region common-->
+    <!--actions-->
+    <string name="text_add_to_home_screen">添加快捷方式</string>
+    <string name="text_accept">接受</string>
+    <string name="text_clear">清除</string>
+    <string name="text_copy_text">複制內容</string>
+    <string name="text_copy_link">複制鏈接</string>
+    <string name="text_cancel">取消</string>
+    <string name="text_close">關閉</string>
+    <string name="text_delete">刪除</string>
+    <string name="text_edit">編輯</string>
+    <string name="text_give_up">放棄</string>
+    <string name="text_pick">選擇</string>
+    <string name="text_reset">重置</string>
+    <string name="text_send">發送</string>
+    <string name="text_search">搜索</string>
+    <string name="text_save">保存</string>
+    <string name="text_login">登錄</string>
+    <string name="text_register">注冊</string>
+    <string name="text_confirm">確認</string>
+    <string name="text_back">返回</string>
+    <string name="text_trash">放進垃圾箱</string>
+    <string name="text_archived">歸檔</string>
+    <string name="text_move_out">移除</string>
+    <string name="text_undo">撤銷</string>
+    <string name="text_redo">恢複</string>
+    <string name="text_get_it">知道了</string>
+
+    <string name="text_comments">備注</string>
+    <string name="text_created_time">創建</string>
+    <string name="text_last_modified_time">更新</string>
+    <string name="text_last_sync_time">同步</string>
+    <string name="text_chars">字符</string>
+    <string name="text_more">更多</string>
+    <string name="text_settings">設置</string>
+    <string name="text_statistic">數據統計</string>
+    <string name="text_tips">提示</string>
+    <string name="text_warning">警告</string>
+    <!--location-->
+    <string name="text_location">位置信息</string>
+    <string name="text_location_not_found">沒有發現位置信息</string>
+    <string name="failed_to_get_location">獲取位置信息失敗</string>
+    <string name="trying_to_get_location">嘗試獲取位置信息&#8230;</string>
+    <!--modification-->
+    <string name="text_save_or_discard">保存還是放棄修改？</string>
+    <string name="text_save_successfully">保存成功</string>
+    <string name="text_update_successfully">更新成功</string>
+    <string name="text_error_when_save">保存數據的時候發生錯誤</string>
+    <string name="title_required">需要指定標題</string>
+    <string name="text_file_saved_to">文件被保存到 %s</string>
+    <string name="cannot_get_link_of_not_synced_item">無法獲取未同步的項目的鏈接</string>
+    <string name="content_was_copied_to_clipboard">內容已經被複制到粘貼板</string>
+    <!--shortcut-->
+    <string name="text_save_and_retry_to_add_shortcut">該項目還沒有被保存，無法添加快捷方式，請保存之後再嘗試</string>
+    <string name="text_save_and_retry">保存並重試</string>
+    <string name="successfully_add_shortcut">成功添加快捷方式</string>
+    <!--loading-->
+    <string name="text_failed_to_load_data">加載數據失敗</string>
+    <string name="text_failed_to_modify_data">修改數據失敗</string>
+    <string name="set_successfully">設置成功</string>
+    <!--find in page-->
+    <string name="text_find_in_page">在頁面中查找</string>
+    <string name="text_font">字體</string>
+    <string name="text_next">下一個</string>
+    <string name="text_last">上一個</string>
+    <string name="content_failed_to_parse_intent">無法解析意圖</string>
+    <string name="check_network_availability">檢查網絡可用性</string>
+
+    <string name="text_color">顔色</string>
+    <string name="text_portrait">圖標</string>
+    <string name="text_items">條目</string>
+    <string name="text_tab_again_exit">再按一次退出</string>
+    <string name="text_attachment">附件</string>
+    <string name="text_sub_assignment_number">子任務數量</string>
+    <string name="text_alarm">鬧鍾</string>
+    <string name="text_working">正在執行&#8230;</string>
+    <string name="text_ok">OK</string>
+    <string name="text_pick_from_album">從相冊中選擇</string>
+    <string name="text_notification">提醒</string>
+
+    <string name="input_password_and_continue">輸入密碼</string>
+    <string name="share_message_chooser">選擇分享方式</string>
+
+    <plurals name="assignments_number">
+        <item quantity="other">%d 個任務</item>
+    </plurals>
+    <plurals name="attachments_number">
+        <item quantity="other">%d 個附件</item>
+    </plurals>
+    <!--capture screen-->
+    <string name="empty_list_to_capture">要截圖的列表爲空</string>
+    <string name="capture_list">截圖</string>
+    <string name="capturing">正在截圖&#8230;</string>
+    <!--endregion-->
+
+    <!--region menu items-->
+    <string name="drawer_menu_today">今天</string>
+    <string name="drawer_menu_categories">清單</string>
+    <string name="drawer_menu_calendar">日曆</string>
+    <string name="drawer_menu_notices">提醒</string>
+    <string name="drawer_menu_setting">設置</string>
+    <string name="drawer_menu_trash">垃圾箱</string>
+    <string name="drawer_menu_archive">歸檔</string>
+    <string name="drawer_menu_sync">同步</string>
+    <string name="drawer_menu_category">清單</string>
+    <!--endregion-->
+
+    <!--region attachment-->
+    <string name="failed_to_create_file">創建文件失敗</string>
+    <string name="storage_not_available">存儲空間不可用</string>
+    <string name="failed_to_save_attachment">保存文件失敗</string>
+    <string name="add_attachment">添加附件</string>
+
+    <string name="attachment_type_files">文件</string>
+    <string name="attachment_type_images">圖片</string>
+    <string name="attachment_type_videos">視頻</string>
+    <string name="attachment_type_recordings">錄音</string>
+    <string name="attachment_type_sketches">手寫</string>
+
+    <string name="album">相冊</string>
+    <string name="net_image_link">圖片鏈接</string>
+    <string name="file">文件</string>
+    <string name="create">創建</string>
+    <string name="take_a_photo">拍照</string>
+    <string name="sound_record">錄音</string>
+    <string name="take_video">拍攝視頻</string>
+    <string name="sketch">手寫</string>
+
+    <string name="activity_not_found_to_resolve">沒有可用的應用</string>
+    <string name="use_to_open">用&#8230;打開</string>
+    <string name="information">信息</string>
+    <string name="failed_when_play_audio">播放音頻的時候發生錯誤</string>
+    <string name="failed_to_resolve_intent">解析意圖失敗</string>
+
+    <string name="confirm_to_clear_bitmap">確認清空圖片？</string>
+    <string name="stroke">寬度</string>
+    <string name="opacity">透明度</string>
+    <string name="saturation">飽和度</string>
+    <string name="file_not_exist">沒有找到文件</string>
+
+    <string name="text_export">導出</string>
+    <string name="text_export_image">導出圖片</string>
+    <string name="text_export_text">導出文本</string>
+    <string name="text_export_html">導出HTML</string>
+    <string name="text_export_pdf">導出PDF</string>
+
+    <string name="text_share">分享</string>
+    <string name="text_share_image">分享圖片</string>
+    <string name="text_share_text">分享文本</string>
+    <string name="text_share_html">分享HTML</string>
+
+    <string name="openas">作爲&#8230;打開</string>
+    <string name="text">文本</string>
+    <string name="audio">音頻</string>
+    <string name="video">視頻</string>
+    <string name="image">圖片</string>
+    <string name="other">其他</string>
+    <!--endregion-->
+
+    <!--region alarm and time-->
+    <string name="pick_alarm_type">選擇鬧鍾類型</string>
+    <string name="one_shot">響鈴一次</string>
+    <string name="every_day">每天</string>
+    <string name="every_weekday">工作日 (周一 - 周五)</string>
+    <string name="every_weekend">周末 (周六 &amp; 周日)</string>
+    <string name="custom_by_week">按周自定義</string>
+    <string name="custom_by_month">按月自定義</string>
+    <string name="clear_reminder">清除提醒</string>
+    <string name="day_concat">,</string>
+    <string name="from">從</string>
+    <string name="to">到</string>
+    <string name="at">在</string>
+    <string name="until">直到</string>
+
+    <string name="today_with_date">今天 | %s</string>
+    <string name="tomorrow_with_date">明天 | %s</string>
+    <string name="day_after_tomorrow_with_date">後天 | %s</string>
+    <string name="this_friday_with_date">本周五 | %s</string>
+    <string name="this_sunday_with_date">本周日 | %s</string>
+    <string name="next_monday_with_date">下周一 | %s</string>
+    <string name="clear_date">清除日期</string>
+
+    <string name="notice_time">提醒時間</string>
+    <string name="today_date_time">今天 (%s)</string>
+    <string name="morning_with_time">早上 (9:00 AM)</string>
+    <string name="noon_with_time">中午 (12:00 PM)</string>
+    <string name="afternoon_with_time">下午 (3:00 PM)</string>
+    <string name="evening_with_time">傍晚 (6:00 PM)</string>
+    <string name="night_with_time">晚上 (9:00 PM)</string>
+    <string name="clear_time">清除時間</string>
+
+    <string name="custom">自定義&#8230;</string>
+
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="saturday">星期六</string>
+    <string name="sunday">星期日</string>
+
+    <string name="set_weeks">設置周次</string>
+    <string name="week_required">需要指定周次信息</string>
+
+    <string name="one_assignment_marked_as_done">1個任務被標記爲完成</string>
+    <string name="remind_in_minutes">%d分鍾後再提醒</string>
+    <string name="will_be_reminded_in_minutes">將在%d分鍾之後再提醒</string>
+    <string name="mark_as_done">標記爲完成</string>
+    <string name="text_dismiss">關閉</string>
+    <!--endregion-->
+
+    <!--region user info page-->
+    <string name="user_info_click_to_see_personal_info">個人信息</string>
+    <string name="user_info">用戶信息</string>
+    <string name="school">學校|公司</string>
+    <string name="major">專業|職位</string>
+    <string name="timeline">時間線</string>
+    <string name="statistic">數據統計</string>
+    <string name="not_login_click_to_login">未登錄·點擊登錄</string>
+    <string name="login_and_get_storage">登錄以獲取雲存儲空間</string>
+    <string name="storage_left_monthly">本月剩余存儲容量</string>
+    <string name="storage_left_and_click_grant_tips">剩余%dMB,點擊獲取更多存儲空間</string>
+    <string name="not_login_try_after_login">未登錄，請登錄後再次嘗試</string>
+    <string name="timeline_detail">最近都做了什麽</string>
+    <string name="statistic_of_this_week">本周的數據統計</string>
+    <string name="activities_in_seven_days">最近7天添加的筆記</string>
+    <string name="logout">退出登錄</string>
+
+    <string name="statistic_activities">最近7天</string>
+    <string name="statistic_title_activities">最近7天添加的筆記和小紙條</string>
+    <string name="statistic_models_added">添加的數據實體</string>
+    <string name="statistic_title_models_added">添加的數據實體的統計結果</string>
+    <string name="statistic_attachments_added">添加的附件</string>
+    <string name="statistic_title_attachments_added">添加的附件的統計結果</string>
+
+    <string name="no_more_data">沒有更多數據了&#8230;</string>
+    <string name="no_activity_in_timeline">您的時間線上沒有活動</string>
+    <string name="no_activity_in_timeline_sub">開始安排自己的日程多功能清單會在這裏展示你在應用中的每個重要瞬間</string>
+    <!--endregion-->
+
+    <!--region intro page-->
+    <string name="intro_1_title">歡迎使用 %s</string>
+    <string name="intro_1_description">感謝您使用 %s\n一款幫助您管理日程\n提升工作效率\n的多功能清單應用</string>
+    <string name="intro_2_title">管理</string>
+    <string name="intro_2_description">使用顔色和漂亮的圖標\n管理自己的任務</string>
+    <string name="intro_3_title">多彩</string>
+    <string name="intro_3_description">日夜主題\n13種主色調 16種強調色</string>
+    <string name="intro_4_title">媒體</string>
+    <string name="intro_4_description">手寫 圖片 拍照 視頻\n音頻 文件 位置\nhtml markdown pdf</string>
+    <string name="intro_5_title">探索</string>
+    <string name="intro_5_description">語音識別 日曆\n以及其他有趣的特性\n開始探索多功能清單吧&#8230;</string>
+    <string name="intro_6_title">祝您使用愉快</string>
+    <string name="intro_6_description">加入社區！</string>
+    <!--endregion introduction-->
+
+    <!--region notice-->
+    <string name="dialog_notice_content_part1">用戶你好！<![CDATA[<br/><br/>]]>由于時間限制仍然多功能清單有許多不足。我們邀請你來一起完善：</string>
+    <string name="dialog_notice_content_part2">1.如果你喜歡多功能清單你可以在<![CDATA[<b>“設置->關于程序->翻譯”</b> ]]>中協助開發者將多功能清單翻譯成其他語言，或者在應用商店給該應用好評。</string>
+    <string name="dialog_notice_content_part3">2.如果你有其他的需求想要實現，或者對多功能清單的功能有不滿意的地方，可以通過<![CDATA[<b>Google+社區、Twitter、Weibo或者直接郵件</b>]]>的方式與開發者討論需求。</string>
+    <string name="dialog_notice_content_part4">3.如果你發現了多功能清單中存在BUG和意外崩潰，可以在<![CDATA[<b>“設置->信息反饋”</b>]]>或者<![CDATA[<b>直接郵件開發者</b>]]>進行反饋。</string>
+    <string name="dialog_notice_content_part5">4.多功能清單會在後續推出一些新的功能和特性，如果你喜歡該應用，可以在<![CDATA[<b>“設置->支持開發”</b>]]>中支持程序的開發。</string>
+    <string name="dialog_notice_content_part6">5.另外，你也可以通過<![CDATA[<b>Google+社區、Twitter和Weibo</b>]]>獲取程序開發的最新動態，並可以參與測試。</string>
+    <string name="dialog_notice_content_part7">請給予多功能清單更多的耐心，我們會努力做得更好。<![CDATA[<br/><br/>]]>最後，祝你使用愉快！</string>
+    <!--endregion-->
+
+    <!--region enums-->
+    <string name="model_name_none">未知</string>
+    <string name="model_name_alarm">鬧鍾</string>
+    <string name="model_name_category">清單</string>
+    <string name="model_name_attachment">附件</string>
+    <string name="model_name_assignment">任務</string>
+    <string name="model_name_sub_assignment">子任務</string>
+    <string name="model_name_location">位置</string>
+    <string name="model_name_timeline">時間線</string>
+    <string name="model_name_weather">天氣</string>
+
+    <string name="operation_none">未知</string>
+    <string name="operation_added">添加了</string>
+    <string name="operation_modified">修改了</string>
+    <string name="operation_deleted">刪除了</string>
+    <string name="operation_completed">完成了</string>
+    <string name="operation_trashed">丟棄了</string>
+    <string name="operation_recover">恢複了</string>
+    <string name="operation_archived">歸檔了</string>
+    <string name="operation_synced">同步了</string>
+    <string name="operation_uncompleted">重置了</string>
+
+    <string name="priority_level_01">不重要|不緊急</string>
+    <string name="priority_level_02">不重要|緊急</string>
+    <string name="priority_level_03">重要|不緊急</string>
+    <string name="priority_level_04">重要|緊急</string>
+    <!--endregion -->
+
+    <!--region fab options-->
+    <string name="fab_opt_assignment">任務</string>
+    <string name="fab_opt_category">清單</string>
+    <string name="fab_opt_capture">拍照</string>
+    <string name="fab_opt_file">文件</string>
+    <string name="fab_opt_draft">手寫</string>
+    <string name="fab_opt_link">鏈接</string>
+    <string name="fab_opt_record">錄音</string>
+    <string name="fab_opt_notice">提醒</string>
+    <string name="fab_quick_assignment">快速創建</string>
+
+    <string name="fab_sort_custom_fab">自定義浮動按鈕</string>
+    <string name="fab_sort_custom">自定義&#8230;</string>
+    <string name="fab_sort_custom_fab_tip">拖動尾部的按鈕進行排序，排在前面的5個按鈕會被添加到浮動按鈕菜單中進行顯示。</string>
+    <string name="fab_sort_save">保存修改</string>
+    <string name="fab_sort_save_or_lose">保存或則放棄你對浮動按鈕菜單所作的修改。</string>
+    <string name="fab_sort_save_successfully">成功保存浮動菜單的設置</string>
+    <!--endregion-->
+    <!--endregion-->
+
+    <!--region business-->
+    <!--region business.category-->
+    <string name="pick_category">選擇清單</string>
+    <string name="no_category_available">沒有可用的清單</string>
+    <string name="edit_category">編輯清單</string>
+    <string name="category_name">清單名稱</string>
+    <string name="pick_portrait">選擇圖標</string>
+    <string name="pick_category_color">選擇圖標顔色</string>
+    <string name="category_delete_message">刪除清單會同時刪除與其相關的任務</string>
+    <string name="category_list_empty">清單列表爲空</string>
+    <string name="category_list_empty_sub_normal">點擊主界面的 + 按鈕添加清單</string>
+    <string name="category_list_empty_sub_archived">沒有發現歸檔的清單</string>
+    <string name="category_list_empty_sub_trashed">沒有在垃圾箱中發現清單</string>
+
+    <string name="text_filter">過濾</string>
+    <string name="text_show_completed">顯示已完成的任務</string>
+    <string name="text_hide_completed">隱藏已完成的任務</string>
+    <!--endregion-->
+
+    <!--region business.assignments-->
+    <string name="default_assignment_title">無標題日程 %s</string>
+
+    <string name="add_assignments">添加日程安排&#8230;</string>
+    <string name="touch_and_speak">按住說話</string>
+    <string name="baidu_speech_support">語音識別技術由百度提供</string>
+    <string name="listening">正在聽&#8230;</string>
+    <string name="recognizing">正在識別&#8230;</string>
+    <string name="move_up_to_cancel">手指上劃，取消識別。</string>
+    <string name="release_to_cancel">手指松開，取消識別。</string>
+
+    <string name="error_audio">音頻問題</string>
+    <string name="error_speech_timeout">沒有語音輸入</string>
+    <string name="error_client">其它客戶端錯誤</string>
+    <string name="error_insufficient_permissions">權限不足</string>
+    <string name="error_network">網絡問題</string>
+    <string name="error_no_match">沒有匹配的識別結果</string>
+    <string name="error_recognizer_busy">引擎忙</string>
+    <string name="error_server">服務端錯誤</string>
+    <string name="error_network_timeout">連接超時</string>
+    <string name="recognize_successfully">識別成功</string>
+    <string name="recognize_failed">識別失敗</string>
+
+    <string name="no_assignments_found">沒有發現任務</string>
+    <string name="assignments_empty_list_sub_normal">點擊 + 按鈕，文本框輸入或點擊話筒語音錄入</string>
+    <string name="assignments_empty_list_sub_archived">沒有發現歸檔的任務</string>
+    <string name="assignments_empty_list_sub_trashed">沒有在垃圾箱中發現任務</string>
+
+    <string name="text_no_such_assignment">沒有找到該任務</string>
+
+    <string name="add_labels">添加標簽</string>
+    <string name="add_location">添加位置信息</string>
+    <string name="illegal_label">標簽中不允許添加分號(;)</string>
+    <string name="total_labels_too_long">標簽總長度超出範圍</string>
+
+    <string name="set_overdue_reason_detail">添加未完成原因詳情</string>
+    <string name="set_date_and_notifications">設置日期與提醒</string>
+    <string name="sure_to_remove_alarm">確定移除該鬧鍾？</string>
+    <string name="alarm_is_removed">鬧鍾被移除</string>
+    <string name="add_sub_assignment">添加子任務</string>
+    <string name="click_to_add_title">點擊添加標題</string>
+    <string name="click_to_add_comments">點擊添加備注</string>
+    <string name="click_to_add_content">點擊添加內容</string>
+
+    <string name="attachment_list_empty">沒有關聯的附件</string>
+
+    <string name="failed_to_record">錄制音頻失敗</string>
+    <string name="no_available_application_to_resolve_intent">沒有找到可以打開的應用</string>
+    <string name="arrive_max_attachments_number">已經達到能夠加入的附件的最大數量</string>
+    <string name="recording">正在錄制音頻&#8230;</string>
+    <string name="recorded">錄制完成</string>
+    <string name="rate">設置優先級</string>
+
+    <string name="pick_one_from_four_priorities">從四個優先級中選擇一個</string>
+
+    <string name="edit_title">編輯標題</string>
+    <string name="edit_comment">編輯備注</string>
+    <string name="edit_sub_assignment">編輯子任務</string>
+    <string name="pick_sub_type">類型：</string>
+    <string name="item_todo">任務</string>
+    <string name="item_note">筆記</string>
+    <string name="item_note_with_portrait">筆記（帶圖標）</string>
+
+    <string name="sub_assignment_delete_msg">刪除子任務？</string>
+    <string name="assignment_trash_msg">把子任務放進垃圾箱？</string>
+    <string name="assignment_archive_msg">歸檔子任務？</string>
+    <string name="assignment_move_out_msg">移除子任務？</string>
+
+    <string name="text_overdue">未完成</string>
+    <string name="text_today">今天</string>
+    <string name="no_task_in_given_day">沒有該做的任務</string>
+    <string name="no_task_in_given_day_sub">使用多功能清單安排你的任務</string>
+    <string name="today_list_empty">今天沒有要做的任務</string>
+    <string name="today_list_empty_sub">好好享受自己的清閑時間</string>
+    <!--endregion-->
+
+    <!--region business.search-->
+    <string name="include_tags">包含標簽</string>
+    <string name="include_archived">包含歸檔</string>
+    <string name="include_trashed">包含垃圾箱</string>
+    <string name="search_by_conditions">搜索 &#8230;</string>
+    <string name="no_search_result_found">沒有找到結果</string>
+    <string name="try_other_conditions">換個搜索條件，再試一下</string>
+    <!--endregion-->
+
+    <!--region widget-->
+    <string name="text_configuration">設置</string>
+    <string name="widget_list_options">列表選項</string>
+    <string name="text_show">顯示</string>
+    <string name="widget_list_type_overdue">未完成</string>
+    <string name="widget_list_type_category">指定清單的任務</string>
+    <string name="widget_select_category_tips">選擇清單</string>
+    <string name="widget_category_required">需要指定清單</string>
+    <string name="widget_pick_category_at_first">需要先指定清單</string>
+    <string name="widget_filter_options">過濾選項</string>
+    <string name="widget_show_completed">顯示已完成的任務</string>
+    <string name="quick_edit_assignment">編輯任務</string>
+    <!--endregion-->
+    <!--endregion-->
+
+    <!--region setting-->
+    <string name="setting_universal">通用</string>
+
+    <!--region setting.preferences-->
+    <string name="setting_preferences">偏好</string>
+    <string name="setting_preferences_sub">自定義偏好</string>
+    <string name="setting_system_animation">系統動畫</string>
+    <string name="setting_system_animation_sub">在整個應用中啓用系統動畫</string>
+    <string name="setting_list_animation">列表動畫</string>
+    <string name="setting_list_animation_sub">在整個應用中啓用列表動畫</string>
+    <string name="setting_is_24_hour_mode">使用24小時制</string>
+    <string name="setting_is_24_hour_mode_sub">在整個應用中啓用24小時制</string>
+
+    <string name="video_limit">視頻文件大小上限</string>
+    <string name="setting_video_limit_size">設置視頻附件的大小上限</string>
+    <string name="setting_video_limit_size_sub">設置視頻附件的大小上限爲%dMB</string>
+    <string name="video_limit_input_hint">輸入視頻大小上限(MB)</string>
+
+    <string name="auto_compress_image_title">自動壓縮圖片</string>
+    <string name="auto_compress_image_sub_title">壓縮後的圖片可以節省大量的存儲空間和上傳流量</string>
+    <!--endregion-->
+
+    <!--region setting.security-->
+    <string name="setting_data_security">數據安全</string>
+    <string name="setting_data_security_sub">添加應用獨立鎖</string>
+
+    <string name="setting_password_required">啓用獨立密碼</string>
+    <string name="setting_password_required_sub">需要輸入密碼才能訪問應用</string>
+    <string name="setting_set_password">設置獨立密碼</string>
+    <string name="setting_set_password_sub">設置訪問應用需要的獨立密碼</string>
+    <string name="setting_password_freeze">設置密碼凍結時長</string>
+    <string name="setting_password_freeze_sub">設置連續輸入錯誤之後的密碼凍結時長</string>
+    <string name="setting_input_password_again">再次輸入</string>
+    <string name="setting_input_wrong_password">密碼錯誤，你還有%d次機會</string>
+    <string name="setting_input_password_newly">輸入新密碼</string>
+    <string name="setting_password_frozen_minutes">密碼被凍結，請于%d分鍾後再次嘗試.</string>
+    <string name="setting_password_frozen">密碼處于凍結狀態，你可以通過回答密保問題來禁用密碼校驗。</string>
+    <string name="setting_answer_question">密保問題</string>
+    <string name="setting_wrong_answer">答案錯誤</string>
+    <string name="setting_disable_password">你已經通過了密保問題。密碼校驗邏輯已經關閉。你可以在設置中修改密碼。</string>
+    <string name="setting_security_question">密保問題</string>
+    <string name="setting_security_question_sub">忘記密碼的時候使用的密保問題</string>
+    <string name="text_question">問題</string>
+    <string name="text_answer">答案</string>
+    <string name="text_confirm_answer">確認答案</string>
+    <string name="setting_answer_different">錯誤：兩次輸入的結果不一致</string>
+    <string name="setting_question_required">需要輸入密保問題</string>
+    <string name="setting_answer_required">需要輸入密保答案</string>
+    <string name="setting_confirm_answer_required">需要再次輸入密保答案</string>
+
+    <string name="wrong_numeric_string">輸入的數字包含非法字符</string>
+    <string name="input_the_freeze_minutes_in_minute">輸入凍結時間(0至30分鍾)</string>
+    <string name="freeze_time_too_long">設置的時間過長</string>
+    <string name="illegal_number">不合法的數字</string>
+
+    <string name="setting_no_security_question_message">你還沒有設置密保問題，爲防止忘記密碼，請設置密保問題。</string>
+    <!--endregion-->
+
+    <!--region setting.feedback-->
+    <string name="feedback">反饋</string>
+    <string name="email_to_find_you">可以聯系到你的郵箱</string>
+    <string name="details">詳情</string>
+    <string name="connect_email_required">需要聯系郵箱</string>
+    <string name="details_required">需要詳情信息</string>
+    <string name="illegal_email_format">郵箱格式不合法</string>
+
+    <string name="feedback_types">反饋類型</string>
+    <string name="feedback_email_to_find_you">可以聯系到你的郵箱</string>
+    <string name="feedback_details">詳情</string>
+    <string name="feedback_connect_email_required">需要聯系郵箱</string>
+    <string name="feedback_details_required">需要詳情信息</string>
+    <string name="feedback_illegal_email_format">郵箱格式不合法</string>
+
+    <string name="feedback_abrupt_crash">意外崩潰</string>
+    <string name="feedback_function_improvement">功能改善</string>
+    <string name="feedback_function_requirement">功能需求</string>
+    <!--endregion-->
+
+    <!--region setting.assignment-->
+    <string name="setting_assignment">任務</string>
+    <string name="setting_assignment_sub">自定義任務的行爲</string>
+    <string name="setting_assignment_list_slide_left">任務清單左側滑動</string>
+    <string name="setting_assignment_list_slide_right">任務清單右側滑動</string>
+    <string name="setting_show_assignment_completed">顯示已完成的任務</string>
+    <string name="setting_show_assignment_completed_sub">勾選之後將顯示已完成的任務</string>
+    <!--endregion-->
+
+    <!--region setting.notification-->
+    <string name="setting_notification">通知</string>
+    <string name="setting_notification_sub">自定義你的通知行爲</string>
+
+    <string name="vibration">振動</string>
+    <string name="vibration_options_sub">彈出通知時允許振動提示</string>
+    <string name="ringtone">鈴聲</string>
+    <string name="ringtone_sub">選擇或者關閉彈出通知時的鈴聲</string>
+    <string name="pick_notification_ringtone">選擇通知提示音</string>
+    <string name="notification_postpone">通知延時</string>
+    <string name="notification_postpone_sub">設置按下延時之後的延時時間</string>
+    <string name="snooze_minutes">睡眠時間</string>
+    <string name="input_the_snooze_minutes_in_minute">輸入睡眠時間(分鍾)</string>
+    <string name="snooze_time_too_long">睡眠時間過長</string>
+    <!--endregion-->
+
+    <!--region setting.backup-->
+    <string name="setting_backup">備份</string>
+    <string name="setting_backup_sub">導入導出和同步數據</string>
+
+    <string name="backup_to_external_storage">備份到手機外部存儲空間</string>
+    <string name="backup_to_external_storage_sub">備份在手機外部存儲空間的數據在應用被卸載的時候不會被刪除</string>
+    <string name="backup_import_from_external_storage">從手機外部存儲空間導入</string>
+    <string name="backup_import_from_external_storage_sub">導入手機外部存儲空間中備份的數據</string>
+
+    <string name="backup_include_settings">包括設置（帶密碼）</string>
+    <string name="backup_data_export_message">輸入備份名稱</string>
+    <string name="backup_data_export_name_empty">輸入的名稱爲空，將使用默認名稱</string>
+    <string name="backup_no_backups_available">無可用備份</string>
+    <string name="backup_data_import_message">導入備份</string>
+    <string name="backup_data_import_message_warning">警告：此操作將覆蓋所有當前數據！</string>
+    <string name="backup_data_export_completed">數據備份完成</string>
+    <string name="backup_backup_existing">備份已存在，該備份將被覆蓋</string>
+
+    <string name="backup_confirm_restoring_backup">確認還原備份</string>
+    <string name="backup_settings_included">設置已包括</string>
+
+    <string name="backup_confirm_removing_backup">確認刪除備份</string>
+    <string name="backup_data_delete_message">刪除備份</string>
+    <string name="backup_data_deletion_completed">數據刪除完成</string>
+    <string name="backup_no_backup_data_selected">沒有選中的備份</string>
+
+    <string name="backup_data_import_completed">數據導入完成</string>
+    <string name="backup_click_to_refresh_application">點擊刷新應用</string>
+
+    <string name="backup_no_backups_to_delete">沒有備份數據</string>
+    <string name="backup_delete_external_backup">刪除外部存儲的備份數據</string>
+    <string name="backup_delete_external_backup_sub">刪除備份在外部存儲空間的數據</string>
+
+    <string name="text_external_storage">外部存儲</string>
+    <string name="text_one_drive">OneDrive</string>
+    <string name="one_drive_backup_title">連接 OneDrive</string>
+    <string name="one_drive_backup_sub_title">登錄 OneDrive 以同步文件</string>
+    <string name="sign_out_one_drive">登出 OneDrive</string>
+    <string name="sign_out_one_drive_sub">登出 OneDrive 停止同步</string>
+    <string name="one_drive_backup_folder">當前同步的文件ID是 %1$s</string>
+    <string name="text_error">錯誤</string>
+    <string name="text_successfully_logout">成功登出</string>
+    <string name="backup_only_wifi">只在 WiFi 環境下進行同步</string>
+    <string name="backup_only_wifi_sub">勾選則只在 WiFi 環境下進行同步</string>
+    <string name="backup_time_interval">同步的時間間隔</string>
+    <string name="text_sync_settings">同步設置</string>
+    <string name="failed_query_sync_cloud">未知的錯誤類型！</string>
+    <string name="text_done">完成</string>
+    <string name="text_folder_explore">選擇同步的文件夾</string>
+    <string name="text_no_more_folders">沒有更多可選文件夾了</string>
+    <string name="text_please_wait">請等待&#8230;</string>
+    <string name="text_sing_out">登出</string>
+    <string name="error_when_try_to_backup">當同步到 %1$s 的時候發生了錯誤</string>
+    <string name="backup_dir_selected_message">成功地設置了同步的文件夾</string>
+    <string name="pick_backup_directory_message">進入你想要同步的文件夾，然後選擇 \"完成\".</string>
+    <string name="available_directory_found">在當前的文件夾中發現了可用的 \"OmniList\". 你可以按下 \"完成\" 來完成選擇。</string>
+    <string name="login_drive_message">請登錄你的 OneDrive 賬號後再次嘗試</string>
+    <string name="text_syncing">正在同步&#8230;</string>
+    <string name="synchronize_path_changed_message">系統檢測到你更換了備份目錄，所有的同步狀態都將會被清理掉，這意味著會重新對所有的文件進行同步。這可能需要一定的時間才能完成。</string>
+
+    <string name="sync_every_15_minutes">每隔 15 分鍾</string>
+    <string name="sync_every_30_minutes">每隔 30 分鍾</string>
+    <string name="sync_every_hour">每小時</string>
+    <string name="sync_every_2_hours">每隔 2 小時</string>
+    <string name="sync_every_6_hours">每隔 6 小時</string>
+    <string name="sync_every_12_hours">每隔 12 小時</string>
+    <string name="sync_every_day">每天</string>
+    <!--endregion-->
+
+    <!--region setting.theme-->
+    <string name="setting_personalize_dashboard">個性化主界面</string>
+    <string name="setting_personalize_dashboard_sub">裝飾主界面的抽屜</string>
+    <string name="setting_dashboard_user_info_bg_visible">使用背景圖片</string>
+    <string name="setting_dashboard_user_info_bg_visible_sub">勾選在主界面的抽屜中使用背景圖片</string>
+    <string name="setting_dashboard_user_info_bg">背景圖片</string>
+    <string name="setting_dashboard_user_info_bg_sub">設置主界面中顯示的背景圖</string>
+    <string name="setting_dashboard_user_motto">座右銘</string>
+    <string name="setting_dashboard_user_motto_sub">設置用于主界面顯示的文字</string>
+    <string name="setting_dashboard_user_motto_default">歡迎使用 馬克筆記</string>
+
+    <string name="setting_theme">應用主題</string>
+    <string name="setting_dark_theme">夜間主題</string>
+    <string name="setting_dark_theme_sub">將整個程序的主題設置成暗色調的</string>
+    <string name="setting_primary_color">主色調</string>
+    <string name="setting_primary_color_sub">應用到整個程序的主要色彩</string>
+    <string name="setting_accent_color">強調色調</string>
+    <string name="setting_accent_color_sub">設置主界面及其他組件所需的強調色</string>
+
+    <string name="select_accent_color">選擇強調色彩</string>
+    <string name="my_youth">活力</string>
+    <string name="noble">質樸</string>
+
+    <string name="setting_colored_navigation_bar">彩色導航欄</string>
+    <string name="setting_colored_navigation_bar_sub">切換導航欄顔色</string>
+    <!--endregion-->
+
+    <!--region setting.help-->
+    <string name="setting_help">幫助</string>
+    <string name="setting_online_user_guide">用戶手冊</string>
+    <string name="setting_online_user_guide_sub">獲取用戶使用手冊</string>
+    <string name="setting_user_intro">用戶導引</string>
+    <string name="setting_user_intro_sub">再次顯示用戶導引</string>
+    <string name="show_introduction_again">再次顯示用戶導引頁？</string>
+    <!--endregion-->
+
+    <!--region setting.other-->
+    <string name="setting_others">其他設置</string>
+    <string name="setting_support_development">支持開發</string>
+    <string name="setting_support_development_sub">你的支持將被用來向程序中增加新的特性</string>
+    <string name="setting_feedback">信息反饋</string>
+    <string name="setting_feedback_sub">幫助開發者把程序做得更好</string>
+    <string name="setting_about">關于程序</string>
+    <string name="setting_about_sub">與程序有關的詳細信息</string>
+
+    <string name="app_info">程序信息</string>
+    <string name="app_description">一款基于Material Design的任務管理和筆記應用</string>\
+    <string name="help_development">協助開發</string>
+    <string name="translation">翻譯</string>
+    <string name="translate_to_other_languages">將%s翻譯成其他語言</string>
+    <string name="rating">評分</string>
+    <string name="give_good_rating_if_you_like">如果你喜歡%s，就給我們個好評</string>
+    <string name="thanks">特別感謝</string>
+    <string name="thanks_details">百度地圖提供的定位相關API\n百度語音提供的語音識別API\n您選擇使用本應用</string>
+    <string name="developer_and_license">開發者&amp;許可證</string>
+    <string name="developers">設計者&amp;開發者</string>
+    <string name="developer_name">WngShhng (shouheng2015@gmail.com)</string>
+    <string name="open_source_libraries_permissions">開源庫許可</string>
+    <string name="view_third_part_libraries">查看使用的第三方庫</string>
+    <string name="changelog">更新日志</string>
+    <string name="changelog_sub_title">顯示程序的更新日志</string>
+    <!--endregion-->
+    <!--endregion-->
+</resources>
