@@ -258,8 +258,8 @@
     <!--endregion introduction-->
     
     <!--region notice-->
-    <string name="dialog_notice_content_part1">用户你好！<![CDATA[<br/><br/>]]>由于时间限制仍然多功能清单有许多不足。我们邀请你来一起完善：</string>
-    <string name="dialog_notice_content_part2">1.如果你喜欢多功能清单你可以在<![CDATA[<b>“设置->关于程序->翻译”</b> ]]>中协助开发者将多功能清单翻译成其他语言，或者在应用商店给该应用好评。</string>
+    <string name="dialog_notice_content_part1">用户你好！<![CDATA[<br/><br/>]]>由于时间限制，多功能清单仍然有许多不足。我们邀请你来一起完善：</string>
+    <string name="dialog_notice_content_part2">1.如果你喜欢多功能清单，你可以在<![CDATA[<b>“设置->关于程序->翻译”</b> ]]>中协助开发者将多功能清单翻译成其他语言，或者在应用商店给该应用好评。</string>
     <string name="dialog_notice_content_part3">2.如果你有其他的需求想要实现，或者对多功能清单的功能有不满意的地方，可以通过<![CDATA[<b>Google+社区、Twitter、Weibo或者直接邮件</b>]]>的方式与开发者讨论需求。</string>
     <string name="dialog_notice_content_part4">3.如果你发现了多功能清单中存在BUG和意外崩溃，可以在<![CDATA[<b>“设置->信息反馈”</b>]]>或者<![CDATA[<b>直接邮件开发者</b>]]>进行反馈。</string>
     <string name="dialog_notice_content_part5">4.多功能清单会在后续推出一些新的功能和特性，如果你喜欢该应用，可以在<![CDATA[<b>“设置->支持开发”</b>]]>中支持程序的开发。</string>
@@ -279,15 +279,15 @@
     <string name="model_name_weather">天气</string>
 
     <string name="operation_none">未知</string>
-    <string name="operation_added">添加了</string>
-    <string name="operation_modified">修改了</string>
-    <string name="operation_deleted">删除了</string>
-    <string name="operation_completed">完成了</string>
-    <string name="operation_trashed">丢弃了</string>
-    <string name="operation_recover">恢复了</string>
-    <string name="operation_archived">归档了</string>
-    <string name="operation_synced">同步了</string>
-    <string name="operation_uncompleted">重置了</string>
+    <string name="operation_added">新增</string>
+    <string name="operation_modified">修改</string>
+    <string name="operation_deleted">删除</string>
+    <string name="operation_completed">完成</string>
+    <string name="operation_trashed">丢弃</string>
+    <string name="operation_recover">恢复</string>
+    <string name="operation_archived">归档</string>
+    <string name="operation_synced">同步</string>
+    <string name="operation_uncompleted">重置</string>
 
     <string name="priority_level_01">不重要|不紧急</string>
     <string name="priority_level_02">不重要|紧急</string>
@@ -515,8 +515,8 @@
     <!--region setting.assignment-->
     <string name="setting_assignment">任务</string>
     <string name="setting_assignment_sub">自定义任务的行为</string>
-    <string name="setting_assignment_list_slide_left">任务清单左侧滑动</string>
-    <string name="setting_assignment_list_slide_right">任务清单右侧滑动</string>
+    <string name="setting_assignment_list_slide_left">任务清单左侧滑动的行为</string>
+    <string name="setting_assignment_list_slide_right">任务清单右侧滑动的行为</string>
     <string name="setting_show_assignment_completed">显示已完成的任务</string>
     <string name="setting_show_assignment_completed_sub">勾选之后将显示已完成的任务</string>
     <!--endregion-->
@@ -615,7 +615,7 @@
     <string name="setting_dashboard_user_info_bg_sub">设置主界面中显示的背景图</string>
     <string name="setting_dashboard_user_motto">座右铭</string>
     <string name="setting_dashboard_user_motto_sub">设置用于主界面显示的文字</string>
-    <string name="setting_dashboard_user_motto_default">欢迎使用 马克笔记</string>
+    <string name="setting_dashboard_user_motto_default">欢迎使用 多功能清单</string>
 
     <string name="setting_theme">应用主题</string>
     <string name="setting_dark_theme">夜间主题</string>
