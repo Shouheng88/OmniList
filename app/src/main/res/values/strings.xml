@@ -283,14 +283,14 @@
     <string name="model_name_weather">Weather</string>
 
     <string name="operation_none">None</string>
-    <string name="operation_added">Added</string>
-    <string name="operation_modified">Modified</string>
-    <string name="operation_deleted">Deleted</string>
-    <string name="operation_completed">Completed</string>
-    <string name="operation_trashed">Trashed</string>
-    <string name="operation_recover">Recovered</string>
-    <string name="operation_archived">Archived</string>
-    <string name="operation_synced">Synced</string>
+    <string name="operation_added">Add</string>
+    <string name="operation_modified">Modify</string>
+    <string name="operation_deleted">Delete</string>
+    <string name="operation_completed">Complete</string>
+    <string name="operation_trashed">Trash</string>
+    <string name="operation_recover">Recover</string>
+    <string name="operation_archived">Archive</string>
+    <string name="operation_synced">Sync</string>
     <string name="operation_uncompleted">Uncompleted</string>
 
     <string name="priority_level_01">Unimportant|Not urgent</string>
