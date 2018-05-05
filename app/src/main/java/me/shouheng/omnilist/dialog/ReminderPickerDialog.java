@@ -81,6 +81,7 @@ public class ReminderPickerDialog extends DialogFragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
+        binding.spAlarmType.setSelection(getSelection());
 
         binding.oneShotLayout.tvOneShotDate.setOnClickListener(this::showDatePicker);
         binding.oneShotLayout.tvOneShotDate.setTextColor(ColorUtils.accentColor());
@@ -110,6 +111,22 @@ public class ReminderPickerDialog extends DialogFragment {
     private void setBuilder(Builder builder) {
         this.alarm = builder.alarm;
         this.onReminderPickedListener = builder.onReminderPickedListener;
+    }
+
+    private int getSelection() {
+        if (alarm.getAlarmType() == AlarmType.SPECIFIED_DATE) {
+            return 0;
+        }
+        if (alarm.getAlarmType() == AlarmType.WEEK_REPEAT) {
+            switch (alarm.getDaysOfWeek().getCoded()) {
+                case 127: return 1;
+                case 31: return 2;
+                case 96: return 3;
+                default: return 4;
+            }
+        }
+        /*Default selection*/
+        return 0;
     }
 
     private void switchLayoutToRepeat(boolean isRepeatMode) {
@@ -220,7 +237,7 @@ public class ReminderPickerDialog extends DialogFragment {
     private void onDatePicked(Date endDate) {
         switch (alarm.getAlarmType()) {
             case WEEK_REPEAT:
-            case DAILY:
+            case DAILY_REPORT:
                 alarm.setStartDate(TimeUtils.today());
                 alarm.setEndDate(endDate);
                 break;
