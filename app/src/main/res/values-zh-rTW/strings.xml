@@ -231,7 +231,7 @@
     <string name="logout">退出登錄</string>
 
     <string name="statistic_activities">最近7天</string>
-    <string name="statistic_title_activities">最近7天添加的筆記和小紙條</string>
+    <string name="statistic_title_activities">最近7天添加的筆記</string>
     <string name="statistic_models_added">添加的數據實體</string>
     <string name="statistic_title_models_added">添加的數據實體的統計結果</string>
     <string name="statistic_attachments_added">添加的附件</string>
