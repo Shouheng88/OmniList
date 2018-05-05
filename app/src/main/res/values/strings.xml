@@ -248,9 +248,9 @@
     <!--region intro page-->
     <string name="intro_1_title">Welcome to %s</string>
     <string name="intro_1_description">Thanks for using %s\nthe assignment arrangement application\nfor productivity\n and leisure note-taking</string>
-    <string name="intro_2_title">Control</string>
+    <string name="intro_2_title">Assignment</string>
     <string name="intro_2_description">Manage your assignment with\ncolorful and beautify icon</string>
-    <string name="intro_3_title">Color</string>
+    <string name="intro_3_title">Colorful</string>
     <string name="intro_3_description">Light and dark theme\n13 kinds of primary color\n16 kinds of accent color</string>
     <string name="intro_4_title">Media</string>
     <string name="intro_4_description">Work with sketch, picture, photo\n video, audio, file, location\nhtml, markdown, pdf</string>
