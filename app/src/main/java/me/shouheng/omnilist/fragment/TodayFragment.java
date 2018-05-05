@@ -128,7 +128,9 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
         getBinding().rvAssignments.setItemAnimator(new CustomItemAnimator());
         getBinding().rvAssignments.setLayoutManager(new LinearLayoutManager(getActivity()));
         getBinding().rvAssignments.setAdapter(mAdapter);
-        getBinding().rvAssignments.addOnScrollListener(scrollListener);
+        if (scrollListener != null) {
+            getBinding().rvAssignments.addOnScrollListener(scrollListener);
+        }
 
         ItemTouchHelper.Callback callback = new CustomItemTouchHelper(false, assignmentPreferences.isAssignmentSlideEnable(), mAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
