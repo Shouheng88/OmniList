@@ -88,7 +88,7 @@ public class AssignmentRepository extends BaseRepository<Assignment> {
             long todayEnd = TimeUtils.endToday().getTime();
             return getStore().get(AssignmentSchema.START_TIME + " <= " + todayEnd +
                     " AND " + AssignmentSchema.PROGRESS + " != " + Constants.MAX_ASSIGNMENT_PROGRESS,
-                    null, Status.NORMAL, false);
+                    AssignmentSchema.START_TIME + " DESC, " + AssignmentSchema.NOTICE_TIME, Status.NORMAL, false);
         }).execute();
         return result;
     }
