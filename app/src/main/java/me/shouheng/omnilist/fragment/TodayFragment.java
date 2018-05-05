@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import org.joda.time.DateTime;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -162,13 +164,17 @@ public class TodayFragment extends BaseFragment<FragmentTodayBinding> implements
     }
 
     private List<TodayAdapter.MultiItem> setupAssignments(List<Assignment> assignments) {
+        int week = new DateTime().getDayOfWeek();
+
         List<TodayAdapter.MultiItem> multiItems = new LinkedList<>();
         List<Assignment> today = new LinkedList<>();
         List<Assignment> overdue = new LinkedList<>();
 
         Date todayDate = TimeUtils.today();
         for (Assignment assignment : assignments) {
-            if (assignment.getEndTime().after(todayDate)) {
+            if (assignment.getEndTime().after(todayDate) &&
+                    (assignment.getDaysOfWeek().getCoded() == 0 ||
+                            (1 << (week - 1) & assignment.getDaysOfWeek().getCoded()) != 0)) {
                 today.add(assignment);
             } else {
                 overdue.add(assignment);
