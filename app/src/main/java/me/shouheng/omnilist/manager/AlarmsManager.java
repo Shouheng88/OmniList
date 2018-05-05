@@ -237,7 +237,7 @@ public class AlarmsManager {
 
         Calendar nextTime = Calendar.getInstance();
         switch (alarm.getAlarmType()){
-            case DAILY:
+            case DAILY_REPORT:
                 long tomorrow = TimeUtils.tomorrow().getTime();
                 nextTime.setTimeInMillis(tomorrow);
                 break;
