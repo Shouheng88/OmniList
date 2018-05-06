@@ -1,7 +1,10 @@
 package me.shouheng.omnilist.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -98,6 +101,8 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     private CategoryViewModel categoryViewModel;
 
+    private DataSetChangedReceiver dataSetChangedReceiver;
+
     private long onBackPressed;
 
     @Override
@@ -120,6 +125,8 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
 
         checkPassword();
+
+        regNoteChangeReceiver();
     }
 
     private void checkPassword() {
@@ -211,7 +218,15 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 Intent.ACTION_SEND,
                 Intent.ACTION_SEND_MULTIPLE,
                 Constants.INTENT_GOOGLE_NOW) && i.getType() != null) {
-            ContentActivity.resolveThirdPart(this, i, REQUEST_EDIT_ASSIGNMENT);
+            ToastUtils.makeToast(R.string.widget_pick_category_at_first);
+            CategoryPickerDialog.newInstance()
+                    .setOnItemSelectedListener((dialog, category, position) -> {
+                        Assignment assignment = ModelFactory.getAssignment();
+                        assignment.setCategoryCode(category.getCode());
+                        PermissionUtils.checkStoragePermission(this, () ->
+                                ContentActivity.resolveThirdPart(this, i, assignment));
+                        dialog.dismiss();
+                    }).show(getSupportFragmentManager(), "CATEGORY_PICKER");
         }
     }
     // endregion
@@ -568,6 +583,29 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) { }
+
+    // region register and unregister data set changed broadcast
+    private void regNoteChangeReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_DATA_SET_CHANGE_BROADCAST);
+        dataSetChangedReceiver = new DataSetChangedReceiver();
+        registerReceiver(dataSetChangedReceiver, filter);
+    }
+
+    private class DataSetChangedReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateListIfNecessary();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(dataSetChangedReceiver);
+    }
+    // endregion
 
     // region category fragment interaction
     @Override
