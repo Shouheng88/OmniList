@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
@@ -36,6 +37,7 @@ import me.shouheng.omnilist.manager.ModelHelper;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.tools.ModelFactory;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.FileHelper;
 import me.shouheng.omnilist.utils.IntentUtils;
 import me.shouheng.omnilist.utils.PrintUtils;
@@ -178,67 +180,77 @@ public class AssignmentViewFragment extends BaseFragment<FragmentAssignmentViewe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                new BottomSheet.Builder(getActivity())
-                        .setSheet(R.menu.share)
-                        .setTitle(R.string.text_share)
-                        .setListener(new BottomSheetListener() {
-                            @Override
-                            public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
-
-                            @Override
-                            public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
-                                switch (menuItem.getItemId()) {
-                                    case R.id.action_share_text:
-                                        ModelHelper.share(getContext(), assignment.getName(), mdText, attachments);
-                                        break;
-                                    case R.id.action_share_html:
-                                        outHtml(true);
-                                        break;
-                                    case R.id.action_share_image:
-                                        createWebCapture(getBinding().mdView, file -> ModelHelper.shareFile(getContext(), file, Constants.MIME_TYPE_IMAGE));
-                                        break;
-                                }
-                            }
-
-                            @Override
-                            public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
-                        })
-                        .show();
+                share();
                 break;
             case R.id.action_export:
-                new BottomSheet.Builder(getActivity())
-                        .setSheet(R.menu.export)
-                        .setTitle(R.string.text_export)
-                        .setListener(new BottomSheetListener() {
-                            @Override
-                            public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
-
-                            @Override
-                            public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
-                                switch (menuItem.getItemId()) {
-                                    case R.id.export_html:
-                                        // Export html
-                                        outHtml(false);
-                                        break;
-                                    case R.id.capture:
-                                        createWebCapture(getBinding().mdView, file -> ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), file.getPath())));
-                                        break;
-                                    case R.id.print:
-                                        PrintUtils.print(getContext(), getBinding().mdView, assignment.getName());
-                                        break;
-                                    case R.id.export_text:
-                                        outText(false);
-                                        break;
-                                }
-                            }
-
-                            @Override
-                            public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
-                        })
-                        .show();
+                export();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void share() {
+        new BottomSheet.Builder(Objects.requireNonNull(getContext()))
+                .setStyle(isDarkTheme() ? R.style.BottomSheet_Dark : R.style.BottomSheet)
+                .setMenu(ColorUtils.getThemedBottomSheetMenu(getContext(), R.menu.share))
+                .setTitle(R.string.text_share)
+                .setListener(new BottomSheetListener() {
+                    @Override
+                    public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
+
+                    @Override
+                    public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.action_share_text:
+                                ModelHelper.share(getContext(), assignment.getName(), mdText, attachments);
+                                break;
+                            case R.id.action_share_html:
+                                outHtml(true);
+                                break;
+                            case R.id.action_share_image:
+                                createWebCapture(getBinding().mdView, file -> ModelHelper.shareFile(getContext(), file, Constants.MIME_TYPE_IMAGE));
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
+                })
+                .show();
+    }
+
+    private void export() {
+        new BottomSheet.Builder(Objects.requireNonNull(getActivity()))
+                .setStyle(isDarkTheme() ? R.style.BottomSheet_Dark : R.style.BottomSheet)
+                .setMenu(ColorUtils.getThemedBottomSheetMenu(getContext(), R.menu.export))
+                .setTitle(R.string.text_export)
+                .setListener(new BottomSheetListener() {
+                    @Override
+                    public void onSheetShown(@NonNull BottomSheet bottomSheet, @Nullable Object o) {}
+
+                    @Override
+                    public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem menuItem, @Nullable Object o) {
+                        switch (menuItem.getItemId()) {
+                            case R.id.export_html:
+                                // Export html
+                                outHtml(false);
+                                break;
+                            case R.id.capture:
+                                createWebCapture(getBinding().mdView, file -> ToastUtils.makeToast(String.format(getString(R.string.text_file_saved_to), file.getPath())));
+                                break;
+                            case R.id.print:
+                                PrintUtils.print(getContext(), getBinding().mdView, assignment.getName());
+                                break;
+                            case R.id.export_text:
+                                outText(false);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onSheetDismissed(@NonNull BottomSheet bottomSheet, @Nullable Object o, int i) {}
+                })
+                .show();
     }
 
     private void outHtml(boolean isShare) {
@@ -336,6 +348,8 @@ public class AssignmentViewFragment extends BaseFragment<FragmentAssignmentViewe
 
     @Override
     public void onBackPressed() {
-        ((CommonActivity) getActivity()).superOnBackPressed();
+        if (getActivity() != null) {
+            ((CommonActivity) getActivity()).superOnBackPressed();
+        }
     }
 }
