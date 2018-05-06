@@ -5,6 +5,7 @@ import android.content.Context;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.model.enums.Operation;
+import me.shouheng.omnilist.model.enums.Priority;
 import me.shouheng.omnilist.utils.base.BasePreferences;
 
 public class AssignmentPreferences extends BasePreferences {
@@ -52,5 +53,9 @@ public class AssignmentPreferences extends BasePreferences {
 
     public void setShowCompleted(boolean showCompleted) {
         putBoolean(R.string.key_assignment_completed, showCompleted);
+    }
+
+    public Priority getDefaultPriority() {
+        return Priority.LEVEL_03;
     }
 }

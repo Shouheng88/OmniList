@@ -29,10 +29,10 @@
                         android:layout_width="55dp"
                         android:layout_height="55dp" />
 
-                    <me.shouheng.omnilist.widget.themed.SupportImageView
-                        android:id="@+id/iv_mic"
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_rate"
                         android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_mic_black_24dp"
+                        android:src="@drawable/ic_level_03"
                         android:layout_alignParentEnd="true"
                         android:padding="15dp"
                         android:layout_width="55dp"
@@ -46,7 +46,7 @@
                         android:maxLines="1"
                         android:maxLength="@integer/assignment_title_length"
                         android:imeOptions="actionDone"
-                        android:layout_toStartOf="@id/iv_mic"
+                        android:layout_toStartOf="@id/iv_rate"
                         android:layout_toEndOf="@id/iv_add"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -72,11 +72,6 @@
                 android:layout_height="match_parent"/>
 
         </RelativeLayout>
-
-        <include
-            android:id="@+id/lsr"
-            android:visibility="gone"
-            layout="@layout/layout_speech_recognition"/>
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab"

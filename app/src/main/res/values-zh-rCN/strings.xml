@@ -345,18 +345,6 @@
     <string name="move_up_to_cancel">手指上划，取消识别。</string>
     <string name="release_to_cancel">手指松开，取消识别。</string>
 
-    <string name="error_audio">音频问题</string>
-    <string name="error_speech_timeout">没有语音输入</string>
-    <string name="error_client">其它客户端错误</string>
-    <string name="error_insufficient_permissions">权限不足</string>
-    <string name="error_network">网络问题</string>
-    <string name="error_no_match">没有匹配的识别结果</string>
-    <string name="error_recognizer_busy">引擎忙</string>
-    <string name="error_server">服务端错误</string>
-    <string name="error_network_timeout">连接超时</string>
-    <string name="recognize_successfully">识别成功</string>
-    <string name="recognize_failed">识别失败</string>
-
     <string name="no_assignments_found">没有发现任务</string>
     <string name="assignments_empty_list_sub_normal">点击 + 按钮，文本框输入或点击话筒语音录入</string>
     <string name="assignments_empty_list_sub_archived">没有发现归档的任务</string>
@@ -659,7 +647,7 @@
     <string name="rating">评分</string>
     <string name="give_good_rating_if_you_like">如果你喜欢%s，就给我们个好评</string>
     <string name="thanks">特别感谢</string>
-    <string name="thanks_details">百度地图提供的定位相关API\n百度语音提供的语音识别API\n您选择使用本应用</string>
+    <string name="thanks_details">百度地图提供的定位相关API\n您选择使用本应用</string>
     <string name="developer_and_license">开发者&amp;许可证</string>
     <string name="developers">设计者&amp;开发者</string>
     <string name="developer_name">WngShhng (shouheng2015@gmail.com)</string>

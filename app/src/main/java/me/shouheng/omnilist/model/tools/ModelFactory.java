@@ -20,13 +20,13 @@ import me.shouheng.omnilist.model.enums.AssignmentType;
 import me.shouheng.omnilist.model.enums.ModelType;
 import me.shouheng.omnilist.model.enums.Operation;
 import me.shouheng.omnilist.model.enums.Portrait;
-import me.shouheng.omnilist.model.enums.Priority;
 import me.shouheng.omnilist.model.enums.Status;
 import me.shouheng.omnilist.model.enums.SubAssignmentType;
 import me.shouheng.omnilist.model.enums.WeatherType;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.UserUtil;
+import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 
 /**
  * Created by wangshouheng on 2017/11/17. */
@@ -145,10 +145,10 @@ public class ModelFactory {
         return weather;
     }
 
-    public static Assignment getAssignment(){
+    public static Assignment getAssignment() {
         Assignment assignment = getModel(Assignment.class);
         assert assignment != null;
-        assignment.setPriority(Priority.LEVEL_03);
+        assignment.setPriority(AssignmentPreferences.getInstance().getDefaultPriority());
         assignment.setProgress(0);
         assignment.setAssignmentType(AssignmentType.NORMAL);
         assignment.setStartTime(TimeUtils.today());
@@ -159,7 +159,7 @@ public class ModelFactory {
         return assignment;
     }
 
-    public static SubAssignment getSubAssignment(){
+    public static SubAssignment getSubAssignment() {
         SubAssignment subAssignment = getModel(SubAssignment.class);
         assert subAssignment != null;
         subAssignment.setCompleted(false);

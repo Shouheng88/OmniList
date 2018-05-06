@@ -345,18 +345,6 @@
     <string name="move_up_to_cancel">手指上劃，取消識別。</string>
     <string name="release_to_cancel">手指松開，取消識別。</string>
 
-    <string name="error_audio">音頻問題</string>
-    <string name="error_speech_timeout">沒有語音輸入</string>
-    <string name="error_client">其它客戶端錯誤</string>
-    <string name="error_insufficient_permissions">權限不足</string>
-    <string name="error_network">網絡問題</string>
-    <string name="error_no_match">沒有匹配的識別結果</string>
-    <string name="error_recognizer_busy">引擎忙</string>
-    <string name="error_server">服務端錯誤</string>
-    <string name="error_network_timeout">連接超時</string>
-    <string name="recognize_successfully">識別成功</string>
-    <string name="recognize_failed">識別失敗</string>
-
     <string name="no_assignments_found">沒有發現任務</string>
     <string name="assignments_empty_list_sub_normal">點擊 + 按鈕，文本框輸入或點擊話筒語音錄入</string>
     <string name="assignments_empty_list_sub_archived">沒有發現歸檔的任務</string>
@@ -659,7 +647,7 @@
     <string name="rating">評分</string>
     <string name="give_good_rating_if_you_like">如果你喜歡%s，就給我們個好評</string>
     <string name="thanks">特別感謝</string>
-    <string name="thanks_details">百度地圖提供的定位相關API\n百度語音提供的語音識別API\n您選擇使用本應用</string>
+    <string name="thanks_details">百度地圖提供的定位相關API\n您選擇使用本應用</string>
     <string name="developer_and_license">開發者&amp;許可證</string>
     <string name="developers">設計者&amp;開發者</string>
     <string name="developer_name">WngShhng (shouheng2015@gmail.com)</string>
