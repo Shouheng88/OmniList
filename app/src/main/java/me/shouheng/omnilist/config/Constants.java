@@ -49,6 +49,7 @@ public class Constants {
     public final static String MIME_TYPE_IMAGE_EXTENSION = ".jpeg";
     public final static String MIME_TYPE_AUDIO_EXTENSION = ".amr";
     public final static String MIME_TYPE_SKETCH_EXTENSION = ".png";
+    public final static String MIME_TYPE_VIDEO_EXTENSION = ".mp4";
 
     public final static String VIDEO_MIME_TYPE = "video/*";
     public final static String SCHEME_HTTPS = "https";

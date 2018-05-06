@@ -385,15 +385,17 @@ public class AttachmentHelper {
 
     @Nullable
     private static Intent recordVideoIntent(Context context) {
-        File file = FileHelper.createNewAttachmentFile(context, Constants.MIME_TYPE_SKETCH_EXTENSION);
+        File file = FileHelper.createNewAttachmentFile(context, Constants.MIME_TYPE_VIDEO_EXTENSION);
         if (file == null) {
             ToastUtils.makeToast(R.string.failed_to_create_file);
             return null;
         }
         String filePath = file.getPath();
         setFilePath(filePath);
-        Intent intent = new Intent(context, SketchActivity.class);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, filePath);
+        Uri attachmentUri = FileHelper.getUriFromFile(PalmApp.getContext(), new File(filePath));
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, attachmentUri);
+        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, UserPreferences.getInstance().getVideoSizeLimit() * 1024 * 1024);
         return intent;
     }
 
