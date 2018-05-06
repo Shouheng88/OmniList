@@ -118,6 +118,11 @@ public class AlarmAlertReceiver extends BroadcastReceiver {
     private void onAlert(Alarm alarm) {
         int alarmCode = (int) alarm.getCode();
         Assignment assignment = AssignmentsStore.getInstance().get(alarm.getModelCode());
+        /*If the assignment is null, we don't show notification for it*/
+        if (assignment == null) {
+            alarmsManager.removeAlarm(alarm);
+            return;
+        }
 
         Builder mBuilder = new Builder(context)
                 .setContentTitle(assignment.getName())

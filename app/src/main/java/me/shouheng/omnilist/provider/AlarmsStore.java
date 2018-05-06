@@ -71,13 +71,14 @@ public class AlarmsStore extends BaseStore<Alarm> {
         values.put(AlarmSchema.MODEL_CODE, model.getModelCode());
         values.put(AlarmSchema.MODEL_TYPE, model.getModelType().id);
         values.put(AlarmSchema.ENABLED, model.isEnabled() ? 1 : 0);
-        values.put(AlarmSchema.ALARM_TYPE, model.getAlarmType() == null ? AlarmType.SPECIFIED_DATE.id : model.getAlarmType().id);
+        /*Will throw NPE if alarm type is null, it`s not allowed, we should handle this issue*/
+        values.put(AlarmSchema.ALARM_TYPE, model.getAlarmType().id);
         values.put(AlarmSchema.HOUR, model.getHour());
         values.put(AlarmSchema.MINUTE, model.getMinute());
-        values.put(AlarmSchema.DAYS_OF_WEEK, model.getDaysOfWeek() == null ? 0 :model.getDaysOfWeek().getCoded());
-        values.put(AlarmSchema.DAYS_OF_MONTH, model.getDaysOfMonth() == null ? 0 :model.getDaysOfMonth().getCoded());
-        values.put(AlarmSchema.START_DATE, model.getStartDate() == null ? 0 : model.getStartDate().getTime());
-        values.put(AlarmSchema.END_DATE, model.getEndDate() == null ? Long.MAX_VALUE : model.getEndDate().getTime());
+        values.put(AlarmSchema.DAYS_OF_WEEK, model.getDaysOfWeek().getCoded());
+        values.put(AlarmSchema.DAYS_OF_MONTH, model.getDaysOfMonth().getCoded());
+        values.put(AlarmSchema.START_DATE, model.getStartDate().getTime());
+        values.put(AlarmSchema.END_DATE, model.getEndDate().getTime());
         values.put(AlarmSchema.NEXT_TIME, model.getNextTime().getTimeInMillis());
     }
 
