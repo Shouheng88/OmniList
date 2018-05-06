@@ -2,6 +2,7 @@ package me.shouheng.omnilist.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.net.Uri;
@@ -70,11 +71,10 @@ import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
-        OnAttachingFileListener,
-        CategoriesFragment.OnCategoriesInteractListener,
-        AssignmentsFragment.AssignmentsFragmentInteraction,
-        TodayFragment.TodayFragmentInteraction {
+        OnAttachingFileListener, CategoriesFragment.OnCategoriesInteractListener,
+        AssignmentsFragment.AssignmentsFragmentInteraction, TodayFragment.TodayFragmentInteraction {
 
+    // region request codes
     private final int REQUEST_FAB_SORT = 0x0001;
     private final int REQUEST_ARCHIVE = 0x0003;
     private final int REQUEST_TRASH = 0x0004;
@@ -84,6 +84,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     private final int REQUEST_EDIT_ASSIGNMENT = 0x0008;
     private final int REQUEST_SETTING = 0x0009;
     private final int REQUEST_SETTING_BACKUP = 0x000A;
+    // endregion
 
     private ActivityMainNavHeaderBinding headerBinding;
 
@@ -114,7 +115,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         lockPreferences = LockPreferences.getInstance();
         userPreferences = UserPreferences.getInstance();
 
-        IntroActivity.launchIfNecessary(this);
+        if (savedInstanceState == null) {
+            IntroActivity.launchIfNecessary(this);
+        }
 
         checkPassword();
     }
@@ -562,6 +565,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
             ((CategoriesFragment) currentFragment).setSelectedColor(selectedColor);
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) { }
 
     // region category fragment interaction
     @Override

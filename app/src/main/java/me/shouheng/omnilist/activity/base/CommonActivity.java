@@ -1,6 +1,5 @@
 package me.shouheng.omnilist.activity.base;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -18,9 +17,8 @@ import me.shouheng.omnilist.utils.ActivityUtils;
 
 /**
  * Created by wang shouheng on 2017/12/21.*/
-@SuppressLint("Registered")
-public abstract class CommonActivity<T extends ViewDataBinding> extends ThemedActivity implements
-        ColorChooserDialog.ColorCallback {
+public abstract class CommonActivity<T extends ViewDataBinding> extends ThemedActivity
+        implements ColorChooserDialog.ColorCallback {
 
     private T binding;
 
