@@ -126,21 +126,6 @@
             android:value="5kgf1yj2n9H6wnhwGZMSg522qlOAhLQp" />
         <!--endregion-->
 
-        <!--region baidu voice recognize-->
-        <meta-data
-            android:name="com.baidu.speech.APP_ID"
-            android:value="10664119" />
-        <meta-data
-            android:name="com.baidu.speech.API_KEY"
-            android:value="6igztKEkuseyYB93qYAcsaOx6tUYvp7W" />
-        <meta-data
-            android:name="com.baidu.speech.SECRET_KEY"
-            android:value="rFkdWhxZqqbOyrwyQ8nrLQVvzeTHfYAa" />
-        <service
-            android:name="com.baidu.speech.VoiceRecognitionService"
-            android:exported="false" />
-        <!--endregion-->
-
         <!--region file provider-->
         <provider
             android:name="android.support.v4.content.FileProvider"

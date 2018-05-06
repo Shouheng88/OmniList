@@ -349,18 +349,6 @@
     <string name="move_up_to_cancel">Move up to cancel</string>
     <string name="release_to_cancel">Release to cancel</string>
 
-    <string name="error_audio">Error audio</string>
-    <string name="error_speech_timeout">Speech timeout</string>
-    <string name="error_client">Client error</string>
-    <string name="error_insufficient_permissions">Insufficient permission</string>
-    <string name="error_network">Network error</string>
-    <string name="error_no_match">No result matched</string>
-    <string name="error_recognizer_busy">Busy</string>
-    <string name="error_server">Server error</string>
-    <string name="error_network_timeout">Connect timeout</string>
-    <string name="recognize_successfully">Recognized succeed</string>
-    <string name="recognize_failed">Recognized failed</string>
-
     <string name="no_assignments_found">No assignment found</string>
     <string name="assignments_empty_list_sub_normal">Click + , input or click microphone to add assignment</string>
     <string name="assignments_empty_list_sub_archived">no archived assignment found</string>
@@ -662,7 +650,7 @@
     <string name="rating">Rating</string>
     <string name="give_good_rating_if_you_like">Give us a good rating if you like %s</string>
     <string name="thanks">Thanks</string>
-    <string name="thanks_details">Location API offered by Baidu\nSpeech recognition API offered by Baidu\nYou use this application</string>
+    <string name="thanks_details">Location API offered by Baidu\nYou use this application</string>
     <string name="developer_and_license">Developer &amp; License</string>
     <string name="developers">Designer &amp; developer</string>
     <string name="developer_name">WngShhng (shouheng2015@gmail.com)</string>
