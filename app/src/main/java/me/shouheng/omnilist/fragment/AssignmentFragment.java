@@ -74,6 +74,7 @@ import me.shouheng.omnilist.provider.LocationsStore;
 import me.shouheng.omnilist.provider.SubAssignmentStore;
 import me.shouheng.omnilist.provider.schema.AttachmentSchema;
 import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
+import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.FileHelper;
 import me.shouheng.omnilist.utils.IntentUtils;
 import me.shouheng.omnilist.utils.LogUtils;
@@ -587,7 +588,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     private void share() {
         new BottomSheet.Builder(Objects.requireNonNull(getActivity()))
-                .setSheet(R.menu.share)
+                .setStyle(isDarkTheme() ? R.style.BottomSheet_Dark : R.style.BottomSheet)
+                .setMenu(ColorUtils.getThemedBottomSheetMenu(getContext(), R.menu.share))
                 .setTitle(R.string.text_share)
                 .setListener(new BottomSheetListener() {
                     @Override
@@ -617,7 +619,8 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     private void export() {
         new BottomSheet.Builder(Objects.requireNonNull(getActivity()))
-                .setSheet(R.menu.export)
+                .setStyle(isDarkTheme() ? R.style.BottomSheet_Dark : R.style.BottomSheet)
+                .setMenu(ColorUtils.getThemedBottomSheetMenu(getContext(), R.menu.export))
                 .setTitle(R.string.text_export)
                 .setListener(new BottomSheetListener() {
                     @Override
