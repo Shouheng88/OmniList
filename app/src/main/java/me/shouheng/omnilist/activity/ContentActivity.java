@@ -66,7 +66,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
     public static void resolveThirdPart(Activity activity, Intent i, int requestCode) {
         i.setClass(activity, ContentActivity.class);
         i.putExtra(Constants.EXTRA_IS_GOOGLE_NOW, Constants.INTENT_GOOGLE_NOW.equals(i.getAction()));
-        i.setAction(Constants.ACTION_TO_NOTE_FROM_THIRD_PART);
+        i.setAction(Constants.ACTION_ADD_FROM_THIRD_PART);
         i.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT);
         i.putExtra(Constants.EXTRA_REQUEST_CODE, requestCode);
         activity.startActivityForResult(i, requestCode);
@@ -125,7 +125,7 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
             Assignment assignment = (Assignment) intent.getSerializableExtra(Constants.EXTRA_MODEL);
             int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
             toAssignmentFragment(assignment, requestCode == -1 ? null : requestCode, false);
-        } else if (Constants.ACTION_TO_NOTE_FROM_THIRD_PART.equals(intent.getAction())) {
+        } else if (Constants.ACTION_ADD_FROM_THIRD_PART.equals(intent.getAction())) {
             Assignment assignment = ModelFactory.getAssignment();
             int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
             toAssignmentFragment(assignment,  requestCode == -1 ? null : requestCode, true);

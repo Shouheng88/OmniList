@@ -22,7 +22,7 @@ public class Constants {
     public final static String EXTRA_MARKDOWN_CONTENT = "extra_markdown_content";
     public final static String VALUE_FRAGMENT_ASSIGNMENT_VIEWER = "value_assignment_viewer";
 
-    public final static String ACTION_TO_NOTE_FROM_THIRD_PART = "to_note_from_third_part";
+    public final static String ACTION_ADD_FROM_THIRD_PART = "action_add_from_third_part";
     // endregion
 
     // region Urls
@@ -84,7 +84,7 @@ public class Constants {
     public final static String PREF_WIDGET_SQL_PREFIX = "widget_sql_";
     public final static String PREF_WIDGET_TYPE_PREFIX = "widget_type_";
     public final static String PREF_WIDGET_OVERDUE_PREFIX = "widget_is_overdue_";
-    public final static String PREF_WIDGET_CATEGORY_CODE_PREFIX = "widget_notebook_code";
+    public final static String PREF_WIDGET_CATEGORY_CODE_PREFIX = "widget_category_code_";
     // endregion
 
     // region Alarm
@@ -98,7 +98,7 @@ public class Constants {
     public final static String EXTRA_NOTIFICATION_ID = "extra_name_notification_id";
     // endregion
 
-    public final static int MAX_ASSIGNMENT_PROGRESS = 100;
+    public final static int MAX_ASSIGNMENT_PROGRESS = 100;                                                                                                                                       
 
     public final static String REA_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD0diKVSZ/U/KHuxZFYac3lLq7K\n" +
             "edqc+uOKSJgq26tgy4wmELCw8gJkempBm8NPf+uSOdWPlPLWijSf3W2KfzMMvZQ2\n" +
