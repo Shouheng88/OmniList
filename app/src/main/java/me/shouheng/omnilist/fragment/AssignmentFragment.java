@@ -509,9 +509,13 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
                     assignment.setEndTime(retAlarm.getEndDate());
                     assignment.setDaysOfWeek(retAlarm.getDaysOfWeek());
                     assignment.setNoticeTime(TimeUtils.getTimeInMillis(retAlarm.getHour(), retAlarm.getMinute()));
+                    /*Here, the assignment may not be persisted*/
                     AssignmentsStore.getInstance().update(assignment);
 
                     mAdapter.setAlarm(alarm);
+
+                    /*We should notify the user to persist assignment*/
+                    setContentChanged();
                 })
                 .build().show(Objects.requireNonNull(getFragmentManager()), "REMINDER_PICKER");
     }
