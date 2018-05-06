@@ -191,6 +191,7 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
         if (isDarkTheme()) {
             getBinding().lsr.getRoot().setBackgroundResource(R.color.dark_theme_background);
             getBinding().lsr.vrCard.setCardBackgroundColor(getResources().getColor(R.color.dark_theme_foreground));
+            getBinding().lsr.siv.setImageResource(R.drawable.ic_circle_dark);
         }
 
         outerScaleAnim = AnimationUtils.loadAnimation(getContext(), R.anim.voice_input_scale);
@@ -434,7 +435,6 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
 
         @Override
         public void onRmsChanged(float rmsdB) {
-            LogUtils.d("onRmsChanged: " + rmsdB);
             initMaxHeight();
             initMidHeight();
 
@@ -529,7 +529,6 @@ public class AssignmentsFragment extends BaseFragment<FragmentAssignmentsBinding
                         getBinding().lsr.civOuter.startAnimation(outerScaleAnim);
                         return true;
                     case MotionEvent.ACTION_MOVE:
-                        LogUtils.d("onTouch: " + event.getY());
                         if (actionDownY - event.getY() > 230) {
                             getBinding().lsr.tvActionTip.setText(R.string.release_to_cancel);
                             getBinding().lsr.tvActionTip.setTextColor(primaryColor());
