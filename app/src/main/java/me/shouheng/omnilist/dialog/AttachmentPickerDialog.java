@@ -1,6 +1,5 @@
 package me.shouheng.omnilist.dialog;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,10 +23,7 @@ import me.shouheng.omnilist.manager.AttachmentHelper;
 
 /**
  * Created by wangshouheng on 2017/4/7.*/
-@SuppressLint("ValidFragment")
 public class AttachmentPickerDialog extends DialogFragment {
-
-    private final static String KEY_BUILDER = "key_extra_builder";
 
     private boolean isRecordVisible;
     private boolean isVideoVisible;
@@ -41,8 +37,6 @@ public class AttachmentPickerDialog extends DialogFragment {
 
     private OnAddNetUriSelectedListener onAddNetUriSelectedListener;
 
-    public AttachmentPickerDialog() {}
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +45,6 @@ public class AttachmentPickerDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        handleArguments();
-
         DialogAttachmentPickerLayoutBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
                 R.layout.dialog_attachment_picker_layout, null, false);
 
@@ -83,20 +75,15 @@ public class AttachmentPickerDialog extends DialogFragment {
                 .create();
     }
 
-    private void handleArguments() {
-        Builder builder;
-        if (getArguments() != null
-                && getArguments().containsKey(KEY_BUILDER)
-                && (builder = (Builder) getArguments().get(KEY_BUILDER)) != null) {
-            this.mFragment = builder.fragment;
-            this.isRecordVisible = builder.isRecordVisible;
-            this.isVideoVisible = builder.isVideoVisible;
-            this.isFilesVisible = builder.isFilesVisible;
-            this.isAlbumVisible = builder.isAlbumVisible;
-            this.isAddLinkVisible = builder.isAddLinkVisible;
-            this.onPickAudioSelectedListener = builder.onPickAudioSelectedListener;
-            this.onAddNetUriSelectedListener = builder.onAddNetUriSelectedListener;
-        }
+    public void setBuilder(Builder builder) {
+        this.mFragment = builder.fragment;
+        this.isRecordVisible = builder.isRecordVisible;
+        this.isVideoVisible = builder.isVideoVisible;
+        this.isFilesVisible = builder.isFilesVisible;
+        this.isAlbumVisible = builder.isAlbumVisible;
+        this.isAddLinkVisible = builder.isAddLinkVisible;
+        this.onPickAudioSelectedListener = builder.onPickAudioSelectedListener;
+        this.onAddNetUriSelectedListener = builder.onAddNetUriSelectedListener;
     }
 
     private void resolveAlbumClickEvent() {
@@ -237,9 +224,7 @@ public class AttachmentPickerDialog extends DialogFragment {
 
         public AttachmentPickerDialog build() {
             AttachmentPickerDialog dialog = new AttachmentPickerDialog();
-            Bundle args = new Bundle();
-            args.putSerializable(KEY_BUILDER, this);
-            dialog.setArguments(args);
+            dialog.setBuilder(this);
             return dialog;
         }
     }

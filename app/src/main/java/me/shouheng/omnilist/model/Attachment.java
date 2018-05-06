@@ -33,12 +33,6 @@ public class Attachment extends Model implements Parcelable {
     @Column(name = AttachmentSchema.NAME)
     private String name;
 
-    @Column(name = AttachmentSchema.SIZE)
-    private long size;
-
-    @Column(name = AttachmentSchema.LENGTH)
-    private long length;
-
     @Column(name = AttachmentSchema.MINE_TYPE)
     private String mineType;
 
@@ -157,22 +151,6 @@ public class Attachment extends Model implements Parcelable {
         this.name = name;
     }
 
-    public long getSize() {
-        return size;
-    }
-
-    public void setSize(long size) {
-        this.size = size;
-    }
-
-    public long getLength() {
-        return length;
-    }
-
-    public void setLength(long length) {
-        this.length = length;
-    }
-
     public String getMineType() {
         return mineType;
     }
@@ -236,8 +214,6 @@ public class Attachment extends Model implements Parcelable {
                 ", path='" + path + '\'' +
                 ", status=" + status +
                 ", name='" + name + '\'' +
-                ", size=" + size +
-                ", length=" + length +
                 ", mineType='" + mineType + '\'' +
                 ", oneDriveSyncTime=" + oneDriveSyncTime +
                 ", oneDriveItemId='" + oneDriveItemId + '\'' +

@@ -434,8 +434,7 @@ public class FileHelper {
         String name = FileHelper.getNameFromUri(mContext, uri);
         String extension = FileHelper.getFileExtension(name).toLowerCase(Locale.getDefault());
 
-        /**
-         * The name got from last step is the {@link OpenableColumns.DISPLAY_NAME} value.
+        /* The name got from last step is the {@link OpenableColumns.DISPLAY_NAME} value.
          * That means, for a mp3 file "Music.mp3", we may only get the "Music", so the extension can be empty.
          * To avoid the extension empty, we should check it and try to get it from the mime type. */
         if (TextUtils.isEmpty(extension)) extension = getFileExtension(mContext, uri);
@@ -452,14 +451,12 @@ public class FileHelper {
             file = FileHelper.createExternalStoragePrivateFile(mContext, uri, extension);
         }
 
-        /**
-         * Create attachment object as return value. */
+        /* Create attachment object as return value. */
         Attachment mAttachment = ModelFactory.getAttachment();
         if (file != null) {
             mAttachment.setUri(getUriFromFile(mContext, file));
             mAttachment.setMineType(getMimeTypeInternal(mContext, uri));
             mAttachment.setName(name);
-            mAttachment.setSize(file.length());
             mAttachment.setPath(file.getPath());
         }
 
