@@ -28,13 +28,13 @@ import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.enums.Status;
-import me.shouheng.omnilist.model.tools.ModelFactory;
 import me.shouheng.omnilist.provider.AssignmentsStore;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 
 
-public class ContentActivity extends CommonActivity<ActivityContentBinding> implements ColorCallback {
+public class ContentActivity extends CommonActivity<ActivityContentBinding> implements
+        ColorCallback, AssignmentFragment.OnInteractionListener {
 
     // region edit assignment
     public static void editAssignment(Fragment fragment, @NonNull Assignment assignment, int requestCode){
@@ -63,13 +63,14 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         fragment.startActivity(intent);
     }
 
-    public static void resolveThirdPart(Activity activity, Intent i, int requestCode) {
+    public static void resolveThirdPart(Activity activity, Intent i, Assignment assignment) {
+        /*Note that we called setClass here instead creating an intent again*/
         i.setClass(activity, ContentActivity.class);
-        i.putExtra(Constants.EXTRA_IS_GOOGLE_NOW, Constants.INTENT_GOOGLE_NOW.equals(i.getAction()));
         i.setAction(Constants.ACTION_ADD_FROM_THIRD_PART);
+        i.putExtra(Constants.EXTRA_IS_GOOGLE_NOW, Constants.INTENT_GOOGLE_NOW.equals(i.getAction()));
         i.putExtra(Constants.EXTRA_FRAGMENT, Constants.VALUE_FRAGMENT_ASSIGNMENT);
-        i.putExtra(Constants.EXTRA_REQUEST_CODE, requestCode);
-        activity.startActivityForResult(i, requestCode);
+        i.putExtra(Constants.EXTRA_MODEL, (Serializable) assignment);
+        activity.startActivity(i);
     }
 
     public static void resolveAction(Activity activity, @NonNull Assignment assignment, String action, int requestCode) {
@@ -115,7 +116,11 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
 
     private void handleAssignmentEdit() {
         Intent intent = getIntent();
-        if (intent.hasExtra(Constants.EXTRA_MODEL)) {
+        if (Constants.ACTION_ADD_FROM_THIRD_PART.equals(intent.getAction())) {
+            Assignment assignment = (Assignment) intent.getSerializableExtra(Constants.EXTRA_MODEL);
+            int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
+            toAssignmentFragment(assignment,  requestCode == -1 ? null : requestCode, true);
+        } else if (intent.hasExtra(Constants.EXTRA_MODEL)) {
             if (!(intent.getSerializableExtra(Constants.EXTRA_MODEL) instanceof Assignment)) {
                 ToastUtils.makeToast(R.string.content_failed_to_parse_intent);
                 LogUtils.d("Failed to resolve note intent : " + intent);
@@ -125,14 +130,8 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
             Assignment assignment = (Assignment) intent.getSerializableExtra(Constants.EXTRA_MODEL);
             int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
             toAssignmentFragment(assignment, requestCode == -1 ? null : requestCode, false);
-        } else if (Constants.ACTION_ADD_FROM_THIRD_PART.equals(intent.getAction())) {
-            Assignment assignment = ModelFactory.getAssignment();
-            int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
-            toAssignmentFragment(assignment,  requestCode == -1 ? null : requestCode, true);
-        }
-
-        // The case below mainly used for the intent from shortcut
-        if (intent.hasExtra(Constants.EXTRA_CODE)) {
+        } else if (intent.hasExtra(Constants.EXTRA_CODE)) {
+            // The case below mainly used for the intent from shortcut
             long code = intent.getLongExtra(Constants.EXTRA_CODE, -1);
             int requestCode = intent.getIntExtra(Constants.EXTRA_REQUEST_CODE, -1);
             /*Get assignment of code in all status except deleted.*/
@@ -181,5 +180,10 @@ public class ContentActivity extends CommonActivity<ActivityContentBinding> impl
         if (currentFragment instanceof CommonFragment){
             ((CommonFragment) currentFragment).onBackPressed();
         }
+    }
+
+    @Override
+    public Intent getThirdPartIntent() {
+        return getIntent();
     }
 }

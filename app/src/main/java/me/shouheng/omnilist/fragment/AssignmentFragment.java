@@ -2,6 +2,7 @@ package me.shouheng.omnilist.fragment;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -217,8 +218,9 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
         assignment.setName(title);
 
         String comment = intent.getStringExtra(Intent.EXTRA_TEXT);
-        if (!TextUtils.isEmpty(comment)) {
-            comment = comment.substring(0, TextLength.ASSIGNMENT_COMMENT_LENGTH.getLength());
+        int maxLength = TextLength.ASSIGNMENT_COMMENT_LENGTH.getLength();
+        if (!TextUtils.isEmpty(comment) && comment.length() > maxLength) {
+            comment = comment.substring(0, maxLength);
         }
         assignment.setComment(comment);
 
@@ -909,6 +911,13 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
     protected void afterSaveOrUpdate() {
         super.afterSaveOrUpdate();
         materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
+        /*This event is sent for third event handler, since we can't return result for caller*/
+        Intent intent;
+        if (getActivity() instanceof OnInteractionListener
+                && (intent = ((OnInteractionListener) getActivity()).getThirdPartIntent()) != null
+                && Constants.ACTION_ADD_FROM_THIRD_PART.equals(intent.getAction())) {
+            sendDataSetChangeBroadcast();
+        }
     }
 
     @Override
@@ -959,5 +968,18 @@ public class AssignmentFragment extends BaseModelFragment<Assignment, FragmentAs
 
     public interface OnInteractionListener {
         Intent getThirdPartIntent();
+    }
+
+    /**
+     * Send a broadcast to notice the caller that the data set has been changed. You can refer to
+     * the method {@link ContentActivity#resolveThirdPart(Activity, Intent, int)} that we used
+     * {@link Intent#setClass(Context, Class)} to set the direction for intent, so we can't call
+     * {@link Activity#startActivityForResult(Intent, int)}. That is the reason that we can't return
+     * result to caller. So, I decided to use broadcast to notify callers that data set has changed,
+     * update ui accordingly. */
+    private void sendDataSetChangeBroadcast() {
+        Intent intent = new Intent();
+        intent.setAction(Constants.ACTION_DATA_SET_CHANGE_BROADCAST);
+        if (getContext() != null) getContext().sendBroadcast(intent);
     }
 }
