@@ -364,7 +364,6 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
     protected void stopRecording() {
         if (mRecorder != null) {
             mRecorder.stop();
-            long audioRecordingTime = System.currentTimeMillis() - audioRecordingTimeStart;
             mRecorder.release();
             mRecorder = null;
             isRecording = false;
@@ -372,7 +371,7 @@ public abstract class BaseModelFragment<T extends Model, V extends ViewDataBindi
             Attachment attachment = ModelFactory.getAttachment();
             attachment.setUri(Uri.fromFile(new File(recordName)));
             attachment.setMineType(Constants.MIME_TYPE_AUDIO);
-            attachment.setLength(audioRecordingTime);
+            attachment.setPath(recordName);
 
             onStopRecording(attachment);
         }

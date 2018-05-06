@@ -59,8 +59,6 @@ public class AttachmentsStore extends BaseStore<Attachment> {
         model.setUri(TextUtils.isEmpty(uriStr) ? null : Uri.parse(uriStr));
         model.setPath(cursor.getString(cursor.getColumnIndex(AttachmentSchema.PATH)));
         model.setName(cursor.getString(cursor.getColumnIndex(AttachmentSchema.NAME)));
-        model.setSize(cursor.getLong(cursor.getColumnIndex(AttachmentSchema.SIZE)));
-        model.setLength(cursor.getLong(cursor.getColumnIndex(AttachmentSchema.LENGTH)));
         model.setMineType(cursor.getString(cursor.getColumnIndex(AttachmentSchema.MINE_TYPE)));
         model.setOneDriveSyncTime(new Date(cursor.getLong(cursor.getColumnIndex(AttachmentSchema.ONE_DRIVE_SYNC_TIME))));
         model.setOneDriveItemId(cursor.getString(cursor.getColumnIndex(AttachmentSchema.ONE_DRIVE_ITEM_ID)));
@@ -73,8 +71,6 @@ public class AttachmentsStore extends BaseStore<Attachment> {
         values.put(AttachmentSchema.URI, model.getUri() != null ? model.getUri().toString() : null);
         values.put(AttachmentSchema.PATH, model.getPath());
         values.put(AttachmentSchema.NAME, model.getName());
-        values.put(AttachmentSchema.SIZE, model.getSize());
-        values.put(AttachmentSchema.LENGTH, model.getLength());
         values.put(AttachmentSchema.MINE_TYPE, model.getMineType());
         values.put(AttachmentSchema.ONE_DRIVE_SYNC_TIME, model.getOneDriveSyncTime() == null ? 0 : model.getOneDriveSyncTime().getTime());
         values.put(AttachmentSchema.ONE_DRIVE_ITEM_ID, model.getOneDriveItemId());
