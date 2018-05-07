@@ -14,8 +14,6 @@ import android.view.View;
 import org.polaric.colorful.BaseActivity;
 import org.polaric.colorful.PermissionUtils;
 
-import java.io.Serializable;
-
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.databinding.DialogAttachmentPickerLayoutBinding;
 import me.shouheng.omnilist.manager.AttachmentHelper;
@@ -30,6 +28,7 @@ public class AttachmentPickerDialog extends DialogFragment {
     private boolean isAlbumVisible;
     private boolean isFilesVisible;
     private boolean isAddLinkVisible;
+    private boolean isCaptureVisible;
 
     private Fragment mFragment;
 
@@ -61,6 +60,7 @@ public class AttachmentPickerDialog extends DialogFragment {
         binding.tvLink.setVisibility(isAddLinkVisible ? View.VISIBLE : View.GONE);
 
         binding.tvTakePhoto.setOnClickListener(v -> resolveCaptureEvent());
+        binding.tvTakePhoto.setVisibility(isCaptureVisible ? View.VISIBLE : View.GONE);
 
         binding.tvRecordSound.setOnClickListener(v -> resolveRecordEvent());
         binding.tvRecordSound.setVisibility(isRecordVisible ? View.VISIBLE : View.GONE);
@@ -82,6 +82,7 @@ public class AttachmentPickerDialog extends DialogFragment {
         this.isFilesVisible = builder.isFilesVisible;
         this.isAlbumVisible = builder.isAlbumVisible;
         this.isAddLinkVisible = builder.isAddLinkVisible;
+        this.isCaptureVisible = builder.isCaptureVisible;
         this.onPickAudioSelectedListener = builder.onPickAudioSelectedListener;
         this.onAddNetUriSelectedListener = builder.onAddNetUriSelectedListener;
     }
@@ -164,18 +165,15 @@ public class AttachmentPickerDialog extends DialogFragment {
         void onAddUriSelected();
     }
 
-    public static class Builder implements Serializable {
+    public static class Builder {
         private Fragment fragment;
 
         private boolean isRecordVisible = true;
-
         private boolean isVideoVisible = true;
-
         private boolean isAlbumVisible = true;
-
         private boolean isFilesVisible = true;
-
         private boolean isAddLinkVisible = true;
+        private boolean isCaptureVisible = true;
 
         private OnPickAudioSelectedListener onPickAudioSelectedListener;
 
@@ -209,6 +207,11 @@ public class AttachmentPickerDialog extends DialogFragment {
 
         public Builder setAddLinkVisible(boolean addLinkVisible) {
             isAddLinkVisible = addLinkVisible;
+            return this;
+        }
+
+        public Builder setCaptureVisible(boolean isCaptureVisible) {
+            this.isCaptureVisible = isCaptureVisible;
             return this;
         }
 

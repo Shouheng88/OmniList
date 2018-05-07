@@ -184,9 +184,10 @@ public class QuickActivity extends BaseActivity implements OnAttachingFileListen
 
     private void showAttachmentPicker() {
         new AttachmentPickerDialog.Builder()
+                .setCaptureVisible(false)
                 .setAddLinkVisible(false)
                 .setRecordVisible(false)
-                .setVideoVisible(true)
+                .setVideoVisible(false)
                 .build().show(getSupportFragmentManager(), "ATTACHMENT PICKER");
     }
 
