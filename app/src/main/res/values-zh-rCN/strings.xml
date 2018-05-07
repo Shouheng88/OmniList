@@ -29,6 +29,7 @@
     <string name="text_undo">撤销</string>
     <string name="text_redo">恢复</string>
     <string name="text_get_it">知道了</string>
+    <string name="text_create">新建</string>
     
     <string name="text_comments">备注</string>
     <string name="text_created_time">创建</string>
@@ -319,6 +320,7 @@
     <!--region business.category-->
     <string name="pick_category">选择清单</string>
     <string name="no_category_available">没有可用的清单</string>
+    <string name="no_category_available_sub">你应该先创建一个任务清单</string>
     <string name="edit_category">编辑清单</string>
     <string name="category_name">清单名称</string>
     <string name="pick_portrait">选择图标</string>
