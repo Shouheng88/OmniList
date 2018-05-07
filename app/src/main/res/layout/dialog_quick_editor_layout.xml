@@ -47,12 +47,12 @@
                     android:textSize="16sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="@integer/assignment_comment_length" />
+                    android:maxLength="@integer/assignment_title_length" />
 
                 <me.shouheng.omnilist.widget.WatcherTextView
                     android:id="@+id/wtv"
                     android:layout_gravity="end"
-                    app:max_length="@integer/assignment_comment_length"
+                    app:max_length="@integer/assignment_title_length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

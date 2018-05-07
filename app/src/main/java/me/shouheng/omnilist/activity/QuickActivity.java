@@ -146,7 +146,7 @@ public class QuickActivity extends BaseActivity implements OnAttachingFileListen
                     }
                 })
                 .setOnAttachmentClickListener(this::resolveAttachmentClick)
-                .setOnConfirmListener(this::saveMindSnagging)
+                .setOnConfirmListener(this::saveAssignment)
                 .build();
         quickEditorDialog.show(getSupportFragmentManager(), "MIND SNAGGING");
     }
@@ -159,12 +159,12 @@ public class QuickActivity extends BaseActivity implements OnAttachingFileListen
                 attachment.getName());
     }
 
-    private void saveMindSnagging(String content, Attachment attachment) {
+    private void saveAssignment(String name, Attachment attachment) {
         // Fill the parent code
         Assignment assignment = ModelFactory.getAssignment();
         assignment.setCategoryCode(selectedCategory.getCode());
         // Save to database
-        assignmentViewModel.saveAssignment(assignment, content, attachment)
+        assignmentViewModel.saveAssignment(assignment, name, attachment)
                 .observe(this, noteResource -> {
                     if (noteResource == null) {
                         ToastUtils.makeToast(R.string.text_failed_to_modify_data);
@@ -185,7 +185,7 @@ public class QuickActivity extends BaseActivity implements OnAttachingFileListen
     private void showAttachmentPicker() {
         new AttachmentPickerDialog.Builder()
                 .setAddLinkVisible(false)
-                .setRecordVisible(true)
+                .setRecordVisible(false)
                 .setVideoVisible(true)
                 .build().show(getSupportFragmentManager(), "ATTACHMENT PICKER");
     }

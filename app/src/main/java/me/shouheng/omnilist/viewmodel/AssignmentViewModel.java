@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import me.shouheng.omnilist.async.ResourceAsyncTask;
-import me.shouheng.omnilist.manager.ModelHelper;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.model.Category;
@@ -28,7 +27,7 @@ public class AssignmentViewModel extends BaseViewModel<Assignment> {
     }
 
     public LiveData<Resource<Assignment>> saveAssignment(
-            @NonNull Assignment assignment, String comment, @Nullable Attachment attachment) {
+            @NonNull Assignment assignment, String name, @Nullable Attachment attachment) {
         MutableLiveData<Resource<Assignment>> result = new MutableLiveData<>();
         new ResourceAsyncTask<>(result, () -> {
             if (attachment != null) {
@@ -37,8 +36,7 @@ public class AssignmentViewModel extends BaseViewModel<Assignment> {
                 AttachmentsStore.getInstance().saveModel(attachment);
             }
 
-            assignment.setName(ModelHelper.getDefaultTitle());
-            assignment.setComment(comment);
+            assignment.setName(name);
 
             AssignmentsStore.getInstance().saveModel(assignment);
 
