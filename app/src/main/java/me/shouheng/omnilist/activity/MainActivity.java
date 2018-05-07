@@ -44,6 +44,7 @@ import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivityMainBinding;
 import me.shouheng.omnilist.databinding.ActivityMainNavHeaderBinding;
 import me.shouheng.omnilist.dialog.CategoryEditDialog;
+import me.shouheng.omnilist.dialog.picker.BasePickerDialog;
 import me.shouheng.omnilist.dialog.picker.CategoryPickerDialog;
 import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
@@ -197,19 +198,14 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
 
     private void startAction(String action) {
         ToastUtils.makeToast(R.string.widget_pick_category_at_first);
-        CategoryPickerDialog.newInstance()
-                .setOnItemSelectedListener((dialog, category, position) -> {
-                    Assignment assignment = ModelFactory.getAssignment();
-                    assignment.setCategoryCode(category.getCode());
-                    PermissionUtils.checkStoragePermission(this, () ->
-                            ContentActivity.resolveAction(MainActivity.this,
-                                    assignment,
-                                    action,
-                                    REQUEST_EDIT_ASSIGNMENT)
-                    );
-                    dialog.dismiss();
-                })
-                .show(getSupportFragmentManager(), "CATEGORY_PICKER");
+        showCategoryPicker((dialog, category, position) -> {
+            Assignment assignment = ModelFactory.getAssignment();
+            assignment.setCategoryCode(category.getCode());
+            PermissionUtils.checkStoragePermission(MainActivity.this, () ->
+                    ContentActivity.resolveAction(MainActivity.this,
+                            assignment, action, REQUEST_EDIT_ASSIGNMENT));
+            dialog.dismiss();
+        });
     }
 
     private void handleThirdPart() {
@@ -219,15 +215,21 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 Intent.ACTION_SEND_MULTIPLE,
                 Constants.INTENT_GOOGLE_NOW) && i.getType() != null) {
             ToastUtils.makeToast(R.string.widget_pick_category_at_first);
-            CategoryPickerDialog.newInstance()
-                    .setOnItemSelectedListener((dialog, category, position) -> {
-                        Assignment assignment = ModelFactory.getAssignment();
-                        assignment.setCategoryCode(category.getCode());
-                        PermissionUtils.checkStoragePermission(this, () ->
-                                ContentActivity.resolveThirdPart(this, i, assignment));
-                        dialog.dismiss();
-                    }).show(getSupportFragmentManager(), "CATEGORY_PICKER");
+            showCategoryPicker((dialog, category, position) -> {
+                Assignment assignment = ModelFactory.getAssignment();
+                assignment.setCategoryCode(category.getCode());
+                PermissionUtils.checkStoragePermission(this, () ->
+                        ContentActivity.resolveThirdPart(this, i, assignment));
+                dialog.dismiss();
+            });
         }
+    }
+
+    private void showCategoryPicker(BasePickerDialog.OnItemSelectedListener<Category> onItemSelectedListener) {
+        CategoryPickerDialog.newInstance()
+                .setOnCreateClickListener(() -> editCategory(onItemSelectedListener))
+                .setOnItemSelectedListener(onItemSelectedListener)
+                .show(getSupportFragmentManager(), "CATEGORY_PICKER");
     }
     // endregion
 
@@ -383,7 +385,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         FabSortItem fabSortItem = userPreferences.getFabSortResult().get(index);
         switch (fabSortItem) {
             case CATEGORY:
-                editCategory();
+                editCategory(null);
                 break;
             case ASSIGNMENT:
                 startAction(Constants.ACTION_ADD_ASSIGNMENT);
@@ -408,7 +410,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         }
     }
 
-    private void editCategory() {
+    private void editCategory(BasePickerDialog.OnItemSelectedListener<Category> onItemSelectedListener) {
         categoryEditDialog = CategoryEditDialog.newInstance(ModelFactory.getCategory(), category ->
                 categoryViewModel.saveModel(category).observe(this, categoryResource -> {
                     if (categoryResource == null) {
@@ -421,6 +423,9 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                             Fragment fragment = getCurrentFragment();
                             if (fragment != null && fragment instanceof CategoriesFragment) {
                                 ((CategoriesFragment) fragment).addCategory(category);
+                            }
+                            if (onItemSelectedListener != null) {
+                                showCategoryPicker(onItemSelectedListener);
                             }
                             break;
                         case FAILED:

@@ -29,7 +29,8 @@
     <string name="text_undo">Undo</string>
     <string name="text_redo">Redo</string>
     <string name="text_get_it">Get it</string>
-    
+    <string name="text_create">Create</string>
+
     <string name="text_comments">Comments</string>
     <string name="text_created_time">Created</string>
     <string name="text_last_modified_time">Updated</string>
@@ -323,6 +324,7 @@
     <!--region business.category-->
     <string name="pick_category">Pick category</string>
     <string name="no_category_available">No available category</string>
+    <string name="no_category_available_sub">You should create a category first</string>
     <string name="edit_category">Edit category</string>
     <string name="category_name">Category name</string>
     <string name="pick_portrait">Pick portrait</string>
