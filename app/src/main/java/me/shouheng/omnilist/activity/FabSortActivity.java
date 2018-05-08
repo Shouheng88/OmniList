@@ -1,6 +1,7 @@
 package me.shouheng.omnilist.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -33,6 +34,16 @@ public class FabSortActivity extends CommonActivity<ActivityFabSortBinding> {
     private FabSortAdapter mAdapter;
 
     private boolean saved = true, everSaved = false;
+
+    public static void start(Activity activity, int requestCode) {
+        Intent intent = new Intent(activity, FabSortActivity.class);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void start(Fragment fragment, int requestCode) {
+        Intent intent = new Intent(fragment.getActivity(), FabSortActivity.class);
+        fragment.startActivityForResult(intent, requestCode);
+    }
 
     @Override
     protected int getLayoutResId() {

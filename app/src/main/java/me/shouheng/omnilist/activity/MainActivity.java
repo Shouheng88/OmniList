@@ -52,7 +52,7 @@ import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.listener.OnDataChangeListener;
-import me.shouheng.omnilist.listener.OnSettingsChangedListener;
+import me.shouheng.omnilist.listener.SettingChangeType;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.model.Assignment;
@@ -328,7 +328,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         getBinding().menu.setMenuButtonColorNormal(accentColor());
         getBinding().menu.setMenuButtonColorPressed(accentColor());
         getBinding().menu.setOnMenuButtonLongClickListener(v -> {
-            startActivityForResult(FabSortActivity.class, REQUEST_FAB_SORT);
+            FabSortActivity.start(this, REQUEST_FAB_SORT);
             return false;
         });
         getBinding().menu.setOnMenuToggleListener(opened -> getBinding().rlMenuContainer.setVisibility(opened ? View.VISIBLE : View.GONE));
@@ -563,11 +563,15 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                 break;
             case REQUEST_SETTING:
                 int[] changedTypes = data.getIntArrayExtra(SettingsActivity.KEY_CONTENT_CHANGE_TYPES);
-                boolean drawerUpdated = false;
+                boolean drawerUpdated = false, fabSortUpdated = false;
                 for (int changedType : changedTypes) {
-                    if (changedType == OnSettingsChangedListener.ChangedType.DRAWER_CONTENT.id && !drawerUpdated) {
+                    if (changedType == SettingChangeType.DRAWER.id && !drawerUpdated) {
                         setupHeader();
                         drawerUpdated = true;
+                    }
+                    if (changedType == SettingChangeType.FAB.id && !fabSortUpdated) {
+                        initFabSortItems();
+                        fabSortUpdated = true;
                     }
                 }
                 break;

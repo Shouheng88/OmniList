@@ -1,5 +1,7 @@
 package me.shouheng.omnilist.fragment.setting;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.annotation.Nullable;
@@ -11,11 +13,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.activity.FabSortActivity;
 import me.shouheng.omnilist.listener.OnFragmentDestroyListener;
+import me.shouheng.omnilist.listener.OnSettingsChangedListener;
+import me.shouheng.omnilist.listener.SettingChangeType;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.UserPreferences;
 
 public class SettingsPreferences extends BaseFragment {
+
+    private final int REQUEST_CODE_FAB_SORT = 0x0001;
 
     private UserPreferences userPreferences;
 
@@ -41,6 +48,10 @@ public class SettingsPreferences extends BaseFragment {
         prefVideo = findPreference(R.string.key_video_size_limit);
         prefVideo.setOnPreferenceClickListener(preference -> {
             showVideoLimitEditor();
+            return true;
+        });
+        findPreference(R.string.key_custom_fab).setOnPreferenceClickListener(preference -> {
+            FabSortActivity.start(SettingsPreferences.this, REQUEST_CODE_FAB_SORT);
             return true;
         });
         updateVideoSizePref();
@@ -80,6 +91,24 @@ public class SettingsPreferences extends BaseFragment {
         prefVideo.setSummary(String.format(
                 PalmApp.getStringCompact(R.string.setting_video_limit_size_sub),
                 userPreferences.getVideoSizeLimit()));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_FAB_SORT:
+                    notifyFabSortChanged();
+                    break;
+            }
+        }
+    }
+
+    private void notifyFabSortChanged() {
+        if (getActivity() != null && getActivity() instanceof OnSettingsChangedListener) {
+            ((OnSettingsChangedListener) getActivity()).onSettingChanged(SettingChangeType.FAB);
+        }
     }
 
     @Override

@@ -22,6 +22,7 @@
     <string name="key_assignment_slide_right" translatable="false">action_assignment_slide_right</string>
     <string name="key_assignment_completed" translatable="false">show_assignment_completed</string>
     <string name="key_auto_compress_image" translatable="false">key_auto_compress_image</string>
+    <string name="key_custom_fab" translatable="false">custom_fab</string>
     <!--endregion-->
 
     <!--region notification-->

@@ -662,4 +662,9 @@
     <string name="changelog_sub_title">Get the changelog of application</string>
     <!--endregion-->
     <!--endregion-->
+
+    <!--region 1.0.1-->
+    <string name="custom_fab">Custom FAB</string>
+    <string name="custom_fab_sub">Custom float action buttons behaviors of dashboard</string>
+    <!--endregion-->
 </resources>
