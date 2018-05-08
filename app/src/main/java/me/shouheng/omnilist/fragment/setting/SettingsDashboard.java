@@ -26,6 +26,7 @@ import me.shouheng.omnilist.dialog.SimpleEditDialog;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.listener.OnFragmentDestroyListener;
 import me.shouheng.omnilist.listener.OnSettingsChangedListener;
+import me.shouheng.omnilist.listener.SettingChangeType;
 import me.shouheng.omnilist.manager.AttachmentHelper;
 import me.shouheng.omnilist.model.Attachment;
 import me.shouheng.omnilist.utils.ColorUtils;
@@ -139,7 +140,7 @@ public class SettingsDashboard extends BaseFragment implements OnAttachingFileLi
 
     private void notifyDashboardChanged() {
         if (getActivity() != null && getActivity() instanceof OnSettingsChangedListener) {
-            ((OnSettingsChangedListener) getActivity()).onDashboardSettingChanged(OnSettingsChangedListener.ChangedType.DRAWER_CONTENT);
+            ((OnSettingsChangedListener) getActivity()).onSettingChanged(SettingChangeType.DRAWER);
         }
     }
 

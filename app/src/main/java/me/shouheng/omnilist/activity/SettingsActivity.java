@@ -33,6 +33,7 @@ import me.shouheng.omnilist.fragment.setting.SettingsSecurity;
 import me.shouheng.omnilist.listener.OnFragmentDestroyListener;
 import me.shouheng.omnilist.listener.OnSettingsChangedListener;
 import me.shouheng.omnilist.listener.OnThemeSelectedListener;
+import me.shouheng.omnilist.listener.SettingChangeType;
 import me.shouheng.omnilist.manager.FragmentHelper;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
@@ -216,7 +217,7 @@ public class SettingsActivity extends CommonActivity<ActivitySettingsBinding> im
     }
 
     @Override
-    public void onDashboardSettingChanged(ChangedType changedType) {
+    public void onSettingChanged(SettingChangeType changedType) {
         isDashboardSettingsChanged = true;
         changedTypes.add(changedType.id);
     }

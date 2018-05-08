@@ -659,4 +659,9 @@
     <string name="changelog_sub_title">显示程序的更新日志</string>
     <!--endregion-->
     <!--endregion-->
+
+    <!--region 1.0.1-->
+    <string name="custom_fab">自定义浮动按钮</string>
+    <string name="custom_fab_sub">自定义主界面浮动按钮的顺序</string>
+    <!--endregion-->
 </resources>
