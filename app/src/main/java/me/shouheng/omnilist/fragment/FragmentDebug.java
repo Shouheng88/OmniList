@@ -22,16 +22,16 @@ public class FragmentDebug extends CommonFragment<FragmentDebugBinding> {
     @Override
     protected void doCreateView(Bundle savedInstanceState) {
         SparseArray<Alarm> array = AlarmsManager.getsInstance().getAlarms();
-        StringBuilder sb = new StringBuilder("管理中的闹钟：\n");
+        StringBuilder sb = new StringBuilder("【管理中的闹钟】：\n");
         int size = array.size();
         for (int i=0; i<size; i++) {
-            sb.append(array.valueAt(i).toChinese()).append("\n==========\n");
+            sb.append(array.valueAt(i).toChinese()).append("==========\n");
         }
 
-        sb.append("数据库中的闹钟：\n");
+        sb.append("\n【数据库中的闹钟】：\n");
         List<Alarm> alarms = AlarmsStore.getInstance().get(null, null);
         for (Alarm alarm : alarms) {
-            sb.append(alarm.toChinese()).append("\n==========\n");
+            sb.append(alarm.toChinese()).append("==========\n");
         }
 
         getBinding().tvAlarms.setText(sb.toString());
