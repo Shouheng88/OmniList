@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <changelog bulletedList="true">
 
-    <changelogversion versionName="1.0.0" changeDate="Mar. 12, 2018">
+    <changelogversion versionName="1.0.1" changeDate="May. 19, 2018">
+        <changelogtext>[New] Add week calendar</changelogtext>
+        <changelogtext>[New] Enable custom float buttons</changelogtext>
+        <changelogtext>[Bug] Screen orientation change error</changelogtext>
+        <changelogtext>[Bug] Alarm not alert for specified date</changelogtext>
+    </changelogversion>
+
+    <changelogversion versionName="1.0.0" changeDate="May. 8, 2018">
         <changelogtext>Initial release</changelogtext>
     </changelogversion>
 
