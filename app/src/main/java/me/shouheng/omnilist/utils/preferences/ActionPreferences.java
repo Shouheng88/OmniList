@@ -71,10 +71,10 @@ public class ActionPreferences extends BasePreferences {
     }
 
     public int getWeekViewType() {
-        return getInt(R.string.key_calendar_view_type, 3);
+        return getInt(R.string.key_week_view_type, 3);
     }
 
     public void setWeekViewType(int tpye) {
-        putInt(R.string.key_calendar_view_type, tpye);
+        putInt(R.string.key_week_view_type, tpye);
     }
 }

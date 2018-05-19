@@ -5,4 +5,16 @@
         android:title="@string/today_with_date"
         android:icon="@drawable/ic_today_white_24dp"
         app:showAsAction="always"/>
+    <item android:id="@+id/action_show_week"
+        android:title="@string/show_week_calendar"/>
+    <item android:id="@+id/action_show_month"
+        android:title="@string/show_month_calendar"/>
+    <group android:id="@+id/week_type_group" android:orderInCategory="100" android:checkableBehavior="none">
+        <item android:id="@+id/item_one_day"
+            android:title="@string/one_day_to_display"/>
+        <item android:id="@+id/item_three_day"
+            android:title="@string/three_days_to_display"/>
+        <item android:id="@+id/item_seven_day"
+            android:title="@string/seven_days_to_display"/>
+    </group>
 </menu>

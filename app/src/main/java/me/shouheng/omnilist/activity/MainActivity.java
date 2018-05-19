@@ -51,6 +51,7 @@ import me.shouheng.omnilist.fragment.CategoriesFragment;
 import me.shouheng.omnilist.fragment.FragmentDebug;
 import me.shouheng.omnilist.fragment.MonthFragment;
 import me.shouheng.omnilist.fragment.TodayFragment;
+import me.shouheng.omnilist.fragment.WeekFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
 import me.shouheng.omnilist.listener.OnAttachingFileListener;
 import me.shouheng.omnilist.listener.OnDataChangeListener;
@@ -68,6 +69,8 @@ import me.shouheng.omnilist.utils.IntentUtils;
 import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.SynchronizeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
+import me.shouheng.omnilist.utils.enums.CalendarType;
+import me.shouheng.omnilist.utils.preferences.ActionPreferences;
 import me.shouheng.omnilist.utils.preferences.LockPreferences;
 import me.shouheng.omnilist.utils.preferences.UserPreferences;
 import me.shouheng.omnilist.viewmodel.CategoryViewModel;
@@ -76,8 +79,12 @@ import me.shouheng.omnilist.widget.tools.CustomRecyclerScrollViewListener;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
 
 public class MainActivity extends CommonActivity<ActivityMainBinding> implements
-        OnAttachingFileListener, CategoriesFragment.OnCategoriesInteractListener,
-        AssignmentsFragment.AssignmentsFragmentInteraction, TodayFragment.TodayFragmentInteraction {
+        OnAttachingFileListener,
+        CategoriesFragment.OnCategoriesInteractListener,
+        AssignmentsFragment.AssignmentsFragmentInteraction,
+        TodayFragment.TodayFragmentInteraction,
+        MonthFragment.OnMonthCalendarInteraction,
+        WeekFragment.OnWeekCalendarInteraction{
 
     // region request codes
     private final int REQUEST_FAB_SORT = 0x0001;
@@ -307,7 +314,11 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
                     toCategoriesFragment();
                     break;
                 case R.id.nav_calendar:
-                    toMonthFragment();
+                    if (ActionPreferences.getInstance().getCalendarType() == CalendarType.MONTH) {
+                        toMonthFragment();
+                    } else {
+                        toWeekFragment();
+                    }
                     break;
                 case R.id.nav_sync:
                     SynchronizeUtils.syncOneDrive(this, REQUEST_SETTING_BACKUP, true);
@@ -456,6 +467,13 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_calendar).setChecked(true), 300);
     }
 
+    private void toWeekFragment() {
+        if (getCurrentFragment() instanceof WeekFragment) return;
+        WeekFragment weekFragment = WeekFragment.newInstance();
+        toFragment(weekFragment);
+        new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_calendar).setChecked(true), 300);
+    }
+
     private void toTodayFragment(boolean checkDuplicate) {
         if (getCurrentFragment() instanceof TodayFragment && checkDuplicate) return;
         TodayFragment todayFragment = TodayFragment.newInstance();
@@ -489,6 +507,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         Fragment f = getCurrentFragment();
         return f != null && (f instanceof CategoriesFragment
                 || f instanceof TodayFragment
+                || f instanceof WeekFragment
                 || f instanceof MonthFragment);
     }
     // endregion
@@ -656,6 +675,18 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     @Override
     public void onAssignmentsLoadStateChanged(Status status) {
         onLoadStateChanged(status);
+    }
+    // endregion
+
+    // region calendar fragment interaction
+    @Override
+    public void onShowWeekClicked() {
+        toWeekFragment();
+    }
+
+    @Override
+    public void onShowMonthClicked() {
+        toMonthFragment();
     }
     // endregion
 

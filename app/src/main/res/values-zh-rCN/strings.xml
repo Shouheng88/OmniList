@@ -663,5 +663,8 @@
     <!--region 1.0.1-->
     <string name="custom_fab">自定义浮动按钮</string>
     <string name="custom_fab_sub">自定义主界面浮动按钮的顺序</string>
+    <string name="one_day_to_display">1天视图</string>
+    <string name="three_days_to_display">3天视图</string>
+    <string name="seven_days_to_display">7天视图</string>
     <!--endregion-->
 </resources>
