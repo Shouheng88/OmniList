@@ -1,1 +1,1 @@
-include ':app', ':photoview', ':colorful', ':calendar', 'md-support'
+include ':app', ':photoview', ':colorful', ':calendar', 'md-support', 'android-week-view'
