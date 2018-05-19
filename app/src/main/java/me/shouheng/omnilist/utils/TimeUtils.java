@@ -253,6 +253,29 @@ public class TimeUtils {
         return sevenDaysAgo;
     }
 
+    /**
+     * 获取指定年和月的第一天的星期，0->星期一，6->星期日
+     *
+     * @param year 年
+     * @param month 月，1表示1月
+     * @return 返回星期 */
+    public static int weekOfFirstDay(int year, int month) {
+        int weekOfFirstDay = TimeUtils.getDayOfWeek(year, month - 1, 1);
+        if (weekOfFirstDay == 1) {
+            weekOfFirstDay = 6;
+        } else {
+            weekOfFirstDay -= 2;
+        }
+        return weekOfFirstDay;
+    }
+
+    private static int getDayOfWeek(int year, int month, int day) {
+        Calendar date = Calendar.getInstance();
+        date.set(Calendar.YEAR, year);
+        date.set(Calendar.MONTH, month);
+        date.set(Calendar.DAY_OF_MONTH, day);
+        return date.get(Calendar.DAY_OF_WEEK);
+    }
     // endregion
 
     // region Get standard start time and end time of today, tomorrow, this friday, this sunday and next monday

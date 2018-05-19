@@ -5,8 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 
+import com.alamkanak.weekview.EventType;
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import me.shouheng.omnilist.PalmApp;
@@ -27,6 +33,8 @@ import me.shouheng.omnilist.provider.schema.AssignmentSchema;
 import me.shouheng.omnilist.provider.schema.AttachmentSchema;
 import me.shouheng.omnilist.provider.schema.SubAssignmentSchema;
 import me.shouheng.omnilist.provider.schema.TimelineSchema;
+import me.shouheng.omnilist.utils.ColorUtils;
+import me.shouheng.omnilist.utils.TimeUtils;
 
 /**
  * Created by wangshouheng on 2017/3/13. */
@@ -318,5 +326,50 @@ public class AssignmentsStore extends BaseStore<Assignment> {
             closeDatabase(database);
         }
         return assignments;
+    }
+
+    public synchronized List<WeekViewEvent> getWeek(int year, int month) {
+        /*Get assignments of given month.*/
+        long[] millis = TimeUtils.getStartAndEndMillisOfMonth(year, month);
+        long monthStart = millis[0], monthEnd = millis[1];
+        List<Assignment> assignments = getAssignments(monthStart, monthEnd, null);
+
+        /*Filter week event.*/
+        int weekOfFirstDay = TimeUtils.weekOfFirstDay(year, month);
+        int daysOfMonth = TimeUtils.getDaysOfMonth(year, month);
+        int weekOfDay;
+        List<WeekViewEvent> weekViewEvents = new LinkedList<>();
+        for (Assignment assignment : assignments) {
+            Calendar startTime = Calendar.getInstance(), endTime = Calendar.getInstance();
+            if (assignment.getDaysOfWeek().isRepeatSet()) {
+                DaysOfWeek daysOfWeek = assignment.getDaysOfWeek();
+                weekOfDay = weekOfFirstDay;
+                for (int day=0; day<daysOfMonth; day++) {
+                    weekOfDay = weekOfDay == 7 ? 0 : weekOfDay;
+                    if (daysOfWeek.isSet(weekOfDay++)) {
+                        long dayMillis = monthStart + day * DateUtils.DAY_IN_MILLIS;
+                        if (!withinScope(dayMillis, assignment.getStartTime().getTime(), assignment.getEndTime().getTime())) continue;
+                        long start = dayMillis + assignment.getNoticeTime();
+                        startTime.setTime(new Date(start));
+                        endTime.setTime(new Date(start + DateUtils.HOUR_IN_MILLIS));
+                    }
+                }
+            } else {
+                long start = assignment.getStartTime().getTime() + assignment.getNoticeTime();
+                startTime.setTime(new Date(start));
+                endTime.setTime(new Date(start + DateUtils.HOUR_IN_MILLIS));
+            }
+            weekViewEvents.add(new WeekViewEvent(assignment.getCode(),
+                    EventType.ASSIGNMENT,
+                    assignment.getName(),
+                    startTime,
+                    endTime,
+                    ColorUtils.primaryColor()));
+        }
+        return weekViewEvents;
+    }
+
+    private static boolean withinScope(long millis, long startMillis, long endMillis) {
+        return millis >= startMillis && millis <= endMillis;
     }
 }

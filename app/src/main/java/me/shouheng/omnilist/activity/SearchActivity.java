@@ -24,6 +24,7 @@ import me.shouheng.omnilist.config.Constants;
 import me.shouheng.omnilist.databinding.ActivitySearchBinding;
 import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.provider.schema.AssignmentSchema;
+import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
 import me.shouheng.omnilist.utils.preferences.SearchPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
@@ -151,7 +152,7 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
             }
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                finish();
+                finishAccordingly();
                 return false;
             }
         });
@@ -165,7 +166,7 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                finishAccordingly();
                 break;
             case R.id.item_include_tags:
                 searchPreferences.setTagsIncluded(!searchPreferences.isTagsIncluded());
@@ -249,12 +250,17 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
 
     @Override
     public void onBackPressed() {
+       finishAccordingly();
+    }
+
+    private void finishAccordingly() {
+        LogUtils.d("finishAccordingly:" + isContentChanged);
         if (isContentChanged) {
             Intent intent = new Intent();
             setResult(Activity.RESULT_OK, intent);
             finish();
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 }

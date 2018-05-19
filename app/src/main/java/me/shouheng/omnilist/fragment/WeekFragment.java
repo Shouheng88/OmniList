@@ -1,6 +1,7 @@
 package me.shouheng.omnilist.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -16,12 +17,16 @@ import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import me.shouheng.omnilist.R;
+import me.shouheng.omnilist.activity.ContentActivity;
 import me.shouheng.omnilist.databinding.FragmentWeekBinding;
 import me.shouheng.omnilist.fragment.base.CommonFragment;
+import me.shouheng.omnilist.listener.OnDataChangeListener;
+import me.shouheng.omnilist.model.Assignment;
+import me.shouheng.omnilist.provider.AssignmentsStore;
+import me.shouheng.omnilist.utils.LogUtils;
 import me.shouheng.omnilist.utils.PalmUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.enums.CalendarType;
@@ -30,17 +35,24 @@ import me.shouheng.omnilist.utils.preferences.ActionPreferences;
 public class WeekFragment extends CommonFragment<FragmentWeekBinding> implements
         WeekView.EventClickListener,
         MonthLoader.MonthChangeListener,
-        WeekView.EventLongPressListener {
+        WeekView.EventLongPressListener,
+        OnDataChangeListener {
 
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 3;
     private static final int TYPE_WEEK_VIEW = 7;
+
+    private final int REQUEST_EDIT_ASSIGNMENT = 0x3030;
     // Default 3 days
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
 
     private ActionPreferences actionPreferences;
 
     private ActionBar actionBar;
+
+    private int curYear, curMonth;
+
+    private AssignmentsStore assignmentsStore;
 
     public static WeekFragment newInstance() {
         Bundle args = new Bundle();
@@ -60,6 +72,8 @@ public class WeekFragment extends CommonFragment<FragmentWeekBinding> implements
 
         actionPreferences = ActionPreferences.getInstance();
         mWeekViewType = actionPreferences.getWeekViewType();
+
+        assignmentsStore = AssignmentsStore.getInstance();
 
         getBinding().wv.setNumberOfVisibleDays(mWeekViewType);
         getBinding().wv.setOnEventClickListener(this);
@@ -147,11 +161,21 @@ public class WeekFragment extends CommonFragment<FragmentWeekBinding> implements
     }
 
     @Override
-    public void onEventClick(WeekViewEvent event, RectF eventRect) { }
+    public void onEventClick(WeekViewEvent event, RectF eventRect) {
+        switch (event.getEventType()) {
+            case ASSIGNMENT:
+                Assignment assignment = assignmentsStore.get(event.getCode());
+                ContentActivity.editAssignment(this, assignment, REQUEST_EDIT_ASSIGNMENT);
+                break;
+        }
+    }
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        return new LinkedList<>();
+        curYear = newYear;
+        curMonth = newMonth;
+        LogUtils.d("onMonthChanged");
+        return assignmentsStore.getWeek(newYear, newMonth);
     }
 
     @Override
@@ -164,8 +188,25 @@ public class WeekFragment extends CommonFragment<FragmentWeekBinding> implements
         super.onDestroy();
     }
 
+    @Override
+    public void onDataChanged() {
+        getBinding().wv.notifyDatasetChanged();
+    }
+
     public interface OnWeekCalendarInteraction {
         default void onScroll(Calendar newFirstVisibleDay, Calendar oldFirstVisibleDay) { }
         void onShowMonthClicked();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_EDIT_ASSIGNMENT:
+                    getBinding().wv.notifyDatasetChanged();
+                    break;
+            }
+        }
     }
 }
