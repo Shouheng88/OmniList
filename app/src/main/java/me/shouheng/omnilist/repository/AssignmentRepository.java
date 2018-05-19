@@ -3,6 +3,8 @@ package me.shouheng.omnilist.repository;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.alamkanak.weekview.WeekViewEvent;
+
 import java.util.List;
 
 import me.shouheng.omnilist.async.NormalAsyncTask;
@@ -34,7 +36,8 @@ public class AssignmentRepository extends BaseRepository<Assignment> {
     private String getQueryConditions(String queryString) {
         SearchPreferences searchPreferences = SearchPreferences.getInstance();
         return (searchPreferences.isTagsIncluded() ?
-                " ( " + AssignmentSchema.NAME + " LIKE '%'||'" + queryString + "'||'%' " + " OR " + AssignmentSchema.TAGS + " LIKE '%'||'" + queryString + "'||'%' ) " : AssignmentSchema.NAME + " LIKE '%'||'" + queryString + "'||'%'")
+                " ( " + AssignmentSchema.NAME + " LIKE '%'||'" + queryString + "'||'%' " + " OR " + AssignmentSchema.TAGS + " LIKE '%'||'" + queryString + "'||'%' ) "
+                : AssignmentSchema.NAME + " LIKE '%'||'" + queryString + "'||'%'")
                 + (searchPreferences.isArchivedIncluded() ? "" : " AND " + BaseSchema.STATUS + " != " + Status.ARCHIVED.id)
                 + (searchPreferences.isTrashedIncluded() ? "" : " AND " + BaseSchema.STATUS + " != " + Status.TRASHED.id)
                 + " AND " + BaseSchema.STATUS + " != " + Status.DELETED.id;
@@ -91,5 +94,15 @@ public class AssignmentRepository extends BaseRepository<Assignment> {
                     AssignmentSchema.START_TIME + " DESC, " + AssignmentSchema.NOTICE_TIME, Status.NORMAL, false);
         }).execute();
         return result;
+    }
+
+    public LiveData<Resource<List<WeekViewEvent>>> getWeek(int year, int month) {
+        MutableLiveData<Resource<List<WeekViewEvent>>> result = new MutableLiveData<>();
+        new NormalAsyncTask<>(result, () -> ((AssignmentsStore) getStore()).getWeek(year, month)).execute();
+        return result;
+    }
+
+    private static boolean withinScope(long millis, long startMillis, long endMillis) {
+        return millis >= startMillis && millis <= endMillis;
     }
 }

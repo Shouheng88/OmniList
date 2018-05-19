@@ -691,6 +691,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     // endregion
 
     private void updateListIfNecessary() {
+        LogUtils.d("updateListIfNecessary");
         Fragment f = getCurrentFragment();
         if (f instanceof OnDataChangeListener) {
             ((OnDataChangeListener) f).onDataChanged();
