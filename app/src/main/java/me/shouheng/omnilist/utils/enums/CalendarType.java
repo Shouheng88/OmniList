@@ -16,6 +16,6 @@ public enum CalendarType {
                 return calendarType;
             }
         }
-        throw new IllegalArgumentException("illegal id");
+        throw new IllegalArgumentException("illegal id " + id);
     }
 }

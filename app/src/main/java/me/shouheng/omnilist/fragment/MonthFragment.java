@@ -39,6 +39,8 @@ import me.shouheng.omnilist.model.Assignment;
 import me.shouheng.omnilist.utils.ColorUtils;
 import me.shouheng.omnilist.utils.TimeUtils;
 import me.shouheng.omnilist.utils.ToastUtils;
+import me.shouheng.omnilist.utils.enums.CalendarType;
+import me.shouheng.omnilist.utils.preferences.ActionPreferences;
 import me.shouheng.omnilist.utils.preferences.AssignmentPreferences;
 import me.shouheng.omnilist.viewmodel.AssignmentViewModel;
 import me.shouheng.omnilist.widget.tools.CustomItemAnimator;
@@ -58,6 +60,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     private ItemTitleBinding itemTitleBinding;
 
     private AssignmentPreferences assignmentPreferences;
+    private ActionPreferences actionPreferences;
 
     private int curYear, curMonth, curDay;
 
@@ -204,6 +207,7 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
 
     private void initValues() {
         assignmentPreferences = AssignmentPreferences.getInstance();
+        actionPreferences = ActionPreferences.getInstance();
 
         Calendar calendar = Calendar.getInstance();
         curYear = calendar.get(Calendar.YEAR);
@@ -313,6 +317,13 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_show_month).setVisible(false);
+        menu.removeGroup(R.id.week_type_group);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.calendar_menu, menu);
@@ -323,6 +334,13 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
         switch (item.getItemId()) {
             case R.id.item_today:
                 getBinding().mcvCalendar.focusToday();
+                break;
+            case R.id.action_show_week:
+                Activity activity = getActivity();
+                if (activity != null && activity instanceof OnMonthCalendarInteraction) {
+                    ((OnMonthCalendarInteraction) activity).onShowWeekClicked();
+                }
+                actionPreferences.setCalendarType(CalendarType.WEEK);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -343,5 +361,9 @@ public class MonthFragment extends BaseFragment<FragmentMonthCalendarBinding> im
     @Override
     public void onDataChanged() {
         loadAssignment();
+    }
+
+    public interface OnMonthCalendarInteraction {
+        void onShowWeekClicked();
     }
 }
