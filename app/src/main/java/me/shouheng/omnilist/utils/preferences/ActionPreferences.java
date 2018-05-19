@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.utils.base.BasePreferences;
+import me.shouheng.omnilist.utils.enums.CalendarType;
 
 /**
  * Created by shouh on 2018/4/9.*/
@@ -51,5 +52,29 @@ public class ActionPreferences extends BasePreferences {
 
     public String getAttachmentFilePath() {
         return getString(R.string.key_attachment_file_path, "");
+    }
+
+    public void setCalendarType(CalendarType calendarType) {
+        putInt(R.string.key_calendar_view_type, calendarType.id);
+    }
+
+    public CalendarType getCalendarType() {
+        return CalendarType.getCalendarTypeById(getInt(R.string.key_calendar_view_type, CalendarType.MONTH.id));
+    }
+
+    public void setWeekViewHourHeight(int hourHeight) {
+        putInt(R.string.key_week_view_hour_height, hourHeight);
+    }
+
+    public int getWeekViewHourHeight() {
+        return getInt(R.string.key_week_view_hour_height, -1);
+    }
+
+    public int getWeekViewType() {
+        return getInt(R.string.key_calendar_view_type, 3);
+    }
+
+    public void setWeekViewType(int tpye) {
+        putInt(R.string.key_calendar_view_type, tpye);
     }
 }

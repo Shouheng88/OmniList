@@ -5,6 +5,9 @@
     <string name="key_is_tour_activity_showed" translatable="false">is_tour_activity_showed</string>
     <string name="key_attachment_uri" translatable="false">attachment_uri</string>
     <string name="key_attachment_file_path" translatable="false">attachment_file_path</string>
+    <string name="key_week_view_type" translatable="false">week_view_type</string>
+    <string name="key_week_view_hour_height">week_view_hour_height</string>
+    <string name="key_calendar_view_type" translatable="false">calendar_view_type</string>
 
     <!--region preferences-->
     <string name="key_preferences" translatable="false">preferences</string>
