@@ -35,6 +35,7 @@ import org.polaric.colorful.PermissionUtils;
 
 import java.util.List;
 
+import me.shouheng.omnilist.BuildConfig;
 import me.shouheng.omnilist.PalmApp;
 import me.shouheng.omnilist.R;
 import me.shouheng.omnilist.activity.base.CommonActivity;
@@ -47,6 +48,7 @@ import me.shouheng.omnilist.dialog.picker.BasePickerDialog;
 import me.shouheng.omnilist.dialog.picker.CategoryPickerDialog;
 import me.shouheng.omnilist.fragment.AssignmentsFragment;
 import me.shouheng.omnilist.fragment.CategoriesFragment;
+import me.shouheng.omnilist.fragment.FragmentDebug;
 import me.shouheng.omnilist.fragment.MonthFragment;
 import me.shouheng.omnilist.fragment.TodayFragment;
 import me.shouheng.omnilist.intro.IntroActivity;
@@ -250,7 +252,12 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
             headerBinding = DataBindingUtil.bind(header);
         }
         setupHeader();
-        headerBinding.getRoot().setOnLongClickListener(v -> true);
+        headerBinding.getRoot().setOnLongClickListener(v -> {
+            if (BuildConfig.DEBUG) {
+                toFragment(new FragmentDebug());
+            }
+            return true;
+        });
         headerBinding.getRoot().setOnClickListener(view -> startActivityForResult(UserInfoActivity.class, REQUEST_USER_INFO));
     }
 
@@ -441,15 +448,11 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
     // endregion
 
     // region switch fragment
-    private Fragment getCurrentFragment(){
-        return getCurrentFragment(R.id.fragment_container);
-    }
-
     private void toMonthFragment() {
         if (getCurrentFragment() instanceof MonthFragment) return;
         MonthFragment monthFragment = MonthFragment.newInstance();
         monthFragment.setOnScrollListener(onScrollListener);
-        FragmentHelper.replace(this, monthFragment, R.id.fragment_container);
+        toFragment(monthFragment);
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_calendar).setChecked(true), 300);
     }
 
@@ -457,7 +460,7 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         if (getCurrentFragment() instanceof TodayFragment && checkDuplicate) return;
         TodayFragment todayFragment = TodayFragment.newInstance();
         todayFragment.setScrollListener(onScrollListener);
-        FragmentHelper.replace(this, todayFragment, R.id.fragment_container);
+        toFragment(todayFragment);
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_today).setChecked(true), 300);
     }
 
@@ -465,8 +468,16 @@ public class MainActivity extends CommonActivity<ActivityMainBinding> implements
         if (getCurrentFragment() instanceof CategoriesFragment) return;
         CategoriesFragment categoriesFragment = CategoriesFragment.newInstance();
         categoriesFragment.setScrollListener(onScrollListener);
-        FragmentHelper.replace(this, categoriesFragment, R.id.fragment_container);
+        toFragment(categoriesFragment);
         new Handler().postDelayed(() -> getBinding().nav.getMenu().findItem(R.id.nav_categories).setChecked(true), 300);
+    }
+
+    private void toFragment(Fragment fragment) {
+        FragmentHelper.replace(this, fragment, R.id.fragment_container);
+    }
+
+    private Fragment getCurrentFragment(){
+        return getCurrentFragment(R.id.fragment_container);
     }
 
     private boolean isTodayFragment() {

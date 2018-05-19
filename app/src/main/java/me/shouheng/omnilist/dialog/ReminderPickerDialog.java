@@ -238,10 +238,12 @@ public class ReminderPickerDialog extends DialogFragment {
         switch (alarm.getAlarmType()) {
             case WEEK_REPEAT:
             case DAILY_REPORT:
+                // 默认的重复性质的闹钟的开始时间是今天的开始时间，结束时间是指定的日期
                 alarm.setStartDate(TimeUtils.today());
                 alarm.setEndDate(endDate);
                 break;
             case SPECIFIED_DATE:
+                // 用选定的日期的最大时间和最小时间作为闹钟的起止时间
                 DateTime dateTime = new DateTime(endDate);
                 alarm.setStartDate(TimeUtils.startTime(dateTime));
                 alarm.setEndDate(TimeUtils.endTime(dateTime));

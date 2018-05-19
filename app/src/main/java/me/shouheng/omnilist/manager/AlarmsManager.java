@@ -77,7 +77,10 @@ public class AlarmsManager {
     }
 
     private boolean tryReadDb() {
-        List<Alarm> alarms = AlarmsStore.getInstance().get(null, AlarmSchema.ADDED_TIME);
+        // 获取还没结束的闹钟
+        List<Alarm> alarms = AlarmsStore.getInstance().get(
+                AlarmSchema.END_DATE + " >= " + System.currentTimeMillis(),
+                AlarmSchema.ADDED_TIME);
         if (alarms == null) {
             return false;
         } else {
@@ -238,12 +241,11 @@ public class AlarmsManager {
         Calendar nextTime = Calendar.getInstance();
         switch (alarm.getAlarmType()){
             case DAILY_REPORT:
-                long tomorrow = TimeUtils.tomorrow().getTime();
-                nextTime.setTimeInMillis(tomorrow);
+                nextTime.setTimeInMillis(TimeUtils.tomorrow().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute()));
                 break;
             case SPECIFIED_DATE:
                 if (isAlarmOutOfDate(alarm)) return null;
-                nextTime.setTimeInMillis(alarm.getEndDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute()));
+                nextTime.setTimeInMillis(alarm.getStartDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute()));
                 break;
             case WEEK_REPEAT:
                 if (alarm.getEndDate().before(new Date())){ // 判断闹钟是否过期
@@ -252,9 +254,10 @@ public class AlarmsManager {
                 if (!alarm.getDaysOfWeek().isRepeatSet()){ // 闹钟非重复：效果同一次性闹钟，这种闹钟应该是不存在的！
                     ToastUtils.makeToast("One Illegal alarm!!");
                     if (isAlarmOutOfDate(alarm)) return null;
-                    nextTime.setTimeInMillis(alarm.getEndDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute()));
-                } else { // 如果是今天的已经过期的闹钟，那么将时间设置为明天，然后按照明天计算需要增加几天，因为按照今天计算的话得到的还是过期的结果
-                    if (hour < hourNow  || hour == hourNow && minute <= minuteNow) {
+                    nextTime.setTimeInMillis(alarm.getStartDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute()));
+                } else {
+                    // 如果是今天的已经过期的闹钟，那么将时间设置为明天，然后按照明天计算需要增加几天，因为按照今天计算的话得到的还是过期的结果
+                    if (hour < hourNow || (hour == hourNow && minute <= minuteNow)) {
                         nextTime.add(Calendar.DAY_OF_YEAR, 1);
                     }
                     nextTime.set(Calendar.HOUR_OF_DAY, hour);
@@ -276,8 +279,9 @@ public class AlarmsManager {
     }
 
     private boolean isAlarmOutOfDate(Alarm alarm) {
-        long millisOfAlarm = alarm.getEndDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute());
-        return millisOfAlarm < System.currentTimeMillis(); // 闹钟时间小于当前时间，闹钟过期
+        long millisOfAlarm = alarm.getStartDate().getTime() + TimeUtils.getTimeInMillis(alarm.getHour(), alarm.getMinute());
+        // 闹钟时间小于当前时间，闹钟过期
+        return millisOfAlarm < System.currentTimeMillis();
     }
     // endregion
 
