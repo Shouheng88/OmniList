@@ -666,10 +666,10 @@
     <!--region 1.0.1-->
     <string name="custom_fab">Custom float buttons</string>
     <string name="custom_fab_sub">Custom float action buttons behaviors of dashboard</string>
-    <string name="one_day_to_display">1天视图</string>
-    <string name="three_days_to_display">3天视图</string>
-    <string name="seven_days_to_display">7天视图</string>
-    <string name="show_week_calendar">按周显示日历</string>
-    <string name="show_month_calendar">按月显示日历</string>
+    <string name="one_day_to_display">1 day view</string>
+    <string name="three_days_to_display">3 days view</string>
+    <string name="seven_days_to_display">7 days view</string>
+    <string name="show_week_calendar">Week calendar</string>
+    <string name="show_month_calendar">Month calendar</string>
     <!--endregion-->
 </resources>

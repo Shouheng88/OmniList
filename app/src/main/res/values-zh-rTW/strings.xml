@@ -663,5 +663,10 @@
     <!--region 1.0.1-->
     <string name="custom_fab">自定義浮動按鈕</string>
     <string name="custom_fab_sub">自定義主界面浮動按鈕的順序</string>
+    <string name="one_day_to_display">1天視圖</string>
+    <string name="three_days_to_display">3天視圖</string>
+    <string name="seven_days_to_display">7天視圖</string>
+    <string name="show_week_calendar">按周顯示日曆</string>
+    <string name="show_month_calendar">按月顯示日曆</string>
     <!--endregion-->
 </resources>
