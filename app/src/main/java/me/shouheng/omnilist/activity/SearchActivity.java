@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
@@ -66,7 +67,10 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
         if (!isDarkTheme()){
             getBinding().toolbarLayout.toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mAdapter = new AssignmentsAdapter(Collections.emptyList());
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
@@ -94,7 +98,8 @@ public class SearchActivity extends CommonActivity<ActivitySearchBinding> implem
         searchPreferences = SearchPreferences.getInstance();
 
         getBinding().rvResult.setEmptyView(getBinding().ivEmpty);
-        getBinding().rvResult.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, isDarkTheme()));
+        getBinding().rvResult.addItemDecoration(new DividerItemDecoration(
+                this, DividerItemDecoration.VERTICAL_LIST, isDarkTheme()));
         getBinding().rvResult.setItemAnimator(new CustomItemAnimator());
         getBinding().rvResult.setLayoutManager(new LinearLayoutManager(this));
         getBinding().rvResult.setAdapter(mAdapter);
