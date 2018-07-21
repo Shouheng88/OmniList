@@ -31,10 +31,9 @@
 </div>
 
 <div style="display:flex;" >
-<img  src="images/intro6.png" width="19%" >
-<img style="margin-left:10px;" src="images/intro7.png" width="19%" >
-<img style="margin-left:10px;" src="images/intro8.png" width="19%" >
-<img style="margin-left:10px;" src="images/intro9.png" width="19%" >
-<img style="margin-left:10px;" src="images/intro10.png" width="19%" >
+<img  src="images/intro6.png" width="24%" >
+<img style="margin-left:10px;" src="images/intro7.png" width="24%" >
+<img style="margin-left:10px;" src="images/intro9.png" width="24%" >
+<img style="margin-left:10px;" src="images/intro10.png" width="24%" >
 </div>
 
